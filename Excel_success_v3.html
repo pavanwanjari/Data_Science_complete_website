@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Course Access - DataLearn10X</title>
+<link rel="icon" type="image/png" href="dl10x.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Access your purchased DataLearn10X courses, notes, and video lessons from one secure page.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="analytics.js" defer></script>
+<style>
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#e8f7ff,#f4f7fc);margin:0;padding:35px 15px;text-align:center}
+.box{background:#fff;max-width:560px;margin:auto;padding:30px 24px;border-radius:18px;box-shadow:0 14px 36px rgba(0,0,0,.12)}
+h2{color:#16a34a}.download-btn{display:block;width:290px;max-width:95%;margin:12px auto;padding:12px;border-radius:25px;background:#16a34a;color:#fff;text-decoration:none;font-weight:600}
+.download-btn.alt{background:#1d3557}
+.note{font-size:13px;color:#666;margin-top:12px}
+</style>
+</head>
+<body>
+<a href="index.html" aria-label="DataLearn10X Home" style="display:inline-block;margin:12px 0 0 12px">
+  <img src="dl10x.png" alt="DataLearn10X logo" style="height:34px;width:auto;display:block">
+</a>
+
+<div class="box">
+  <h2>🎉 Access Granted!</h2>
+  <p id="courseName">Your course materials are ready.</p>
+
+  <div id="linksWrap"></div>
+
+  <p class="note">Only courses you purchased are shown below. If links do not open, contact us on WhatsApp with your payment email.</p>
+  <a href="index.html" class="download-btn alt">← Back to Home</a>
+</div>
+
+<script>
+function q(name){return new URLSearchParams(location.search).get(name)||'';}
+var email=(q('email')||sessionStorage.getItem('paid_email')||'').toLowerCase();
+var course=q('course')||sessionStorage.getItem('paid_course')||'';
+var paid=sessionStorage.getItem('paid')==='yes';
+if(!paid && email){
+  try{
+    var p=JSON.parse(localStorage.getItem('paidUsers')||'{}');
+    if(p[email] && p[email].paid){
+      paid=true;
+      sessionStorage.setItem('paid','yes');
+      sessionStorage.setItem('paid_email',email);
+      var localCourse = (Array.isArray(p[email].allCourses) && p[email].allCourses.length)
+        ? p[email].allCourses.join(' | ')
+        : (p[email].course || '');
+      if(localCourse){
+        if(!q('course')){ course=localCourse; }
+        sessionStorage.setItem('paid_course',localCourse);
+      }
+    }
+  }catch(e){}
+}
+if(!paid){ alert('Access denied. Please verify your purchase email.'); location.href='check_email.html'; }
+
+var COURSE_LINKS={
+  'Advance Excel':'https://docs.google.com/document/d/17sFFEZu46ZhDcCEFbPNkx6IDlE8jtwgX/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
+  'Python':'https://docs.google.com/document/d/1qtBZB4QOKTyaec_sIgevVmVPsVDsSNxq/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
+  'Power BI':'https://docs.google.com/document/d/1eFgwr1Yx07Yqp13vsDVLCu_eib-fGs3f/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
+  'Tableau':'coming soon',
+  'SQL (MySQL)':'coming soon',
+  'Machine Learning + Deep Learning':'https://docs.google.com/document/d/15K67voTDy7zAFRsKgIDZhO1bHcXOG2x9/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
+  'Data Analytics Cheat Sheets':'https://drive.google.com/drive/folders/1H2kif4fbzkFshlt_hDd6BbsSwJw32L9e?usp=sharing',
+  '20000+ HR Emails':'https://drive.google.com/drive/folders/1f1COP7jmR3BVC4DeOjv4Vc0Z2N6FWCX0?usp=sharing'
+};
+var AVAILABLE_COURSES=Object.keys(COURSE_LINKS).filter(function(name){
+  return String(COURSE_LINKS[name]||'').toLowerCase()!=='coming soon';
+});
+
+function normalizeCourseName(name){
+  var n=(name||'').trim();
+  if(!n) return '';
+  var lower=n.toLowerCase();
+  if(lower==='data analytics combo' || lower==='combo') return 'Data Analytics Combo';
+  if(lower==='sql' || lower==='my sql' || lower==='mysql' || lower==='sql (mysql)') return 'SQL (MySQL)';
+  if(lower==='ml + dl' || lower==='ml&dl' || lower==='ml and dl') return 'Machine Learning + Deep Learning';
+  return n;
+}
+
+function extractCourses(raw){
+  var text=(raw||'').trim();
+  if(!text) return [];
+  var normalized = normalizeCourseName(text);
+  if(normalized==='Data Analytics Combo') return AVAILABLE_COURSES.slice();
+
+  var parts=text.split(/\s*\||,\s*/g).map(normalizeCourseName).filter(Boolean);
+  var unique=[];
+  parts.forEach(function(c){
+    if(c==='Data Analytics Combo'){
+      AVAILABLE_COURSES.forEach(function(all){ if(unique.indexOf(all)===-1) unique.push(all); });
+    } else if(AVAILABLE_COURSES.indexOf(c)>-1 && unique.indexOf(c)===-1){
+      unique.push(c);
+    }
+  });
+  return unique;
+}
+
+var purchasedCourses=extractCourses(course);
+if(!purchasedCourses.length){
+  alert('Course mapping not found for this email. Please verify again or contact support.');
+  location.href='check_email.html';
+}
+
+document.getElementById('courseName').innerText='You now have access to: '+purchasedCourses.join(', ');
+
+var wrap=document.getElementById('linksWrap');
+purchasedCourses.forEach(function(c){
+  var a=document.createElement('a');
+  a.href=COURSE_LINKS[c];
+  a.className='download-btn';
+  a.target='_blank';
+  a.rel='noopener noreferrer';
+  a.innerText='📚 Open '+c+' Course Material';
+  wrap.appendChild(a);
+});
+
+PSAAnalytics.trackEvent('course_access_page_viewed',{email:email,course:course,visibleCourses:purchasedCourses.join(' | ')});
+</script>
+</body>
+</html>

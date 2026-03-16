@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Analytics Dashboard - DataLearn10X</title>
+<link rel="icon" type="image/png" href="dl10x.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Internal analytics dashboard for DataLearn10X event insights and learner activity metrics.">
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="analytics.js" defer></script>
+<style>
+body{font-family:'Poppins',sans-serif;background:#f5f8ff;color:#24324a;margin:0;padding:25px;}
+.wrap{max-width:1100px;margin:auto;}
+h1{font-size:28px;margin-bottom:8px;}
+.sub{color:#5d6d8a;font-size:14px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;}
+.card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 8px 22px rgba(0,0,0,.08);}
+.card h3{font-size:12px;color:#5d6d8a;margin:0 0 8px;text-transform:uppercase;}
+.card p{font-size:24px;margin:0;font-weight:700;color:#1f3b78;}
+.panel{background:#fff;border-radius:12px;padding:14px;box-shadow:0 8px 22px rgba(0,0,0,.08);margin-bottom:18px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin:8px 0;}
+.bar-label{width:180px;font-size:13px;word-break:break-word;}
+.bar-track{flex:1;background:#ecf1ff;border-radius:8px;overflow:hidden;height:22px;}
+.bar-fill{background:linear-gradient(90deg,#3b82f6,#10b981);height:100%;}
+.bar-count{width:42px;text-align:right;font-size:13px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{border-bottom:1px solid #eef2ff;padding:8px;text-align:left;}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+button,a.btn,input{border:none;border-radius:8px;padding:9px 12px;font-size:13px;}
+button,a.btn{background:#1f3b78;color:#fff;cursor:pointer;text-decoration:none;}
+button.secondary{background:#7f8fb1;}
+button.danger{background:#b42318;}
+.auth-overlay{position:fixed;inset:0;background:rgba(8,15,38,.86);display:flex;align-items:center;justify-content:center;padding:16px;z-index:1000;}
+.auth-card{max-width:420px;width:100%;background:#fff;border-radius:14px;padding:18px;box-shadow:0 20px 40px rgba(0,0,0,.28);}
+.auth-card h2{margin:0 0 8px;}
+.auth-card p{margin:0 0 12px;color:#5d6d8a;font-size:13px;line-height:1.5;}
+.auth-card input{width:100%;margin-bottom:8px;border:1px solid #ccd6f6;}
+.auth-msg{min-height:20px;font-size:13px;color:#b42318;}
+.hide{display:none !important;}
+.user-chip{font-size:12px;color:#336; background:#eaf0ff;padding:5px 9px;border-radius:20px;display:inline-block;margin-left:8px;}
+</style>
+</head>
+<body>
+<a href="index.html" aria-label="DataLearn10X Home" style="display:inline-block;margin:12px 0 0 12px">
+  <img src="dl10x.png" alt="DataLearn10X logo" style="height:34px;width:auto;display:block">
+</a>
+
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-card">
+    <h2>🔒 Private Analytics</h2>
+    <p>Dashboard is restricted to owner access. Enter your user ID and access key to continue.</p>
+    <input id="userId" placeholder="User ID (DataLearn10X)">
+    <input id="accessKey" type="password" placeholder="Access key">
+    <button onclick="loginDashboard()">Unlock Dashboard</button>
+    <p class="auth-msg" id="authMsg"></p>
+  </div>
+</div>
+
+<div class="wrap" id="dashboardApp">
+  <h1>📊 Website Analytics Dashboard <span id="activeUser" class="user-chip"></span></h1>
+  <p class="sub">Private local dashboard for conversion events. This page now requires authentication each session.</p>
+  <p class="sub" style="margin-top:-8px">Rates are calculated from tracked events on this device/browser (localStorage), so clearing data or testing flows can affect percentages.</p>
+
+  <div class="actions">
+    <a class="btn" href="index.html">← Back to Website</a>
+    <button class="danger" onclick="clearDataSecure()">Clear Analytics (Protected)</button>
+    <button class="secondary" onclick="logoutDashboard()">Logout</button>
+  </div>
+
+  <div class="grid" id="summary"></div>
+
+  <div class="panel">
+    <h3>Event Counts</h3>
+    <div id="bars"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Course Page Popularity</h3>
+    <div id="courseBars"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Page Insights</h3>
+    <div id="pageBars"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Recent Events</h3>
+    <table>
+      <thead><tr><th>Time</th><th>Event</th><th>Page</th><th>Details</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+var DASHBOARD_USERS = {
+  datalearn10x: "553feacf899a72916b2b50e4c95f587a06d6d1b8b4e6b433beb5fea315d0acb0"
+};
+
+var SESSION_KEY = "psaDashboardAuth";
+var SESSION_HOURS = 8;
+
+async function sha256(text){
+  var data = new TextEncoder().encode(text);
+  var digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest)).map(function(b){ return b.toString(16).padStart(2,"0"); }).join("");
+}
+
+function setAuthMessage(text){
+  document.getElementById("authMsg").innerText = text;
+}
+
+async function loginDashboard(){
+  var userId = document.getElementById("userId").value.trim().toLowerCase();
+  var key = document.getElementById("accessKey").value;
+
+  if(!DASHBOARD_USERS[userId]){
+    setAuthMessage("Unknown user ID.");
+    return;
+  }
+
+  var hash = await sha256(key);
+  if(hash !== DASHBOARD_USERS[userId]){
+    setAuthMessage("Invalid access key.");
+    return;
+  }
+
+  var expiresAt = Date.now() + SESSION_HOURS * 60 * 60 * 1000;
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify({userId:userId, expiresAt:expiresAt}));
+  enableDashboard(userId);
+}
+
+function getSession(){
+  try{
+    var raw = sessionStorage.getItem(SESSION_KEY);
+    if(!raw){ return null; }
+    var parsed = JSON.parse(raw);
+    if(!parsed.userId || !parsed.expiresAt || Date.now() > parsed.expiresAt){
+      sessionStorage.removeItem(SESSION_KEY);
+      return null;
+    }
+    return parsed;
+  }catch(e){
+    sessionStorage.removeItem(SESSION_KEY);
+    return null;
+  }
+}
+
+function enableDashboard(userId){
+  document.getElementById("authOverlay").classList.add("hide");
+  document.getElementById("activeUser").innerText = userId;
+  PSAAnalytics.trackEvent("dashboard_viewed", {user:userId});
+  render();
+}
+
+function logoutDashboard(){
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+async function clearDataSecure(){
+  var step1 = prompt('Type "CLEAR ALL" to confirm analytics reset:');
+  if(step1 !== "CLEAR ALL"){
+    alert("Cancelled. Analytics not deleted.");
+    return;
+  }
+
+  var key = prompt("Enter your access key again to delete:");
+  if(!key){
+    alert("Cancelled. Analytics not deleted.");
+    return;
+  }
+
+  var session = getSession();
+  if(!session){
+    alert("Session expired. Please login again.");
+    logoutDashboard();
+    return;
+  }
+
+  var hash = await sha256(key);
+  if(hash !== DASHBOARD_USERS[session.userId]){
+    alert("Wrong key. Analytics not deleted.");
+    return;
+  }
+
+  localStorage.removeItem(PSAAnalytics.STORAGE_KEY);
+  PSAAnalytics.trackEvent("dashboard_cleared", {user: session.userId});
+  render();
+}
+
+function render(){
+  var events = PSAAnalytics.getStoredEvents();
+  var counts = {};
+  var courseCounts = {};
+  var pageCounts = {};
+  var dayCounts = {};
+
+  events.forEach(function(e){
+    counts[e.event] = (counts[e.event] || 0) + 1;
+
+    var pageName = (e.page || '/').split('/').pop() || 'index.html';
+    pageCounts[pageName] = (pageCounts[pageName] || 0) + 1;
+
+    var dayKey = new Date(e.ts).toISOString().slice(0,10);
+    dayCounts[dayKey] = (dayCounts[dayKey] || 0) + 1;
+
+    if(e.event === 'course_page_viewed'){
+      var courseName = (e.payload && e.payload.course) || pageName.replace('.html','');
+      courseCounts[courseName] = (courseCounts[courseName] || 0) + 1;
+    }
+  });
+
+  var buy = counts.buy_now_clicked || 0;
+  var success = counts.payment_success || 0;
+  var verifySuccess = counts.verify_success || 0;
+  var failed = counts.payment_failed || 0;
+  var courseViews = Object.values(courseCounts).reduce(function(a,b){ return a+b; }, 0);
+  var topCourse = Object.keys(courseCounts).sort(function(a,b){ return courseCounts[b]-courseCounts[a]; })[0] || '-';
+  var uniqueCoursePages = Object.keys(courseCounts).length;
+  var uniquePages = Object.keys(pageCounts).length;
+
+  function formatRate(numerator, denominator){
+    if(!denominator){ return "0.0% (0/0)"; }
+    var raw = (numerator / denominator) * 100;
+    var safePct = Math.min(raw, 100);
+    return safePct.toFixed(1) + "% (" + numerator + "/" + denominator + ")";
+  }
+
+  var conversion = formatRate(success, buy);
+  var verifyRate = formatRate(verifySuccess, success);
+  var dataNote = "";
+  if(success > buy || verifySuccess > success){
+    dataNote = '<p style="margin-top:10px;font-size:12px;color:#92400e;background:#fff7ed;border:1px solid #fed7aa;padding:8px;border-radius:8px">ℹ️ Some raw counts are higher than earlier funnel steps (usually due to old test data, cleared browser data, or cross-session flows). Rates are capped at 100% to avoid impossible percentages.</p>';
+  }
+
+  var summary = [
+    ["Total Events", events.length],
+    ["Course Page Views", courseViews],
+    ["Top Course", topCourse],
+    ["Unique Course Pages", uniqueCoursePages],
+    ["Unique Pages Visited", uniquePages],
+    ["Buy Clicks", buy],
+    ["Payments Success", success],
+    ["Payments Failed", failed],
+    ["Checkout → Success", conversion],
+    ["Success → Verify", verifyRate]
+  ];
+
+  document.getElementById("summary").innerHTML = summary.map(function(item){
+    return '<div class="card"><h3>'+item[0]+'</h3><p>'+item[1]+'</p></div>';
+  }).join('') + dataNote;
+
+  var maxCount = Math.max.apply(null, Object.values(counts).concat([1]));
+  var barsHtml = Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }).map(function(name){
+    var width = Math.round((counts[name]/maxCount)*100);
+    return '<div class="bar-row"><div class="bar-label">'+name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+width+'%"></div></div><div class="bar-count">'+counts[name]+'</div></div>';
+  }).join('');
+  document.getElementById("bars").innerHTML = barsHtml || '<p>No events yet.</p>';
+
+  var maxCourse = Math.max.apply(null, Object.values(courseCounts).concat([1]));
+  var courseBars = Object.keys(courseCounts).sort(function(a,b){ return courseCounts[b]-courseCounts[a]; }).map(function(name){
+    var width = Math.round((courseCounts[name]/maxCourse)*100);
+    return '<div class="bar-row"><div class="bar-label">'+name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+width+'%"></div></div><div class="bar-count">'+courseCounts[name]+'</div></div>';
+  }).join('');
+  document.getElementById("courseBars").innerHTML = courseBars || '<p>No course page views yet. Open course pages to start collecting data.</p>';
+
+  var maxPage = Math.max.apply(null, Object.values(pageCounts).concat([1]));
+  var topPages = Object.keys(pageCounts).sort(function(a,b){ return pageCounts[b]-pageCounts[a]; }).slice(0,10);
+  var pageBars = topPages.map(function(name){
+    var width = Math.round((pageCounts[name]/maxPage)*100);
+    return '<div class="bar-row"><div class="bar-label">'+name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+width+'%"></div></div><div class="bar-count">'+pageCounts[name]+'</div></div>';
+  }).join('');
+
+  var latestDays = Object.keys(dayCounts).sort().slice(-7);
+  var recentActivity = latestDays.map(function(day){
+    return day+' ('+dayCounts[day]+')';
+  }).join(' • ');
+
+  document.getElementById("pageBars").innerHTML = (pageBars || '<p>No page traffic yet.</p>') +
+    '<p style="margin-top:10px;font-size:12px;color:#5d6d8a"><b>Last 7 days activity:</b> '+(recentActivity || 'No recent events')+'</p>';
+
+  var rows = events.slice().reverse().slice(0,20).map(function(e){
+    return '<tr><td>'+new Date(e.ts).toLocaleString()+'</td><td>'+e.event+'</td><td>'+e.page+'</td><td>'+JSON.stringify(e.payload || {})+'</td></tr>';
+  }).join('');
+  document.getElementById("rows").innerHTML = rows || '<tr><td colspan="4">No events yet.</td></tr>';
+}
+
+
+var existing = getSession();
+if(existing){
+  enableDashboard(existing.userId);
+}
+</script>
+</body>
+</html>
