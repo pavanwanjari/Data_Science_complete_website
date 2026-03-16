@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free ATS Resume Maker - DataLearn10X</title>
+<link rel="icon" type="image/png" href="dl10x.png">
+<meta name="description" content="Build ATS-friendly resumes free with 50 unique templates. Upload old CV or create manually and download as PDF.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&family=Nunito:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+<script src="https://unpkg.com/mammoth@1.7.1/mammoth.browser.min.js" defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:radial-gradient(circle at 10% 0,#193160 0,#0c1222 45%,#070a13 100%);color:#eaf2ff;line-height:1.5}
+a{text-decoration:none;color:inherit}
+.header{padding:24px 16px 10px;position:sticky;top:0;backdrop-filter:blur(8px);background:rgba(7,12,24,.82);z-index:10;border-bottom:1px solid rgba(140,180,255,.2)}
+.wrap{max-width:1260px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap}
+.brand-left{display:flex;align-items:center;gap:10px}
+.brand img{height:38px}
+.badge{display:inline-block;padding:6px 12px;border:1px solid rgba(138,178,255,.45);border-radius:999px;background:rgba(255,255,255,.06);font-size:12px}
+.hero{padding:24px 16px 18px}
+.hero-card{max-width:1260px;margin:0 auto;background:linear-gradient(145deg,rgba(25,51,99,.62),rgba(20,30,58,.74));border:1px solid rgba(122,165,238,.28);border-radius:16px;padding:18px 20px;box-shadow:0 18px 38px rgba(2,8,20,.42)}
+.hero h1{font-size:28px;margin-bottom:6px}
+.hero p{color:#bbcff0}
+.hero-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.hero-list span{font-size:12px;background:rgba(255,255,255,.08);border:1px solid rgba(134,184,255,.32);padding:5px 10px;border-radius:999px}
+.layout{max-width:1260px;margin:0 auto;padding:14px 16px 36px;display:grid;grid-template-columns:430px 1fr;gap:16px}
+.panel{background:linear-gradient(145deg,rgba(12,23,46,.94),rgba(18,30,60,.8));border:1px solid rgba(122,165,238,.25);border-radius:14px;padding:14px;box-shadow:0 12px 28px rgba(3,10,28,.4)}
+.panel h2{font-size:18px;margin-bottom:8px}
+.sub{color:#a8bfe4;font-size:13px;margin-bottom:10px}
+label{display:block;font-size:12px;color:#d7e6ff;margin:8px 0 4px}
+input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(134,184,255,.35);background:rgba(11,21,44,.75);color:#ecf4ff;font-size:13px}
+textarea{min-height:72px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button{border:none;border-radius:9px;padding:10px 12px;font-weight:600;cursor:pointer}
+.btn{background:linear-gradient(90deg,#22c55e,#0ea5e9);color:#fff}
+.btn.secondary{background:linear-gradient(90deg,#334155,#475569)}
+.btn.warn{background:linear-gradient(90deg,#f59e0b,#fb7185)}
+.small{font-size:12px;color:#9fb6dc;margin-top:8px}
+.dynamic-item{border:1px dashed rgba(134,184,255,.35);border-radius:10px;padding:8px;margin-top:8px;background:rgba(255,255,255,.02)}
+.preview-shell{background:#0b1325;border:1px solid rgba(130,176,255,.22);border-radius:14px;padding:12px}
+.resume-preview{background:#fff;color:#111;max-width:850px;margin:0 auto;padding:28px;border-radius:8px;min-height:980px;box-shadow:0 12px 24px rgba(0,0,0,.18);font-family:var(--resume-font,'Inter',sans-serif);border-top:6px solid var(--accent,#2563eb)}
+.resume-header h1{font-size:30px;line-height:1.2;color:#0f172a}
+.resume-contact{margin-top:6px;color:#334155;font-size:13px}
+.resume-section{margin-top:16px}
+.resume-section h3{font-size:14px;text-transform:uppercase;letter-spacing:.8px;color:var(--accent,#2563eb);border-bottom:1px solid #dbe4f5;padding-bottom:4px;margin-bottom:7px}
+.resume-section p,.resume-section li{font-size:13px;color:#111827}
+.resume-section ul{padding-left:18px}
+.resume-block{margin-bottom:7px}
+.resume-title{font-weight:700;color:#0f172a}
+.resume-meta{font-size:12px;color:#334155}
+.highlight{background:var(--soft,#eaf2ff);padding:6px 8px;border-radius:6px;display:inline-block}
+.upload-box{border:1px dashed rgba(122,165,238,.38);border-radius:10px;padding:10px;background:rgba(255,255,255,.02)}
+.template-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.template-grid select{grid-column:1/-1}
+.footer-note{max-width:1260px;margin:0 auto;padding:0 16px 24px;color:#9eb5db;font-size:12px}
+@media(max-width:1080px){.layout{grid-template-columns:1fr}.resume-preview{min-height:auto}}
+@media print{body{background:#fff}.header,.hero,.panel-left,.actions,.footer-note{display:none !important}.layout{display:block;padding:0}.panel{border:none;box-shadow:none;padding:0;background:#fff}.preview-shell{border:none;padding:0;background:#fff}.resume-preview{box-shadow:none;max-width:none;min-height:auto;padding:0;border-top:none}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="wrap brand">
+    <div class="brand-left">
+      <a href="index.html"><img src="dl10x.png" alt="DataLearn10X logo"></a>
+      <div>
+        <strong>DataLearn10X Resume Studio</strong><br>
+        <span class="badge">100% Free ATS Resume Maker</span>
+      </div>
+    </div>
+    <a class="badge" href="index.html">← Back to Courses</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-card">
+    <h1>Build ATS-Friendly Resume in Minutes</h1>
+    <p>Upload old CV (PDF/DOCX) for reference or type manually. Choose from <b>50 unique templates</b> and export professional PDF.</p>
+    <div class="hero-list">
+      <span>✅ ATS-friendly single-column format</span><span>✅ Student/Fresher focused</span><span>✅ No login required</span><span>✅ Free PDF export</span>
+    </div>
+  </div>
+</section>
+
+<main class="layout">
+  <section class="panel panel-left">
+    <h2>Resume Inputs</h2>
+    <p class="sub">Fill details manually or import content from old CV to copy/edit quickly.</p>
+
+    <div class="upload-box">
+      <label for="oldCv">Upload old CV (PDF / DOCX / DOC for reference)</label>
+      <input type="file" id="oldCv" accept=".pdf,.doc,.docx">
+      <p class="small" id="uploadStatus">No file selected.</p>
+      <textarea id="importedText" placeholder="Imported text will appear here (editable)."></textarea>
+    </div>
+
+    <div class="template-grid">
+      <label for="templateSelect">Choose Template (50 unique ATS styles)</label>
+      <select id="templateSelect"></select>
+    </div>
+
+    <label>Full Name</label><input id="name" placeholder="e.g., Rahul Sharma">
+    <label>Target Role</label><input id="role" placeholder="e.g., Data Analyst Intern">
+    <div class="row">
+      <div><label>Email</label><input id="email" placeholder="name@email.com"></div>
+      <div><label>Phone</label><input id="phone" placeholder="+91 98XXXXXXXX"></div>
+    </div>
+    <label>Location + LinkedIn + Portfolio</label><input id="links" placeholder="Pune | linkedin.com/in/.. | github.com/...">
+    <label>Professional Summary</label><textarea id="summary" placeholder="2-4 lines focused on skills and goals"></textarea>
+    <label>Skills (comma separated)</label><textarea id="skills" placeholder="Excel, SQL, Power BI, Python, Communication"></textarea>
+
+    <h3 style="margin-top:12px">Education</h3>
+    <div id="educationWrap"></div>
+    <button type="button" class="btn secondary" id="addEducation">+ Add Education</button>
+
+    <h3 style="margin-top:12px">Experience / Internship</h3>
+    <div id="experienceWrap"></div>
+    <button type="button" class="btn secondary" id="addExperience">+ Add Experience</button>
+
+    <h3 style="margin-top:12px">Projects</h3>
+    <div id="projectWrap"></div>
+    <button type="button" class="btn secondary" id="addProject">+ Add Project</button>
+
+    <h3 style="margin-top:12px">Certifications / Achievements</h3>
+    <textarea id="certs" placeholder="Google Data Analytics Certificate, Hackathon finalist, ..."></textarea>
+
+    <div class="actions">
+      <button type="button" class="btn" id="previewBtn">Update Preview</button>
+      <button type="button" class="btn secondary" id="sampleBtn">Use Sample Data</button>
+      <button type="button" class="btn warn" id="downloadBtn">Download PDF</button>
+      <button type="button" class="btn secondary" id="resetBtn">Reset</button>
+    </div>
+    <p class="small">Tip: Keep resume to one page for fresher roles and use strong action words.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Live ATS Resume Preview</h2>
+    <p class="sub">This preview is optimized for recruiters and ATS parsers: clean headings, simple sections, no complex tables.</p>
+    <div class="preview-shell">
+      <article class="resume-preview" id="resumePreview">
+        <header class="resume-header">
+          <h1 id="pvName">Your Name</h1>
+          <p class="highlight" id="pvRole">Target Role</p>
+          <p class="resume-contact" id="pvContact">email@example.com | +91 XXXXXXXXXX | City | LinkedIn</p>
+        </header>
+
+        <section class="resume-section">
+          <h3>Summary</h3>
+          <p id="pvSummary">Add a strong summary highlighting your skills, internships, and goals.</p>
+        </section>
+
+        <section class="resume-section">
+          <h3>Skills</h3>
+          <ul id="pvSkills"><li>Skill 1</li><li>Skill 2</li></ul>
+        </section>
+
+        <section class="resume-section">
+          <h3>Education</h3>
+          <div id="pvEducation"></div>
+        </section>
+
+        <section class="resume-section">
+          <h3>Experience</h3>
+          <div id="pvExperience"></div>
+        </section>
+
+        <section class="resume-section">
+          <h3>Projects</h3>
+          <div id="pvProjects"></div>
+        </section>
+
+        <section class="resume-section">
+          <h3>Certifications / Achievements</h3>
+          <p id="pvCerts">List your certificates, rankings, and notable accomplishments.</p>
+        </section>
+      </article>
+    </div>
+  </section>
+</main>
+
+<p class="footer-note wrap">Database not required for this feature (runs in browser). Optional future setup: store resumes in Firebase/Supabase + secure user login if you want save/edit history across devices.</p>
+
+<script>
+const templateSelect = document.getElementById('templateSelect');
+const resumePreview = document.getElementById('resumePreview');
+const educationWrap = document.getElementById('educationWrap');
+const experienceWrap = document.getElementById('experienceWrap');
+const projectWrap = document.getElementById('projectWrap');
+const importedText = document.getElementById('importedText');
+const uploadStatus = document.getElementById('uploadStatus');
+
+const fonts = ['Inter','Poppins','Roboto','Source Sans 3','Nunito'];
+const templates = Array.from({length:50},(_,i)=>{
+  const hue = (i*29)%360;
+  const softHue = (hue+20)%360;
+  return {
+    id:i+1,
+    name:`Template ${String(i+1).padStart(2,'0')}`,
+    accent:`hsl(${hue}, 78%, 42%)`,
+    soft:`hsl(${softHue}, 85%, 95%)`,
+    font:fonts[i%fonts.length]
+  };
+});
+
+templates.forEach(t=>{
+  const o=document.createElement('option');
+  o.value=t.id;
+  o.textContent=`${t.name} · ${t.font}`;
+  templateSelect.appendChild(o);
+});
+
+function applyTemplate(id){
+  const t = templates.find(x=>x.id===Number(id)) || templates[0];
+  resumePreview.style.setProperty('--accent',t.accent);
+  resumePreview.style.setProperty('--soft',t.soft);
+  resumePreview.style.setProperty('--resume-font',`'${t.font}', sans-serif`);
+}
+
+templateSelect.addEventListener('change',e=>applyTemplate(e.target.value));
+
+function makeDynamicItem(type, defaultData={}){
+  const wrap = document.createElement('div');
+  wrap.className = 'dynamic-item';
+  if(type==='education'){
+    wrap.innerHTML = `<input data-k="title" placeholder="Degree / Course" value="${defaultData.title||''}">
+    <div class="row" style="margin-top:6px"><input data-k="org" placeholder="College / University" value="${defaultData.org||''}"><input data-k="meta" placeholder="Year | CGPA/Percentage" value="${defaultData.meta||''}"></div>`;
+  }
+  if(type==='experience'){
+    wrap.innerHTML = `<input data-k="title" placeholder="Role (e.g., Data Analyst Intern)" value="${defaultData.title||''}">
+    <div class="row" style="margin-top:6px"><input data-k="org" placeholder="Company" value="${defaultData.org||''}"><input data-k="meta" placeholder="Duration" value="${defaultData.meta||''}"></div>
+    <textarea data-k="desc" placeholder="Worked on dashboards, SQL reports..." style="margin-top:6px">${defaultData.desc||''}</textarea>`;
+  }
+  if(type==='project'){
+    wrap.innerHTML = `<input data-k="title" placeholder="Project Name" value="${defaultData.title||''}">
+    <input data-k="meta" placeholder="Tools used (Excel, SQL, Power BI...)" value="${defaultData.meta||''}" style="margin-top:6px">
+    <textarea data-k="desc" placeholder="Project impact and key points" style="margin-top:6px">${defaultData.desc||''}</textarea>`;
+  }
+  const del = document.createElement('button');
+  del.type='button';
+  del.className='btn secondary';
+  del.style.marginTop='6px';
+  del.textContent='Remove';
+  del.onclick=()=>{ wrap.remove(); renderPreview(); };
+  wrap.appendChild(del);
+  return wrap;
+}
+
+function addItem(type,data){
+  if(type==='education') educationWrap.appendChild(makeDynamicItem(type,data));
+  if(type==='experience') experienceWrap.appendChild(makeDynamicItem(type,data));
+  if(type==='project') projectWrap.appendChild(makeDynamicItem(type,data));
+}
+
+document.getElementById('addEducation').onclick=()=>addItem('education');
+document.getElementById('addExperience').onclick=()=>addItem('experience');
+document.getElementById('addProject').onclick=()=>addItem('project');
+
+function getItems(container){
+  return Array.from(container.querySelectorAll('.dynamic-item')).map(item=>{
+    const out={};
+    item.querySelectorAll('[data-k]').forEach(el=>out[el.dataset.k]=el.value.trim());
+    return out;
+  }).filter(x=>Object.values(x).some(Boolean));
+}
+
+function asBlocks(list, hasDesc){
+  if(!list.length) return '<p>No details added yet.</p>';
+  return list.map(x=>{
+    const title=x.title?`<div class="resume-title">${x.title}</div>`:'';
+    const metaLine=[x.org,x.meta].filter(Boolean).join(' | ');
+    const meta=metaLine?`<div class="resume-meta">${metaLine}</div>`:'';
+    const desc=(hasDesc&&x.desc)?`<ul><li>${x.desc.replace(/\n+/g,'</li><li>')}</li></ul>`:'';
+    return `<div class="resume-block">${title}${meta}${desc}</div>`;
+  }).join('');
+}
+
+function escapeHtml(text){
+  return (text||'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+}
+
+function renderPreview(){
+  const name = document.getElementById('name').value.trim() || 'Your Name';
+  const role = document.getElementById('role').value.trim() || 'Target Role';
+  const email = document.getElementById('email').value.trim() || 'email@example.com';
+  const phone = document.getElementById('phone').value.trim() || '+91 XXXXXXXXXX';
+  const links = document.getElementById('links').value.trim() || 'City | LinkedIn';
+  const summary = document.getElementById('summary').value.trim() || 'Add a strong summary highlighting your skills, internships, and goals.';
+  const certs = document.getElementById('certs').value.trim() || 'List your certificates, rankings, and notable accomplishments.';
+  const skills = (document.getElementById('skills').value||'').split(',').map(x=>x.trim()).filter(Boolean);
+
+  document.getElementById('pvName').textContent = name;
+  document.getElementById('pvRole').textContent = role;
+  document.getElementById('pvContact').textContent = `${email} | ${phone} | ${links}`;
+  document.getElementById('pvSummary').textContent = summary;
+  document.getElementById('pvCerts').textContent = certs;
+  document.getElementById('pvSkills').innerHTML = (skills.length?skills:['Skill 1','Skill 2']).map(x=>`<li>${escapeHtml(x)}</li>`).join('');
+  document.getElementById('pvEducation').innerHTML = asBlocks(getItems(educationWrap));
+  document.getElementById('pvExperience').innerHTML = asBlocks(getItems(experienceWrap),true);
+  document.getElementById('pvProjects').innerHTML = asBlocks(getItems(projectWrap),true);
+}
+
+document.getElementById('previewBtn').onclick=renderPreview;
+
+function setSample(){
+  document.getElementById('name').value='Priya Verma';
+  document.getElementById('role').value='Data Analyst Fresher';
+  document.getElementById('email').value='priya.verma@email.com';
+  document.getElementById('phone').value='+91 9876543210';
+  document.getElementById('links').value='Pune | linkedin.com/in/priyaverma | github.com/priyaverma';
+  document.getElementById('summary').value='Detail-oriented analytics learner with practical projects in Excel, SQL, Python and Power BI. Strong communication and problem-solving mindset with focus on business insights.';
+  document.getElementById('skills').value='Excel, SQL, Python, Power BI, Tableau, Data Cleaning, Dashboarding, Communication';
+  document.getElementById('certs').value='Google Data Analytics Professional Certificate\nPower BI Workshop Completion\nTop 5 in College Data Visualization Challenge';
+
+  educationWrap.innerHTML=''; experienceWrap.innerHTML=''; projectWrap.innerHTML='';
+  addItem('education',{title:'B.Sc. Computer Science',org:'Savitribai Phule Pune University',meta:'2021-2024 | 8.3 CGPA'});
+  addItem('education',{title:'HSC (Science)',org:'Maharashtra State Board',meta:'2021 | 82%'});
+  addItem('experience',{title:'Data Analyst Intern',org:'ABC Analytics',meta:'Jan 2024 - Apr 2024',desc:'Built weekly KPI dashboard in Power BI for 3 business units.\nAutomated SQL report, reducing manual work by 40%.'});
+  addItem('project',{title:'Retail Sales Dashboard',meta:'Excel, Power BI, DAX',desc:'Cleaned 50k+ rows and built interactive dashboards with category/region trends.'});
+  addItem('project',{title:'Student Performance Predictor',meta:'Python, Pandas, Scikit-learn',desc:'Trained regression model to predict scores with 87% accuracy and explained features.'});
+  renderPreview();
+}
+
+document.getElementById('sampleBtn').onclick=setSample;
+
+document.getElementById('resetBtn').onclick=()=>{
+  document.querySelectorAll('input,textarea').forEach(el=>{ if(el.type!=='file') el.value=''; });
+  educationWrap.innerHTML=''; experienceWrap.innerHTML=''; projectWrap.innerHTML='';
+  addItem('education'); addItem('experience'); addItem('project');
+  templateSelect.value='1'; applyTemplate(1); renderPreview();
+};
+
+document.getElementById('downloadBtn').onclick=()=>{
+  renderPreview();
+  const fileName = (document.getElementById('name').value.trim() || 'resume').replace(/\s+/g,'_') + '_ATS_Resume.pdf';
+  const options = {
+    margin:[8,8,8,8],
+    filename:fileName,
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+  };
+  html2pdf().set(options).from(document.getElementById('resumePreview')).save();
+};
+
+async function readPdf(file){
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+  let text='';
+  for(let i=1;i<=Math.min(pdf.numPages,3);i++){
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    text += content.items.map(it=>it.str).join(' ') + '\n';
+  }
+  return text.trim();
+}
+
+async function readDocx(file){
+  const buf = await file.arrayBuffer();
+  const result = await mammoth.extractRawText({arrayBuffer:buf});
+  return result.value.trim();
+}
+
+document.getElementById('oldCv').addEventListener('change', async function(e){
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  const ext = file.name.split('.').pop().toLowerCase();
+  uploadStatus.textContent = `Processing: ${file.name}`;
+  try{
+    let text='';
+    if(ext==='pdf') text = await readPdf(file);
+    else if(ext==='docx') text = await readDocx(file);
+    else if(ext==='doc') text = 'DOC parsing is limited in browser. Please copy/paste content manually from your .doc file.';
+    else text = 'Unsupported format. Please upload PDF or DOCX.';
+    importedText.value = text;
+    if(!document.getElementById('summary').value.trim() && text){
+      document.getElementById('summary').value = text.slice(0,450);
+    }
+    uploadStatus.textContent = `Imported reference text from ${file.name}. You can edit it and fill fields.`;
+  }catch(err){
+    uploadStatus.textContent = 'Could not parse file fully. Please copy/paste details manually.';
+  }
+});
+
+addItem('education');
+addItem('experience');
+addItem('project');
+applyTemplate(1);
+renderPreview();
+</script>
+</body>
+</html>
