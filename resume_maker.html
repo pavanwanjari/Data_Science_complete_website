@@ -152,10 +152,7 @@
 
       <div class="sec actions">
         <div class="btns">
-          <button id="downloadBtn">Download PDF (A4)</button>
-          <button class="alt" id="resetBtn" type="button">Reset</button>
-          <button class="gray" id="atsBtn" type="button">Check ATS score</button>
-          <button class="gray" id="fillDemoBtn" type="button">Use sample data</button>
+          <button id="downloadBtn">Download PDF (A4)</button><button class="alt" id="resetBtn" type="button">Reset</button><button class="gray" id="atsBtn" type="button">Check ATS score</button><button class="gray" id="fillDemoBtn" type="button">Use sample data</button>
         </div>
         <div class="ats" id="atsResult">ATS score: Not checked</div>
       </div>
@@ -164,24 +161,12 @@
     <section class="preview-card">
       <div id="resumePage" class="page template-modern" data-variant="1">
         <div id="hdr" class="hdr">
-          <div id="hdrLeft">
-            <h1 class="nm" id="pName">Your Name</h1>
-            <div class="role" id="pRole">Target Role</div>
-            <div class="small" id="pContact">email@example.com | +91 98XXXXXXXX | City</div>
-          </div>
+          <div id="hdrLeft"><h1 class="nm" id="pName">Your Name</h1><div class="role" id="pRole">Target Role</div><div class="small" id="pContact">email@example.com | +91 98XXXXXXXX | City</div></div>
           <img id="pPhoto" class="photo" alt="Profile photo" />
         </div>
         <div class="body">
-          <div class="left" id="leftCol">
-            <div class="h">Education</div><div class="item" id="pEdu">Add education details</div>
-            <div class="h">Certifications</div><div class="item" id="pCert">Add certifications</div>
-            <div class="h">Skills</div><div class="chips" id="pSkills"></div>
-          </div>
-          <div class="right" id="rightCol">
-            <div class="h">Professional Summary</div><div class="item" id="pSummary">Add summary</div>
-            <div class="h">Projects</div><div class="item" id="pProjects">Add projects</div>
-            <div class="h">Experience</div><div class="item" id="pExp">Add experience</div>
-          </div>
+          <div class="left" id="leftCol"><div class="h">Education</div><div class="item" id="pEdu">Add education details</div><div class="h">Certifications</div><div class="item" id="pCert">Add certifications</div><div class="h">Skills</div><div class="chips" id="pSkills"></div></div>
+          <div class="right" id="rightCol"><div class="h">Professional Summary</div><div class="item" id="pSummary">Add summary</div><div class="h">Projects</div><div class="item" id="pProjects">Add projects</div><div class="h">Experience</div><div class="item" id="pExp">Add experience</div></div>
         </div>
       </div>
     </section>
@@ -190,7 +175,7 @@
 <script>
   const ids = ['name','targetRole','email','phone','location','summary','skills','experience','projects','education','certifications'];
   const p = Object.fromEntries(ids.map(i => [i, document.getElementById(i)]));
-
+  const templateMeta=[['modern','Modern'],['clean','Clean'],['twocol','2-Column'],['minimal','Minimal ATS'],['corporate','Corporate']];
   const profileKeywords = {
     'Data Analyst':['excel','sql','power bi','tableau','dashboard','analysis'],
     'Business Analyst':['requirements','stakeholder','sql','kpi','dashboard','documentation'],
@@ -258,16 +243,20 @@
   }
   ['cropZoom','cropX','cropY'].forEach(id=>document.getElementById(id).addEventListener('input', applyCrop));
 
-  function refreshPhotoPlacement(){
-    const photo=document.getElementById('pPhoto');
-    const style=document.getElementById('photoStyle').value;
-    const hdr=document.getElementById('hdr');
-    const left=document.getElementById('hdrLeft');
-    if(!photo.src || style==='none'){ photo.classList.remove('show'); return; }
-    photo.classList.add('show');
-    if(style==='left'){ hdr.insertBefore(photo,left); } else { hdr.appendChild(photo); }
+  function applyCrop(){
+    const zoom=document.getElementById('cropZoom').value;
+    const x=document.getElementById('cropX').value;
+    const y=document.getElementById('cropY').value;
+    ['pPhoto','thumbPhoto'].forEach(id=>{const img=document.getElementById(id); img.style.objectPosition=`${x}% ${y}%`; img.style.transform=`scale(${zoom})`;});
   }
+  ['cropZoom','cropX','cropY'].forEach(id=>document.getElementById(id).addEventListener('input', applyCrop));
 
+  function refreshPhotoPlacement(){
+    const photo=document.getElementById('pPhoto'); const style=document.getElementById('photoStyle').value;
+    const hdr=document.getElementById('hdr'); const left=document.getElementById('hdrLeft');
+    if(!photo.src || style==='none'){ photo.classList.remove('show'); return; }
+    photo.classList.add('show'); if(style==='left'){ hdr.insertBefore(photo,left); } else { hdr.appendChild(photo); }
+  }
   document.getElementById('photoStyle').addEventListener('change', refreshPhotoPlacement);
   document.getElementById('photoInput').addEventListener('change', e=>{
     const file=e.target.files?.[0];
@@ -285,25 +274,18 @@
   function scoreATS(){
     const role = document.getElementById('profileType').value;
     const hay = [p.summary.value,p.skills.value,p.projects.value,p.experience.value,p.education.value,p.certifications.value,p.targetRole.value].join(' ').toLowerCase();
-    const kws = profileKeywords[role] || [];
-    const hits = kws.filter(k => hay.includes(k)).length;
+    const kws = profileKeywords[role] || []; const hits = kws.filter(k => hay.includes(k)).length;
     let score = Math.round((hits / Math.max(1,kws.length))*60);
     if(p.summary.value.trim().length>80) score += 10;
     if((p.experience.value.trim().length + p.projects.value.trim().length)>120) score += 10;
-    if(p.education.value.trim()) score += 10;
-    if(p.certifications.value.trim()) score += 10;
-    score = Math.min(100, score);
-
+    if(p.education.value.trim()) score += 10; if(p.certifications.value.trim()) score += 10; score = Math.min(100, score);
     const missing = kws.filter(k => !hay.includes(k));
     document.getElementById('atsResult').innerHTML = `ATS score: <b>${score}/100</b><br>Missing keywords: ${missing.slice(0,6).join(', ') || 'None'}`;
   }
   document.getElementById('atsBtn').addEventListener('click', scoreATS);
 
   function parseOldCVText(text){
-    const get=(re)=> (text.match(re)?.[1] || '').trim();
-    p.email.value = p.email.value || get(/([\w.%+-]+@[\w.-]+\.[A-Za-z]{2,})/i);
-    p.phone.value = p.phone.value || get(/(\+?\d[\d\s-]{8,}\d)/);
-
+    const get=(re)=> (text.match(re)?.[1] || '').trim(); p.email.value = p.email.value || get(/([\w.%+-]+@[\w.-]+\.[A-Za-z]{2,})/i); p.phone.value = p.phone.value || get(/(\+?\d[\d\s-]{8,}\d)/);
     const lines=text.split(/\r?\n/).map(v=>v.trim()).filter(Boolean);
     if(!p.name.value && lines.length) p.name.value=lines[0].slice(0,60);
     if(!p.targetRole.value) p.targetRole.value=get(/(?:role|position|title)\s*[:\-]\s*(.+)/i) || document.getElementById('profileType').value;
@@ -319,26 +301,8 @@
     refreshPreview();
   }
 
-  async function parsePdfFile(file){
-    if(!window.pdfjsLib) throw new Error('PDF parser not loaded');
-    const data = await file.arrayBuffer();
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    const pdf = await window.pdfjsLib.getDocument({ data }).promise;
-    let text='';
-    for(let i=1;i<=pdf.numPages;i++){
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      text += content.items.map(it=>it.str).join(' ') + '\n';
-    }
-    return text;
-  }
-
-  async function parseDocxFile(file){
-    if(!window.mammoth) throw new Error('DOCX parser not loaded');
-    const data = await file.arrayBuffer();
-    const result = await window.mammoth.extractRawText({ arrayBuffer: data });
-    return result.value || '';
-  }
+  async function parsePdfFile(file){ if(!window.pdfjsLib) throw new Error('PDF parser not loaded'); const data = await file.arrayBuffer(); window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; const pdf = await window.pdfjsLib.getDocument({ data }).promise; let text=''; for(let i=1;i<=pdf.numPages;i++){ const page = await pdf.getPage(i); const content = await page.getTextContent(); text += content.items.map(it=>it.str).join(' ') + '\n'; } return text; }
+  async function parseDocxFile(file){ if(!window.mammoth) throw new Error('DOCX parser not loaded'); const data = await file.arrayBuffer(); const result = await window.mammoth.extractRawText({ arrayBuffer: data }); return result.value || ''; }
 
   document.getElementById('cvInput').addEventListener('change', async e=>{
     const file=e.target.files?.[0];
@@ -388,14 +352,8 @@
       }
 
       pdf.save('resume-a4.pdf');
-    } catch(err){
-      console.error(err);
-      alert('PDF generation failed. Opening print dialog as fallback.');
-      window.print();
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Download PDF (A4)';
-    }
+    } catch(err){ console.error(err); alert('PDF generation failed. Opening print dialog as fallback.'); window.print(); }
+    finally { btn.disabled = false; btn.textContent = 'Download PDF (A4)'; }
   }
 
   document.getElementById('downloadBtn').addEventListener('click', downloadPdfA4);
