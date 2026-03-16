@@ -1,4 +1,4 @@
-# Course_V1
+# Data Science
 
 DataLearn10X training website with multi-course pages, payment flow, access verification, and analytics.
 
