@@ -25,6 +25,7 @@ a{color:inherit}
 .stats{display:grid;grid-template-columns:repeat(5,minmax(90px,1fr));gap:8px}.stat{background:#0e1730;border:1px solid #2f3e6a;border-radius:12px;padding:10px;text-align:center}.stat b{font-size:20px;display:block}
 #prompt{line-height:1.7;background:#0d162d;border:1px solid #2f3e6a;border-radius:12px;padding:14px;min-height:110px;font-size:18px}
 #prompt .done{color:var(--ok)} #prompt .active{background:#ffd166;color:#0b1328;padding:0 2px;border-radius:4px} #prompt .todo{color:#98a9d0}
+#prompt .wrong{background:#ef444433;color:#fecaca;border-radius:4px;padding:0 2px}
 textarea{width:100%;margin-top:10px;border:1px solid #3f5188;background:#0b1328;color:#fff;border-radius:12px;padding:12px;font-size:17px;min-height:120px;resize:vertical}
 textarea:focus{outline:2px solid #6991ff}
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btn{border:none;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.pri{background:var(--pri);color:#fff}.sec{background:#24365f;color:#fff}.ok{background:var(--ok);color:#04220f}
@@ -53,6 +54,8 @@ textarea:focus{outline:2px solid #6991ff}
 .achv{font-size:12px;background:#1c2f58;border:1px solid #3d5fa8;border-radius:999px;padding:4px 8px;color:#dbe6ff}
 .board-list{margin:8px 0 0;padding-left:18px;color:#d5e4ff;font-size:13px;line-height:1.7}
 .inline-input{width:100%;padding:9px;border-radius:8px;border:1px solid #3a4d80;background:#111c36;color:#fff;margin-top:6px}
+.mistake-list{margin:8px 0 0;padding-left:18px;color:#fcd2d2;font-size:13px;line-height:1.7}
+.mini-note{font-size:12px;color:#9db0d8;margin-top:4px;line-height:1.6}
 
 @media (max-width:1200px){.grid{grid-template-columns:1fr}.hero{padding:72px 14px 14px}.stats{grid-template-columns:repeat(3,1fr)}.level-grid{grid-template-columns:repeat(4,1fr)}}
 </style>
@@ -94,6 +97,13 @@ textarea:focus{outline:2px solid #6991ff}
       </div>
       <div id="msg">Tip: Focus on accuracy first, then speed. Complete a level to unlock the next.</div>
             <div class="tips">Suggested routine: 20 minutes daily (10 levels/day). Track improvement by comparing your best WPM at the same level each week.</div>
+
+      <div class="g-card">
+        <b>🧠 Mistake Finder (Live)</b>
+        <div class="mini-note">Wrong characters are highlighted in red in the paragraph above. This section shows your most frequent mistakes for this attempt.</div>
+        <div id="mistakeSummary" class="mini-note">Start typing to see live mistake analysis.</div>
+        <ol id="mistakeList" class="mistake-list"></ol>
+      </div>
 
       
       <div class="keyboard-wrap">
@@ -160,6 +170,18 @@ textarea:focus{outline:2px solid #6991ff}
         <button class="btn sec" id="sampleCertificateBtn" style="margin-top:8px">Preview Sample Certificate</button>
         <button class="btn sec" id="certificateBtn" style="margin-top:8px" disabled>Download Certificate</button>
       </div>
+
+      <div class="g-card">
+        <b>📚 Typing Learning Kit (Free)</b>
+        <ul class="board-list">
+          <li><a href="https://www.typingclub.com/" target="_blank" rel="noopener">TypingClub lessons (free structured practice)</a></li>
+          <li><a href="https://www.keybr.com/" target="_blank" rel="noopener">Keybr intelligent typing drills</a></li>
+          <li><a href="https://www.ratatype.com/learn/" target="_blank" rel="noopener">Ratatype learn touch typing</a></li>
+          <li><a href="https://edu.gcfglobal.org/en/typing/" target="_blank" rel="noopener">GCFGlobal typing notes for beginners</a></li>
+          <li><a href="https://www.pexels.com/search/videos/typing%20keyboard/" target="_blank" rel="noopener">Pexels royalty-free keyboard/practice videos</a></li>
+        </ul>
+        <div class="mini-note"><b>Student plan:</b> 10 minutes posture + home row, 15 minutes level practice, 5 minutes mistake review from the Mistake Finder.</div>
+      </div>
     </aside>
   </section>
 </div>
@@ -215,8 +237,18 @@ textarea:focus{outline:2px solid #6991ff}
   const wpmEl=$('wpm'), cpmEl=$('cpm'), accEl=$('acc'), timeEl=$('time'), streakEl=$('streak'), bestText=$('bestText');
   const progressUnlocked=$('progressUnlocked'), progressCompleted=$('progressCompleted'), progressTime=$('progressTime'), progressLast=$('progressLast');
   const badgeWrap=$('badgeWrap'), boardList=$('boardList'), playerName=$('playerName'), certificateBtn=$('certificateBtn'), sampleCertificateBtn=$('sampleCertificateBtn');
+  const mistakeSummary=$('mistakeSummary'), mistakeList=$('mistakeList');
 
   const keyEls=Array.from(document.querySelectorAll('.key'));
+
+  function esc(ch){
+    return String(ch)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'",'&#39;');
+  }
 
   function overallBest(){
     const vals=Object.values(s.bestWpm||{}).map(Number);
@@ -310,12 +342,41 @@ textarea:focus{outline:2px solid #6991ff}
     const target=(levels[s.level-1]||{}).text||'', val=input.value;
     let html='';
     for(let i=0;i<target.length;i++){
-      if(i<val.length){ html+=`<span class="done">${target[i]}</span>`; }
-      else if(i===val.length){ html+=`<span class="active">${target[i]||''}</span>`; }
-      else { html+=`<span class="todo">${target[i]}</span>`; }
+      if(i<val.length){ html+=`<span class="${val[i]===target[i]?'done':'wrong'}">${esc(target[i])}</span>`; }
+      else if(i===val.length){ html+=`<span class="active">${esc(target[i]||'')}</span>`; }
+      else { html+=`<span class="todo">${esc(target[i])}</span>`; }
     }
     promptEl.innerHTML=html;
+    renderMistakes();
     paintExpectedKey();
+  }
+
+  function renderMistakes(){
+    const target=(levels[s.level-1]||{}).text||'', typed=input.value;
+    const freq={};
+    let wrong=0;
+    for(let i=0;i<typed.length;i++){
+      if(typed[i]!==target[i]){
+        wrong++;
+        const key=target[i]===' ' ? '[space]' : (target[i]||'[end]');
+        freq[key]=(freq[key]||0)+1;
+      }
+    }
+
+    if(!typed.length){
+      mistakeSummary.textContent='Start typing to see live mistake analysis.';
+      mistakeList.innerHTML='';
+      return;
+    }
+
+    const top=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    mistakeSummary.textContent = wrong===0
+      ? 'Excellent! No mistakes detected so far in this attempt.'
+      : `Total mistakes: ${wrong}. Focus on these target characters/keys:`;
+
+    mistakeList.innerHTML = top.length
+      ? top.map(([k,v])=>`<li>${k} → ${v} mistake${v>1?'s':''}</li>`).join('')
+      : '';
   }
 
   function stats(){
@@ -366,6 +427,8 @@ textarea:focus{outline:2px solid #6991ff}
     timeEl.textContent='120s'; wpmEl.textContent='0'; cpmEl.textContent='0'; accEl.textContent='100%';
     renderPrompt(); renderLevels();
     keyEls.forEach(el=>el.classList.remove('correct','wrong'));
+    mistakeSummary.textContent='Start typing to see live mistake analysis.';
+    mistakeList.innerHTML='';
     bestText.textContent='Best WPM: '+(s.bestWpm[s.level]||0);
     paintExpectedKey();
   }

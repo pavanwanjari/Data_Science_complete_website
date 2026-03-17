@@ -267,7 +267,6 @@
         const totalPages = Math.ceil((imgHeight - 0.5) / pdfHeight);
         for(let i=0;i<totalPages;i++){ if(i>0) pdf.addPage(); pdf.addImage(imgData, 'JPEG', 0, -(i * pdfHeight), pdfWidth, imgHeight, undefined, 'FAST'); }
       }
-
       pdf.save('resume-a4.pdf');
     } catch(err){ console.error(err); alert('PDF generation failed. Opening print dialog as fallback.'); window.print(); }
     finally { btn.disabled = false; btn.textContent = 'Download PDF (A4)'; }
