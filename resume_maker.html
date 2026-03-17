@@ -206,8 +206,7 @@
   function refreshPhotoPlacement(){
     const photo=document.getElementById('pPhoto'), style=document.getElementById('photoStyle').value, hdr=document.getElementById('hdr'), left=document.getElementById('hdrLeft');
     if(!photo.src || style==='none'){ photo.classList.remove('show'); return; }
-    photo.classList.add('show');
-    if(style==='left'){ hdr.insertBefore(photo,left); } else { hdr.appendChild(photo); }
+    photo.classList.add('show'); if(style==='left'){ hdr.insertBefore(photo,left); } else { hdr.appendChild(photo); }
   }
   document.getElementById('photoStyle').addEventListener('change', refreshPhotoPlacement);
   document.getElementById('photoInput').addEventListener('change', e=>{
