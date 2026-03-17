@@ -3,69 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="DataLearn10X Resume Maker with ATS scoring, 30 template variants, profile photo crop controls, and CV text import." />
+  <meta name="description" content="DataLearn10X Resume Maker with ATS scoring, professional template designs, photo crop controls, and CV import." />
   <title>Resume Maker - DataLearn10X</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" defer></script>
   <style>
-    :root{--bg:#070b14;--card:#101a31;--line:#2e436a;--txt:#e6efff;--muted:#9db3d9;--pri:#3b82f6;--acc:#22d3ee}
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+    :root{--bg:#070b14;--txt:#e6efff;--muted:#9db3d9;--pri:#3b82f6;--line:#2e436a}
     *{box-sizing:border-box}
     body{margin:0;font-family:Poppins,Arial,sans-serif;background:radial-gradient(circle at 12% 10%,#23396f 0,#0b1020 40%,#070b14 100%);color:var(--txt)}
-    .top{padding:20px 14px 0;max-width:1280px;margin:auto}
-    .head{background:linear-gradient(135deg,rgba(26,37,71,.85),rgba(19,56,131,.65),rgba(36,162,255,.4));border:1px solid rgba(146,190,255,.35);border-radius:14px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .head-left{display:flex;align-items:center;gap:10px}
-    .logo{width:44px;height:44px;border-radius:8px;border:1px solid rgba(169,198,255,.5);background:#fff;padding:2px}
-    .head h1{margin:0 0 4px;font-size:24px}.head p{margin:0;color:#d4e4ff}
-    .home-btn{text-decoration:none;color:#fff;background:linear-gradient(135deg,#2563eb,#0ea5e9);padding:9px 14px;border-radius:9px;font-size:13px;font-weight:600}
+    .top{padding:16px 12px 0;max-width:1280px;margin:auto}
+    .head{background:linear-gradient(135deg,rgba(26,37,71,.88),rgba(19,56,131,.68),rgba(36,162,255,.4));border:1px solid rgba(146,190,255,.35);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .head-left{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:8px;background:#fff;padding:2px}
+    .head h1{margin:0;font-size:22px}.head p{margin:2px 0 0;color:#d4e4ff;font-size:13px}
+    .home-btn{color:#fff;text-decoration:none;background:linear-gradient(135deg,#2563eb,#0ea5e9);padding:8px 12px;border-radius:9px;font-weight:600;font-size:13px}
 
-    .wrap{max-width:1280px;margin:14px auto 20px;padding:0 14px;display:grid;grid-template-columns:390px 1fr;gap:16px}
+    .wrap{max-width:1280px;margin:12px auto 18px;padding:0 12px;display:grid;grid-template-columns:390px 1fr;gap:14px}
     .panel,.preview-card{background:linear-gradient(145deg,rgba(12,23,46,.95),rgba(18,30,60,.78));border:1px solid rgba(122,165,238,.32);border-radius:14px;box-shadow:0 16px 36px rgba(2,8,20,.35)}
-    .panel{padding:14px;max-height:calc(100vh - 30px);overflow:auto}
-    .sec{border-top:1px solid var(--line);padding-top:11px;margin-top:11px}.sec:first-child{border-top:none;padding-top:0;margin-top:0}
-    .title{font-size:15px;font-weight:700;margin-bottom:7px}
-    label{font-size:12px;color:var(--muted);display:block;margin:7px 0 4px}
+    .panel{padding:13px;max-height:calc(100vh - 30px);overflow:auto}
+    .preview-card{padding:12px;overflow:auto}
+
+    .sec{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}.sec:first-child{border-top:none;margin-top:0;padding-top:0}
+    .title{font-size:15px;font-weight:700;margin:0 0 6px} label{font-size:12px;color:var(--muted);display:block;margin:7px 0 4px}
     input,textarea,select{width:100%;padding:10px;border:1px solid #3f5d8f;border-radius:8px;background:#0d1a34;color:#f7fbff}
-    textarea{min-height:76px;resize:vertical}
-    .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-    button{border:none;border-radius:8px;padding:10px 12px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
-    button.alt{background:#334155} button.gray{background:#475569}
+    textarea{min-height:74px;resize:vertical}.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+    button{border:none;border-radius:8px;padding:10px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
+    button.alt{background:#334155}button.gray{background:#475569}.ats{font-size:13px;background:#0a2248;border:1px solid #355d9f;border-radius:8px;padding:8px;margin-top:8px}
     .help{font-size:12px;color:var(--muted);margin-top:6px}
-    .ats{font-size:13px;background:#0a2248;border:1px solid #355d9f;border-radius:8px;padding:8px;margin-top:8px}
-    .crop-wrap{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center}
-    .thumb{width:72px;height:90px;border-radius:8px;overflow:hidden;border:1px solid #4569a1;background:#17305a}
-    .thumb img{width:100%;height:100%;object-fit:cover;transform-origin:center center}
 
-    .preview-card{padding:14px;overflow:auto}
-    .page{width:210mm;min-height:297mm;background:#fff;margin:0 auto;border:1px solid #ddd;color:#111;transform-origin:top center;--resumeHdr:#1e3a8a;--resumeLeft:#eef2ff;--resumeBorder:#cbd5e1;--resumeChip:#e2e8f0}
-    .template-modern .hdr{background:var(--resumeHdr);color:#fff;padding:18px;display:flex;justify-content:space-between;gap:12px}
-    .template-modern .body{display:grid;grid-template-columns:35% 65%}
-    .template-modern .left{background:var(--resumeLeft);padding:16px}
-    .template-modern .right{padding:16px}
+    .crop-wrap{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:center}
+    .thumb{width:70px;height:88px;border-radius:8px;overflow:hidden;border:1px solid #4569a1;background:#17305a}
+    .thumb img{width:100%;height:100%;object-fit:cover;transform-origin:center}
 
-    .template-clean .hdr{padding:18px;border-bottom:3px solid var(--resumeHdr);display:flex;justify-content:space-between;gap:12px}
-    .template-clean .body{padding:16px;display:grid;grid-template-columns:1fr}
-    .template-clean .left{background:transparent;padding:0 0 10px}
-    .template-clean .right{padding:0}
+    .page{width:210mm;min-height:297mm;background:#fff;color:#111;margin:0 auto;border:1px solid #ddd;--hdr:#1e3a8a;--left:#eef2ff;--line2:#cbd5e1;--chip:#e2e8f0;--accent:#1d4ed8;--hdrTxt:#fff}
+    .hdr{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:16px}
+    .body{display:grid;grid-template-columns:35% 65%}
+    .left,.right{padding:16px}.left{background:var(--left)}
+    .nm{font-size:28px;font-weight:700;line-height:1.1;margin:0}.role{margin-top:4px;font-size:14px}.small{font-size:12px;line-height:1.6}
+    .h{font-size:14px;font-weight:700;border-bottom:1px solid var(--line2);padding-bottom:4px;margin:10px 0 6px}
+    .item{font-size:12px;line-height:1.5;margin:4px 0;white-space:pre-wrap}.chips{display:flex;flex-wrap:wrap;gap:4px}.chip{font-size:11px;background:var(--chip);padding:3px 8px;border-radius:999px}
+    .photo{width:86px;height:108px;object-fit:cover;border:2px solid #fff;border-radius:6px;background:#dbeafe;display:none}.photo.show{display:block}
 
-    .template-twocol .hdr{background:var(--resumeHdr);color:#fff;padding:16px;display:flex;justify-content:space-between;gap:12px}
-    .template-twocol .body{display:grid;grid-template-columns:1fr 1fr}
-    .template-twocol .left,.template-twocol .right{padding:16px}
-    .template-twocol .left{border-right:1px solid var(--resumeBorder);background:var(--resumeLeft)}
+    .layout-modern .hdr{background:var(--hdr);color:var(--hdrTxt)}
+    .layout-clean .hdr{border-bottom:4px solid var(--accent);padding-bottom:12px}.layout-clean .body{grid-template-columns:1fr}.layout-clean .left{background:#fff;padding:0 16px 8px}.layout-clean .right{padding-top:0}
+    .layout-split .hdr{background:var(--hdr);color:var(--hdrTxt)}.layout-split .body{grid-template-columns:1fr 1fr}.layout-split .left{border-right:1px solid var(--line2)}
+    .layout-band .hdr{border-left:10px solid var(--accent);background:#f8fafc}.layout-band .body{grid-template-columns:32% 68%}
+    .layout-minimal .hdr{padding:12px 16px}.layout-minimal .nm{font-size:26px}.layout-minimal .body{grid-template-columns:1fr}.layout-minimal .left{background:#fff;padding-bottom:0}
+    .layout-executive .hdr{background:linear-gradient(130deg,var(--hdr),#111827);color:#fff}.layout-executive .body{grid-template-columns:38% 62%}.layout-executive .left{border-right:3px solid var(--accent)}
 
-    .photo{width:86px;height:108px;object-fit:cover;border:2px solid #fff;border-radius:6px;background:#dbeafe;display:none}
-    .photo.show{display:block}
-    .nm{font-size:28px;font-weight:700;line-height:1.1;margin:0}
-    .role{margin-top:4px;font-size:14px;opacity:.95}
-    .small{font-size:12px;line-height:1.6}
-    .h{font-size:14px;font-weight:700;border-bottom:1px solid var(--resumeBorder);padding-bottom:4px;margin:10px 0 6px}
-    .item{font-size:12px;line-height:1.5;margin:4px 0;white-space:pre-wrap}
-    .chips{display:flex;flex-wrap:wrap;gap:4px}
-    .chip{font-size:11px;background:var(--resumeChip);padding:3px 8px;border-radius:999px}
+    .font-inter{font-family:Inter,Arial,sans-serif}.font-poppins{font-family:Poppins,Arial,sans-serif}.font-roboto{font-family:Roboto,Arial,sans-serif}.font-lato{font-family:Lato,Arial,sans-serif}.font-merri{font-family:Merriweather,serif}
 
-    @media (max-width:1100px){.wrap{grid-template-columns:1fr}.page{transform:scale(.72);margin:-36mm auto -42mm auto}}
-    @media print{body{background:#fff}.panel,.head{display:none}.wrap{display:block}.preview-card{border:none;box-shadow:none;padding:0}.page{border:none;margin:0;width:210mm;min-height:297mm}}
+    @media (max-width:980px){
+      .wrap{grid-template-columns:1fr}
+      .preview-card{order:1}.panel{order:2;max-height:none}
+      .page{width:100%;min-height:auto}
+      .hdr,.left,.right{padding:12px}
+      .nm{font-size:22px}
+    }
+    @media print{body{background:#fff}.head,.panel{display:none}.wrap{display:block}.preview-card{padding:0;border:none;box-shadow:none}.page{border:none;width:210mm;min-height:297mm}}
   </style>
 </head>
 <body>
@@ -73,10 +70,7 @@
     <div class="head">
       <div class="head-left">
         <img class="logo" src="dl10x.png" alt="DataLearn10X logo">
-        <div>
-          <h1>ATS Friendly Resume Maker</h1>
-          <p>Choose layout + variant, import old CV first, and generate a clean one-page or multi-page PDF.</p>
-        </div>
+        <div><h1>ATS Friendly Resume Maker</h1><p>Mobile friendly preview + professional CV templates.</p></div>
       </div>
       <a class="home-btn" href="index.html">← Back to Home</a>
     </div>
@@ -85,50 +79,29 @@
   <div class="wrap">
     <aside class="panel">
       <div class="sec">
-        <div class="title">Job profile + template</div>
+        <div class="title">Job profile + professional template</div>
         <label>Job profile category</label>
         <select id="profileType">
-          <option>Data Analyst</option>
-          <option>Business Analyst</option>
-          <option>Data Scientist</option>
-          <option>Machine Learning Engineer</option>
-          <option>BI Developer (Power BI/Tableau)</option>
-          <option>Data Engineer (Entry)</option>
-          <option>Other (General Job Profile)</option>
+          <option>Data Analyst</option><option>Business Analyst</option><option>Data Scientist</option><option>Machine Learning Engineer</option><option>BI Developer (Power BI/Tableau)</option><option>Data Engineer (Entry)</option><option>Other (General Job Profile)</option>
         </select>
-
-        <label>Template layout family</label>
-        <select id="templateLayout">
-          <option value="modern" selected>Modern layout</option>
-          <option value="clean">Clean layout</option>
-          <option value="twocol">Two-column layout</option>
-        </select>
-
-        <label>Template variant (10 unique options for selected layout)</label>
-        <select id="templateVariant"></select>
-        <div class="help">Each variant changes visual style so every selected CV template looks different.</div>
+        <label>CV template design</label>
+        <select id="templateDesign"></select>
+        <div class="help">12 distinct combinations of layout + typography + spacing for professional resume looks.</div>
       </div>
 
       <div class="sec">
-        <div class="title">Import old CV + photo crop (above basic information)</div>
-        <label>Upload old CV file to auto-fill fields (.txt/.pdf/.docx)</label>
-        <input id="cvInput" type="file" accept=".txt,.pdf,.doc,.docx" />
-        <label style="margin-top:8px">Upload profile photo (optional)</label>
-        <input id="photoInput" type="file" accept="image/*" />
-        <div class="crop-wrap">
-          <div class="thumb"><img id="thumbPhoto" alt="photo preview"></div>
-          <div>
-            <label>Crop zoom</label><input id="cropZoom" type="range" min="1" max="2.5" step="0.01" value="1">
-            <label>Crop X position</label><input id="cropX" type="range" min="0" max="100" step="1" value="50">
-            <label>Crop Y position</label><input id="cropY" type="range" min="0" max="100" step="1" value="30">
-          </div>
-        </div>
-        <label>Photo layout style</label>
-        <select id="photoStyle"><option value="none">No photo</option><option value="right" selected>Top-right photo</option><option value="left">Top-left photo</option></select>
+        <div class="title">Import old CV + photo crop</div>
+        <label>Upload old CV file to auto-fill fields (.txt/.pdf/.docx)</label><input id="cvInput" type="file" accept=".txt,.pdf,.doc,.docx" />
+        <label style="margin-top:8px">Upload profile photo (optional)</label><input id="photoInput" type="file" accept="image/*" />
+        <div class="crop-wrap"><div class="thumb"><img id="thumbPhoto" alt="photo preview"></div><div>
+          <label>Crop zoom</label><input id="cropZoom" type="range" min="1" max="2.5" step="0.01" value="1">
+          <label>Crop X position</label><input id="cropX" type="range" min="0" max="100" step="1" value="50">
+          <label>Crop Y position</label><input id="cropY" type="range" min="0" max="100" step="1" value="30">
+        </div></div>
+        <label>Photo layout style</label><select id="photoStyle"><option value="none">No photo</option><option value="right" selected>Top-right photo</option><option value="left">Top-left photo</option></select>
       </div>
 
-      <div class="sec">
-        <div class="title">Basic information</div>
+      <div class="sec"><div class="title">Basic information</div>
         <label>Full name</label><input id="name" placeholder="Your Name" />
         <label>Target role</label><input id="targetRole" placeholder="Data Analyst" />
         <label>Email</label><input id="email" placeholder="name@email.com" />
@@ -137,37 +110,26 @@
         <label>Summary</label><textarea id="summary" placeholder="2-3 lines professional summary"></textarea>
       </div>
 
-      <div class="sec">
-        <div class="title">Skills / Experience</div>
+      <div class="sec"><div class="title">Skills / Experience</div>
         <label>Skills (comma separated)</label><input id="skills" placeholder="Excel, SQL, Python, Power BI" />
         <label>Experience</label><textarea id="experience" placeholder="Company | Role | Duration\n- Achievements"></textarea>
         <label>Projects</label><textarea id="projects" placeholder="Project name\n- Result in metrics"></textarea>
       </div>
 
-      <div class="sec">
-        <div class="title">Education / Certifications</div>
+      <div class="sec"><div class="title">Education / Certifications</div>
         <label>Education</label><textarea id="education" placeholder="Degree, College, Year"></textarea>
         <label>Certifications</label><textarea id="certifications" placeholder="Certificate name, provider, year"></textarea>
       </div>
 
-      <div class="sec actions">
-        <div class="btns">
-          <button id="downloadBtn">Download PDF (A4)</button><button class="alt" id="resetBtn" type="button">Reset</button><button class="gray" id="atsBtn" type="button">Check ATS score</button><button class="gray" id="fillDemoBtn" type="button">Use sample data</button>
-        </div>
-        <div class="ats" id="atsResult">ATS score: Not checked</div>
-      </div>
+      <div class="sec actions"><div class="btns">
+        <button id="downloadBtn">Download PDF (A4)</button><button class="alt" id="resetBtn" type="button">Reset</button><button class="gray" id="atsBtn" type="button">Check ATS score</button><button class="gray" id="fillDemoBtn" type="button">Use sample data</button>
+      </div><div class="ats" id="atsResult">ATS score: Not checked</div></div>
     </aside>
 
     <section class="preview-card">
-      <div id="resumePage" class="page template-modern" data-variant="1">
-        <div id="hdr" class="hdr">
-          <div id="hdrLeft"><h1 class="nm" id="pName">Your Name</h1><div class="role" id="pRole">Target Role</div><div class="small" id="pContact">email@example.com | +91 98XXXXXXXX | City</div></div>
-          <img id="pPhoto" class="photo" alt="Profile photo" />
-        </div>
-        <div class="body">
-          <div class="left" id="leftCol"><div class="h">Education</div><div class="item" id="pEdu">Add education details</div><div class="h">Certifications</div><div class="item" id="pCert">Add certifications</div><div class="h">Skills</div><div class="chips" id="pSkills"></div></div>
-          <div class="right" id="rightCol"><div class="h">Professional Summary</div><div class="item" id="pSummary">Add summary</div><div class="h">Projects</div><div class="item" id="pProjects">Add projects</div><div class="h">Experience</div><div class="item" id="pExp">Add experience</div></div>
-        </div>
+      <div id="resumePage" class="page layout-modern font-inter" data-template="t1">
+        <div id="hdr" class="hdr"><div id="hdrLeft"><h1 class="nm" id="pName">Your Name</h1><div class="role" id="pRole">Target Role</div><div class="small" id="pContact">email@example.com | +91 98XXXXXXXX | City</div></div><img id="pPhoto" class="photo" alt="Profile photo" /></div>
+        <div class="body"><div class="left"><div class="h">Education</div><div class="item" id="pEdu">Add education details</div><div class="h">Certifications</div><div class="item" id="pCert">Add certifications</div><div class="h">Skills</div><div class="chips" id="pSkills"></div></div><div class="right"><div class="h">Professional Summary</div><div class="item" id="pSummary">Add summary</div><div class="h">Projects</div><div class="item" id="pProjects">Add projects</div><div class="h">Experience</div><div class="item" id="pExp">Add experience</div></div></div>
       </div>
     </section>
   </div>
@@ -175,7 +137,22 @@
 <script>
   const ids = ['name','targetRole','email','phone','location','summary','skills','experience','projects','education','certifications'];
   const p = Object.fromEntries(ids.map(i => [i, document.getElementById(i)]));
-  const templateMeta=[['modern','Modern'],['clean','Clean'],['twocol','2-Column'],['minimal','Minimal ATS'],['corporate','Corporate']];
+
+  const templates = {
+    t1:{name:'Executive Blue',layout:'modern',font:'inter',hdr:'#1e3a8a',left:'#eef2ff',line:'#cbd5e1',chip:'#dbeafe',accent:'#1d4ed8'},
+    t2:{name:'Corporate Slate',layout:'executive',font:'roboto',hdr:'#1f2937',left:'#f3f4f6',line:'#d1d5db',chip:'#e5e7eb',accent:'#4b5563'},
+    t3:{name:'Minimal ATS',layout:'minimal',font:'lato',hdr:'#ffffff',left:'#ffffff',line:'#cbd5e1',chip:'#eef2ff',accent:'#1e40af',hdrTxt:'#111'},
+    t4:{name:'Clean Teal',layout:'clean',font:'inter',hdr:'#0f766e',left:'#ffffff',line:'#99f6e4',chip:'#ccfbf1',accent:'#0f766e',hdrTxt:'#111'},
+    t5:{name:'Dual Column Indigo',layout:'split',font:'poppins',hdr:'#4338ca',left:'#eef2ff',line:'#c7d2fe',chip:'#e0e7ff',accent:'#4338ca'},
+    t6:{name:'Band Accent Orange',layout:'band',font:'roboto',hdr:'#ffffff',left:'#fff7ed',line:'#fed7aa',chip:'#ffedd5',accent:'#ea580c',hdrTxt:'#111'},
+    t7:{name:'Premium Purple',layout:'modern',font:'merri',hdr:'#6d28d9',left:'#f5f3ff',line:'#ddd6fe',chip:'#ede9fe',accent:'#7c3aed'},
+    t8:{name:'Monochrome Pro',layout:'clean',font:'lato',hdr:'#111827',left:'#ffffff',line:'#d1d5db',chip:'#f3f4f6',accent:'#111827',hdrTxt:'#111'},
+    t9:{name:'Green Recruiter',layout:'split',font:'inter',hdr:'#166534',left:'#f0fdf4',line:'#bbf7d0',chip:'#dcfce7',accent:'#15803d'},
+    t10:{name:'Navy Manager',layout:'executive',font:'poppins',hdr:'#0f172a',left:'#eff6ff',line:'#bfdbfe',chip:'#dbeafe',accent:'#1d4ed8'},
+    t11:{name:'Classic Serif',layout:'band',font:'merri',hdr:'#ffffff',left:'#f8fafc',line:'#cbd5e1',chip:'#e2e8f0',accent:'#0f172a',hdrTxt:'#111'},
+    t12:{name:'Startup Crisp',layout:'modern',font:'roboto',hdr:'#0ea5e9',left:'#f0f9ff',line:'#bae6fd',chip:'#e0f2fe',accent:'#0284c7'}
+  };
+
   const profileKeywords = {
     'Data Analyst':['excel','sql','power bi','tableau','dashboard','analysis'],
     'Business Analyst':['requirements','stakeholder','sql','kpi','dashboard','documentation'],
@@ -186,27 +163,23 @@
     'Other (General Job Profile)':['communication','teamwork','problem solving','customer','operations','ms office']
   };
 
-  function populateVariants(){
-    const sel = document.getElementById('templateVariant');
-    const family = document.getElementById('templateLayout').value;
-    const names = Array.from({length:10},(_,i)=>`${family.toUpperCase()} Variant ${i+1}`);
-    sel.innerHTML = names.map((n,i)=>`<option value="${i+1}">${n}</option>`).join('');
+  function initTemplateOptions(){
+    const sel=document.getElementById('templateDesign');
+    sel.innerHTML=Object.entries(templates).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('');
   }
 
-  function applyTemplateTheme(){
-    const family = document.getElementById('templateLayout').value;
-    const variant = Number(document.getElementById('templateVariant').value || 1);
-    const page = document.getElementById('resumePage');
-    page.className = `page template-${family}`;
-    page.dataset.variant = String(variant);
-
-    const hueBase = family === 'modern' ? 215 : family === 'clean' ? 190 : 250;
-    const hue = (hueBase + variant * 11) % 360;
-    page.style.setProperty('--resumeHdr', `hsl(${hue} 68% 34%)`);
-    page.style.setProperty('--resumeLeft', `hsl(${(hue+8)%360} 55% 96%)`);
-    page.style.setProperty('--resumeBorder', `hsl(${(hue+14)%360} 20% 78%)`);
-    page.style.setProperty('--resumeChip', `hsl(${(hue+20)%360} 38% 90%)`);
-
+  function applyTemplateDesign(){
+    const key=document.getElementById('templateDesign').value;
+    const cfg=templates[key] || templates.t1;
+    const page=document.getElementById('resumePage');
+    page.className=`page layout-${cfg.layout} font-${cfg.font}`;
+    page.dataset.template=key;
+    page.style.setProperty('--hdr', cfg.hdr);
+    page.style.setProperty('--left', cfg.left);
+    page.style.setProperty('--line2', cfg.line);
+    page.style.setProperty('--chip', cfg.chip);
+    page.style.setProperty('--accent', cfg.accent);
+    page.style.setProperty('--hdrTxt', cfg.hdrTxt || '#fff');
     refreshPhotoPlacement();
   }
 
@@ -219,55 +192,26 @@
     document.getElementById('pExp').textContent = p.experience.value || 'Add experience';
     document.getElementById('pEdu').textContent = p.education.value || 'Add education details';
     document.getElementById('pCert').textContent = p.certifications.value || 'Add certifications';
-
-    const sWrap=document.getElementById('pSkills');
-    sWrap.innerHTML='';
-    (p.skills.value || '').split(',').map(v=>v.trim()).filter(Boolean).forEach(s=>{
-      const c=document.createElement('span');
-      c.className='chip';
-      c.textContent=s;
-      sWrap.appendChild(c);
-    });
+    const sWrap=document.getElementById('pSkills'); sWrap.innerHTML='';
+    (p.skills.value || '').split(',').map(v=>v.trim()).filter(Boolean).forEach(s=>{const c=document.createElement('span'); c.className='chip'; c.textContent=s; sWrap.appendChild(c);});
   }
   ids.forEach(k=>p[k].addEventListener('input', refreshPreview));
 
   function applyCrop(){
-    const zoom=document.getElementById('cropZoom').value;
-    const x=document.getElementById('cropX').value;
-    const y=document.getElementById('cropY').value;
-    ['pPhoto','thumbPhoto'].forEach(id=>{
-      const img=document.getElementById(id);
-      img.style.objectPosition=`${x}% ${y}%`;
-      img.style.transform=`scale(${zoom})`;
-    });
-  }
-  ['cropZoom','cropX','cropY'].forEach(id=>document.getElementById(id).addEventListener('input', applyCrop));
-
-  function applyCrop(){
-    const zoom=document.getElementById('cropZoom').value;
-    const x=document.getElementById('cropX').value;
-    const y=document.getElementById('cropY').value;
+    const zoom=document.getElementById('cropZoom').value, x=document.getElementById('cropX').value, y=document.getElementById('cropY').value;
     ['pPhoto','thumbPhoto'].forEach(id=>{const img=document.getElementById(id); img.style.objectPosition=`${x}% ${y}%`; img.style.transform=`scale(${zoom})`;});
   }
   ['cropZoom','cropX','cropY'].forEach(id=>document.getElementById(id).addEventListener('input', applyCrop));
 
   function refreshPhotoPlacement(){
-    const photo=document.getElementById('pPhoto'); const style=document.getElementById('photoStyle').value;
-    const hdr=document.getElementById('hdr'); const left=document.getElementById('hdrLeft');
+    const photo=document.getElementById('pPhoto'), style=document.getElementById('photoStyle').value, hdr=document.getElementById('hdr'), left=document.getElementById('hdrLeft');
     if(!photo.src || style==='none'){ photo.classList.remove('show'); return; }
     photo.classList.add('show'); if(style==='left'){ hdr.insertBefore(photo,left); } else { hdr.appendChild(photo); }
   }
   document.getElementById('photoStyle').addEventListener('change', refreshPhotoPlacement);
   document.getElementById('photoInput').addEventListener('change', e=>{
-    const file=e.target.files?.[0];
-    if(!file) return;
-    const rd=new FileReader();
-    rd.onload=()=>{
-      document.getElementById('pPhoto').src=rd.result;
-      document.getElementById('thumbPhoto').src=rd.result;
-      applyCrop();
-      refreshPhotoPlacement();
-    };
+    const file=e.target.files?.[0]; if(!file) return;
+    const rd=new FileReader(); rd.onload=()=>{ document.getElementById('pPhoto').src=rd.result; document.getElementById('thumbPhoto').src=rd.result; applyCrop(); refreshPhotoPlacement(); };
     rd.readAsDataURL(file);
   });
 
@@ -278,21 +222,22 @@
     let score = Math.round((hits / Math.max(1,kws.length))*60);
     if(p.summary.value.trim().length>80) score += 10;
     if((p.experience.value.trim().length + p.projects.value.trim().length)>120) score += 10;
-    if(p.education.value.trim()) score += 10; if(p.certifications.value.trim()) score += 10; score = Math.min(100, score);
+    if(p.education.value.trim()) score += 10;
+    if(p.certifications.value.trim()) score += 10;
+    score = Math.min(100, score);
     const missing = kws.filter(k => !hay.includes(k));
     document.getElementById('atsResult').innerHTML = `ATS score: <b>${score}/100</b><br>Missing keywords: ${missing.slice(0,6).join(', ') || 'None'}`;
   }
   document.getElementById('atsBtn').addEventListener('click', scoreATS);
 
   function parseOldCVText(text){
-    const get=(re)=> (text.match(re)?.[1] || '').trim(); p.email.value = p.email.value || get(/([\w.%+-]+@[\w.-]+\.[A-Za-z]{2,})/i); p.phone.value = p.phone.value || get(/(\+?\d[\d\s-]{8,}\d)/);
+    const get=(re)=> (text.match(re)?.[1] || '').trim();
+    p.email.value = p.email.value || get(/([\w.%+-]+@[\w.-]+\.[A-Za-z]{2,})/i);
+    p.phone.value = p.phone.value || get(/(\+?\d[\d\s-]{8,}\d)/);
     const lines=text.split(/\r?\n/).map(v=>v.trim()).filter(Boolean);
     if(!p.name.value && lines.length) p.name.value=lines[0].slice(0,60);
     if(!p.targetRole.value) p.targetRole.value=get(/(?:role|position|title)\s*[:\-]\s*(.+)/i) || document.getElementById('profileType').value;
-    if(!p.skills.value){
-      const s = get(/(?:skills?)\s*[:\-]\s*([\s\S]{0,220})/i).split('\n')[0];
-      p.skills.value = s.replace(/[|;]/g, ',');
-    }
+    if(!p.skills.value){ const s = get(/(?:skills?)\s*[:\-]\s*([\s\S]{0,220})/i).split('\n')[0]; p.skills.value = s.replace(/[|;]/g, ','); }
     if(!p.summary.value) p.summary.value = get(/(?:summary|profile)\s*[:\-]\s*([\s\S]{30,300})/i).split('\n').slice(0,3).join(' ');
     if(!p.education.value) p.education.value = get(/(?:education)\s*[:\-]?\s*([\s\S]{20,300})/i).slice(0,260);
     if(!p.experience.value) p.experience.value = get(/(?:experience)\s*[:\-]?\s*([\s\S]{30,400})/i).slice(0,320);
@@ -305,50 +250,22 @@
   async function parseDocxFile(file){ if(!window.mammoth) throw new Error('DOCX parser not loaded'); const data = await file.arrayBuffer(); const result = await window.mammoth.extractRawText({ arrayBuffer: data }); return result.value || ''; }
 
   document.getElementById('cvInput').addEventListener('change', async e=>{
-    const file=e.target.files?.[0];
-    if(!file) return;
-    const name=file.name.toLowerCase();
-    try{
-      let text='';
-      if(name.endsWith('.txt')) text = await file.text();
-      else if(name.endsWith('.pdf')) text = await parsePdfFile(file);
-      else if(name.endsWith('.docx') || name.endsWith('.doc')) text = await parseDocxFile(file);
-      else { alert('Unsupported file type. Please upload .txt, .pdf, .doc, or .docx'); return; }
-      parseOldCVText(String(text||''));
-    } catch(err){
-      console.error(err);
-      alert('Could not parse this file. Please try .txt export for best results.');
-    }
+    const file=e.target.files?.[0]; if(!file) return; const name=file.name.toLowerCase();
+    try{ let text=''; if(name.endsWith('.txt')) text = await file.text(); else if(name.endsWith('.pdf')) text = await parsePdfFile(file); else if(name.endsWith('.docx') || name.endsWith('.doc')) text = await parseDocxFile(file); else { alert('Unsupported file type. Please upload .txt, .pdf, .doc, or .docx'); return; } parseOldCVText(String(text||'')); }
+    catch(err){ console.error(err); alert('Could not parse this file. Please try .txt export for best results.'); }
   });
 
   async function downloadPdfA4(){
-    const page = document.getElementById('resumePage');
-    const btn = document.getElementById('downloadBtn');
-    btn.disabled = true;
-    btn.textContent = 'Preparing PDF...';
-
+    const page = document.getElementById('resumePage'), btn = document.getElementById('downloadBtn'); btn.disabled = true; btn.textContent = 'Preparing PDF...';
     try{
-      if(!window.html2canvas || !window.jspdf?.jsPDF){
-        window.print();
-        return;
-      }
-
+      if(!window.html2canvas || !window.jspdf?.jsPDF){ window.print(); return; }
       const canvas = await window.html2canvas(page, { scale:2, useCORS:true, backgroundColor:'#ffffff' });
-      const imgData = canvas.toDataURL('image/jpeg', 0.98);
-      const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-      const pdfWidth = 210;
-      const pdfHeight = 297;
-      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      if(imgHeight <= pdfHeight + 0.5){
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, imgHeight, undefined, 'FAST');
-      } else {
+      const imgData = canvas.toDataURL('image/jpeg', 0.98), pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+      const pdfWidth = 210, pdfHeight = 297, imgHeight = (canvas.height * pdfWidth) / canvas.width;
+      if(imgHeight <= pdfHeight + 0.5){ pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, imgHeight, undefined, 'FAST'); }
+      else {
         const totalPages = Math.ceil((imgHeight - 0.5) / pdfHeight);
-        for(let i=0;i<totalPages;i++){
-          if(i>0) pdf.addPage();
-          const yOffset = -(i * pdfHeight);
-          pdf.addImage(imgData, 'JPEG', 0, yOffset, pdfWidth, imgHeight, undefined, 'FAST');
-        }
+        for(let i=0;i<totalPages;i++){ if(i>0) pdf.addPage(); pdf.addImage(imgData, 'JPEG', 0, -(i * pdfHeight), pdfWidth, imgHeight, undefined, 'FAST'); }
       }
 
       pdf.save('resume-a4.pdf');
@@ -357,46 +274,14 @@
   }
 
   document.getElementById('downloadBtn').addEventListener('click', downloadPdfA4);
+  document.getElementById('templateDesign').addEventListener('change', applyTemplateDesign);
 
-  document.getElementById('resetBtn').addEventListener('click', ()=>{
-    ids.forEach(k=>p[k].value='');
-    ['pPhoto','thumbPhoto'].forEach(id=>document.getElementById(id).src='');
-    document.getElementById('photoStyle').value='none';
-    document.getElementById('cropZoom').value=1;
-    document.getElementById('cropX').value=50;
-    document.getElementById('cropY').value=30;
-    document.getElementById('templateLayout').value='modern';
-    populateVariants();
-    document.getElementById('templateVariant').value='1';
-    refreshPreview();
-    applyCrop();
-    applyTemplateTheme();
-    refreshPhotoPlacement();
-    document.getElementById('atsResult').textContent='ATS score: Not checked';
-  });
+  document.getElementById('resetBtn').addEventListener('click', ()=>{ ids.forEach(k=>p[k].value=''); ['pPhoto','thumbPhoto'].forEach(id=>document.getElementById(id).src=''); document.getElementById('photoStyle').value='none'; document.getElementById('cropZoom').value=1; document.getElementById('cropX').value=50; document.getElementById('cropY').value=30; document.getElementById('templateDesign').value='t1'; refreshPreview(); applyCrop(); applyTemplateDesign(); document.getElementById('atsResult').textContent='ATS score: Not checked'; });
+  document.getElementById('fillDemoBtn').addEventListener('click', ()=>{ p.name.value='Aarav Sharma'; p.targetRole.value='Data Analyst'; p.email.value='aarav.sharma@email.com'; p.phone.value='+91 9876543210'; p.location.value='Pune, India'; p.summary.value='Data analyst with hands-on experience in SQL, Python, and BI dashboards. Improved reporting speed and identified growth opportunities using data storytelling.'; p.skills.value='Excel, SQL, Python, Power BI, Tableau, Statistics, Pandas'; p.education.value='B.Tech in Computer Science, 2023, Pune University'; p.certifications.value='Google Data Analytics, Microsoft Power BI Data Analyst'; p.projects.value='Sales KPI Dashboard\n- Built Power BI dashboard reducing manual reporting by 60%\nChurn Prediction\n- Built classification model with 84% accuracy'; p.experience.value='ABC Analytics | Data Analyst Intern | Jan 2024 - Jun 2024\n- Automated weekly reports using SQL + Python\n- Presented insights to operations team'; document.getElementById('photoStyle').value='right'; refreshPreview(); scoreATS(); });
 
-  document.getElementById('fillDemoBtn').addEventListener('click', ()=>{
-    p.name.value='Aarav Sharma'; p.targetRole.value='Data Analyst'; p.email.value='aarav.sharma@email.com'; p.phone.value='+91 9876543210'; p.location.value='Pune, India';
-    p.summary.value='Data analyst with hands-on experience in SQL, Python, and BI dashboards. Improved reporting speed and identified growth opportunities using data storytelling.';
-    p.skills.value='Excel, SQL, Python, Power BI, Tableau, Statistics, Pandas'; p.education.value='B.Tech in Computer Science, 2023, Pune University';
-    p.certifications.value='Google Data Analytics, Microsoft Power BI Data Analyst';
-    p.projects.value='Sales KPI Dashboard\n- Built Power BI dashboard reducing manual reporting by 60%\nChurn Prediction\n- Built classification model with 84% accuracy';
-    p.experience.value='ABC Analytics | Data Analyst Intern | Jan 2024 - Jun 2024\n- Automated weekly reports using SQL + Python\n- Presented insights to operations team';
-    document.getElementById('photoStyle').value='right';
-    refreshPreview();
-    scoreATS();
-  });
-
-  document.getElementById('templateLayout').addEventListener('change', ()=>{
-    populateVariants();
-    document.getElementById('templateVariant').value='1';
-    applyTemplateTheme();
-  });
-  document.getElementById('templateVariant').addEventListener('change', applyTemplateTheme);
-
-  populateVariants();
-  document.getElementById('templateVariant').value='1';
-  applyTemplateTheme();
+  initTemplateOptions();
+  document.getElementById('templateDesign').value='t1';
+  applyTemplateDesign();
   refreshPreview();
   applyCrop();
 </script>
