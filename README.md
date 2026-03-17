@@ -2,16 +2,16 @@
 
 DataLearn10X training website with multi-course pages, payment flow, access verification, and analytics.
 
-## Current offer pricing
-- Advance Excel: MRP ₹999 | Offer ₹1
-- Python: MRP ₹2000 | Offer ₹1
-- Power BI: MRP ₹2500 | Offer ₹1
+## Current offer pricing (synced with `index.html`)
+- Advance Excel: MRP ₹999 | Offer ₹49
+- Python: MRP ₹2000 | Offer ₹99
+- Power BI: MRP ₹2500 | Offer ₹99
 - Tableau: Coming Soon
 - SQL (MySQL): Coming Soon
-- Machine Learning + Deep Learning: MRP ₹3000 | Offer ₹1
-- Data Analytics Cheat Sheets: MRP ₹499 | Offer ₹1
-- 20000+ HR Emails: MRP ₹499 | Offer ₹1
-- Data Analytics Combo (all courses + resources): Offer ₹1
+- Machine Learning + Deep Learning: MRP ₹3000 | Offer ₹99
+- Data Analytics Cheat Sheets: currently shown as FREE in the buy section but disabled for standalone purchase
+- 20000+ HR Emails: MRP ₹499 | Offer ₹19
+- Data Analytics Combo (all courses + resources): Offer ₹199
 
 
 ## Course access behavior (important)
@@ -111,3 +111,18 @@ If you rename/add/remove files inside `ads/`, run:
 python3 scripts/sync_ads_config.py
 ```
 This updates `config.js` -> `AD_IMAGES` to match current files in the folder.
+
+
+## Repository + website update checklist
+Use this checklist before pushing a new public release:
+
+1. **Pricing consistency**
+   - Keep offer prices aligned across `index.html` cards, buy cart, and this README.
+2. **Config sanity**
+   - Confirm `config.js` values (`SHEET_WEBAPP_URL`, WhatsApp details, ad images) are production-ready.
+3. **Ads sync**
+   - If files changed in `ads/`, run `python3 scripts/sync_ads_config.py`.
+4. **Static integrity check**
+   - Run `python3 scripts/check_website.py --verbose` and fix any broken links/references.
+5. **Apps Script deployment**
+   - If backend sheet logic changed, redeploy Apps Script and re-test `check_email.html`.
