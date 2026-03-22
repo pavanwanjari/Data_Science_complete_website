@@ -10,9 +10,65 @@
 var SPREADSHEET_ID = "1JZnJkVTX0ArDFtjV_Nlv_Spb3JB-5-KkuvbFpEflvjA";
 var SHEET_NAME = "Sheet1";
 var ANALYTICS_SHEET_NAME = "Analytics";
+var PURCHASE_HEADERS = [
+  "timestamp",
+  "name",
+  "mobile",
+  "email",
+  "profession",
+  "course",
+  "total",
+  "discount",
+  "netpayment",
+  "payment_id",
+  "order_id",
+  "signature"
+];
+var ANALYTICS_HEADERS = [
+  "timestamp",
+  "event_name",
+  "page",
+  "page_title",
+  "page_url",
+  "referrer",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+  "utm_id",
+  "fbclid",
+  "gclid",
+  "gbraid",
+  "wbraid",
+  "ttclid",
+  "source_platform",
+  "source_type",
+  "source_label",
+  "visitor_id",
+  "session_id",
+  "user_agent",
+  "payload_json"
+];
+
+function getOrCreateSheet_(sheetName, headers) {
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName);
+  }
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(headers);
+  }
+  return sheet;
+}
 
 function getSheet_() {
-  return SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+  return getOrCreateSheet_(SHEET_NAME, PURCHASE_HEADERS);
+}
+
+function getAnalyticsSheet_() {
+  return getOrCreateSheet_(ANALYTICS_SHEET_NAME, ANALYTICS_HEADERS);
 }
 
 function getAnalyticsSheet_() {

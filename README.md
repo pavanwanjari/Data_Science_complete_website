@@ -83,6 +83,8 @@ Deployment checklist:
 4. Confirm `config.js` -> `SHEET_WEBAPP_URL` is this latest deployed URL.
 5. Test in browser: `YOUR_WEBAPP_URL?action=check&email=your-test-email@example.com`.
 
+> You do **not** need to manually create the `Sheet1` or `Analytics` headers in a fresh spreadsheet. The updated Apps Script now creates the sheet and header row automatically the first time that sheet is used.
+
 Result: `check_email.html` will show only courses purchased by that email (no extra course links).
 
 ## Shared analytics deployment
