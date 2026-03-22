@@ -71,41 +71,6 @@ function getAnalyticsSheet_() {
   return getOrCreateSheet_(ANALYTICS_SHEET_NAME, ANALYTICS_HEADERS);
 }
 
-function getAnalyticsSheet_() {
-  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  var sheet = ss.getSheetByName(ANALYTICS_SHEET_NAME);
-  if (!sheet) {
-    sheet = ss.insertSheet(ANALYTICS_SHEET_NAME);
-    sheet.appendRow([
-      "timestamp",
-      "event_name",
-      "page",
-      "page_title",
-      "page_url",
-      "referrer",
-      "utm_source",
-      "utm_medium",
-      "utm_campaign",
-      "utm_content",
-      "utm_term",
-      "utm_id",
-      "fbclid",
-      "gclid",
-      "gbraid",
-      "wbraid",
-      "ttclid",
-      "source_platform",
-      "source_type",
-      "source_label",
-      "visitor_id",
-      "session_id",
-      "user_agent",
-      "payload_json"
-    ]);
-  }
-  return sheet;
-}
-
 function normalizeEmail_(value) {
   return String(value || "").toLowerCase().trim();
 }
