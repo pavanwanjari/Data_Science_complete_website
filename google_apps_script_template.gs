@@ -7,7 +7,7 @@
  * - Supports remote analytics export for the admin dashboard.
  */
 
-var SPREADSHEET_ID = "1kDHBNgBhFpMums95elXHLxpkAfzRv7Gc45gLjjEdJLk";
+var SPREADSHEET_ID = "1JZnJkVTX0ArDFtjV_Nlv_Spb3JB-5-KkuvbFpEflvjA";
 var SHEET_NAME = "Sheet1";
 var ANALYTICS_SHEET_NAME = "Analytics";
 
