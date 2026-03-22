@@ -11,7 +11,7 @@ DataLearn10X training website with multi-course pages, payment flow, access veri
 - Machine Learning + Deep Learning: MRP ₹3000 | Offer ₹99
 - Data Analytics Cheat Sheets: currently shown as FREE in the buy section but disabled for standalone purchase
 - 20000+ HR Emails: MRP ₹499 | Offer ₹19
-- Data Analytics Combo (all courses + resources): Offer ₹199
+- Data Analytics Combo (all courses + resources): Offer ₹0 till March 31, 2026
 
 
 ## Course access behavior (important)
@@ -35,11 +35,14 @@ Frontend save now uses POST form fields matching provided Apps Script:
 ## Analytics files
 - `analytics.js`
 - `analytics_dashboard.html`
+- `google_apps_script_template.gs` (now also stores/export shared analytics events)
 
 
 ## Analytics dashboard login
 - Replace the default dashboard credential mapping in `analytics_dashboard.html` before going live.
 - Do not keep plaintext hints or share access keys in repository docs.
+- The dashboard now prefers remote analytics exported from the Apps Script (`?action=analytics_export`). If that endpoint is not deployed yet, it falls back to local browser-only data.
+- To measure Facebook, Instagram, WhatsApp, Google, YouTube, and other campaign traffic correctly, add UTM parameters to ad URLs, for example: `?utm_source=facebook&utm_medium=paid_social&utm_campaign=summer_offer`, `?utm_source=instagram&utm_medium=paid_social&utm_campaign=reel_ad`, `?utm_source=whatsapp&utm_medium=shared_link&utm_campaign=promo_blast`, `?utm_source=google&utm_medium=cpc&utm_campaign=search_leads`, or `?utm_source=youtube&utm_medium=video&utm_campaign=shorts_launch`.
 
 
 ## After copying this website to a new repository
@@ -80,7 +83,16 @@ Deployment checklist:
 4. Confirm `config.js` -> `SHEET_WEBAPP_URL` is this latest deployed URL.
 5. Test in browser: `YOUR_WEBAPP_URL?action=check&email=your-test-email@example.com`.
 
+> You do **not** need to manually create the `Sheet1` or `Analytics` headers in a fresh spreadsheet. The updated Apps Script now creates the sheet and header row automatically the first time that sheet is used.
+
 Result: `check_email.html` will show only courses purchased by that email (no extra course links).
+
+## Shared analytics deployment
+The updated `google_apps_script_template.gs` now supports two analytics endpoints in the same web app:
+- `POST action=analytics_event` → stores page views, campaign attribution, source platform detection, click IDs, and funnel events into an `Analytics` sheet.
+- `GET action=analytics_export&limit=10000` → returns recent analytics events as JSON for `analytics_dashboard.html`.
+
+After redeploying the Apps Script Web App, the dashboard can finally show shared visit counts from Instagram ad clicks across devices/browsers instead of only the current browser's localStorage.
 
 ## Quick website health check
 Run a static verification before publishing:
