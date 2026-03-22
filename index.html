@@ -93,9 +93,7 @@
 
     .reveal{opacity:0;transform:translateY(28px) scale(.985);transition:opacity .75s ease,transform .75s ease}
     .reveal.visible{opacity:1;transform:none}
-    .tilt{transform-style:preserve-3d;transition:transform .3s ease,box-shadow .3s ease}
-    .tilt:hover{box-shadow:0 22px 42px rgba(76,154,255,.3)}
-    .youtube-wrap{background:linear-gradient(145deg,rgba(12,22,44,.96),rgba(19,30,58,.85));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 14px 28px rgba(0,0,0,.32)}
+.youtube-wrap{background:linear-gradient(145deg,rgba(12,22,44,.96),rgba(19,30,58,.85));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 14px 28px rgba(0,0,0,.32)}
     .yt-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:18px}
     .yt-card{background:rgba(255,255,255,.04);border:1px solid rgba(126,175,245,.22);border-radius:14px;padding:12px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
     .yt-card:hover{transform:translateY(-4px);border-color:rgba(138,195,255,.65);box-shadow:0 14px 28px rgba(80,158,255,.22)}
@@ -120,7 +118,7 @@
       <span class="hero-chip">🔐 Secure Checkout</span>
     </div>
     <div class="glow-line" aria-hidden="true"></div>
-    <a class="pill" id="offerPill" href="#explore-courses" aria-label="Go to Explore Courses">🔥 All Courses Bundle Offer ₹199</a>
+    <a class="pill" id="offerPill" href="#explore-courses" aria-label="Go to Explore Courses">🔥 All Courses Bundle Offer ₹0 till 31 March 2026</a>
   </header>
 
   <section class="ads-section" aria-label="Latest offers">
@@ -146,7 +144,7 @@
 
   <section class="section reveal">
     <div class="container">
-      <div class="audience-wrap tilt">
+      <div class="audience-wrap">
         <h2>Who is this course for ?</h2>
         <p class="sub">Designed for learners at every stage who want practical, job-focused analytics skills.</p>
         <div class="audience-grid">
@@ -179,7 +177,7 @@
   </section>
 
   <section class="section reveal" id="buy-section">
-    <div class="container buy-wrap tilt">
+    <div class="container buy-wrap">
       <h2>Buy Courses (Multi-select Cart)</h2>
       <p class="sub">Select one or more courses. Combo overrides individual selection.</p>
       <div class="cart-grid">
@@ -191,7 +189,7 @@
         <label class="chk"><input type="checkbox" class="courseChk" value="Machine Learning + Deep Learning" data-price="99"> ML + DL (₹99)</label>
         <label class="chk" style="opacity:.6"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="1" disabled> Cheat Sheets and Interview Questions (FREE)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="20000+ HR Emails" data-price="19"> 20000+ HR Emails (₹19)</label>
-        <label class="chk" style="background:#edf4ff;border-color:#8cb8ff"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="199"> <b>Data Analytics Combo (all courses + resources) ₹199</b></label>
+        <label class="chk" style="background:#edf4ff;border-color:#8cb8ff"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="0"> <b>Data Analytics Combo (all courses + resources) ₹0 till 31 March 2026</b></label>
       </div>
 
       <div class="total" id="totalText">Total: ₹0</div>
@@ -246,7 +244,7 @@
 
   <section class="section reveal" id="hiring-companies">
     <div class="container">
-      <div class="hiring-wrap tilt">
+      <div class="hiring-wrap">
         <h2>Top 10 Indian Companies Hiring Data Analysts</h2>
         <p class="sub" style="margin-bottom:8px">For informational purposes only: these leading Indian companies hire data analyst candidates and offer strong packages with career growth opportunities.</p>
         <div class="logo-marquee" aria-label="Top Indian companies logos moving in one row">
@@ -279,7 +277,7 @@
 
   <section class="section reveal" id="youtube-showcase">
     <div class="container">
-      <div class="youtube-wrap tilt">
+      <div class="youtube-wrap">
         <h2>🎬 Learn from Our YouTube Reels & Videos</h2>
         <p class="sub">Watch quick reels, practical demos, and full explainers from our channel. Stay updated with latest AI + analytics learning tips.</p>
         <div class="yt-actions">
@@ -304,7 +302,7 @@
 
 <script>
 const SITE_CONFIG = window.DL10X_CONFIG || {};
-const SHEET_WEBAPP_URL = SITE_CONFIG.SHEET_WEBAPP_URL || "https://script.google.com/macros/s/AKfycbynjfLEISwk9m3Zoe4bX4vR5u2rwsEcHhfzUk4LsqvC6th4rYm0d-bXlSroMCz7EVZX/exec";
+const SHEET_WEBAPP_URL = SITE_CONFIG.SHEET_WEBAPP_URL || "https://script.google.com/macros/s/AKfycbypIyL48VhqzRy_osCCO-RXFhty7I4hwW2w0C6u4mcuYy8Onq9Yb_XxMGGjWUKAvb4/exec";
 const WHATSAPP_NUMBER = SITE_CONFIG.WHATSAPP_NUMBER || "919403030512";
 const WHATSAPP_TEXT = SITE_CONFIG.WHATSAPP_TEXT || "Hi DataLearn10X, I want details about courses";
 const AD_IMAGES_BASE_URL = SITE_CONFIG.AD_IMAGES_BASE_URL || "";
@@ -427,21 +425,6 @@ function initRevealAnimations(){
   revealEls.forEach(function(el){ io.observe(el); });
 }
 
-function initTiltEffects(){
-  var tiltEls = Array.from(document.querySelectorAll('.tilt'));
-  tiltEls.forEach(function(el){
-    el.addEventListener('mousemove', function(e){
-      var r = el.getBoundingClientRect();
-      var x = ((e.clientX - r.left) / r.width - 0.5) * 10;
-      var y = ((e.clientY - r.top) / r.height - 0.5) * -10;
-      el.style.transform = 'perspective(900px) rotateX(' + y.toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg)';
-    });
-    el.addEventListener('mouseleave', function(){
-      el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
-    });
-  });
-}
-
 function renderYouTubeShowcase(){
   var ytGrid = document.getElementById('ytGrid');
   var ytBtn = document.getElementById('ytChannelBtn');
@@ -464,7 +447,7 @@ function track(e,p){window.PSAAnalytics.trackEvent(e,p||{});}
 function setMsg(t,isErr){const m=document.getElementById('msg');m.style.color=isErr?'#b42318':'#157a38';m.innerText=t;}
 
 function selectedItems(){
-  if(comboChk.checked){return [{name:'Data Analytics Combo',price:199}];}
+  if(comboChk.checked){return [{name:'Data Analytics Combo',price:0}];}
   return individualChecks.filter(c=>c.checked).map(c=>({name:c.value,price:Number(c.dataset.price)}));
 }
 
@@ -605,6 +588,7 @@ function payNow(){
   if(err){setMsg(err,true);return;}
 
   localStorage.setItem('latestLead',JSON.stringify(lead));
+  track('buy_now_clicked',{courses:lead.courses,total:total});
   document.getElementById('buyBtn').disabled=true;
   setMsg('Opening secure checkout...',false);
 
@@ -653,7 +637,6 @@ parsePreselect();
 updateTotal();
 animateMetrics();
 initRevealAnimations();
-initTiltEffects();
 renderYouTubeShowcase();
 track('landing_page_viewed',{page:'index_datalearn10x'});
 </script>
