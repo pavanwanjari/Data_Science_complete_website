@@ -605,6 +605,7 @@ function payNow(){
   if(err){setMsg(err,true);return;}
 
   localStorage.setItem('latestLead',JSON.stringify(lead));
+  track('buy_now_clicked',{courses:lead.courses,total:total});
   document.getElementById('buyBtn').disabled=true;
   setMsg('Opening secure checkout...',false);
 

@@ -8,10 +8,11 @@
 <meta name="description" content="Internal analytics dashboard for DataLearn10X event insights and learner activity metrics.">
 <meta name="robots" content="noindex,nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="config.js" defer></script>
 <script src="analytics.js" defer></script>
 <style>
 body{font-family:'Poppins',sans-serif;background:#f5f8ff;color:#24324a;margin:0;padding:25px;}
-.wrap{max-width:1100px;margin:auto;}
+.wrap{max-width:1180px;margin:auto;}
 h1{font-size:28px;margin-bottom:8px;}
 .sub{color:#5d6d8a;font-size:14px;margin-bottom:20px;}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;}
@@ -20,12 +21,12 @@ h1{font-size:28px;margin-bottom:8px;}
 .card p{font-size:24px;margin:0;font-weight:700;color:#1f3b78;}
 .panel{background:#fff;border-radius:12px;padding:14px;box-shadow:0 8px 22px rgba(0,0,0,.08);margin-bottom:18px;}
 .bar-row{display:flex;align-items:center;gap:10px;margin:8px 0;}
-.bar-label{width:180px;font-size:13px;word-break:break-word;}
+.bar-label{width:240px;font-size:13px;word-break:break-word;}
 .bar-track{flex:1;background:#ecf1ff;border-radius:8px;overflow:hidden;height:22px;}
 .bar-fill{background:linear-gradient(90deg,#3b82f6,#10b981);height:100%;}
-.bar-count{width:42px;text-align:right;font-size:13px;}
+.bar-count{width:72px;text-align:right;font-size:13px;}
 table{width:100%;border-collapse:collapse;font-size:13px;}
-th,td{border-bottom:1px solid #eef2ff;padding:8px;text-align:left;}
+th,td{border-bottom:1px solid #eef2ff;padding:8px;text-align:left;vertical-align:top;}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
 button,a.btn,input{border:none;border-radius:8px;padding:9px 12px;font-size:13px;}
 button,a.btn{background:#1f3b78;color:#fff;cursor:pointer;text-decoration:none;}
@@ -39,6 +40,10 @@ button.danger{background:#b42318;}
 .auth-msg{min-height:20px;font-size:13px;color:#b42318;}
 .hide{display:none !important;}
 .user-chip{font-size:12px;color:#336; background:#eaf0ff;padding:5px 9px;border-radius:20px;display:inline-block;margin-left:8px;}
+.note{margin-top:10px;font-size:12px;color:#5d6d8a;line-height:1.5;}
+.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#e8f3ff;color:#174ea6;font-size:12px;font-weight:600;margin:0 0 14px;}
+.warn{margin-top:10px;font-size:12px;color:#92400e;background:#fff7ed;border:1px solid #fed7aa;padding:8px;border-radius:8px;}
+.ok{margin-top:10px;font-size:12px;color:#166534;background:#ecfdf5;border:1px solid #bbf7d0;padding:8px;border-radius:8px;}
 </style>
 </head>
 <body>
@@ -59,16 +64,23 @@ button.danger{background:#b42318;}
 
 <div class="wrap" id="dashboardApp">
   <h1>📊 Website Analytics Dashboard <span id="activeUser" class="user-chip"></span></h1>
-  <p class="sub">Private local dashboard for conversion events. This page now requires authentication each session.</p>
-  <p class="sub" style="margin-top:-8px">Rates are calculated from tracked events on this device/browser (localStorage), so clearing data or testing flows can affect percentages.</p>
+  <p class="sub">This dashboard now groups paid and organic traffic from Facebook, Instagram, WhatsApp, Google, YouTube, and other channels by using UTM tags, click IDs, and referrer detection. It still falls back to local browser events when remote analytics export is unavailable.</p>
+  <div id="dataStatus" class="status">Checking analytics source…</div>
 
   <div class="actions">
     <a class="btn" href="index.html">← Back to Website</a>
-    <button class="danger" onclick="clearDataSecure()">Clear Analytics (Protected)</button>
+    <button class="danger" onclick="clearDataSecure()">Clear Local Analytics Cache</button>
+    <button class="secondary" onclick="reloadDashboard()">Refresh Data</button>
     <button class="secondary" onclick="logoutDashboard()">Logout</button>
   </div>
 
   <div class="grid" id="summary"></div>
+
+  <div class="panel">
+    <h3>Marketing Channel Overview</h3>
+    <div id="channelBars"></div>
+    <p class="note">Recommended ad links: add UTMs such as <b>utm_source=facebook</b>, <b>utm_source=instagram</b>, <b>utm_source=whatsapp</b>, <b>utm_source=google</b>, or <b>utm_source=youtube</b> with <b>utm_campaign</b> for cleaner attribution.</p>
+  </div>
 
   <div class="panel">
     <h3>Event Counts</h3>
@@ -81,6 +93,12 @@ button.danger{background:#b42318;}
   </div>
 
   <div class="panel">
+    <h3>Traffic Sources & Campaigns</h3>
+    <div id="sourceBars"></div>
+    <p class="note">This panel combines source platform + campaign, so you can compare paid traffic across Facebook, Instagram, WhatsApp, Google, YouTube, and any other tagged source.</p>
+  </div>
+
+  <div class="panel">
     <h3>Page Insights</h3>
     <div id="pageBars"></div>
   </div>
@@ -88,7 +106,7 @@ button.danger{background:#b42318;}
   <div class="panel">
     <h3>Recent Events</h3>
     <table>
-      <thead><tr><th>Time</th><th>Event</th><th>Page</th><th>Details</th></tr></thead>
+      <thead><tr><th>Time</th><th>Event</th><th>Channel</th><th>Source</th><th>Page</th><th>Details</th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
   </div>
@@ -101,6 +119,12 @@ var DASHBOARD_USERS = {
 
 var SESSION_KEY = "psaDashboardAuth";
 var SESSION_HOURS = 8;
+var DASHBOARD_STATE = {
+  source: "local",
+  events: [],
+  remoteEnabled: false
+};
+var KEY_CHANNELS = ["facebook", "instagram", "whatsapp", "google", "youtube"];
 
 async function sha256(text){
   var data = new TextEncoder().encode(text);
@@ -148,11 +172,120 @@ function getSession(){
   }
 }
 
-function enableDashboard(userId){
+function endpoint(){
+  var config = window.DL10X_CONFIG || {};
+  return config.SHEET_WEBAPP_URL || "";
+}
+
+function hostOf(url){
+  if(!url || url === 'direct') return '';
+  try{ return new URL(url).hostname.toLowerCase(); }catch(e){ return String(url || '').toLowerCase(); }
+}
+
+function classifyChannel(meta){
+  meta = meta || {};
+  if(meta.source_platform){
+    return {
+      platform: String(meta.source_platform).toLowerCase(),
+      type: meta.source_type || 'unknown',
+      label: meta.source_label || meta.source_platform
+    };
+  }
+  if(window.PSAAnalytics && typeof window.PSAAnalytics.detectSource === 'function'){
+    var inferred = window.PSAAnalytics.detectSource(meta);
+    return {
+      platform: inferred.source_platform,
+      type: inferred.source_type,
+      label: inferred.source_label
+    };
+  }
+  var host = hostOf(meta.referrer || '');
+  return {
+    platform: host || 'direct',
+    type: meta.utm_medium || (host ? 'referral' : 'direct'),
+    label: host || 'direct'
+  };
+}
+
+function pickSource(evt){
+  var meta = evt.meta || {};
+  var channel = classifyChannel(meta);
+  if(meta.utm_campaign){
+    return channel.platform + ' / ' + meta.utm_campaign;
+  }
+  if(channel.label){
+    return channel.label;
+  }
+  if(meta.referrer && meta.referrer !== 'direct'){
+    return hostOf(meta.referrer) || meta.referrer;
+  }
+  return 'direct';
+}
+
+function normalizeRemoteEvent(item){
+  var payload = item.payload;
+  if(typeof payload === 'string'){
+    try{ payload = JSON.parse(payload); }catch(e){ payload = {}; }
+  }
+  payload = payload || {};
+  return {
+    event: item.event_name || item.event || '',
+    payload: payload,
+    page: item.page || '/',
+    ts: item.timestamp || item.ts || new Date().toISOString(),
+    meta: {
+      page: item.page || '/',
+      page_title: item.page_title || '',
+      page_url: item.page_url || '',
+      referrer: item.referrer || 'direct',
+      utm_source: item.utm_source || '',
+      utm_medium: item.utm_medium || '',
+      utm_campaign: item.utm_campaign || '',
+      utm_content: item.utm_content || '',
+      utm_term: item.utm_term || '',
+      utm_id: item.utm_id || '',
+      fbclid: item.fbclid || '',
+      gclid: item.gclid || '',
+      gbraid: item.gbraid || '',
+      wbraid: item.wbraid || '',
+      ttclid: item.ttclid || '',
+      source_platform: item.source_platform || '',
+      source_type: item.source_type || '',
+      source_label: item.source_label || '',
+      visitor_id: item.visitor_id || '',
+      session_id: item.session_id || '',
+      user_agent: item.user_agent || ''
+    }
+  };
+}
+
+async function loadEvents(){
+  var url = endpoint();
+  if(url){
+    try{
+      var res = await fetch(url + '?action=analytics_export&limit=10000', { cache: 'no-store' });
+      if(res.ok){
+        var json = await res.json();
+        if(json && Array.isArray(json.events)){
+          DASHBOARD_STATE.source = 'remote';
+          DASHBOARD_STATE.remoteEnabled = true;
+          return json.events.map(normalizeRemoteEvent);
+        }
+      }
+    }catch(e){
+      console.warn('Remote analytics export unavailable:', e);
+    }
+  }
+  DASHBOARD_STATE.source = 'local';
+  DASHBOARD_STATE.remoteEnabled = false;
+  return PSAAnalytics.getStoredEvents();
+}
+
+async function enableDashboard(userId){
   document.getElementById("authOverlay").classList.add("hide");
   document.getElementById("activeUser").innerText = userId;
-  PSAAnalytics.trackEvent("dashboard_viewed", {user:userId});
-  render();
+  PSAAnalytics.trackEvent("dashboard_viewed", {user:userId, view:'analytics_dashboard'});
+  await render();
 }
 
 function logoutDashboard(){
@@ -161,15 +294,15 @@ function logoutDashboard(){
 }
 
 async function clearDataSecure(){
-  var step1 = prompt('Type "CLEAR ALL" to confirm analytics reset:');
-  if(step1 !== "CLEAR ALL"){
-    alert("Cancelled. Analytics not deleted.");
+  var step1 = prompt('Type "CLEAR LOCAL" to remove this browser analytics cache:');
+  if(step1 !== "CLEAR LOCAL"){
+    alert("Cancelled. Local analytics not deleted.");
     return;
   }
 
-  var key = prompt("Enter your access key again to delete:");
+  var key = prompt("Enter your access key again:");
   if(!key){
-    alert("Cancelled. Analytics not deleted.");
+    alert("Cancelled. Local analytics not deleted.");
     return;
   }
 
@@ -182,21 +315,48 @@ async function clearDataSecure(){
 
   var hash = await sha256(key);
   if(hash !== DASHBOARD_USERS[session.userId]){
-    alert("Wrong key. Analytics not deleted.");
+    alert("Wrong key. Local analytics not deleted.");
     return;
   }
 
   localStorage.removeItem(PSAAnalytics.STORAGE_KEY);
-  PSAAnalytics.trackEvent("dashboard_cleared", {user: session.userId});
-  render();
+  alert("Local analytics cache cleared for this browser. Remote sheet data was not deleted.");
+  PSAAnalytics.trackEvent("dashboard_local_cache_cleared", {user: session.userId});
+  await render();
 }
 
-function render(){
-  var events = PSAAnalytics.getStoredEvents();
+function formatRate(numerator, denominator){
+  if(!denominator){ return "0.0% (0/0)"; }
+  var raw = (numerator / denominator) * 100;
+  var safePct = Math.min(raw, 100);
+  return safePct.toFixed(1) + "% (" + numerator + "/" + denominator + ")";
+}
+
+function renderBars(map, targetId, emptyText){
+  var values = Object.values(map);
+  var max = Math.max.apply(null, values.concat([1]));
+  var html = Object.keys(map).sort(function(a,b){ return map[b]-map[a]; }).map(function(name){
+    var width = Math.round((map[name]/max)*100);
+    return '<div class="bar-row"><div class="bar-label">'+name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+width+'%"></div></div><div class="bar-count">'+map[name]+'</div></div>';
+  }).join('');
+  document.getElementById(targetId).innerHTML = html || '<p>' + emptyText + '</p>';
+}
+
+async function render(){
+  var status = document.getElementById('dataStatus');
+  status.textContent = 'Loading analytics…';
+  var events = await loadEvents();
+  DASHBOARD_STATE.events = events;
+
   var counts = {};
   var courseCounts = {};
   var pageCounts = {};
   var dayCounts = {};
+  var sourceCounts = {};
+  var channelCounts = {};
+  var pageViews = 0;
+  var uniqueVisitors = {};
+  var uniqueSessions = {};
 
   events.forEach(function(e){
     counts[e.event] = (counts[e.event] || 0) + 1;
@@ -206,6 +366,18 @@ function render(){
 
     var dayKey = new Date(e.ts).toISOString().slice(0,10);
     dayCounts[dayKey] = (dayCounts[dayKey] || 0) + 1;
+
+    var meta = e.meta || {};
+    var channel = classifyChannel(meta);
+    if(meta.visitor_id){ uniqueVisitors[meta.visitor_id] = true; }
+    if(meta.session_id){ uniqueSessions[meta.session_id] = true; }
+
+    if(e.event === 'page_view'){
+      pageViews += 1;
+      channelCounts[channel.platform] = (channelCounts[channel.platform] || 0) + 1;
+      var sourceName = pickSource(e);
+      sourceCounts[sourceName] = (sourceCounts[sourceName] || 0) + 1;
+    }
 
     if(e.event === 'course_page_viewed'){
       var courseName = (e.payload && e.payload.course) || pageName.replace('.html','');
@@ -221,23 +393,18 @@ function render(){
   var topCourse = Object.keys(courseCounts).sort(function(a,b){ return courseCounts[b]-courseCounts[a]; })[0] || '-';
   var uniqueCoursePages = Object.keys(courseCounts).length;
   var uniquePages = Object.keys(pageCounts).length;
-
-  function formatRate(numerator, denominator){
-    if(!denominator){ return "0.0% (0/0)"; }
-    var raw = (numerator / denominator) * 100;
-    var safePct = Math.min(raw, 100);
-    return safePct.toFixed(1) + "% (" + numerator + "/" + denominator + ")";
-  }
-
-  var conversion = formatRate(success, buy);
-  var verifyRate = formatRate(verifySuccess, success);
-  var dataNote = "";
-  if(success > buy || verifySuccess > success){
-    dataNote = '<p style="margin-top:10px;font-size:12px;color:#92400e;background:#fff7ed;border:1px solid #fed7aa;padding:8px;border-radius:8px">ℹ️ Some raw counts are higher than earlier funnel steps (usually due to old test data, cleared browser data, or cross-session flows). Rates are capped at 100% to avoid impossible percentages.</p>';
-  }
+  var last7 = Object.keys(dayCounts).sort().slice(-7).map(function(day){ return day + ' (' + dayCounts[day] + ')'; }).join(' • ');
 
   var summary = [
-    ["Total Events", events.length],
+    ["Tracked Events", events.length],
+    ["Page Views", pageViews],
+    ["Facebook Visits", channelCounts.facebook || 0],
+    ["Instagram Visits", channelCounts.instagram || 0],
+    ["WhatsApp Visits", channelCounts.whatsapp || 0],
+    ["Google Visits", channelCounts.google || 0],
+    ["YouTube Visits", channelCounts.youtube || 0],
+    ["Unique Visitors", Object.keys(uniqueVisitors).length],
+    ["Unique Sessions", Object.keys(uniqueSessions).length],
     ["Course Page Views", courseViews],
     ["Top Course", topCourse],
     ["Unique Course Pages", uniqueCoursePages],
@@ -245,49 +412,53 @@ function render(){
     ["Buy Clicks", buy],
     ["Payments Success", success],
     ["Payments Failed", failed],
-    ["Checkout → Success", conversion],
-    ["Success → Verify", verifyRate]
+    ["Checkout → Success", formatRate(success, buy)],
+    ["Success → Verify", formatRate(verifySuccess, success)]
   ];
 
-  document.getElementById("summary").innerHTML = summary.map(function(item){
+  var summaryHtml = summary.map(function(item){
     return '<div class="card"><h3>'+item[0]+'</h3><p>'+item[1]+'</p></div>';
-  }).join('') + dataNote;
-
-  var maxCount = Math.max.apply(null, Object.values(counts).concat([1]));
-  var barsHtml = Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }).map(function(name){
-    var width = Math.round((counts[name]/maxCount)*100);
-    return '<div class="bar-row"><div class="bar-label">'+name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+width+'%"></div></div><div class="bar-count">'+counts[name]+'</div></div>';
   }).join('');
-  document.getElementById("bars").innerHTML = barsHtml || '<p>No events yet.</p>';
+  summaryHtml += DASHBOARD_STATE.source === 'remote'
+    ? '<div class="ok">Shared analytics export is active. These counts combine traffic from visitors across devices/browsers that reached the Apps Script.</div>'
+    : '<div class="warn">Remote analytics export is not available, so the dashboard is showing only this browser\'s local events. Cross-device ad clicks from Facebook, Instagram, WhatsApp, Google, YouTube, and other channels will not appear until the updated Apps Script is deployed.</div>';
+  document.getElementById('summary').innerHTML = summaryHtml;
 
-  var maxCourse = Math.max.apply(null, Object.values(courseCounts).concat([1]));
-  var courseBars = Object.keys(courseCounts).sort(function(a,b){ return courseCounts[b]-courseCounts[a]; }).map(function(name){
-    var width = Math.round((courseCounts[name]/maxCourse)*100);
-    return '<div class="bar-row"><div class="bar-label">'+name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+width+'%"></div></div><div class="bar-count">'+courseCounts[name]+'</div></div>';
+  var channelOrder = {};
+  Object.keys(channelCounts).sort(function(a,b){ return channelCounts[b]-channelCounts[a]; }).forEach(function(name){
+    channelOrder[name] = channelCounts[name];
+  });
+  KEY_CHANNELS.forEach(function(name){
+    if(channelOrder[name] == null){ channelOrder[name] = 0; }
+  });
+  renderBars(channelOrder, 'channelBars', 'No tracked page views yet.');
+  renderBars(counts, 'bars', 'No events yet.');
+  renderBars(courseCounts, 'courseBars', 'No course page views yet. Open course pages to start collecting data.');
+  renderBars(sourceCounts, 'sourceBars', 'No tracked page views yet.');
+
+  var topPages = {};
+  Object.keys(pageCounts).sort(function(a,b){ return pageCounts[b]-pageCounts[a]; }).slice(0,10).forEach(function(name){
+    topPages[name] = pageCounts[name];
+  });
+  renderBars(topPages, 'pageBars', 'No page traffic yet.');
+  document.getElementById('pageBars').innerHTML += '<p class="note"><b>Last 7 days activity:</b> ' + (last7 || 'No recent events') + '</p>';
+
+  var rows = events.slice().reverse().slice(0,30).map(function(e){
+    var meta = e.meta || {};
+    var channel = classifyChannel(meta);
+    var source = pickSource(e);
+    return '<tr><td>'+new Date(e.ts).toLocaleString()+'</td><td>'+e.event+'</td><td>'+channel.platform+'</td><td>'+source+'</td><td>'+e.page+'</td><td>'+JSON.stringify(e.payload || {})+'</td></tr>';
   }).join('');
-  document.getElementById("courseBars").innerHTML = courseBars || '<p>No course page views yet. Open course pages to start collecting data.</p>';
+  document.getElementById('rows').innerHTML = rows || '<tr><td colspan="6">No events yet.</td></tr>';
 
-  var maxPage = Math.max.apply(null, Object.values(pageCounts).concat([1]));
-  var topPages = Object.keys(pageCounts).sort(function(a,b){ return pageCounts[b]-pageCounts[a]; }).slice(0,10);
-  var pageBars = topPages.map(function(name){
-    var width = Math.round((pageCounts[name]/maxPage)*100);
-    return '<div class="bar-row"><div class="bar-label">'+name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+width+'%"></div></div><div class="bar-count">'+pageCounts[name]+'</div></div>';
-  }).join('');
-
-  var latestDays = Object.keys(dayCounts).sort().slice(-7);
-  var recentActivity = latestDays.map(function(day){
-    return day+' ('+dayCounts[day]+')';
-  }).join(' • ');
-
-  document.getElementById("pageBars").innerHTML = (pageBars || '<p>No page traffic yet.</p>') +
-    '<p style="margin-top:10px;font-size:12px;color:#5d6d8a"><b>Last 7 days activity:</b> '+(recentActivity || 'No recent events')+'</p>';
-
-  var rows = events.slice().reverse().slice(0,20).map(function(e){
-    return '<tr><td>'+new Date(e.ts).toLocaleString()+'</td><td>'+e.event+'</td><td>'+e.page+'</td><td>'+JSON.stringify(e.payload || {})+'</td></tr>';
-  }).join('');
-  document.getElementById("rows").innerHTML = rows || '<tr><td colspan="4">No events yet.</td></tr>';
+  status.textContent = DASHBOARD_STATE.source === 'remote'
+    ? 'Showing shared Google Sheet analytics'
+    : 'Showing local browser analytics only';
 }
 
+async function reloadDashboard(){
+  await render();
+}
 
 var existing = getSession();
 if(existing){
