@@ -55,6 +55,8 @@
     .cart-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:16px 0}
     .chk{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(126,175,245,.35);border-radius:10px;padding:10px}
     .chk input{margin-top:3px}
+    .chk.combo-offer{background:#edf4ff;border-color:#8cb8ff;color:#0f172a;font-weight:600}
+    .chk.combo-offer b{color:#0f172a}
     .form{margin-top:10px;text-align:center}
     .form input,.form select{width:92%;max-width:380px;padding:12px;margin:6px;border:1px solid rgba(134,187,255,.38);border-radius:8px;background:rgba(8,19,42,.7);color:#e8f2ff}
     .total{font-size:22px;font-weight:700;color:#87f6c5;text-align:center;margin:10px 0}
@@ -189,7 +191,7 @@
         <label class="chk"><input type="checkbox" class="courseChk" value="Machine Learning + Deep Learning" data-price="99"> ML + DL (₹99)</label>
         <label class="chk" style="opacity:.6"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="1" disabled> Cheat Sheets and Interview Questions (FREE)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="20000+ HR Emails" data-price="19"> 20000+ HR Emails (₹19)</label>
-        <label class="chk" style="background:#edf4ff;border-color:#8cb8ff"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="0"> <b>Data Analytics Combo (all courses + resources) ₹0 till 31 March 2026</b></label>
+        <label class="chk combo-offer"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="0"> <b>Data Analytics Combo (all courses + resources) ₹0 till 31 March 2026</b></label>
       </div>
 
       <div class="total" id="totalText">Total: ₹0</div>
@@ -590,8 +592,16 @@ function payNow(){
   localStorage.setItem('latestLead',JSON.stringify(lead));
   track('buy_now_clicked',{courses:lead.courses,total:total});
   document.getElementById('buyBtn').disabled=true;
-  setMsg('Opening secure checkout...',false);
 
+  if(total===0){
+    const paymentId='FREE-COMBO-'+Date.now();
+    setMsg('Free combo offer activated. Unlocking your access...',false);
+    track('payment_success',{payment_id:paymentId,courses:lead.courses,total:total,mode:'free_offer'});
+    savePayment(lead,paymentId,total).finally(()=>openAccess(lead,paymentId));
+    return;
+  }
+
+  setMsg('Opening secure checkout...',false);
   const options={
     key:'rzp_live_yA31xxMPut8Ech',
     amount:total*100,
@@ -617,7 +627,7 @@ function payNow(){
   rzp.on('payment.failed',function(resp){
     document.getElementById('buyBtn').disabled=false;
     setMsg('Payment failed. Please retry.',true);
-    track('payment_failed',{reason:resp.error&&resp.error.description?resp.error.description:'unknown'});
+    track('payment_failed',{reason:resp.error&&resp.error.description?resp.error&&resp.error.description:'unknown'});
   });
 
   rzp.open();
