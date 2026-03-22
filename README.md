@@ -11,7 +11,7 @@ DataLearn10X training website with multi-course pages, payment flow, access veri
 - Machine Learning + Deep Learning: MRP ₹3000 | Offer ₹99
 - Data Analytics Cheat Sheets: currently shown as FREE in the buy section but disabled for standalone purchase
 - 20000+ HR Emails: MRP ₹499 | Offer ₹19
-- Data Analytics Combo (all courses + resources): Offer ₹199
+- Data Analytics Combo (all courses + resources): Offer ₹0 till March 31, 2026
 
 
 ## Course access behavior (important)
