@@ -11,70 +11,44 @@ window.DL10X_CONFIG = {
     {
       name: "LinkedIn Jobs",
       url: "https://www.linkedin.com/jobs/",
-      focus: "Best for professional networking + direct recruiter outreach.",
-      tip: "Optimize headline, About section, and featured projects before applying.",
-      bestFor: "Best for internships, analyst roles, and professional referrals."
+      logo: "https://www.google.com/s2/favicons?domain=linkedin.com&sz=128",
+      focus: "Professional networking + recruiter reach",
+      tip: "Best for direct applications, referrals, and profile visibility."
     },
     {
       name: "Indeed",
       url: "https://www.indeed.com/",
-      focus: "High volume job board with filters by location, salary, and experience.",
-      tip: "Create multiple alerts for role keywords like Data Analyst, BI Analyst, Python Developer.",
-      bestFor: "Best for daily job alerts and high-volume applications."
+      logo: "https://www.google.com/s2/favicons?domain=indeed.com&sz=128",
+      focus: "High-volume job board",
+      tip: "Great for daily alerts and entry-level job searches."
     },
     {
       name: "Naukri",
       url: "https://www.naukri.com/",
-      focus: "Popular job platform for India with fresher and experienced roles.",
-      tip: "Update profile completion, resume freshness, and key skills weekly.",
-      bestFor: "Best for students and freshers targeting India-based companies."
+      logo: "https://www.google.com/s2/favicons?domain=naukri.com&sz=128",
+      focus: "Popular India job platform",
+      tip: "Best for freshers and India-based hiring."
     },
     {
       name: "Wellfound",
       url: "https://wellfound.com/jobs",
-      focus: "Startup-focused jobs with transparent role details and salary ranges.",
-      tip: "Use this for product, data, software, and startup internship roles.",
-      bestFor: "Best for startup jobs and early-career tech roles."
+      logo: "https://www.google.com/s2/favicons?domain=wellfound.com&sz=128",
+      focus: "Startup jobs",
+      tip: "Good for startup internships and early-career tech roles."
     },
     {
       name: "Internshala",
       url: "https://internshala.com/jobs/",
-      focus: "Internships and entry-level roles with student-friendly application flows.",
-      tip: "Use it to build experience quickly if you are still in college.",
-      bestFor: "Best for internships, traineeships, and first-job applications."
+      logo: "https://www.google.com/s2/favicons?domain=internshala.com&sz=128",
+      focus: "Internships + student jobs",
+      tip: "Best for students building first experience."
     },
     {
       name: "Glassdoor",
       url: "https://www.glassdoor.com/Job/index.htm",
-      focus: "Job listings plus company reviews and salary insights.",
-      tip: "Check interview reviews before applying to tailor your preparation.",
-      bestFor: "Best for research before interviews and salary benchmarking."
-    }
-  ],
-  ATS_API_OPTIONS: [
-    {
-      name: "Affinda Resume Parser",
-      url: "https://docs.affinda.com/resumes",
-      type: "Resume parsing API (free trial available)",
-      summary: "Good when you want structured extraction of sections, skills, work history, and education from uploaded resumes.",
-      integration: "Recommended production setup: send uploaded files from your backend to Affinda, then use the parsed JSON to auto-fill your resume builder and ATS insights.",
-      studentUse: "Use it to reduce manual typing and improve resume section detection before scoring."
-    },
-    {
-      name: "Eden AI Resume Parser",
-      url: "https://www.edenai.co/feature/ocr-resume-parser-apis",
-      type: "Unified resume parsing API (freemium / provider aggregator)",
-      summary: "Useful if you want one integration that can switch across multiple document AI providers.",
-      integration: "Best for a future backend layer where you compare provider quality and cost without rebuilding your frontend.",
-      studentUse: "Use parsed output to highlight missing contact, skills, project, and education sections."
-    },
-    {
-      name: "Adzuna API",
-      url: "https://developer.adzuna.com/overview",
-      type: "Job search API (registration required)",
-      summary: "Provides searchable job ads, salary trends, categories, and company data through a REST API.",
-      integration: "Best for powering dynamic job recommendations beside the ATS report after you add a secure backend proxy.",
-      studentUse: "Show matching jobs by role, city, or skill gaps after resume analysis."
+      logo: "https://www.google.com/s2/favicons?domain=glassdoor.com&sz=128",
+      focus: "Jobs + company research",
+      tip: "Useful for checking company reviews and salaries before applying."
     }
   ]
 };

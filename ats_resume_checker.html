@@ -3,210 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="DataLearn10X professional ATS resume checker with resume upload, JD matching, keyword gap analysis, corrections, and student-friendly job search guidance." />
-  <title>ATS Resume Score Checker - DataLearn10X</title>
+  <meta name="description" content="Simple and professional ATS resume checker by DataLearn10X with JD match, keyword suggestions, resume upload, and job website links." />
+  <title>ATS Resume Checker - DataLearn10X</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" defer></script>
   <script src="analytics.js" defer></script>
   <script src="config.js" defer></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-    :root{--bg:#070b14;--panel:#0d1730;--panel2:#111f42;--line:#28426f;--txt:#e7efff;--muted:#9fb4d9;--pri:#38bdf8;--pri2:#2563eb;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444;--chip:#16284f}
+    :root{--bg:#07111f;--panel:#0c1a31;--panel2:#10223f;--line:#29466f;--txt:#e8f0ff;--muted:#9fb5db;--pri:#2563eb;--pri2:#0ea5e9;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444}
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top left,#1f3d7b 0,#0b1020 38%,#070b14 100%);color:var(--txt)}
-    a{color:inherit}
-    .shell{max-width:1280px;margin:0 auto;padding:18px 14px 32px}
-    .hero,.panel,.card,.link-card,.job-card,.api-card,.score-card,.tip-card{background:linear-gradient(145deg,rgba(10,20,40,.95),rgba(18,33,66,.88));border:1px solid rgba(120,164,240,.25);box-shadow:0 16px 40px rgba(0,0,0,.28)}
-    .hero{border-radius:20px;padding:22px 22px 18px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:flex-start}
-    .hero h1{margin:0;font-size:34px;line-height:1.05}
-    .hero p{margin:10px 0 0;color:#d8e6ff;max-width:760px}
-    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{border:none;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at top left,#1f407f 0,#0b1020 36%,#07111f 100%);color:var(--txt)}
+    a{text-decoration:none;color:inherit}
+    .shell{max-width:1220px;margin:0 auto;padding:18px 14px 32px}
+    .header,.card,.site-card,.metric-card{background:linear-gradient(145deg,rgba(11,22,41,.96),rgba(17,34,64,.9));border:1px solid rgba(129,176,248,.22);box-shadow:0 18px 40px rgba(0,0,0,.24)}
+    .header{border-radius:22px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{width:58px;height:58px;border-radius:14px;background:#fff;padding:4px;object-fit:contain}
+    .brand h1{margin:0;font-size:28px;line-height:1.05}
+    .brand p{margin:6px 0 0;color:#dbe7ff;font-size:14px;max-width:760px}
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:12px;border:none;font-weight:700;cursor:pointer}
     .btn.primary{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff}
-    .btn.secondary{background:#18294f;color:#fff;border:1px solid rgba(137,177,245,.26)}
-    .hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-    .chip{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(132,180,255,.24);font-size:12px;color:#dce9ff}
-    .layout{display:grid;grid-template-columns:420px 1fr;gap:16px;margin-top:16px}
-    .panel{border-radius:18px;padding:16px;position:sticky;top:12px;height:max-content}
-    .main{display:grid;gap:16px}
-    .sec{border-top:1px solid rgba(99,139,209,.24);padding-top:14px;margin-top:14px}
-    .sec:first-child{border-top:none;margin-top:0;padding-top:0}
-    .sec h2{margin:0 0 8px;font-size:18px}
-    .sub{font-size:13px;color:var(--muted);margin:0 0 10px}
-    label{display:block;font-size:12px;color:#b7caeb;margin:10px 0 5px}
-    input,textarea,select{width:100%;padding:12px;border-radius:12px;border:1px solid #375a92;background:#09162d;color:#f7fbff;font:inherit}
-    textarea{min-height:110px;resize:vertical}
-    .mini-grid,.score-grid,.tips-grid,.job-grid,.api-grid,.quick-links{display:grid;gap:12px}
-    .mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .score-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
-    .tips-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .job-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .api-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .quick-links{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-    .card,.score-card,.tip-card,.link-card,.job-card,.api-card{border-radius:16px;padding:16px}
-    .metric{font-size:30px;font-weight:800}
+    .btn.secondary{background:#182a4f;color:#fff;border:1px solid rgba(129,176,248,.2)}
+    .layout{display:grid;grid-template-columns:380px 1fr;gap:16px;margin-top:16px}
+    .card{border-radius:20px;padding:18px}
+    .form-card{position:sticky;top:12px;height:max-content}
+    h2{margin:0 0 8px;font-size:20px}
+    .sub{margin:0 0 12px;color:var(--muted);font-size:13px}
+    label{display:block;font-size:12px;color:#bdd0ef;margin:10px 0 6px}
+    input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #3a5c92;background:#09162d;color:#f6fbff;font:inherit}
+    textarea{min-height:118px;resize:vertical}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .help{font-size:12px;color:var(--muted);margin-top:8px}
+    .right{display:grid;gap:16px}
+    .score-wrap{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}
+    .score-number{font-size:54px;font-weight:800;line-height:1}
+    .score-label{font-size:15px;font-weight:700;margin-top:8px}
+    .summary-box{max-width:520px;padding:14px 16px;border-radius:16px;background:rgba(14,165,233,.08);border:1px solid rgba(56,189,248,.22);color:#dff6ff}
+    .metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .metric-card{border-radius:16px;padding:16px}
+    .metric-card h3{margin:0 0 8px;font-size:14px}
+    .metric{font-size:34px;font-weight:800}
+    .meta{font-size:12px;color:var(--muted);margin-top:6px}
     .good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
-    .score-card h3,.tip-card h3,.api-card h3,.job-card h3,.link-card h3{margin:0 0 8px;font-size:15px}
-    .meta{font-size:12px;color:var(--muted)}
-    .list,.ordered{margin:10px 0 0;padding-left:18px}
-    .list li,.ordered li{margin:8px 0;color:#dce8ff}
-    .ordered li strong{color:#fff}
-    .inline-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .progress{height:13px;border-radius:999px;background:#0a1428;overflow:hidden;border:1px solid rgba(119,166,238,.22);margin-top:12px}
-    .progress > span{display:block;height:100%;background:linear-gradient(90deg,#0ea5e9,#2563eb,#22c55e);width:0;transition:width .4s ease}
-    .banner{padding:12px 14px;border-radius:14px;background:rgba(14,165,233,.1);border:1px solid rgba(56,189,248,.25);color:#d9f5ff;font-size:13px}
-    .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .keyword-pill{padding:7px 10px;border-radius:999px;font-size:12px;background:var(--chip);border:1px solid rgba(122,174,255,.2)}
-    .keyword-pill.missing{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.32);color:#ffd7d7}
-    .keyword-pill.hit{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.34);color:#dbffe8}
-    .footer-note{font-size:12px;color:var(--muted);margin-top:8px}
-    .split{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
-    .upload-note{font-size:12px;color:var(--muted);margin-top:8px}
-    @media (max-width:1100px){.layout{grid-template-columns:1fr}.panel{position:static}.score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tips-grid,.split{grid-template-columns:1fr}}
-    @media (max-width:640px){.hero h1{font-size:28px}.mini-grid,.score-grid{grid-template-columns:1fr}}
+    .pill-group{display:flex;flex-wrap:wrap;gap:8px}
+    .pill{padding:8px 11px;border-radius:999px;font-size:12px;background:#122445;border:1px solid rgba(129,176,248,.18)}
+    .pill.good{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.26);color:#dcffe8}
+    .pill.bad{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:#ffd7d7}
+    .list{margin:10px 0 0;padding-left:18px}
+    .list li{margin:8px 0;color:#dfe8ff}
+    .sites{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+    .site-card{border-radius:18px;padding:16px;text-align:left;display:flex;flex-direction:column;gap:10px;transition:transform .2s ease,border-color .2s ease}
+    .site-card:hover{transform:translateY(-3px);border-color:rgba(129,176,248,.45)}
+    .site-head{display:flex;align-items:center;gap:12px}
+    .site-logo{width:44px;height:44px;border-radius:12px;background:#fff;padding:8px;object-fit:contain}
+    .site-name{font-weight:700}
+    .quick-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .quick-link{padding:10px 12px;border-radius:12px;background:#15284c;border:1px solid rgba(129,176,248,.16);font-size:13px}
+    @media (max-width:1040px){.layout{grid-template-columns:1fr}.form-card{position:static}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:640px){.brand h1{font-size:24px}.metric-grid,.actions{grid-template-columns:1fr}.score-number{font-size:42px}}
   </style>
 </head>
 <body>
   <div class="shell">
-    <section class="hero">
-      <div>
-        <h1>Advanced ATS Resume Score Checker</h1>
-        <p>Upload or paste a resume, compare it with a target job description, and get professional keyword, structure, impact, and correction guidance. This tool is built to help students maximize ATS fit and improve interview chances.</p>
-        <div class="hero-stats">
-          <span class="chip">📄 Resume upload + parsing</span>
-          <span class="chip">🎯 JD-to-resume match score</span>
-          <span class="chip">🛠 Correction ideas to improve score</span>
-          <span class="chip">💼 Job search shortcuts for students</span>
+    <section class="header">
+      <div class="brand">
+        <img src="dl10x.png" alt="DataLearn10X logo" />
+        <div>
+          <h1>DataLearn10X ATS Resume Checker</h1>
+          <p>Clean, simple, and student-friendly ATS analysis with resume upload, job-description matching, keyword improvement tips, and direct job website links.</p>
         </div>
       </div>
-      <div class="hero-actions">
-        <a class="btn primary" href="resume_maker.html">Open Resume Builder</a>
+      <div class="top-actions">
         <a class="btn secondary" href="index.html">Back to Home</a>
+        <a class="btn primary" href="resume_maker.html">Open Resume Builder</a>
       </div>
     </section>
 
     <div class="layout">
-      <aside class="panel">
-        <div class="sec">
-          <h2>1) Resume + target role</h2>
-          <p class="sub">Upload an existing CV, or import the latest draft from the DataLearn10X resume builder.</p>
-          <label for="resumeFile">Upload resume (.txt, .pdf, .doc, .docx)</label>
-          <input id="resumeFile" type="file" accept=".txt,.pdf,.doc,.docx" />
-          <div class="upload-note">Best results: PDF with selectable text or DOCX export.</div>
-          <div class="inline-actions">
-            <button class="btn secondary" id="importDraftBtn" type="button">Import resume builder draft</button>
-            <button class="btn secondary" id="sampleBtn" type="button">Load sample resume</button>
-          </div>
-          <label for="candidateName">Candidate name</label>
-          <input id="candidateName" type="text" placeholder="Student name" />
-          <label for="targetRole">Target IT role</label>
-          <select id="targetRole"></select>
-          <label for="resumeText">Resume text</label>
-          <textarea id="resumeText" placeholder="Paste resume text here for ATS analysis."></textarea>
-        </div>
+      <section class="card form-card">
+        <h2>Analyze your resume</h2>
+        <p class="sub">Import from the resume builder, upload a resume, or paste text directly.</p>
 
-        <div class="sec">
-          <h2>2) Target job description</h2>
-          <p class="sub">Paste a real job description to compare your resume against recruiter requirements.</p>
-          <label for="jobTitle">Job title</label>
-          <input id="jobTitle" type="text" placeholder="Junior Data Analyst" />
-          <label for="jobDescription">Job description</label>
-          <textarea id="jobDescription" placeholder="Paste JD here. The checker will extract likely ATS keywords, tools, and action verbs."></textarea>
-        </div>
+        <label for="resumeFile">Upload resume (.txt, .pdf, .doc, .docx)</label>
+        <input id="resumeFile" type="file" accept=".txt,.pdf,.doc,.docx" />
 
-        <div class="sec">
-          <h2>3) Analyze + next steps</h2>
-          <div class="inline-actions">
-            <button class="btn primary" id="analyzeBtn" type="button">Run ATS analysis</button>
-            <button class="btn secondary" id="sendToBuilderBtn" type="button">Send to resume builder</button>
-          </div>
-          <div class="progress" aria-hidden="true"><span id="scoreProgress"></span></div>
-          <div class="footer-note" id="statusText">Tip: add a real job description for a more professional ATS match report.</div>
-        </div>
-      </aside>
+        <label for="candidateName">Candidate name</label>
+        <input id="candidateName" type="text" placeholder="Your name" />
 
-      <main class="main">
-        <section class="card">
-          <div class="split">
+        <label for="targetRole">Target role</label>
+        <select id="targetRole"></select>
+
+        <label for="jobTitle">Job title</label>
+        <input id="jobTitle" type="text" placeholder="Junior Data Analyst" />
+
+        <label for="resumeText">Resume text</label>
+        <textarea id="resumeText" placeholder="Paste your resume text here"></textarea>
+
+        <label for="jobDescription">Job description</label>
+        <textarea id="jobDescription" placeholder="Paste the job description here for better ATS matching"></textarea>
+
+        <div class="actions">
+          <button class="btn primary" id="analyzeBtn" type="button">Run ATS Check</button>
+          <button class="btn secondary" id="importDraftBtn" type="button">Import Builder Draft</button>
+          <button class="btn secondary" id="sampleBtn" type="button">Use Sample</button>
+          <button class="btn secondary" id="sendToBuilderBtn" type="button">Send to Builder</button>
+        </div>
+        <div class="help" id="statusText">Add a real job description for the best score and keyword suggestions.</div>
+      </section>
+
+      <section class="right">
+        <article class="card">
+          <div class="score-wrap">
             <div>
-              <h2 style="margin:0">Overall ATS result</h2>
-              <p class="sub">This score combines keyword match, formatting safety, section completeness, measurable impact, and recruiter readability.</p>
-              <div class="metric" id="overallScore">0/100</div>
-              <div class="meta" id="overallLabel">Run the analysis to see your score.</div>
-              <div class="banner" id="summaryBanner" style="margin-top:12px">No analysis yet. Upload or paste a resume, add a target role, and click <strong>Run ATS analysis</strong>.</div>
+              <div class="score-number" id="overallScore">0/100</div>
+              <div class="score-label" id="overallLabel">Run the ATS check to see your score.</div>
             </div>
-            <div class="mini-grid">
-              <div class="score-card"><h3>Resume words</h3><div class="metric" id="resumeWordCount">0</div><div class="meta">Ideal: concise, role-focused content.</div></div>
-              <div class="score-card"><h3>JD keywords used</h3><div class="metric" id="keywordHits">0</div><div class="meta">Role + JD keywords found in resume.</div></div>
-              <div class="score-card"><h3>Missing keywords</h3><div class="metric" id="missingCount">0</div><div class="meta">High-priority skills to add naturally.</div></div>
-              <div class="score-card"><h3>Impact bullets</h3><div class="metric" id="impactCount">0</div><div class="meta">Lines with metrics like %, x, ₹, $, hours.</div></div>
-            </div>
+            <div class="summary-box" id="summaryBox">Your result will show the most important missing keywords, section gaps, and corrections to improve ATS performance.</div>
           </div>
-        </section>
-
-        <section class="score-grid">
-          <article class="score-card"><h3>Keyword match</h3><div class="metric" id="keywordScore">0</div><div class="meta" id="keywordMeta">No data yet.</div></article>
-          <article class="score-card"><h3>Formatting safety</h3><div class="metric" id="formatScore">0</div><div class="meta" id="formatMeta">ATS-friendly structure check.</div></article>
-          <article class="score-card"><h3>Section completeness</h3><div class="metric" id="sectionScore">0</div><div class="meta" id="sectionMeta">Core sections present or missing.</div></article>
-          <article class="score-card"><h3>Impact & results</h3><div class="metric" id="impactScore">0</div><div class="meta" id="impactMeta">Numbers, outcomes, action verbs.</div></article>
-          <article class="score-card"><h3>Readability</h3><div class="metric" id="readabilityScore">0</div><div class="meta" id="readabilityMeta">Simple text quality check.</div></article>
-        </section>
-
-        <section class="card">
-          <h2 style="margin:0 0 6px">Priority corrections to improve score</h2>
-          <p class="sub">These are the fastest improvements students should make before applying.</p>
-          <ol class="ordered" id="correctionList">
-            <li>Add your resume and run the checker to generate personalized corrections.</li>
-          </ol>
-        </section>
-
-        <section class="tips-grid">
-          <article class="tip-card">
-            <h3>Matched keywords</h3>
-            <div class="pill-row" id="matchedKeywords"><span class="keyword-pill">No analysis yet</span></div>
-          </article>
-          <article class="tip-card">
-            <h3>Missing / weak keywords</h3>
-            <div class="pill-row" id="missingKeywords"><span class="keyword-pill missing">No analysis yet</span></div>
-          </article>
-          <article class="tip-card">
-            <h3>Suggested ATS-safe sections</h3>
-            <ul class="list" id="sectionList">
-              <li>Professional Summary</li>
-              <li>Skills</li>
-              <li>Projects</li>
-              <li>Experience / Internship</li>
-              <li>Education</li>
-            </ul>
-          </article>
-          <article class="tip-card">
-            <h3>Rewrite ideas</h3>
-            <ul class="list" id="rewriteIdeas">
-              <li>Turn generic statements into proof-based achievements.</li>
-              <li>Add role keywords naturally inside projects and internships.</li>
-              <li>Use bullets that begin with strong action verbs.</li>
-            </ul>
-          </article>
-        </section>
-
-        <section class="card">
-          <h2 style="margin:0 0 6px">Top job search websites for students</h2>
-          <p class="sub">Use these trusted platforms while improving your ATS score. Apply with a customized resume for each role.</p>
-          <div class="job-grid" id="jobBoards"></div>
-        </section>
-
-        <section class="card">
-          <h2 style="margin:0 0 6px">Free / freemium ATS and job API options</h2>
-          <p class="sub">For a static website like this one, the best production approach is a hybrid: run instant client-side ATS scoring for all students, then optionally connect a third-party parser or job API from a secure backend when you are ready.</p>
-          <div class="api-grid" id="apiOptions"></div>
-        </section>
-
-        <section class="card">
-          <h2 style="margin:0 0 6px">Student job search quick links</h2>
-          <p class="sub">These links are generated from the selected role to help students start applying faster.</p>
           <div class="quick-links" id="quickLinks"></div>
-        </section>
-      </main>
+        </article>
+
+        <article class="metric-grid">
+          <div class="metric-card"><h3>Keyword Match</h3><div class="metric" id="keywordScore">0</div><div class="meta" id="keywordMeta">No analysis yet.</div></div>
+          <div class="metric-card"><h3>Sections</h3><div class="metric" id="sectionScore">0</div><div class="meta" id="sectionMeta">No analysis yet.</div></div>
+          <div class="metric-card"><h3>Impact</h3><div class="metric" id="impactScore">0</div><div class="meta" id="impactMeta">No analysis yet.</div></div>
+          <div class="metric-card"><h3>Readability</h3><div class="metric" id="readabilityScore">0</div><div class="meta" id="readabilityMeta">No analysis yet.</div></div>
+        </article>
+
+        <article class="card">
+          <h2>Matched keywords</h2>
+          <div class="pill-group" id="matchedKeywords"><span class="pill">No analysis yet</span></div>
+        </article>
+
+        <article class="card">
+          <h2>Missing keywords</h2>
+          <div class="pill-group" id="missingKeywords"><span class="pill bad">No analysis yet</span></div>
+        </article>
+
+        <article class="card">
+          <h2>Corrections to improve score</h2>
+          <ul class="list" id="correctionList">
+            <li>Upload or paste a resume and run the checker.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Top job search websites</h2>
+          <p class="sub">Use these platforms after updating your resume for each job.</p>
+          <div class="sites" id="jobBoards"></div>
+        </article>
+      </section>
     </div>
   </div>
 
@@ -216,31 +164,24 @@
 
     const roleLibrary = {
       'Data Analyst': ['excel','sql','power bi','tableau','dashboard','kpi','analysis','reporting','python','data cleaning'],
-      'Business Analyst': ['requirements','stakeholder','documentation','sql','kpi','process improvement','dashboard','user stories','analysis'],
-      'Data Scientist': ['python','machine learning','statistics','pandas','numpy','scikit-learn','modeling','feature engineering','visualization'],
-      'Machine Learning Engineer': ['python','tensorflow','pytorch','deployment','api','docker','mlops','model serving','pipeline'],
-      'BI Developer (Power BI/Tableau)': ['power bi','tableau','dax','sql','etl','dashboard','data modeling','reporting'],
-      'Data Engineer (Entry)': ['sql','python','etl','pipeline','warehouse','airflow','spark','data quality'],
-      'Frontend Developer': ['html','css','javascript','react','ui','responsive','git','api'],
-      'Backend Developer': ['python','java','node','api','sql','rest','authentication','backend'],
-      'Full Stack Developer': ['html','css','javascript','react','node','api','sql','git'],
-      'Cyber Security Analyst': ['siem','incident response','network security','risk','vulnerability','soc','monitoring'],
-      'Cloud / DevOps Engineer': ['aws','azure','docker','kubernetes','ci/cd','linux','terraform','monitoring'],
-      'Other (General IT Role)': ['communication','teamwork','problem solving','project management','excel','documentation']
+      'Business Analyst': ['requirements','stakeholder','documentation','sql','kpi','process improvement','dashboard','analysis'],
+      'Data Scientist': ['python','machine learning','statistics','pandas','numpy','modeling','feature engineering'],
+      'Machine Learning Engineer': ['python','tensorflow','pytorch','deployment','api','mlops','pipeline'],
+      'BI Developer (Power BI/Tableau)': ['power bi','tableau','dax','sql','etl','dashboard','data modeling'],
+      'Data Engineer (Entry)': ['sql','python','etl','pipeline','warehouse','airflow','spark'],
+      'Frontend Developer': ['html','css','javascript','react','responsive','api','git'],
+      'Backend Developer': ['python','java','node','api','sql','rest','backend'],
+      'Full Stack Developer': ['html','css','javascript','react','node','api','sql'],
+      'Other (General IT Role)': ['communication','teamwork','problem solving','documentation','excel']
     };
 
     const els = {
       resumeFile: document.getElementById('resumeFile'),
       candidateName: document.getElementById('candidateName'),
       targetRole: document.getElementById('targetRole'),
-      resumeText: document.getElementById('resumeText'),
       jobTitle: document.getElementById('jobTitle'),
+      resumeText: document.getElementById('resumeText'),
       jobDescription: document.getElementById('jobDescription'),
-      analyzeBtn: document.getElementById('analyzeBtn'),
-      sampleBtn: document.getElementById('sampleBtn'),
-      importDraftBtn: document.getElementById('importDraftBtn'),
-      sendToBuilderBtn: document.getElementById('sendToBuilderBtn'),
-      scoreProgress: document.getElementById('scoreProgress'),
       statusText: document.getElementById('statusText')
     };
 
@@ -248,50 +189,32 @@
       els.targetRole.innerHTML = Object.keys(roleLibrary).map(role => `<option>${role}</option>`).join('');
     }
 
-    function normalizeText(text) {
+    function normalize(text) {
       return String(text || '').replace(/\s+/g, ' ').trim();
     }
 
-    function getWords(text) {
-      return normalizeText(text).toLowerCase().match(/[a-z0-9+#./%-]+/g) || [];
+    function words(text) {
+      return normalize(text).toLowerCase().match(/[a-z0-9+#./%-]+/g) || [];
     }
 
-    function getUniqueKeywords(text) {
-      const words = getWords(text).filter(word => word.length > 2);
-      const freq = new Map();
-      words.forEach(word => freq.set(word, (freq.get(word) || 0) + 1));
-      return [...freq.entries()].sort((a,b) => b[1] - a[1]).map(([word]) => word);
-    }
-
-    function setMetric(id, value, className) {
-      const el = document.getElementById(id);
-      el.textContent = value;
-      el.classList.remove('good','warn','bad');
-      if (className) el.classList.add(className);
-    }
-
-    function scoreClass(score) {
+    function classify(score) {
       if (score >= 80) return 'good';
       if (score >= 55) return 'warn';
       return 'bad';
     }
 
-    function scoreLabel(score) {
-      if (score >= 90) return 'Excellent ATS-ready profile';
-      if (score >= 75) return 'Strong resume with a few gaps';
-      if (score >= 55) return 'Decent start, needs targeted fixes';
-      return 'High improvement needed before applying';
+    function setMetric(id, value, score) {
+      const el = document.getElementById(id);
+      el.textContent = value;
+      el.classList.remove('good','warn','bad');
+      if (typeof score === 'number') el.classList.add(classify(score));
     }
 
-    function extractKeywordsFromJD(jdText) {
-      const jd = normalizeText(jdText).toLowerCase();
-      const phrases = [
-        'power bi','machine learning','data analysis','data analyst','business analyst','data scientist','deep learning','feature engineering','project management',
-        'problem solving','process improvement','data visualization','stakeholder management','user stories','rest api','data modeling','cloud computing',
-        'network security','incident response','version control','responsive design'
-      ].filter(item => jd.includes(item));
-      const common = getUniqueKeywords(jd).filter(word => !['with','from','that','this','have','will','your','you','for','the','and','our','role','job','years','year'].includes(word));
-      return [...new Set([...phrases, ...common.slice(0, 16)])];
+    function jdKeywords(text) {
+      const lower = normalize(text).toLowerCase();
+      const roleWords = words(lower).filter(word => word.length > 2 && !['with','from','that','this','have','will','your','team','years','year','role','job','and','the'].includes(word));
+      const fixed = ['power bi','machine learning','data analysis','data visualization','business analysis','project management','rest api','stakeholder management'].filter(item => lower.includes(item));
+      return [...new Set([...fixed, ...roleWords.slice(0, 14)])];
     }
 
     function detectSections(text) {
@@ -302,132 +225,38 @@
         projects: /projects|project experience/.test(lower),
         experience: /experience|internship|employment|work history/.test(lower),
         education: /education|academic/.test(lower),
-        certifications: /certification|certificate/.test(lower),
         contact: /@/.test(lower) && /(\+?\d[\d\s\-]{7,}\d)/.test(text)
       };
     }
 
-    function countImpactBullets(text) {
-      return (text.match(/(^|\n)\s*[-•]\s.*?(\d|%|x|hours|days|weeks|months|₹|\$)/gi) || []).length;
+    function countImpact(text) {
+      return (text.match(/(^|\n)\s*[-•]\s.*?(\d|%|x|hours|days|₹|\$)/gi) || []).length;
     }
 
-    function countWeakPhrases(text) {
-      return (text.match(/hardworking|team player|quick learner|responsible for|worked on|helped with/gi) || []).length;
-    }
-
-    function buildCorrectionList(results) {
+    function correctionIdeas(result) {
       const items = [];
-      if (results.missingKeywords.length) items.push(`Add these missing role/JD keywords naturally in your summary, projects, or internship bullets: ${results.missingKeywords.slice(0, 8).join(', ')}.`);
-      if (!results.sections.skills) items.push('Add a dedicated Skills section with tools, languages, BI platforms, and role-relevant technologies.');
-      if (!results.sections.projects) items.push('Add at least 2 strong projects with business problem, tools used, and measurable outcomes.');
-      if (!results.sections.experience) items.push('Include internship, freelance, volunteer, or simulated project experience so recruiters can see applied work.');
-      if (results.impactBullets < 2) items.push('Rewrite bullets with metrics such as %, time saved, dashboards built, records analyzed, or model accuracy.');
-      if (results.weakPhrases > 0) items.push('Replace weak phrases like “hardworking” or “responsible for” with action + result statements.');
-      if (results.resumeWords < 220) items.push('Add more role-specific detail. The resume looks too short for a competitive ATS profile.');
-      if (results.resumeWords > 700) items.push('Trim repeated content. Keep the resume focused and easy for recruiters to scan quickly.');
-      if (!results.hasJobDescription) items.push('Paste a real job description so the checker can produce a more accurate match report for each application.');
-      if (!results.sections.contact) items.push('Make sure email and phone number are clearly visible in plain text at the top of the resume.');
-      return items.slice(0, 8);
+      if (result.missing.length) items.push(`Add these missing keywords naturally in summary, projects, or experience: ${result.missing.slice(0, 8).join(', ')}.`);
+      if (!result.sections.skills) items.push('Add a clear Skills section with tools, platforms, and technologies.');
+      if (!result.sections.projects) items.push('Add at least 2 strong projects with tools used and measurable outcomes.');
+      if (!result.sections.experience) items.push('Include internship, freelance, training, or practical experience.');
+      if (!result.sections.contact) items.push('Make sure email and phone number are visible in plain text at the top.');
+      if (result.impactBullets < 2) items.push('Rewrite bullets with numbers like %, time saved, records analyzed, revenue impact, or accuracy.');
+      if (result.resumeWords < 220) items.push('Your resume is too short. Add more role-specific project and skills detail.');
+      if (!result.hasJD) items.push('Paste a real job description for a more accurate ATS match.');
+      return items.slice(0, 6);
     }
 
-    function buildRewriteIdeas(results) {
-      const ideas = [];
-      if (results.targetRole.toLowerCase().includes('data')) ideas.push('Example rewrite: “Built a Power BI dashboard tracking 12 KPIs, reducing weekly manual reporting time by 60%.”');
-      if (results.targetRole.toLowerCase().includes('analyst')) ideas.push('Example rewrite: “Analyzed customer churn data in SQL and Excel, identifying 3 retention opportunities worth ₹1.2L annually.”');
-      if (results.targetRole.toLowerCase().includes('developer')) ideas.push('Example rewrite: “Developed responsive React pages and integrated REST APIs, improving task completion speed by 28%.”');
-      ideas.push('Mention exact tools, dataset size, business impact, and what changed after your work.');
-      ideas.push('Use ATS-safe headings such as Summary, Skills, Projects, Experience, Education, Certifications.');
-      return ideas.slice(0, 5);
+    function buildQuickLinks() {
+      const role = encodeURIComponent((els.jobTitle.value || els.targetRole.value).trim());
+      const links = [
+        { label: 'LinkedIn search', href: `https://www.linkedin.com/jobs/search/?keywords=${role}` },
+        { label: 'Indeed search', href: `https://www.indeed.com/jobs?q=${role}` },
+        { label: 'Naukri search', href: `https://www.naukri.com/${role.toLowerCase().replace(/%20/g,'-')}-jobs` }
+      ];
+      document.getElementById('quickLinks').innerHTML = links.map(link => `<a class="quick-link" target="_blank" rel="noopener noreferrer" href="${link.href}">${link.label}</a>`).join('');
     }
 
-    function analyzeResume() {
-      const resumeText = els.resumeText.value;
-      const jdText = els.jobDescription.value;
-      const targetRole = els.targetRole.value;
-      const resumeWords = getWords(resumeText).length;
-      const sections = detectSections(resumeText);
-      const roleKeywords = roleLibrary[targetRole] || [];
-      const jdKeywords = extractKeywordsFromJD(jdText);
-      const combinedKeywords = [...new Set([...roleKeywords, ...jdKeywords])].filter(Boolean).slice(0, 24);
-      const resumeLower = resumeText.toLowerCase();
-      const matchedKeywords = combinedKeywords.filter(keyword => resumeLower.includes(keyword.toLowerCase()));
-      const missingKeywords = combinedKeywords.filter(keyword => !resumeLower.includes(keyword.toLowerCase()));
-      const impactBullets = countImpactBullets(resumeText);
-      const weakPhrases = countWeakPhrases(resumeText);
-      const sentenceCount = (resumeText.match(/[.!?]/g) || []).length || 1;
-      const avgWordsPerSentence = Math.max(1, Math.round(resumeWords / sentenceCount));
-      const hasJobDescription = normalizeText(jdText).length > 40;
-
-      let keywordScore = Math.round((matchedKeywords.length / Math.max(1, combinedKeywords.length)) * 100);
-      if (!hasJobDescription) keywordScore = Math.min(keywordScore + 8, 85);
-
-      const sectionHits = Object.values(sections).filter(Boolean).length;
-      const sectionScore = Math.round((sectionHits / 7) * 100);
-
-      let formatScore = 55;
-      if (!/[|]{3,}|\t{2,}/.test(resumeText)) formatScore += 10;
-      if (!/[“”]/.test(resumeText)) formatScore += 5;
-      if (!/table\b|textbox\b|graphic\b/i.test(resumeText)) formatScore += 5;
-      if (resumeWords >= 220 && resumeWords <= 650) formatScore += 15;
-      if (sections.contact) formatScore += 10;
-      formatScore = Math.min(100, formatScore);
-
-      let impactScore = Math.min(100, impactBullets * 20 + Math.max(0, 20 - weakPhrases * 4));
-      if (/(improved|increased|reduced|automated|built|designed|created|optimized|analyzed|developed)/i.test(resumeText)) impactScore = Math.min(100, impactScore + 15);
-
-      let readabilityScore = 70;
-      if (avgWordsPerSentence <= 24) readabilityScore += 10;
-      if (avgWordsPerSentence <= 18) readabilityScore += 5;
-      if (weakPhrases === 0) readabilityScore += 8;
-      if (resumeWords >= 220 && resumeWords <= 650) readabilityScore += 7;
-      readabilityScore = Math.min(100, readabilityScore);
-
-      const overallScore = Math.round(keywordScore * 0.34 + formatScore * 0.16 + sectionScore * 0.18 + impactScore * 0.18 + readabilityScore * 0.14);
-
-      const results = { resumeWords, sections, matchedKeywords, missingKeywords, impactBullets, weakPhrases, avgWordsPerSentence, hasJobDescription, targetRole, keywordScore, formatScore, sectionScore, impactScore, readabilityScore, overallScore };
-      renderResults(results);
-      persistAtsDraft();
-    }
-
-    function renderResults(results) {
-      const overallClass = scoreClass(results.overallScore);
-      setMetric('overallScore', `${results.overallScore}/100`, overallClass);
-      document.getElementById('overallLabel').textContent = scoreLabel(results.overallScore);
-      document.getElementById('summaryBanner').innerHTML = results.overallScore >= 80
-        ? 'Strong resume foundation. Now customize this resume for each job and keep adding measurable outcomes.'
-        : 'Your resume can improve significantly. Focus on missing keywords, project proof, and metrics-based bullets to move closer to a top ATS score.';
-      document.getElementById('resumeWordCount').textContent = results.resumeWords;
-      document.getElementById('keywordHits').textContent = results.matchedKeywords.length;
-      document.getElementById('missingCount').textContent = results.missingKeywords.length;
-      document.getElementById('impactCount').textContent = results.impactBullets;
-
-      [['keywordScore', results.keywordScore],['formatScore', results.formatScore],['sectionScore', results.sectionScore],['impactScore', results.impactScore],['readabilityScore', results.readabilityScore]].forEach(([id, score]) => setMetric(id, score, scoreClass(score)));
-      document.getElementById('keywordMeta').textContent = `${results.matchedKeywords.length} matched, ${results.missingKeywords.length} missing.`;
-      document.getElementById('formatMeta').textContent = results.sections.contact ? 'Contact info detected in plain text.' : 'Contact info looks incomplete.';
-      document.getElementById('sectionMeta').textContent = `${Object.values(results.sections).filter(Boolean).length}/7 core ATS sections detected.`;
-      document.getElementById('impactMeta').textContent = `${results.impactBullets} measurable bullets found.`;
-      document.getElementById('readabilityMeta').textContent = `Avg sentence length: ${results.avgWordsPerSentence} words.`;
-
-      const corrections = buildCorrectionList(results);
-      document.getElementById('correctionList').innerHTML = corrections.map(item => `<li>${item}</li>`).join('');
-      document.getElementById('matchedKeywords').innerHTML = (results.matchedKeywords.length ? results.matchedKeywords.slice(0, 14) : ['Need more resume/JD alignment']).map(keyword => `<span class="keyword-pill hit">${keyword}</span>`).join('');
-      document.getElementById('missingKeywords').innerHTML = (results.missingKeywords.length ? results.missingKeywords.slice(0, 14) : ['No major missing keywords']).map(keyword => `<span class="keyword-pill missing">${keyword}</span>`).join('');
-      document.getElementById('rewriteIdeas').innerHTML = buildRewriteIdeas(results).map(item => `<li>${item}</li>`).join('');
-      document.getElementById('sectionList').innerHTML = [
-        ['Professional Summary', results.sections.summary],
-        ['Skills', results.sections.skills],
-        ['Projects', results.sections.projects],
-        ['Experience / Internship', results.sections.experience],
-        ['Education', results.sections.education],
-        ['Certifications', results.sections.certifications],
-        ['Contact details', results.sections.contact]
-      ].map(([label, ok]) => `<li>${ok ? '✅' : '⚠️'} ${label}</li>`).join('');
-      els.scoreProgress.style.width = `${results.overallScore}%`;
-      els.statusText.textContent = results.hasJobDescription ? 'Professional mode enabled: JD comparison included in the ATS report.' : 'Basic mode: add a real JD to improve keyword accuracy.';
-      buildQuickLinks();
-    }
-
-    function persistAtsDraft() {
+    function persistDraft() {
       const payload = {
         candidateName: els.candidateName.value,
         targetRole: els.targetRole.value,
@@ -437,9 +266,10 @@
         updatedAt: new Date().toISOString()
       };
       localStorage.setItem(atsDraftKey, JSON.stringify(payload));
+      buildQuickLinks();
     }
 
-    function loadStoredDraft() {
+    function loadDraft() {
       try {
         const draft = JSON.parse(localStorage.getItem(atsDraftKey) || '{}');
         if (draft.targetRole && roleLibrary[draft.targetRole]) els.targetRole.value = draft.targetRole;
@@ -447,20 +277,22 @@
         els.jobTitle.value = draft.jobTitle || '';
         els.resumeText.value = draft.resumeText || '';
         els.jobDescription.value = draft.jobDescription || '';
-      } catch (err) {}
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     function importResumeBuilderDraft() {
       try {
         const draft = JSON.parse(localStorage.getItem(resumeDraftKey) || '{}');
         if (!Object.keys(draft).length) {
-          els.statusText.textContent = 'No resume builder draft found yet. Build a resume first, then import it here.';
+          els.statusText.textContent = 'No resume builder draft found yet.';
           return;
         }
-        els.candidateName.value = draft.name || els.candidateName.value;
+        els.candidateName.value = draft.name || '';
         const role = draft.targetRole || draft.profileType || 'Data Analyst';
         if (roleLibrary[role]) els.targetRole.value = role;
-        els.jobTitle.value = draft.targetRole || els.jobTitle.value;
+        els.jobTitle.value = draft.targetRole || role;
         els.resumeText.value = [
           draft.name,
           draft.targetRole,
@@ -474,55 +306,106 @@
           'Education', draft.education,
           'Certifications', draft.certifications
         ].filter(Boolean).join('\n');
-        els.statusText.textContent = 'Imported the latest draft from the resume builder. Now run ATS analysis.';
-        persistAtsDraft();
+        persistDraft();
+        els.statusText.textContent = 'Resume builder draft imported. Now run the ATS check.';
       } catch (err) {
         console.error(err);
         els.statusText.textContent = 'Could not import the resume builder draft.';
       }
     }
 
-    function buildQuickLinks() {
-      const role = encodeURIComponent((els.jobTitle.value || els.targetRole.value).trim());
-      const links = [
-        { name: 'LinkedIn Jobs', href: `https://www.linkedin.com/jobs/search/?keywords=${role}` },
-        { name: 'Indeed', href: `https://www.indeed.com/jobs?q=${role}` },
-        { name: 'Naukri', href: `https://www.naukri.com/${role.toLowerCase().replace(/%20/g,'-')}-jobs` },
-        { name: 'Wellfound', href: `https://wellfound.com/jobs` },
-        { name: 'Internshala', href: `https://internshala.com/jobs/${role.toLowerCase().replace(/%20/g,'-')}-jobs/` },
-        { name: 'Glassdoor', href: `https://www.glassdoor.com/Job/jobs.htm?sc.keyword=${role}` }
-      ];
-      document.getElementById('quickLinks').innerHTML = links.map(link => `<a class="link-card" href="${link.href}" target="_blank" rel="noopener noreferrer"><h3>${link.name}</h3><div class="meta">Open job search for ${els.jobTitle.value || els.targetRole.value}</div></a>`).join('');
+    function sendToResumeBuilder() {
+      const lines = els.resumeText.value.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+      const lower = els.resumeText.value.toLowerCase();
+      function sectionSlice(startLabel, nextLabels) {
+        const start = lower.indexOf(startLabel);
+        if (start === -1) return '';
+        const nextPositions = nextLabels.map(label => lower.indexOf(label, start + startLabel.length)).filter(pos => pos !== -1);
+        const end = nextPositions.length ? Math.min(...nextPositions) : els.resumeText.value.length;
+        return els.resumeText.value.slice(start + startLabel.length, end).replace(/^[:\-\s]+/, '').trim();
+      }
+      const payload = {
+        name: els.candidateName.value,
+        targetRole: els.jobTitle.value || els.targetRole.value,
+        profileType: els.targetRole.value,
+        summary: sectionSlice('professional summary', ['skills','projects','experience','education','certifications']) || sectionSlice('summary', ['skills','projects','experience','education','certifications']),
+        skills: sectionSlice('skills', ['projects','experience','education','certifications']).replace(/\n/g, ', '),
+        projects: sectionSlice('projects', ['experience','education','certifications']),
+        experience: sectionSlice('experience', ['education','certifications']) || sectionSlice('internship', ['education','certifications']),
+        education: sectionSlice('education', ['certifications']),
+        certifications: sectionSlice('certifications', [])
+      };
+      const emailMatch = els.resumeText.value.match(/[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}/);
+      const phoneMatch = els.resumeText.value.match(/(\+?\d[\d\s\-]{8,}\d)/);
+      payload.email = emailMatch ? emailMatch[0] : '';
+      payload.phone = phoneMatch ? phoneMatch[0] : '';
+      payload.location = lines[1] && !/@/.test(lines[1]) ? lines[1] : '';
+      localStorage.setItem(resumeDraftKey, JSON.stringify(payload));
+      window.location.href = 'resume_maker.html?source=ats-checker';
     }
 
     function renderJobBoards() {
       const boards = (window.DL10X_CONFIG && window.DL10X_CONFIG.JOB_BOARDS) || [];
       document.getElementById('jobBoards').innerHTML = boards.map(board => `
-        <a class="job-card" href="${board.url}" target="_blank" rel="noopener noreferrer">
-          <h3>${board.name}</h3>
-          <div class="meta">${board.focus}</div>
-          <ul class="list">
-            <li>${board.tip}</li>
-            <li>${board.bestFor}</li>
-          </ul>
+        <a class="site-card" href="${board.url}" target="_blank" rel="noopener noreferrer">
+          <div class="site-head">
+            <img class="site-logo" src="${board.logo}" alt="${board.name} logo" />
+            <div>
+              <div class="site-name">${board.name}</div>
+              <div class="meta">${board.focus}</div>
+            </div>
+          </div>
+          <div class="meta">${board.tip}</div>
         </a>
       `).join('');
     }
 
-    function renderApiOptions() {
-      const apis = (window.DL10X_CONFIG && window.DL10X_CONFIG.ATS_API_OPTIONS) || [];
-      document.getElementById('apiOptions').innerHTML = apis.map(api => `
-        <article class="api-card">
-          <h3>${api.name}</h3>
-          <div class="meta">${api.type}</div>
-          <ul class="list">
-            <li>${api.summary}</li>
-            <li>${api.integration}</li>
-            <li>${api.studentUse}</li>
-          </ul>
-          <div class="inline-actions"><a class="btn secondary" href="${api.url}" target="_blank" rel="noopener noreferrer">Open docs</a></div>
-        </article>
-      `).join('');
+    function renderResult(result) {
+      setMetric('overallScore', `${result.overall}/100`, result.overall);
+      document.getElementById('overallLabel').textContent = result.overall >= 80 ? 'Strong profile. Customize it for each job.' : 'Needs improvement before applying widely.';
+      document.getElementById('summaryBox').textContent = result.overall >= 80
+        ? 'Good ATS foundation. Focus on tailoring the resume for each JD and keep achievements measurable.'
+        : 'Improve keyword match, add missing sections, and strengthen project / experience bullets with numbers.';
+      setMetric('keywordScore', result.keywordScore, result.keywordScore);
+      setMetric('sectionScore', result.sectionScore, result.sectionScore);
+      setMetric('impactScore', result.impactScore, result.impactScore);
+      setMetric('readabilityScore', result.readabilityScore, result.readabilityScore);
+      document.getElementById('keywordMeta').textContent = `${result.matches.length} matched, ${result.missing.length} missing.`;
+      document.getElementById('sectionMeta').textContent = `${Object.values(result.sections).filter(Boolean).length}/6 core sections found.`;
+      document.getElementById('impactMeta').textContent = `${result.impactBullets} measurable bullets found.`;
+      document.getElementById('readabilityMeta').textContent = `${result.resumeWords} words in resume.`;
+      document.getElementById('matchedKeywords').innerHTML = (result.matches.length ? result.matches : ['Need better alignment']).slice(0, 14).map(item => `<span class="pill good">${item}</span>`).join('');
+      document.getElementById('missingKeywords').innerHTML = (result.missing.length ? result.missing : ['No major missing keywords']).slice(0, 14).map(item => `<span class="pill bad">${item}</span>`).join('');
+      document.getElementById('correctionList').innerHTML = correctionIdeas(result).map(item => `<li>${item}</li>`).join('');
+      els.statusText.textContent = result.hasJD ? 'JD-based ATS match completed.' : 'Basic ATS check completed. Add a JD for better matching.';
+    }
+
+    function runAnalysis() {
+      const resumeText = els.resumeText.value;
+      const roleKeywords = roleLibrary[els.targetRole.value] || [];
+      const extraKeywords = jdKeywords(els.jobDescription.value);
+      const combined = [...new Set([...roleKeywords, ...extraKeywords])].filter(Boolean).slice(0, 22);
+      const lowerResume = resumeText.toLowerCase();
+      const matches = combined.filter(keyword => lowerResume.includes(keyword.toLowerCase()));
+      const missing = combined.filter(keyword => !lowerResume.includes(keyword.toLowerCase()));
+      const sections = detectSections(resumeText);
+      const resumeWords = words(resumeText).length;
+      const hasJD = normalize(els.jobDescription.value).length > 40;
+      const impactBullets = countImpact(resumeText);
+
+      let keywordScore = Math.round((matches.length / Math.max(1, combined.length)) * 100);
+      if (!hasJD) keywordScore = Math.min(85, keywordScore + 8);
+      const sectionScore = Math.round((Object.values(sections).filter(Boolean).length / 6) * 100);
+      let impactScore = Math.min(100, impactBullets * 22 + (/(improved|increased|reduced|built|automated|analyzed|developed|created)/i.test(resumeText) ? 18 : 0));
+      let readabilityScore = 55;
+      if (resumeWords >= 220 && resumeWords <= 650) readabilityScore += 25;
+      if (!/[|]{3,}|\t{2,}/.test(resumeText)) readabilityScore += 10;
+      if (!/[“”]/.test(resumeText)) readabilityScore += 10;
+      readabilityScore = Math.min(100, readabilityScore);
+      const overall = Math.round(keywordScore * 0.38 + sectionScore * 0.22 + impactScore * 0.2 + readabilityScore * 0.2);
+
+      renderResult({ overall, keywordScore, sectionScore, impactScore, readabilityScore, matches, missing, sections, impactBullets, resumeWords, hasJD });
+      persistDraft();
     }
 
     async function parsePdfFile(file) {
@@ -545,7 +428,7 @@
       return result.value || '';
     }
 
-    async function handleResumeUpload(event) {
+    async function handleUpload(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
       const name = file.name.toLowerCase();
@@ -556,11 +439,11 @@
         else if (name.endsWith('.doc') || name.endsWith('.docx')) text = await parseDocxFile(file);
         else throw new Error('Unsupported file type');
         els.resumeText.value = String(text || '').trim();
-        persistAtsDraft();
-        els.statusText.textContent = 'Resume uploaded successfully. Add a job description and run ATS analysis.';
+        persistDraft();
+        els.statusText.textContent = 'Resume uploaded successfully. Now run the ATS check.';
       } catch (err) {
         console.error(err);
-        els.statusText.textContent = 'Could not parse this file. Try exporting the resume as TXT, PDF, or DOCX.';
+        els.statusText.textContent = 'Could not parse this file. Please try TXT, PDF, or DOCX.';
       }
     }
 
@@ -568,60 +451,23 @@
       els.candidateName.value = 'Aarav Sharma';
       els.targetRole.value = 'Data Analyst';
       els.jobTitle.value = 'Junior Data Analyst';
-      els.resumeText.value = `Aarav Sharma\naarav.sharma@email.com | +91 9876543210 | Pune, India\n\nProfessional Summary\nData analyst with hands-on experience in SQL, Python, Excel, and Power BI. Built dashboards, automated reporting, and translated raw data into business recommendations.\n\nSkills\nExcel, SQL, Python, Power BI, Tableau, Statistics, Data Cleaning, Dashboards, Pandas\n\nProjects\nSales KPI Dashboard\n- Built a Power BI dashboard tracking 12 KPIs and reduced manual reporting time by 60%.\nCustomer Churn Analysis\n- Analyzed 50,000+ records in SQL and Python, identifying 3 churn drivers and improving retention recommendations.\n\nExperience\nABC Analytics | Data Analyst Intern | Jan 2025 - Jun 2025\n- Automated weekly reports using SQL and Excel, saving 8 hours per week.\n- Presented analysis to operations team and improved campaign targeting.\n\nEducation\nB.Tech in Computer Science, Pune University, 2025\n\nCertifications\nGoogle Data Analytics, Microsoft Power BI Data Analyst`;
-      els.jobDescription.value = `We are hiring a Junior Data Analyst with strong SQL, Excel, Power BI, dashboarding, KPI reporting, data cleaning, stakeholder communication, and business analysis skills. The candidate should analyze large datasets, automate reports, build dashboards, and present actionable insights to business teams. Python and Tableau are preferred.`;
-      persistAtsDraft();
-      analyzeResume();
-    }
-
-    function sendToResumeBuilder() {
-      const payload = {
-        name: els.candidateName.value,
-        targetRole: els.jobTitle.value || els.targetRole.value,
-        profileType: els.targetRole.value,
-        summary: '',
-        skills: '',
-        experience: '',
-        projects: '',
-        education: '',
-        certifications: ''
-      };
-      const lines = els.resumeText.value.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
-      const lower = els.resumeText.value.toLowerCase();
-      function sectionSlice(startLabel, nextLabels) {
-        const start = lower.indexOf(startLabel);
-        if (start === -1) return '';
-        const nextPositions = nextLabels.map(label => lower.indexOf(label, start + startLabel.length)).filter(pos => pos !== -1);
-        const end = nextPositions.length ? Math.min(...nextPositions) : els.resumeText.value.length;
-        return els.resumeText.value.slice(start + startLabel.length, end).replace(/^[:\-\s]+/, '').trim();
-      }
-      payload.summary = sectionSlice('professional summary', ['skills','projects','experience','education','certifications']) || sectionSlice('summary', ['skills','projects','experience','education','certifications']);
-      payload.skills = sectionSlice('skills', ['projects','experience','education','certifications']).replace(/\n/g, ', ');
-      payload.projects = sectionSlice('projects', ['experience','education','certifications']);
-      payload.experience = sectionSlice('experience', ['education','certifications']) || sectionSlice('internship', ['education','certifications']);
-      payload.education = sectionSlice('education', ['certifications']);
-      payload.certifications = sectionSlice('certifications', []);
-      const emailMatch = els.resumeText.value.match(/[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}/);
-      const phoneMatch = els.resumeText.value.match(/(\+?\d[\d\s\-]{8,}\d)/);
-      payload.email = emailMatch ? emailMatch[0] : '';
-      payload.phone = phoneMatch ? phoneMatch[0] : '';
-      payload.location = lines[1] && !/@/.test(lines[1]) ? lines[1] : '';
-      localStorage.setItem(resumeDraftKey, JSON.stringify(payload));
-      window.location.href = 'resume_maker.html?source=ats-checker';
+      els.resumeText.value = `Aarav Sharma\naarav.sharma@email.com | +91 9876543210 | Pune, India\n\nProfessional Summary\nData analyst with hands-on experience in SQL, Python, Excel, and Power BI. Built dashboards, automated reporting, and translated raw data into business recommendations.\n\nSkills\nExcel, SQL, Python, Power BI, Tableau, Statistics, Data Cleaning, Dashboards\n\nProjects\nSales KPI Dashboard\n- Built a Power BI dashboard tracking 12 KPIs and reduced manual reporting time by 60%.\nCustomer Churn Analysis\n- Analyzed 50,000+ records in SQL and Python and improved retention recommendations.\n\nExperience\nABC Analytics | Data Analyst Intern | Jan 2025 - Jun 2025\n- Automated weekly reports using SQL and Excel, saving 8 hours per week.\n\nEducation\nB.Tech in Computer Science, Pune University, 2025`;
+      els.jobDescription.value = `We are hiring a Junior Data Analyst with strong SQL, Excel, Power BI, dashboarding, KPI reporting, data cleaning, stakeholder communication, and business analysis skills. Python and Tableau are preferred.`;
+      persistDraft();
+      runAnalysis();
     }
 
     fillRoles();
+    loadDraft();
     renderJobBoards();
-    renderApiOptions();
     buildQuickLinks();
-    loadStoredDraft();
 
-    els.resumeFile.addEventListener('change', handleResumeUpload);
-    els.analyzeBtn.addEventListener('click', analyzeResume);
-    els.sampleBtn.addEventListener('click', loadSample);
-    els.importDraftBtn.addEventListener('click', importResumeBuilderDraft);
-    els.sendToBuilderBtn.addEventListener('click', sendToResumeBuilder);
-    [els.candidateName, els.targetRole, els.resumeText, els.jobTitle, els.jobDescription].forEach(el => el.addEventListener('input', persistAtsDraft));
+    els.resumeFile.addEventListener('change', handleUpload);
+    document.getElementById('analyzeBtn').addEventListener('click', runAnalysis);
+    document.getElementById('importDraftBtn').addEventListener('click', importResumeBuilderDraft);
+    document.getElementById('sampleBtn').addEventListener('click', loadSample);
+    document.getElementById('sendToBuilderBtn').addEventListener('click', sendToResumeBuilder);
+    [els.candidateName, els.targetRole, els.jobTitle, els.resumeText, els.jobDescription].forEach(el => el.addEventListener('input', persistDraft));
     els.targetRole.addEventListener('change', buildQuickLinks);
   </script>
 </body>
