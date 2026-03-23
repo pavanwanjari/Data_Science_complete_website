@@ -151,7 +151,7 @@
 
         <article class="card">
           <h2>Top job search websites</h2>
-          <p class="sub">Use these platforms after updating your resume for each job.</p>
+          <p class="sub">These job links now stay matched to the role selected in your resume or JD.</p>
           <div class="sites" id="jobBoards"></div>
         </article>
       </section>
@@ -267,6 +267,7 @@
       };
       localStorage.setItem(atsDraftKey, JSON.stringify(payload));
       buildQuickLinks();
+      renderJobBoards();
     }
 
     function loadDraft() {
@@ -344,20 +345,32 @@
       window.location.href = 'resume_maker.html?source=ats-checker';
     }
 
+    function currentRoleInfo() {
+      const roleText = (els.jobTitle.value || els.targetRole.value || 'jobs').trim();
+      const query = encodeURIComponent(roleText);
+      const slug = roleText.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      return { roleText, query, slug };
+    }
+
     function renderJobBoards() {
       const boards = (window.DL10X_CONFIG && window.DL10X_CONFIG.JOB_BOARDS) || [];
-      document.getElementById('jobBoards').innerHTML = boards.map(board => `
-        <a class="site-card" href="${board.url}" target="_blank" rel="noopener noreferrer">
+      const roleInfo = currentRoleInfo();
+      document.getElementById('jobBoards').innerHTML = boards.map(board => {
+        const href = (board.searchUrl || board.url)
+          .replace('{query}', roleInfo.query)
+          .replace('{slug}', roleInfo.slug || 'jobs');
+        return `
+        <a class="site-card" href="${href}" target="_blank" rel="noopener noreferrer">
           <div class="site-head">
             <img class="site-logo" src="${board.logo}" alt="${board.name} logo" />
             <div>
               <div class="site-name">${board.name}</div>
-              <div class="meta">${board.focus}</div>
+              <div class="meta">Search ${roleInfo.roleText}</div>
             </div>
           </div>
           <div class="meta">${board.tip}</div>
         </a>
-      `).join('');
+      `;}).join('');
     }
 
     function renderResult(result) {
@@ -459,8 +472,8 @@
 
     fillRoles();
     loadDraft();
-    renderJobBoards();
     buildQuickLinks();
+    renderJobBoards();
 
     els.resumeFile.addEventListener('change', handleUpload);
     document.getElementById('analyzeBtn').addEventListener('click', runAnalysis);
@@ -468,7 +481,8 @@
     document.getElementById('sampleBtn').addEventListener('click', loadSample);
     document.getElementById('sendToBuilderBtn').addEventListener('click', sendToResumeBuilder);
     [els.candidateName, els.targetRole, els.jobTitle, els.resumeText, els.jobDescription].forEach(el => el.addEventListener('input', persistDraft));
-    els.targetRole.addEventListener('change', buildQuickLinks);
+    els.targetRole.addEventListener('change', () => { buildQuickLinks(); renderJobBoards(); });
+    els.jobTitle.addEventListener('input', renderJobBoards);
   </script>
 </body>
 </html>
