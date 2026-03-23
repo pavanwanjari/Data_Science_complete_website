@@ -31,7 +31,7 @@
     textarea{min-height:74px;resize:vertical}.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
     button{border:none;border-radius:8px;padding:10px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
     button.alt{background:#334155}button.gray{background:#475569}.ats{font-size:13px;background:#0a2248;border:1px solid #355d9f;border-radius:8px;padding:8px;margin-top:8px}
-    .help{font-size:12px;color:var(--muted);margin-top:6px}
+    .help{font-size:12px;color:var(--muted);margin-top:6px}.mini-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.mini-link{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:600;background:#18294f;color:#fff;border:1px solid rgba(137,177,245,.24)}
 
     .crop-wrap{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:center}
     .thumb{width:70px;height:88px;border-radius:8px;overflow:hidden;border:1px solid #4569a1;background:#17305a}
@@ -87,6 +87,9 @@
         <label>CV template design</label>
         <select id="templateDesign"></select>
         <div class="help">12 distinct combinations of layout + typography + spacing for professional resume looks.</div>
+        <div class="mini-actions">
+          <a class="mini-link" href="ats_resume_checker.html">Open advanced ATS checker</a>
+        </div>
       </div>
 
       <div class="sec">
@@ -123,7 +126,7 @@
 
       <div class="sec actions"><div class="btns">
         <button id="downloadBtn">Download PDF (A4)</button><button class="alt" id="resetBtn" type="button">Reset</button><button class="gray" id="atsBtn" type="button">Check ATS score</button><button class="gray" id="fillDemoBtn" type="button">Use sample data</button>
-      </div><div class="ats" id="atsResult">ATS score: Not checked</div></div>
+      </div><div class="ats" id="atsResult">ATS score: Not checked</div><div class="help">Pro tip: use the advanced ATS checker to compare this resume with a real job description and get rewrite ideas.</div></div>
     </aside>
 
     <section class="preview-card">
@@ -137,6 +140,8 @@
 <script>
   const ids = ['name','targetRole','email','phone','location','summary','skills','experience','projects','education','certifications'];
   const p = Object.fromEntries(ids.map(i => [i, document.getElementById(i)]));
+
+  const resumeDraftStorageKey = 'dl10xResumeDraft';
 
   const templates = {
     t1:{name:'Executive Blue',layout:'modern',font:'inter',hdr:'#1e3a8a',left:'#eef2ff',line:'#cbd5e1',chip:'#dbeafe',accent:'#1d4ed8'},
@@ -183,6 +188,33 @@
     refreshPhotoPlacement();
   }
 
+  function saveDraft(){
+    const payload = {
+      profileType: document.getElementById('profileType').value,
+      templateDesign: document.getElementById('templateDesign').value,
+      photoStyle: document.getElementById('photoStyle').value,
+      cropZoom: document.getElementById('cropZoom').value,
+      cropX: document.getElementById('cropX').value,
+      cropY: document.getElementById('cropY').value
+    };
+    ids.forEach(key => payload[key] = p[key].value);
+    localStorage.setItem(resumeDraftStorageKey, JSON.stringify(payload));
+  }
+
+  function loadDraft(){
+    try{
+      const draft = JSON.parse(localStorage.getItem(resumeDraftStorageKey) || '{}');
+      if(!Object.keys(draft).length) return;
+      ids.forEach(key => { if(typeof draft[key] === 'string') p[key].value = draft[key]; });
+      if(draft.profileType) document.getElementById('profileType').value = draft.profileType;
+      if(draft.templateDesign) document.getElementById('templateDesign').value = draft.templateDesign;
+      if(draft.photoStyle) document.getElementById('photoStyle').value = draft.photoStyle;
+      if(draft.cropZoom) document.getElementById('cropZoom').value = draft.cropZoom;
+      if(draft.cropX) document.getElementById('cropX').value = draft.cropX;
+      if(draft.cropY) document.getElementById('cropY').value = draft.cropY;
+    } catch(err){ console.error(err); }
+  }
+
   function refreshPreview(){
     document.getElementById('pName').textContent = p.name.value || 'Your Name';
     document.getElementById('pRole').textContent = p.targetRole.value || document.getElementById('profileType').value;
@@ -195,23 +227,23 @@
     const sWrap=document.getElementById('pSkills'); sWrap.innerHTML='';
     (p.skills.value || '').split(',').map(v=>v.trim()).filter(Boolean).forEach(s=>{const c=document.createElement('span'); c.className='chip'; c.textContent=s; sWrap.appendChild(c);});
   }
-  ids.forEach(k=>p[k].addEventListener('input', refreshPreview));
+  ids.forEach(k=>p[k].addEventListener('input', ()=>{ refreshPreview(); saveDraft(); }));
 
   function applyCrop(){
     const zoom=document.getElementById('cropZoom').value, x=document.getElementById('cropX').value, y=document.getElementById('cropY').value;
     ['pPhoto','thumbPhoto'].forEach(id=>{const img=document.getElementById(id); img.style.objectPosition=`${x}% ${y}%`; img.style.transform=`scale(${zoom})`;});
   }
-  ['cropZoom','cropX','cropY'].forEach(id=>document.getElementById(id).addEventListener('input', applyCrop));
+  ['cropZoom','cropX','cropY'].forEach(id=>document.getElementById(id).addEventListener('input', ()=>{ applyCrop(); saveDraft(); }));
 
   function refreshPhotoPlacement(){
     const photo=document.getElementById('pPhoto'), style=document.getElementById('photoStyle').value, hdr=document.getElementById('hdr'), left=document.getElementById('hdrLeft');
     if(!photo.src || style==='none'){ photo.classList.remove('show'); return; }
     photo.classList.add('show'); if(style==='left'){ hdr.insertBefore(photo,left); } else { hdr.appendChild(photo); }
   }
-  document.getElementById('photoStyle').addEventListener('change', refreshPhotoPlacement);
+  document.getElementById('photoStyle').addEventListener('change', ()=>{ refreshPhotoPlacement(); saveDraft(); });
   document.getElementById('photoInput').addEventListener('change', e=>{
     const file=e.target.files?.[0]; if(!file) return;
-    const rd=new FileReader(); rd.onload=()=>{ document.getElementById('pPhoto').src=rd.result; document.getElementById('thumbPhoto').src=rd.result; applyCrop(); refreshPhotoPlacement(); };
+    const rd=new FileReader(); rd.onload=()=>{ document.getElementById('pPhoto').src=rd.result; document.getElementById('thumbPhoto').src=rd.result; applyCrop(); refreshPhotoPlacement(); saveDraft(); };
     rd.readAsDataURL(file);
   });
 
@@ -226,7 +258,8 @@
     if(p.certifications.value.trim()) score += 10;
     score = Math.min(100, score);
     const missing = kws.filter(k => !hay.includes(k));
-    document.getElementById('atsResult').innerHTML = `ATS score: <b>${score}/100</b><br>Missing keywords: ${missing.slice(0,6).join(', ') || 'None'}`;
+    document.getElementById('atsResult').innerHTML = `ATS score: <b>${score}/100</b><br>Missing keywords: ${missing.slice(0,6).join(', ') || 'None'}<br><a href="ats_resume_checker.html" style="color:#93c5fd">Open advanced ATS checker for JD match →</a>`;
+    saveDraft();
   }
   document.getElementById('atsBtn').addEventListener('click', scoreATS);
 
@@ -273,16 +306,19 @@
   }
 
   document.getElementById('downloadBtn').addEventListener('click', downloadPdfA4);
-  document.getElementById('templateDesign').addEventListener('change', applyTemplateDesign);
+  document.getElementById('templateDesign').addEventListener('change', ()=>{ applyTemplateDesign(); saveDraft(); });
+  document.getElementById('profileType').addEventListener('change', ()=>{ refreshPreview(); saveDraft(); });
 
-  document.getElementById('resetBtn').addEventListener('click', ()=>{ ids.forEach(k=>p[k].value=''); ['pPhoto','thumbPhoto'].forEach(id=>document.getElementById(id).src=''); document.getElementById('photoStyle').value='none'; document.getElementById('cropZoom').value=1; document.getElementById('cropX').value=50; document.getElementById('cropY').value=30; document.getElementById('templateDesign').value='t1'; refreshPreview(); applyCrop(); applyTemplateDesign(); document.getElementById('atsResult').textContent='ATS score: Not checked'; });
+  document.getElementById('resetBtn').addEventListener('click', ()=>{ ids.forEach(k=>p[k].value=''); ['pPhoto','thumbPhoto'].forEach(id=>document.getElementById(id).src=''); document.getElementById('photoStyle').value='none'; document.getElementById('cropZoom').value=1; document.getElementById('cropX').value=50; document.getElementById('cropY').value=30; document.getElementById('templateDesign').value='t1'; document.getElementById('profileType').value='Data Analyst'; refreshPreview(); applyCrop(); applyTemplateDesign(); document.getElementById('atsResult').textContent='ATS score: Not checked'; localStorage.removeItem(resumeDraftStorageKey); });
   document.getElementById('fillDemoBtn').addEventListener('click', ()=>{ p.name.value='Aarav Sharma'; p.targetRole.value='Data Analyst'; p.email.value='aarav.sharma@email.com'; p.phone.value='+91 9876543210'; p.location.value='Pune, India'; p.summary.value='Data analyst with hands-on experience in SQL, Python, and BI dashboards. Improved reporting speed and identified growth opportunities using data storytelling.'; p.skills.value='Excel, SQL, Python, Power BI, Tableau, Statistics, Pandas'; p.education.value='B.Tech in Computer Science, 2023, Pune University'; p.certifications.value='Google Data Analytics, Microsoft Power BI Data Analyst'; p.projects.value='Sales KPI Dashboard\n- Built Power BI dashboard reducing manual reporting by 60%\nChurn Prediction\n- Built classification model with 84% accuracy'; p.experience.value='ABC Analytics | Data Analyst Intern | Jan 2024 - Jun 2024\n- Automated weekly reports using SQL + Python\n- Presented insights to operations team'; document.getElementById('photoStyle').value='right'; refreshPreview(); scoreATS(); });
 
   initTemplateOptions();
-  document.getElementById('templateDesign').value='t1';
+  loadDraft();
+  if(!document.getElementById('templateDesign').value) document.getElementById('templateDesign').value='t1';
   applyTemplateDesign();
   refreshPreview();
   applyCrop();
+  saveDraft();
 </script>
 </body>
 </html>
