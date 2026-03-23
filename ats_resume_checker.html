@@ -212,9 +212,12 @@
 
     function jdKeywords(text) {
       const lower = normalize(text).toLowerCase();
-      const roleWords = words(lower).filter(word => word.length > 2 && !['with','from','that','this','have','will','your','team','years','year','role','job','and','the'].includes(word));
+      const genericWords = new Set(['hiring','junior','senior','strong','candidate','candidates','role','job','jobs','position','positions','company','organization','team','years','year','preferred','must','should','good','great','excellent','looking','join','work','working','skill','skills']);
+      const roleTerms = Object.values(roleLibrary).flat();
       const fixed = ['power bi','machine learning','data analysis','data visualization','business analysis','project management','rest api','stakeholder management'].filter(item => lower.includes(item));
-      return [...new Set([...fixed, ...roleWords.slice(0, 14)])];
+      const matchedRoleTerms = roleTerms.filter(term => lower.includes(term.toLowerCase()));
+      const usefulSingles = words(lower).filter(word => word.length > 2 && !genericWords.has(word) && matchedRoleTerms.some(term => term.toLowerCase().includes(word)));
+      return [...new Set([...fixed, ...matchedRoleTerms, ...usefulSingles])].slice(0, 18);
     }
 
     function detectSections(text) {
@@ -472,6 +475,9 @@
 
     fillRoles();
     loadDraft();
+    if (new URLSearchParams(window.location.search).get('source') === 'resume-builder') {
+      importResumeBuilderDraft();
+    }
     buildQuickLinks();
     renderJobBoards();
 
