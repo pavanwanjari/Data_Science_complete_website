@@ -228,12 +228,10 @@
     const base=window.DL10X_CONFIG?.SHEET_WEBAPP_URL;
     if(!base){ if(show) setStatus('Sync not configured in config.js.'); return; }
     try{
-      await fetch(base,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({action:'analytics_event',event_name:'practice_progress',email:state.email,student_name:state.name,progress_json:JSON.stringify(state.progress),timestamp:new Date().toISOString()})});
-      const res=await fetch(`${base}?action=analytics_export&limit=5000`,{cache:'no-store'});
+      await fetch(base,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({action:'practice_progress_save',email:state.email,student_name:state.name,progress_json:JSON.stringify(state.progress),ts:new Date().toISOString()})});
+      const res=await fetch(`${base}?action=practice_progress_get&email=${encodeURIComponent(state.email)}`,{cache:'no-store'});
       const data=await res.json();
-      const rows=Array.isArray(data)?data:(Array.isArray(data.events)?data.events:[]);
-      const mine=rows.filter(r=>String(r.email||r.user_email||'').toLowerCase()===state.email.toLowerCase() && String(r.event_name||r.event||'').includes('practice_progress')).sort((a,b)=>new Date(b.timestamp||b.created_at||0)-new Date(a.timestamp||a.created_at||0));
-      if(mine[0]?.progress_json){ state.progress=mergeProgress(state.progress, JSON.parse(mine[0].progress_json)); saveLocal(); }
+      if(data && data.progress && typeof data.progress==='object'){ state.progress=mergeProgress(state.progress, data.progress); saveLocal(); }
       if(show) setStatus('Progress synced for this email.'); renderLeft(); renderQuestion();
     }catch(_){ if(show) setStatus('Remote sync unavailable, local progress still works.'); }
   }
