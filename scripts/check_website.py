@@ -14,10 +14,15 @@ CONFIG_FILE = REPO_ROOT / "config.js"
 REF_PATTERN = re.compile(r"(?:src|href)=['\"]([^'\"#?]+)")
 CONFIG_KEY_PATTERN = re.compile(r"\b([A-Z_]+)\s*:")
 AD_IMAGE_PATTERN = re.compile(r"AD_IMAGES\s*:\s*\[(.*?)\]", re.S)
+TEMPLATE_REF_PATTERN = re.compile(r"\$\{[^}]+\}")
 
 
 def is_remote_ref(path: str) -> bool:
     return path.startswith(("http://", "https://", "mailto:", "tel:", "javascript:", "data:"))
+
+
+def is_dynamic_ref(path: str) -> bool:
+    return bool(TEMPLATE_REF_PATTERN.search(path))
 
 
 def check_local_references() -> list[str]:
@@ -26,7 +31,7 @@ def check_local_references() -> list[str]:
         content = html_file.read_text(encoding="utf-8", errors="ignore")
         for match in REF_PATTERN.finditer(content):
             ref = match.group(1).strip()
-            if not ref or is_remote_ref(ref):
+            if not ref or is_remote_ref(ref) or is_dynamic_ref(ref):
                 continue
             target = (html_file.parent / ref).resolve()
             if not target.exists():
