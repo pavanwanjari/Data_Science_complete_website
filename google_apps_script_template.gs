@@ -10,6 +10,7 @@
 var SPREADSHEET_ID = "1JZnJkVTX0ArDFtjV_Nlv_Spb3JB-5-KkuvbFpEflvjA";
 var SHEET_NAME = "Sheet1";
 var ANALYTICS_SHEET_NAME = "Analytics";
+var PROGRESS_SHEET_NAME = "PracticeProgress";
 var PURCHASE_HEADERS = [
   "timestamp",
   "name",
@@ -50,6 +51,13 @@ var ANALYTICS_HEADERS = [
   "user_agent",
   "payload_json"
 ];
+var PROGRESS_HEADERS = [
+  "timestamp",
+  "email",
+  "module",
+  "student_name",
+  "progress_json"
+];
 
 function getOrCreateSheet_(sheetName, headers) {
   var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -69,6 +77,10 @@ function getSheet_() {
 
 function getAnalyticsSheet_() {
   return getOrCreateSheet_(ANALYTICS_SHEET_NAME, ANALYTICS_HEADERS);
+}
+
+function getProgressSheet_() {
+  return getOrCreateSheet_(PROGRESS_SHEET_NAME, PROGRESS_HEADERS);
 }
 
 function normalizeEmail_(value) {
@@ -159,6 +171,47 @@ function appendAnalyticsEvent_(e) {
   ]);
 }
 
+function appendProgressRow_(e, moduleName) {
+  var email = normalizeEmail_(e.parameter.email);
+  if (!email) {
+    return { ok: false, error: "EMAIL_REQUIRED" };
+  }
+
+  var sheet = getProgressSheet_();
+  sheet.appendRow([
+    e.parameter.ts || new Date().toISOString(),
+    email,
+    moduleName || "practice",
+    e.parameter.student_name || "",
+    e.parameter.progress_json || "{}"
+  ]);
+  return { ok: true };
+}
+
+function getLatestProgressByEmail_(email, moduleName) {
+  var target = normalizeEmail_(email);
+  if (!target) return null;
+
+  var sheet = getProgressSheet_();
+  var data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return null;
+
+  for (var i = data.length - 1; i >= 1; i--) {
+    var rowEmail = normalizeEmail_(data[i][1]);
+    var rowModule = String(data[i][2] || "").toLowerCase();
+    if (rowEmail === target && rowModule === String(moduleName || "").toLowerCase()) {
+      return {
+        timestamp: data[i][0],
+        email: rowEmail,
+        module: rowModule,
+        student_name: data[i][3] || "",
+        progress_json: data[i][4] || "{}"
+      };
+    }
+  }
+  return null;
+}
+
 function doPost(e) {
   var action = (e && e.parameter && e.parameter.action ? e.parameter.action : "").toLowerCase();
 
@@ -166,6 +219,20 @@ function doPost(e) {
     appendAnalyticsEvent_(e);
     return ContentService
       .createTextOutput(JSON.stringify({ ok: true, type: "analytics_event" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (action === "practice_progress_save") {
+    var savedPractice = appendProgressRow_(e, "practice_hub");
+    return ContentService
+      .createTextOutput(JSON.stringify(savedPractice))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (action === "typing_progress_save") {
+    var savedTyping = appendProgressRow_(e, "typing_course");
+    return ContentService
+      .createTextOutput(JSON.stringify(savedTyping))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -206,6 +273,32 @@ function doGet(e) {
     };
     return ContentService
       .createTextOutput(JSON.stringify(payload))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (action === "practice_progress_get") {
+    var latestPractice = getLatestProgressByEmail_(email, "practice_hub");
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        ok: !!latestPractice,
+        email: email,
+        module: "practice_hub",
+        progress: latestPractice ? parseJsonSafe_(latestPractice.progress_json, {}) : {},
+        row: latestPractice
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (action === "typing_progress_get") {
+    var latestTyping = getLatestProgressByEmail_(email, "typing_course");
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        ok: !!latestTyping,
+        email: email,
+        module: "typing_course",
+        progress: latestTyping ? parseJsonSafe_(latestTyping.progress_json, {}) : {},
+        row: latestTyping
+      }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
