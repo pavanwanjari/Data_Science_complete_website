@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free mixed practice hub with MCQ, typing, query writing, coding and labs for Python, SQL and Excel." />
+  <title>Practice Hub - DataLearn10X</title>
+  <link rel="icon" type="image/png" href="dl10x.png" />
+  <script src="analytics.js" defer></script>
+  <script src="config.js" defer></script>
+  <style>
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif}
+    .wrap{max-width:1200px;margin:0 auto;padding:18px 14px 40px}
+    .hero,.card{border:1px solid #d8e5ff;border-radius:16px;padding:16px;background:#fff}
+    .hero{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .brand{display:flex;gap:12px;align-items:center}.brand img{width:56px;height:56px;border-radius:12px;padding:4px;background:#fff;border:1px solid #d8e5ff}
+    h1{margin:0;font-size:28px}.sub{margin:6px 0 0;color:#4f6487}
+    .btn{border:none;border-radius:11px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .btn.primary{background:#2563eb;color:#fff}.btn.secondary{background:#dbeafe;color:#10213d}
+    .grid{display:grid;grid-template-columns:330px 1fr;gap:14px;margin-top:14px}
+    .label{font-size:12px;color:#4f6487;display:block;margin:10px 0 6px}
+    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #cfe0ff}
+    .course-buttons,.level-buttons{display:grid;gap:8px;margin-top:10px}
+    .course-btn,.level-btn{padding:10px;border:1px solid #cfe0ff;border-radius:10px;background:#eff6ff;cursor:pointer;text-align:left;font-weight:700}
+    .course-btn.active,.level-btn.active{background:#2563eb;color:#fff}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+    .stat{border:1px solid #dbe8ff;border-radius:10px;padding:10px;background:#f7fbff}
+    .stat b{font-size:24px;display:block}.small{font-size:12px;color:#4f6487}
+    .progress{margin-top:8px;height:8px;background:#e2ebff;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;background:#2563eb;width:0}
+    .meta{color:#4f6487;font-size:13px}
+    .question-type{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;background:#dbeafe;color:#1e40af;font-weight:700;margin-bottom:8px}
+    .question{font-size:20px;margin:4px 0 8px}
+    .options{display:grid;gap:9px}.option{padding:10px;border:1px solid #cfe0ff;border-radius:10px;background:#f8fbff;cursor:pointer;text-align:left}
+    .option.correct{border-color:#16a34a;background:#ecfdf3}.option.wrong{border-color:#dc2626;background:#fef2f2}
+    .input-zone{display:grid;gap:10px}
+    .feedback{padding:10px;border-radius:10px;border:1px solid #dbe8ff;background:#f8fbff}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .labs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}
+    .lab{border:1px solid #dbe8ff;border-radius:12px;padding:10px;background:#f7fbff}
+    .lab a{display:inline-block;margin-top:6px;color:#1d4ed8;font-weight:700;text-decoration:none}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="brand"><img src="dl10x.png" alt="DataLearn10X logo"><div><h1>DataLearn10X Practice Hub</h1><p class="sub">Bright, simple and interactive practice. 100 questions each in Python, SQL and Excel (30 Beginner, 30 Intermediate, 40 Advanced).</p></div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="index.html" class="btn secondary" style="text-decoration:none">Back Home</a><button id="syncBtn" class="btn primary" type="button">Sync by Email</button></div>
+  </section>
+
+  <div class="grid">
+    <aside class="card">
+      <label class="label" for="email">Email (for cross-device progress)</label>
+      <input id="email" type="email" placeholder="you@example.com"/>
+      <label class="label" for="name">Student Name</label>
+      <input id="name" type="text" placeholder="Your name"/>
+      <div class="course-buttons" id="courseButtons"></div>
+      <div class="level-buttons" id="levelButtons"></div>
+      <div class="stats">
+        <div class="stat"><span class="small">Attempted</span><b id="attempted">0</b></div>
+        <div class="stat"><span class="small">Correct</span><b id="correct">0</b></div>
+        <div class="stat"><span class="small">Accuracy</span><b id="accuracy">0%</b></div>
+      </div>
+      <div class="progress"><span id="progressFill"></span></div>
+      <div class="small" id="coverage">Coverage: 0 / 100</div>
+      <div class="small" id="syncStatus" style="margin-top:8px">Tip: add email and click sync to use on phone/laptop.</div>
+    </aside>
+
+    <main class="card">
+      <span class="question-type" id="qType">MCQ</span>
+      <h2 class="question" id="questionText">Choose course and level to begin.</h2>
+      <div class="meta" id="questionMeta">Question 0 / 0</div>
+      <div id="mcqZone" class="options"></div>
+      <div id="inputZone" class="input-zone" style="display:none">
+        <textarea id="answerBox" rows="5" placeholder="Type your answer/query/code here"></textarea>
+        <button class="btn primary" id="checkAnswerBtn" type="button">Check Answer</button>
+      </div>
+      <div class="feedback" id="feedback">You will get instant feedback after each response.</div>
+      <div class="actions" style="margin-top:10px">
+        <button class="btn secondary" id="prevBtn" type="button">Previous</button>
+        <button class="btn primary" id="nextBtn" type="button">Next</button>
+        <button class="btn secondary" id="randomBtn" type="button">Random</button>
+      </div>
+
+      <h3 style="margin:18px 0 6px">Free Online Labs (Practice Now)</h3>
+      <div class="labs">
+        <div class="lab"><b>Python Lab (Google Colab)</b><p class="small">Run Python notebooks in browser.</p><a href="https://colab.research.google.com" target="_blank" rel="noopener">Open Colab</a></div>
+        <div class="lab"><b>SQL Lab (DB Fiddle)</b><p class="small">Write and run SQL queries online.</p><a href="https://www.db-fiddle.com/" target="_blank" rel="noopener">Open DB Fiddle</a></div>
+        <div class="lab"><b>Excel Lab (Microsoft 365)</b><p class="small">Use Excel online free with Microsoft account.</p><a href="https://www.office.com/launch/excel" target="_blank" rel="noopener">Open Excel Online</a></div>
+        <div class="lab"><b>Kaggle Learn</b><p class="small">Short data exercises for skills practice.</p><a href="https://www.kaggle.com/learn" target="_blank" rel="noopener">Open Kaggle Learn</a></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+(() => {
+  const LEVELS = [{key:'Beginner',count:30},{key:'Intermediate',count:30},{key:'Advanced',count:40}];
+  const topics = {
+    Python: {
+      Beginner: ['Variables','Data Types','Input/Output','Operators','If Else','Loops','Lists','Tuples','Sets','Dict','Functions','Parameters','Return','Strings','Slicing','Indexing','Range','Boolean','Comparison','Type Casting','Comments','Indentation','Membership','File Read','File Write','Error Basics','Break Continue','List Methods','String Methods','While Loop'],
+      Intermediate: ['Comprehension','Lambda','Map','Filter','Exceptions','Modules','Packages','OOP Class','Inheritance','Polymorphism','Encapsulation','Decorators','Generators','Iterators','Regex','JSON','CSV','Datetime','API Request','Pandas','NumPy','Merge','GroupBy','Virtualenv','PIP','Context Manager','Testing','CLI Script','Visualization','Best Practices'],
+      Advanced: ['Asyncio','Threading','Multiprocessing','Profiling','Caching','Type Hints','Dataclass','Abstract Class','Design Pattern','Dependency Injection','Unit Test','Mocking','Pytest','Logging','FastAPI','Flask API','SQLAlchemy','Web Scraping','Vectorization','Feature Engineering','Model Evaluation','Pipeline','Docker','Packaging','CI CD','Security','Auth','Rate Limiting','System Design','Queue','Streaming','Cloud Deploy','Monitoring','Refactor','Code Review','Memory Optimize','Performance Tuning','Data Validation','Automation','Scheduling']
+    },
+    SQL: {
+      Beginner: ['SELECT','WHERE','ORDER BY','LIMIT','DISTINCT','COUNT','SUM','AVG','MIN MAX','GROUP BY','HAVING','LIKE','IN','BETWEEN','IS NULL','INNER JOIN','LEFT JOIN','RIGHT JOIN','Aliases','Primary Key','Foreign Key','INSERT','UPDATE','DELETE','CREATE TABLE','ALTER TABLE','DROP TABLE','Constraints','Date Functions','String Functions'],
+      Intermediate: ['Subquery','Correlated Subquery','CTE','Window Function','ROW_NUMBER','RANK','DENSE_RANK','PARTITION BY','CASE','COALESCE','UNION','UNION ALL','Transaction','Commit Rollback','Views','Stored Procedure','Trigger','Temp Table','Index','Query Plan','Normalization','Denormalization','Casting','Pivot','Date Arithmetic','Joins Optimize','Aggregation','Security Roles','Functions','Data Types'],
+      Advanced: ['Execution Plan','Composite Index','Index Selectivity','Isolation Level','Deadlock','Materialized View','Partitioning','Replication','Backup Recovery','ETL SQL','Warehouse Schema','SCD','Fact Dimension','Recursive CTE','JSON SQL','Analytical Function','MERGE','Audit Trail','Permission Model','SQL Injection','Parameterized Query','High Availability','Monitoring','Distributed SQL','CDC','Data Quality','Temporal Table','Cost Optimization','Workload Management','Stored Proc Tuning','Resource Governance','Batch SQL','Streaming SQL','Sharding','Locking','Performance Fix','Refactoring Query','Constraint Design','Scalability','Reliability']
+    },
+    Excel: {
+      Beginner: ['Cell Ref','Absolute Ref','Relative Ref','Formatting','Number Format','Sort','Filter','Conditional Formatting','Data Validation','Text to Columns','AutoFill','SUM','AVERAGE','COUNT','MAX MIN','IF','AND OR','VLOOKUP','XLOOKUP','INDEX MATCH','LEFT RIGHT MID','LEN TRIM','CONCAT','Find Replace','Charts','Freeze Panes','Print Setup','Tables','Protect Sheet','Flash Fill'],
+      Intermediate: ['SUMIFS','COUNTIFS','AVERAGEIFS','Nested IF','IFS','IFERROR','Named Range','Dynamic Arrays','FILTER','SORT','UNIQUE','SEQUENCE','Pivot Table','Pivot Chart','Slicer','Timeline','Power Query','Data Cleaning','Remove Duplicates','Text Functions','Date Functions','What-if','Goal Seek','Scenario Manager','Sparklines','Dashboard','XLOOKUP Adv','INDEX MATCH Adv','Collaboration','Validation Rules'],
+      Advanced: ['Power Pivot','Data Model','DAX','CALCULATE','RELATED','Time Intelligence','Advanced Charts','Waterfall','Combo Chart','Forecast','Solver','Array Formula','Dynamic Dashboard','VBA Macro','VBA Loop','VBA UserForm','Macro Security','Workbook Optimize','Large Data','Error Auditing','Scenario Automation','Template Design','KPI Tracking','Variance Analysis','Financial Model','Sensitivity','Monte Carlo','Governance','Protection Strategy','Cross Workbook','External Data','Performance','Office Scripts','Advanced Pivot','Executive Report','M Language','Automation','Refresh Strategy','Data Pipeline','Audit Control']
+    }
+  };
+
+  const state = {course:'Python',level:'Beginner',idx:{Python:{Beginner:0,Intermediate:0,Advanced:0},SQL:{Beginner:0,Intermediate:0,Advanced:0},Excel:{Beginner:0,Intermediate:0,Advanced:0}},progress:{},email:'',name:''};
+  const courses = Object.keys(topics);
+
+  function qTypeByIndex(i, course){
+    if (course === 'SQL' && i % 4 === 1) return 'sql_query';
+    if (course === 'Excel' && i % 4 === 1) return 'excel_formula';
+    if (course === 'Python' && i % 4 === 1) return 'coding';
+    if (i % 4 === 2) return 'typing';
+    return 'mcq';
+  }
+
+  function buildQuestion(course, level, topic, i){
+    const type = qTypeByIndex(i, course);
+    if (type === 'mcq') {
+      const correctText = `${topic} is used in practical ${course} tasks.`;
+      const wrong = [`${topic} is only for animations.`,`Never used in data work.`,`Always deletes data automatically.`];
+      const correctIndex = i % 4;
+      const options = [...wrong]; options.splice(correctIndex, 0, correctText);
+      return {id:`${course}_${level}_${i+1}`,type,question:`${course} ${level}: Which option is correct about ${topic}?`,options,correctIndex,explain:`${topic} is important for real projects.`};
+    }
+    if (type === 'typing') {
+      return {id:`${course}_${level}_${i+1}`,type,question:`In one line, explain what "${topic}" means in ${course}.`,keywords:[topic.split(' ')[0].toLowerCase()],explain:`Include concept + where it is used.`};
+    }
+    if (type === 'coding') {
+      return {id:`${course}_${level}_${i+1}`,type,question:`Write a short Python snippet using ${topic}. (2-5 lines)`,keywords:['def','for','if','print'],explain:`Any valid snippet is accepted if it contains coding structure.`};
+    }
+    if (type === 'sql_query') {
+      return {id:`${course}_${level}_${i+1}`,type,question:`Write an SQL query that demonstrates ${topic}.`,keywords:['select','from'],explain:`Include SELECT and FROM; bonus if ${topic} keyword appears.`};
+    }
+    return {id:`${course}_${level}_${i+1}`,type,question:`Write an Excel formula/example using ${topic}.`,keywords:['='],explain:`Start with '=' and use a relevant Excel function.`};
+  }
+
+  const banks = {};
+  courses.forEach(c=>{banks[c]={}; LEVELS.forEach(l=>{banks[c][l.key]=topics[c][l.key].map((t,i)=>buildQuestion(c,l.key,t,i));});});
+
+  const el = {
+    courseButtons:document.getElementById('courseButtons'), levelButtons:document.getElementById('levelButtons'),
+    attempted:document.getElementById('attempted'),correct:document.getElementById('correct'),accuracy:document.getElementById('accuracy'),coverage:document.getElementById('coverage'),progressFill:document.getElementById('progressFill'),
+    qType:document.getElementById('qType'), questionText:document.getElementById('questionText'),questionMeta:document.getElementById('questionMeta'),
+    mcqZone:document.getElementById('mcqZone'), inputZone:document.getElementById('inputZone'),answerBox:document.getElementById('answerBox'),feedback:document.getElementById('feedback'),
+    email:document.getElementById('email'),name:document.getElementById('name'),syncStatus:document.getElementById('syncStatus')
+  };
+
+  const key = () => `dl10xPractice::${state.email.toLowerCase()}`;
+  function setStatus(msg){el.syncStatus.textContent=msg;}
+  function getList(){return banks[state.course][state.level];}
+  function getQ(){return getList()[state.idx[state.course][state.level]];}
+  function getProgressNode(c,l){state.progress[c]??={}; state.progress[c][l]??={}; return state.progress[c][l];}
+
+  function saveLocal(){ if(!state.email) return; localStorage.setItem(key(), JSON.stringify({email:state.email,name:state.name,progress:state.progress,updatedAt:new Date().toISOString()})); }
+  function loadLocal(){ if(!state.email) return; const raw=localStorage.getItem(key()); if(!raw) return; try{const x=JSON.parse(raw); state.progress=x.progress||{}; if(x.name&&!state.name){state.name=x.name;el.name.value=x.name;} setStatus('Loaded local progress.');}catch(_){setStatus('Local progress could not be loaded.');}}
+
+  function gradeText(input, keywords){
+    const val=String(input||'').toLowerCase().trim();
+    if(!val) return false;
+    const hits=keywords.filter(k=>val.includes(k.toLowerCase())).length;
+    return hits>=Math.max(1, Math.ceil(keywords.length/3));
+  }
+
+  function renderLeft(){
+    el.courseButtons.innerHTML = courses.map(c=>`<button class="course-btn ${c===state.course?'active':''}" data-course="${c}">${c} (100 Questions)</button>`).join('');
+    el.levelButtons.innerHTML = LEVELS.map(l=>`<button class="level-btn ${l.key===state.level?'active':''}" data-level="${l.key}">${l.key} (${l.count})</button>`).join('');
+    const rows=Object.values(((((state.progress||{})[state.course]||{})[state.level])||{}));
+    const attempted=rows.length, correct=rows.filter(r=>r.correct).length, total=getList().length;
+    el.attempted.textContent=attempted; el.correct.textContent=correct; el.accuracy.textContent=`${attempted?Math.round(correct*100/attempted):0}%`;
+    el.coverage.textContent=`Coverage: ${attempted} / ${total}`; el.progressFill.style.width=`${Math.round(attempted*100/total)}%`;
+  }
+
+  function renderQuestion(){
+    const q=getQ(); const i=state.idx[state.course][state.level];
+    el.qType.textContent=q.type.replace('_',' ').toUpperCase();
+    el.questionText.textContent=q.question;
+    el.questionMeta.textContent=`Question ${i+1} / ${getList().length}`;
+    el.answerBox.value='';
+    const saved=((((state.progress||{})[state.course]||{})[state.level]||{})[q.id]);
+
+    if(q.type==='mcq'){
+      el.mcqZone.style.display='grid'; el.inputZone.style.display='none';
+      el.mcqZone.innerHTML=q.options.map((o,idx)=>{
+        let cls='option';
+        if(saved){ if(idx===q.correctIndex) cls+=' correct'; else if(saved.selected===idx&&!saved.correct) cls+=' wrong'; }
+        return `<button class="${cls}" data-opt="${idx}">${String.fromCharCode(65+idx)}. ${o}</button>`;
+      }).join('');
+    } else {
+      el.mcqZone.style.display='none'; el.inputZone.style.display='grid';
+      el.feedback.textContent = saved ? `${saved.correct?'✅ Good attempt.':'❌ Needs improvement.'} ${q.explain}` : 'Type your answer and click Check Answer.';
+    }
+  }
+
+  function record(q, payload){
+    const node=getProgressNode(state.course,state.level);
+    node[q.id]={...payload,answeredAt:new Date().toISOString()};
+    saveLocal(); renderLeft(); renderQuestion();
+    sync(false);
+  }
+
+  function submitMCQ(i){ const q=getQ(); record(q,{selected:i,correct:i===q.correctIndex}); el.feedback.textContent = `${i===q.correctIndex?'✅ Correct!':'❌ Incorrect.'} ${q.explain}`; }
+  function submitText(){ const q=getQ(); const txt=el.answerBox.value; const ok=gradeText(txt,q.keywords||[]); record(q,{typed:txt,correct:ok}); el.feedback.textContent=`${ok?'✅ Accepted.':'❌ Not enough key elements.'} ${q.explain}`; }
+
+  function nav(step){const arr=getList(); const i=state.idx[state.course][state.level]; state.idx[state.course][state.level]=Math.max(0,Math.min(arr.length-1,i+step)); renderQuestion();}
+  function randomQ(){state.idx[state.course][state.level]=Math.floor(Math.random()*getList().length); renderQuestion();}
+
+  function mergeProgress(local,remote){
+    const out={...local};
+    Object.entries(remote||{}).forEach(([c,lv])=>{ out[c]??={}; Object.entries(lv||{}).forEach(([l,qs])=>{ out[c][l]??={}; Object.entries(qs||{}).forEach(([id,row])=>{const cur=out[c][l][id]; if(!cur || new Date(row.answeredAt||0) > new Date(cur.answeredAt||0)) out[c][l][id]=row;});});});
+    return out;
+  }
+
+  async function sync(show=true){
+    if(!state.email){ if(show) setStatus('Please enter email first.'); return; }
+    const base=window.DL10X_CONFIG?.SHEET_WEBAPP_URL;
+    if(!base){ if(show) setStatus('Sync not configured in config.js.'); return; }
+    try{
+      await fetch(base,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({action:'practice_progress_save',email:state.email,student_name:state.name,progress_json:JSON.stringify(state.progress),ts:new Date().toISOString()})});
+      const res=await fetch(`${base}?action=practice_progress_get&email=${encodeURIComponent(state.email)}`,{cache:'no-store'});
+      const data=await res.json();
+      if(data && data.progress && typeof data.progress==='object'){ state.progress=mergeProgress(state.progress, data.progress); saveLocal(); }
+      if(show) setStatus('Progress synced for this email.'); renderLeft(); renderQuestion();
+    }catch(_){ if(show) setStatus('Remote sync unavailable, local progress still works.'); }
+  }
+
+  function bind(){
+    el.courseButtons.addEventListener('click',e=>{const b=e.target.closest('[data-course]'); if(!b)return; state.course=b.dataset.course; renderLeft(); renderQuestion();});
+    el.levelButtons.addEventListener('click',e=>{const b=e.target.closest('[data-level]'); if(!b)return; state.level=b.dataset.level; renderLeft(); renderQuestion();});
+    el.mcqZone.addEventListener('click',e=>{const b=e.target.closest('[data-opt]'); if(!b)return; submitMCQ(Number(b.dataset.opt));});
+    document.getElementById('checkAnswerBtn').addEventListener('click',submitText);
+    document.getElementById('prevBtn').addEventListener('click',()=>nav(-1));
+    document.getElementById('nextBtn').addEventListener('click',()=>nav(1));
+    document.getElementById('randomBtn').addEventListener('click',randomQ);
+    document.getElementById('syncBtn').addEventListener('click',()=>sync(true));
+    el.email.addEventListener('change',()=>{state.email=el.email.value.trim().toLowerCase(); loadLocal(); renderLeft(); renderQuestion();});
+    el.name.addEventListener('change',()=>{state.name=el.name.value.trim(); saveLocal();});
+  }
+
+  bind(); renderLeft(); renderQuestion();
+})();
+</script>
+</body>
+</html>
