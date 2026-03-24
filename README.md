@@ -94,6 +94,20 @@ The updated `google_apps_script_template.gs` now supports two analytics endpoint
 
 After redeploying the Apps Script Web App, the dashboard can finally show shared visit counts from Instagram ad clicks across devices/browsers instead of only the current browser's localStorage.
 
+## Cross-device progress sync for free practice modules
+The updated `google_apps_script_template.gs` now includes a dedicated `PracticeProgress` sheet and APIs so students can continue from any phone/laptop using email:
+
+- `POST action=practice_progress_save` with `email`, `student_name`, `progress_json`, `ts`
+- `GET action=practice_progress_get&email=user@example.com`
+- `POST action=typing_progress_save` with `email`, `student_name`, `progress_json`, `ts`
+- `GET action=typing_progress_get&email=user@example.com`
+
+These endpoints are used by:
+- `practice_hub.html` (Python/SQL/Excel progress)
+- `course_english_typing.html` (typing level progress)
+
+If the endpoint is unavailable, both pages still keep progress locally in browser storage as fallback.
+
 ## Quick website health check
 Run a static verification before publishing:
 ```bash
