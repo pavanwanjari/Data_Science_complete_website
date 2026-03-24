@@ -1,0 +1,27 @@
+:root{
+  --dl-bg:#f5f8ff;
+  --dl-bg-soft:#eef4ff;
+  --dl-surface:#ffffff;
+  --dl-border:#d5e3ff;
+  --dl-text:#10213d;
+  --dl-muted:#4f6487;
+  --dl-primary:#2563eb;
+  --dl-primary-soft:#dbeafe;
+}
+html,body{background:var(--dl-bg)!important;color:var(--dl-text)!important}
+body:before,body:after{display:none!important}
+header,section,footer,.hero,.card,.buy-wrap,.audience-wrap,.feedback-wrap,.hiring-wrap,.youtube-wrap,.header,.shell .card,.site-card,.metric-card,.form-card,.quiz-card,.panel,.stat,.stat-card{
+  background:var(--dl-surface)!important;
+  color:var(--dl-text)!important;
+  border-color:var(--dl-border)!important;
+  box-shadow:0 8px 24px rgba(37,99,235,.08)!important;
+}
+p,.sub,.mini,.muted,.meta,.help,.small,label{color:var(--dl-muted)!important}
+a{color:inherit}
+.btn,.pill,.tag,.btn-link{
+  background:linear-gradient(90deg,#3b82f6,#2563eb)!important;
+  color:#fff!important;
+}
+.btn.secondary,.chip,.quick-link,.opt,.course-btn{background:var(--dl-primary-soft)!important;color:var(--dl-text)!important}
+input,textarea,select{background:#fff!important;color:var(--dl-text)!important;border:1px solid var(--dl-border)!important}
+.whatsapp{box-shadow:0 10px 20px rgba(37,99,235,.25)!important}
