@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free interactive practice tests for Python, SQL, and Excel with 3 levels and progress tracking by email." />
+  <title>Free Practice Hub - DataLearn10X</title>
+  <link rel="icon" type="image/png" href="dl10x.png" />
+  <script src="analytics.js" defer></script>
+  <script src="config.js" defer></script>
+  <style>
+    :root{--bg:#070f1e;--panel:#0e1d38;--panel2:#102748;--line:#335b98;--text:#e9f2ff;--muted:#a7bddf;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444;--accent:#38bdf8;--accent2:#6366f1}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top left,#1f407f 0,#0d1528 35%,#070f1e 100%);color:var(--text);min-height:100vh}
+    .bgfx,.bgfx:before,.bgfx:after{position:fixed;inset:0;pointer-events:none;z-index:-1}
+    .bgfx{background-image:radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px);background-size:28px 28px;opacity:.16}
+    .bgfx:before,.bgfx:after{content:"";border-radius:50%;filter:blur(20px)}
+    .bgfx:before{width:260px;height:260px;left:-50px;top:20px;background:rgba(56,189,248,.35);animation:float 7s ease-in-out infinite}
+    .bgfx:after{width:220px;height:220px;right:-40px;bottom:8%;background:rgba(99,102,241,.36);animation:float 9s ease-in-out infinite reverse}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+    .wrap{max-width:1180px;margin:0 auto;padding:18px 14px 48px}
+    .hero,.card{background:linear-gradient(145deg,rgba(10,20,40,.96),rgba(16,38,72,.85));border:1px solid rgba(116,168,255,.26);border-radius:18px;box-shadow:0 16px 36px rgba(0,0,0,.3)}
+    .hero{padding:18px 20px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:56px;height:56px;border-radius:12px;background:#fff;padding:4px}
+    h1{font-size:28px;margin:0}
+    .sub{margin:6px 0 0;color:#cfe0ff;font-size:14px;max-width:760px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:11px 14px;font-weight:700;cursor:pointer;color:#fff;text-decoration:none}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .btn.secondary{background:#142951;border:1px solid rgba(116,168,255,.24)}
+    .grid{margin-top:16px;display:grid;grid-template-columns:320px 1fr;gap:16px}
+    .card{padding:16px}
+    .label{font-size:12px;color:var(--muted);margin-top:10px;display:block}
+    input,select{width:100%;padding:11px;border-radius:12px;border:1px solid #3a5f9a;background:#0a162c;color:#f7fbff}
+    .course-list{display:grid;gap:10px;margin-top:12px}
+    .course-btn{padding:12px;border-radius:12px;border:1px solid rgba(120,173,255,.25);background:#12284a;color:#fff;text-align:left;font-weight:700;cursor:pointer;transition:.2s}
+    .course-btn.active,.course-btn:hover{transform:translateY(-2px);border-color:#67e8f9;background:linear-gradient(120deg,#15356a,#1d4d96)}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .chip{padding:7px 10px;border-radius:999px;border:1px solid rgba(116,168,255,.25);background:#10233f;font-size:12px;color:#d6e4ff;cursor:pointer}
+    .chip.active{background:#1d4ed8;border-color:#93c5fd}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+    .stat{background:#0f223f;border:1px solid rgba(116,168,255,.25);border-radius:12px;padding:10px}
+    .stat b{font-size:26px;display:block}
+    .small{font-size:12px;color:var(--muted)}
+    .bar{margin-top:12px;height:9px;border-radius:99px;background:#1b2f52;overflow:hidden}
+    .bar > span{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#38bdf8);width:0%;transition:width .35s}
+    .qbox{min-height:220px;display:grid;gap:10px}
+    .qtitle{font-size:21px;margin:0}
+    .qmeta{color:var(--muted);font-size:13px}
+    .options{display:grid;gap:10px}
+    .opt{padding:12px;border-radius:12px;border:1px solid rgba(116,168,255,.24);background:#112548;cursor:pointer}
+    .opt:hover{border-color:#7dd3fc}
+    .opt.correct{border-color:var(--good);background:rgba(34,197,94,.14)}
+    .opt.wrong{border-color:var(--bad);background:rgba(239,68,68,.16)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hint{padding:11px;border-radius:12px;background:#0f2342;border:1px solid rgba(116,168,255,.2);color:#d8ebff;font-size:14px}
+    .sync{margin-top:10px;font-size:12px;color:#c5d8f8}
+    .success{color:#9ef7c3}.warning{color:#ffd58d}.danger{color:#fca5a5}
+    @media (max-width:960px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}}
+    @media (max-width:620px){h1{font-size:24px}.stats{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="bgfx" aria-hidden="true"></div>
+<div class="wrap">
+  <section class="hero">
+    <div class="brand">
+      <img src="dl10x.png" alt="DataLearn10X logo" />
+      <div>
+        <h1>DataLearn10X Free Practice Hub</h1>
+        <p class="sub">Python, SQL, and Excel practice with <b>100 questions per course</b> across Beginner (30), Intermediate (30), and Advanced (40). Save by email to continue on another device.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn secondary" href="index.html">Back to Home</a>
+      <button class="btn primary" id="syncNowBtn" type="button">Sync Progress</button>
+    </div>
+  </section>
+
+  <div class="grid">
+    <aside class="card">
+      <label class="label" for="email">Student email (for progress sync)</label>
+      <input id="email" type="email" placeholder="you@example.com" />
+      <label class="label" for="studentName">Student name (optional)</label>
+      <input id="studentName" type="text" placeholder="Your name" />
+      <div class="course-list" id="courseList"></div>
+      <div class="chips" id="levelChips"></div>
+      <div class="stats">
+        <div class="stat"><span class="small">Attempted</span><b id="attemptedCount">0</b></div>
+        <div class="stat"><span class="small">Correct</span><b id="correctCount">0</b></div>
+        <div class="stat"><span class="small">Accuracy</span><b id="accuracyCount">0%</b></div>
+      </div>
+      <div class="bar"><span id="progressBar"></span></div>
+      <div class="small" id="coverageText" style="margin-top:6px">Coverage: 0 / 100</div>
+      <div class="sync" id="syncStatus">Tip: enter email and click Sync Progress to restore on any system.</div>
+    </aside>
+
+    <main class="card">
+      <div class="qbox">
+        <h2 class="qtitle" id="questionText">Select course and level to start.</h2>
+        <div class="qmeta" id="questionMeta">Question 0 of 0</div>
+        <div class="options" id="options"></div>
+        <div class="hint" id="explainBox">You will see instant explanation after each answer.</div>
+        <div class="actions">
+          <button class="btn secondary" id="prevBtn" type="button">Previous</button>
+          <button class="btn primary" id="nextBtn" type="button">Next</button>
+          <button class="btn secondary" id="randomBtn" type="button">Random Question</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+(() => {
+  const LEVELS = [
+    { key: 'Beginner', total: 30 },
+    { key: 'Intermediate', total: 30 },
+    { key: 'Advanced', total: 40 }
+  ];
+
+  const COURSE_BLUEPRINT = {
+    Python: {
+      Beginner: ['Variables','Data Types','Type Casting','Input/Output','Operators','If Else','Loops','For Loop','While Loop','Break Continue','Lists','Tuples','Sets','Dictionaries','Functions','Parameters','Return','String Methods','List Methods','Slicing','Indexing','Comments','Indentation','Boolean Logic','Comparison','Range','Membership','Error Basics','File Read','File Write'],
+      Intermediate: ['Comprehensions','Lambda','Map Filter','Exception Handling','Modules','Packages','Virtual Environment','PIP','OOP Class','OOP Inheritance','Encapsulation','Polymorphism','Decorators','Generators','Iterators','Datetime','JSON','CSV','Regex','API Requests','NumPy Basics','Pandas Basics','Data Cleaning','GroupBy','Merge Join','Visualization Basics','Testing Basics','CLI Scripts','Context Manager','Best Practices'],
+      Advanced: ['Asyncio','Concurrency','Threading','Multiprocessing','Memory Optimization','Profiling','Caching','Type Hints','Dataclasses','Abstract Classes','Design Patterns','Dependency Injection','Unit Testing','Mocking','Pytest Fixtures','Logging','Advanced Regex','Web Scraping','FastAPI','Flask API','SQLAlchemy','Pandas Optimization','Vectorization','Feature Engineering','Model Evaluation','Pipelines','Docker for Python','Packaging','CI CD','Security Basics','Authentication','Authorization','Rate Limiting','System Design','Message Queues','Streaming Data','Cloud Deployment','Monitoring','Refactoring','Code Review']
+    },
+    SQL: {
+      Beginner: ['SELECT','WHERE','ORDER BY','LIMIT','DISTINCT','COUNT','SUM','AVG','MIN MAX','GROUP BY','HAVING','LIKE','IN','BETWEEN','IS NULL','INNER JOIN','LEFT JOIN','RIGHT JOIN','Alias','Primary Key','Foreign Key','INSERT','UPDATE','DELETE','CREATE TABLE','ALTER TABLE','DROP TABLE','Constraints','Date Functions','String Functions'],
+      Intermediate: ['Subqueries','Correlated Subquery','CTE','Window Functions','ROW_NUMBER','RANK','DENSE_RANK','PARTITION BY','Indexes','Query Plan','Normalization','Denormalization','UNION','UNION ALL','CASE','COALESCE','Transactions','COMMIT ROLLBACK','Views','Stored Procedure','Functions','Triggers','Temp Tables','Data Types','Casting','Joins Optimization','Aggregation Strategy','Date Arithmetic','Pivot Basics','Security Roles'],
+      Advanced: ['Query Optimization','Execution Plan Analysis','Composite Indexes','Index Selectivity','Locking','Isolation Levels','Deadlocks','Materialized Views','Partitioning','Sharding Basics','Replication','Backup Recovery','ETL SQL','Data Warehouse Schema','Slowly Changing Dimensions','Fact Dimension','Advanced Window Frames','Recursive CTE','JSON in SQL','Analytical Functions','MERGE UPSERT','Audit Trails','Permission Models','SQL Injection Prevention','Parameterized Queries','High Availability','Performance Monitoring','Workload Management','Distributed SQL','CDC','Data Quality Rules','Constraint Strategy','Temporal Tables','Query Refactoring','Cost Based Optimization','Batch vs Streaming SQL','Resource Governance','Stored Proc Tuning','BigQuery Style SQL','Snowflake Style SQL']
+    },
+    Excel: {
+      Beginner: ['Cell Reference','Relative Reference','Absolute Reference','Basic Formatting','Number Formats','Sort','Filter','Conditional Formatting','Data Validation','Text to Columns','Flash Fill','AutoFill','SUM','AVERAGE','COUNT','MAX MIN','IF','AND OR','VLOOKUP','XLOOKUP Basics','INDEX MATCH','LEFT RIGHT MID','LEN TRIM','CONCAT','Find Replace','Basic Charts','Freeze Panes','Print Setup','Table Format','Protect Sheet'],
+      Intermediate: ['XLOOKUP Advanced','INDEX MATCH Advanced','SUMIFS','COUNTIFS','AVERAGEIFS','Nested IF','IFS','IFERROR','Named Ranges','Dynamic Arrays','FILTER Function','SORT Function','UNIQUE Function','SEQUENCE','Pivot Table','Pivot Charts','Slicers','Timeline','Power Query Basics','Data Cleaning','Remove Duplicates','Text Functions','Date Functions','Logical Functions','What-if Analysis','Goal Seek','Scenario Manager','Sparklines','Dashboard Basics','Collaboration'],
+      Advanced: ['Power Query Transform','M Language Basics','Power Pivot','Data Model','DAX Basics','CALCULATE','RELATED','Time Intelligence','Advanced Charts','Waterfall Chart','Combo Chart','Forecasting','Solver','Advanced Conditional Formatting','Array Formulas','Dynamic Dashboard','VBA Basics','VBA Loops','VBA UserForm','Macro Security','Automation Workflow','Workbook Optimization','Large Data Handling','Error Auditing','Scenario Automation','Template Design','KPI Tracking','Variance Analysis','Financial Modeling','Sensitivity Analysis','Monte Carlo Basics','Data Governance','Version Control Practice','Protection Strategy','Cross Workbook Links','External Data Refresh','Performance Tuning','Office Scripts','Advanced Pivot Analytics','Executive Reporting']
+    }
+  };
+
+  const state = {
+    email: '', name: '',
+    course: 'Python', level: 'Beginner',
+    indexByCourseLevel: { Python: { Beginner: 0, Intermediate: 0, Advanced: 0 }, SQL: { Beginner: 0, Intermediate: 0, Advanced: 0 }, Excel: { Beginner: 0, Intermediate: 0, Advanced: 0 } },
+    progress: {}
+  };
+
+  const el = {
+    courseList: document.getElementById('courseList'), levelChips: document.getElementById('levelChips'),
+    questionText: document.getElementById('questionText'), questionMeta: document.getElementById('questionMeta'), options: document.getElementById('options'), explainBox: document.getElementById('explainBox'),
+    attemptedCount: document.getElementById('attemptedCount'), correctCount: document.getElementById('correctCount'), accuracyCount: document.getElementById('accuracyCount'), progressBar: document.getElementById('progressBar'), coverageText: document.getElementById('coverageText'),
+    email: document.getElementById('email'), studentName: document.getElementById('studentName'), syncStatus: document.getElementById('syncStatus')
+  };
+
+  const banks = Object.fromEntries(Object.keys(COURSE_BLUEPRINT).map(course => [course, buildCourseBank(course)]));
+
+  function buildQuestion(course, level, topic, idx) {
+    const stem = `${course} ${level} #${idx + 1}: Which statement best describes ${topic}?`;
+    const correct = `${topic} is a core ${course} concept used in practical tasks.`;
+    const distractors = [
+      `${topic} is only used for graphic design and not for data work.`,
+      `${topic} means deleting all historical data by default.`,
+      `${topic} is not relevant once projects move to production.`
+    ];
+    const rotate = idx % 4;
+    const options = [...distractors];
+    options.splice(rotate, 0, correct);
+    return { id: `${course}_${level}_${idx + 1}`, stem, options, correctIndex: rotate, explanation: `Remember: ${correct}` };
+  }
+
+  function buildCourseBank(course) {
+    const out = {};
+    LEVELS.forEach(({ key, total }) => {
+      const topics = COURSE_BLUEPRINT[course][key];
+      out[key] = Array.from({ length: total }, (_, i) => buildQuestion(course, key, topics[i], i));
+    });
+    return out;
+  }
+
+  function questionSet() {
+    return banks[state.course][state.level];
+  }
+
+  function currentQuestion() {
+    const list = questionSet();
+    return list[state.indexByCourseLevel[state.course][state.level]];
+  }
+
+  function progressKey() {
+    return `dl10xPracticeProgress::${state.email.toLowerCase()}`;
+  }
+
+  function ensureNode(path) {
+    if (!state.progress[path.course]) state.progress[path.course] = {};
+    if (!state.progress[path.course][path.level]) state.progress[path.course][path.level] = {};
+    return state.progress[path.course][path.level];
+  }
+
+  function saveLocal() {
+    if (!state.email) return;
+    localStorage.setItem(progressKey(), JSON.stringify({ email: state.email, name: state.name, progress: state.progress, updatedAt: new Date().toISOString() }));
+  }
+
+  function loadLocal() {
+    if (!state.email) return;
+    const raw = localStorage.getItem(progressKey());
+    if (!raw) return;
+    try {
+      const parsed = JSON.parse(raw);
+      state.progress = parsed.progress || {};
+      if (parsed.name && !state.name) { state.name = parsed.name; el.studentName.value = parsed.name; }
+      setSync('Loaded saved local progress.', 'success');
+    } catch (e) {
+      setSync('Could not load local progress file.', 'warning');
+    }
+  }
+
+  function getStats(course, level) {
+    const qLen = banks[course][level].length;
+    const rows = Object.values((((state.progress[course] || {})[level]) || {}));
+    const attempted = rows.length;
+    const correct = rows.filter(r => r.correct).length;
+    return { qLen, attempted, correct, accuracy: attempted ? Math.round((correct / attempted) * 100) : 0 };
+  }
+
+  function setSync(text, tone = '') {
+    el.syncStatus.className = `sync ${tone}`.trim();
+    el.syncStatus.textContent = text;
+  }
+
+  function renderSidebar() {
+    el.courseList.innerHTML = Object.keys(banks).map(course => `<button class="course-btn ${course === state.course ? 'active' : ''}" data-course="${course}">${course} Practice (100 Q)</button>`).join('');
+    el.levelChips.innerHTML = LEVELS.map(l => `<button class="chip ${l.key === state.level ? 'active' : ''}" data-level="${l.key}">${l.key} (${l.total})</button>`).join('');
+    const s = getStats(state.course, state.level);
+    el.attemptedCount.textContent = s.attempted;
+    el.correctCount.textContent = s.correct;
+    el.accuracyCount.textContent = `${s.accuracy}%`;
+    el.coverageText.textContent = `Coverage: ${s.attempted} / ${s.qLen}`;
+    el.progressBar.style.width = `${Math.round((s.attempted / s.qLen) * 100)}%`;
+  }
+
+  function renderQuestion() {
+    const q = currentQuestion();
+    const index = state.indexByCourseLevel[state.course][state.level];
+    el.questionText.textContent = q.stem;
+    el.questionMeta.textContent = `Question ${index + 1} of ${questionSet().length}`;
+    const attempt = ((((state.progress[state.course] || {})[state.level]) || {})[q.id]) || null;
+    el.options.innerHTML = q.options.map((opt, i) => {
+      let cls = 'opt';
+      if (attempt) {
+        if (i === q.correctIndex) cls += ' correct';
+        else if (attempt.selectedIndex === i && !attempt.correct) cls += ' wrong';
+      }
+      return `<button class="${cls}" data-option="${i}">${String.fromCharCode(65 + i)}. ${opt}</button>`;
+    }).join('');
+    el.explainBox.textContent = attempt ? `${attempt.correct ? '✅ Correct.' : '❌ Not correct.'} ${q.explanation}` : 'Select an option to see explanation instantly.';
+  }
+
+  function answer(optionIndex) {
+    const q = currentQuestion();
+    const correct = optionIndex === q.correctIndex;
+    const node = ensureNode({ course: state.course, level: state.level });
+    node[q.id] = { selectedIndex: optionIndex, correct, answeredAt: new Date().toISOString() };
+    saveLocal();
+    renderSidebar();
+    renderQuestion();
+    syncProgress(false);
+  }
+
+  function navigate(step) {
+    const list = questionSet();
+    const current = state.indexByCourseLevel[state.course][state.level];
+    state.indexByCourseLevel[state.course][state.level] = Math.max(0, Math.min(list.length - 1, current + step));
+    renderQuestion();
+  }
+
+  function randomQuestion() {
+    state.indexByCourseLevel[state.course][state.level] = Math.floor(Math.random() * questionSet().length);
+    renderQuestion();
+  }
+
+  async function syncProgress(forceMessage = true) {
+    const base = window.DL10X_CONFIG?.SHEET_WEBAPP_URL;
+    if (!state.email) {
+      if (forceMessage) setSync('Add email first to sync on phone or other systems.', 'warning');
+      return;
+    }
+    if (!base) {
+      if (forceMessage) setSync('Sync unavailable: SHEET_WEBAPP_URL is missing in config.js.', 'warning');
+      return;
+    }
+    try {
+      const payload = {
+        action: 'analytics_event',
+        event_name: 'practice_progress',
+        email: state.email,
+        student_name: state.name,
+        course: state.course,
+        level: state.level,
+        progress_json: JSON.stringify(state.progress),
+        timestamp: new Date().toISOString()
+      };
+      await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(payload) });
+
+      const response = await fetch(`${base}?action=analytics_export&limit=2000`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('analytics_export not reachable');
+      const rows = await response.json();
+      const list = Array.isArray(rows) ? rows : (Array.isArray(rows.events) ? rows.events : []);
+      const mine = list.filter(r => String(r.email || r.user_email || '').toLowerCase() === state.email.toLowerCase() && String(r.event_name || r.event || '').includes('practice_progress'));
+      const latest = mine.sort((a,b) => new Date(b.timestamp || b.created_at || 0) - new Date(a.timestamp || a.created_at || 0))[0];
+      const remoteProgress = latest?.progress_json ? JSON.parse(latest.progress_json) : null;
+      if (remoteProgress && typeof remoteProgress === 'object') {
+        state.progress = deepMergeProgress(state.progress, remoteProgress);
+        saveLocal();
+      }
+      if (forceMessage) setSync('Progress synced successfully for this email.', 'success');
+      renderSidebar();
+      renderQuestion();
+    } catch (err) {
+      if (forceMessage) setSync('Remote sync not available yet. Local email progress still saved on this browser.', 'warning');
+    }
+  }
+
+  function deepMergeProgress(local, remote) {
+    const merged = { ...local };
+    for (const [course, levels] of Object.entries(remote || {})) {
+      if (!merged[course]) merged[course] = {};
+      for (const [level, attempts] of Object.entries(levels || {})) {
+        if (!merged[course][level]) merged[course][level] = {};
+        for (const [qid, attempt] of Object.entries(attempts || {})) {
+          const current = merged[course][level][qid];
+          if (!current || new Date(attempt.answeredAt || 0) > new Date(current.answeredAt || 0)) {
+            merged[course][level][qid] = attempt;
+          }
+        }
+      }
+    }
+    return merged;
+  }
+
+  function bind() {
+    el.courseList.addEventListener('click', e => {
+      const btn = e.target.closest('[data-course]');
+      if (!btn) return;
+      state.course = btn.dataset.course;
+      renderSidebar();
+      renderQuestion();
+    });
+    el.levelChips.addEventListener('click', e => {
+      const btn = e.target.closest('[data-level]');
+      if (!btn) return;
+      state.level = btn.dataset.level;
+      renderSidebar();
+      renderQuestion();
+    });
+    el.options.addEventListener('click', e => {
+      const btn = e.target.closest('[data-option]');
+      if (!btn) return;
+      answer(Number(btn.dataset.option));
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => navigate(1));
+    document.getElementById('prevBtn').addEventListener('click', () => navigate(-1));
+    document.getElementById('randomBtn').addEventListener('click', randomQuestion);
+    document.getElementById('syncNowBtn').addEventListener('click', () => syncProgress(true));
+
+    el.email.addEventListener('change', () => {
+      state.email = el.email.value.trim().toLowerCase();
+      loadLocal();
+      renderSidebar();
+      renderQuestion();
+    });
+    el.studentName.addEventListener('change', () => {
+      state.name = el.studentName.value.trim();
+      saveLocal();
+    });
+  }
+
+  function init() {
+    bind();
+    renderSidebar();
+    renderQuestion();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
