@@ -17,6 +17,7 @@ html,body{
   text-rendering:optimizeLegibility;
 }
 p,.sub,.muted,.mini,.meta,.help,.small,label,.tips,.mini-note{color:var(--pro-text-soft)!important}
+h1,h2,h3,h4,h5,h6,b,strong{color:#f8fbff!important}
 header,.hero,.header,.head{
   background:linear-gradient(135deg,#0d2350,#1d4ed8,#0ea5e9)!important;
   border:1px solid rgba(148,197,255,.35)!important;
@@ -34,5 +35,6 @@ input,textarea,select{
 }
 .btn,.btn-link,.pill,.tag{background:linear-gradient(90deg,var(--pro-accent),var(--pro-accent-2))!important;color:#fff!important}
 .btn.secondary,.chip,.quick-link,.course-btn,.option{background:#18345f!important;color:#eaf2ff!important;border-color:#3f5f94!important}
+.step{background:#eaf2ff!important;color:#0f1f3d!important;border-left:4px solid #3b82f6!important}
 a{color:inherit}
 footer{background:linear-gradient(150deg,#0e1f3f,#17376a)!important;color:#dce9ff!important}
