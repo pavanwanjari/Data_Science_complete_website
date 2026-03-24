@@ -60,6 +60,7 @@ textarea:focus{outline:2px solid #6991ff}
 
 @media (max-width:1200px){.grid{grid-template-columns:1fr}.hero{padding:72px 14px 14px}.stats{grid-template-columns:repeat(3,1fr)}.level-grid{grid-template-columns:repeat(4,1fr)}}
 </style>
+  <link rel="stylesheet" href="theme_professional.css">
 </head>
 <body>
 <div class="wrap">
@@ -129,6 +130,14 @@ textarea:focus{outline:2px solid #6991ff}
 
       <div class="card" style="margin-top:10px;background:#0d1730;border-color:#30457d;padding:10px">
         <b style="display:block;margin-bottom:6px">Your Saved Progress (auto-resume)</b>
+        <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:8px">
+          <input id="progressEmail" class="inline-input" type="email" placeholder="Enter email for cross-device sync">
+          <input id="progressStudentName" class="inline-input" type="text" placeholder="Enter your name (optional)">
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="btn sec" id="loadProgressBtn" type="button">Load by Email</button>
+            <button class="btn sec" id="syncProgressBtn" type="button">Sync by Email</button>
+          </div>
+        </div>
         <div style="display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:6px;font-size:13px;color:#cfe0ff">
           <div>Highest Unlocked: <b id="progressUnlocked">1</b></div>
           <div>Completed Levels: <b id="progressCompleted">0</b></div>
@@ -230,6 +239,8 @@ textarea:focus{outline:2px solid #6991ff}
     totalSeconds: Number(localStorage.getItem('typing_total_seconds')||0),
     lastPractice: localStorage.getItem('typing_last_practice')||'',
     board: JSON.parse(localStorage.getItem('typing_weekly_board')||'[]'),
+    syncEmail: localStorage.getItem('typing_sync_email')||'',
+    syncStudentName: localStorage.getItem('typing_sync_name')||'',
     timer:null, started:false, secs:120, typed:'', streak:0
   };
 
@@ -239,6 +250,7 @@ textarea:focus{outline:2px solid #6991ff}
   const progressUnlocked=$('progressUnlocked'), progressCompleted=$('progressCompleted'), progressTime=$('progressTime'), progressLast=$('progressLast');
   const badgeWrap=$('badgeWrap'), boardList=$('boardList'), playerName=$('playerName'), certificateBtn=$('certificateBtn'), sampleCertificateBtn=$('sampleCertificateBtn');
   const mistakeSummary=$('mistakeSummary'), mistakeList=$('mistakeList');
+  const progressEmail=$('progressEmail'), progressStudentName=$('progressStudentName'), loadProgressBtn=$('loadProgressBtn'), syncProgressBtn=$('syncProgressBtn');
 
   const keyEls=Array.from(document.querySelectorAll('.key'));
 
@@ -316,6 +328,90 @@ textarea:focus{outline:2px solid #6991ff}
     localStorage.setItem('typing_total_seconds',String(s.totalSeconds));
     localStorage.setItem('typing_last_practice',s.lastPractice||'');
     localStorage.setItem('typing_weekly_board',JSON.stringify(s.board||[]));
+  }
+
+  function serializeTypingProgress(){
+    return {
+      level: s.level,
+      unlocked: s.unlocked,
+      bestWpm: s.bestWpm,
+      totalSeconds: s.totalSeconds,
+      lastPractice: s.lastPractice,
+      board: s.board
+    };
+  }
+
+  function applyTypingProgress(data){
+    if(!data || typeof data!=='object') return;
+    s.level = Number(data.level || s.level || 1);
+    s.unlocked = Math.max(1, Number(data.unlocked || s.unlocked || 1));
+    s.bestWpm = data.bestWpm || s.bestWpm || {};
+    s.totalSeconds = Number(data.totalSeconds || s.totalSeconds || 0);
+    s.lastPractice = data.lastPractice || s.lastPractice || '';
+    s.board = Array.isArray(data.board) ? data.board : (s.board || []);
+    if (s.level > s.unlocked) s.level = s.unlocked;
+    save();
+    render();
+  }
+
+  async function syncTypingProgress(showMessage){
+    const base = (window.DL10X_CONFIG && window.DL10X_CONFIG.SHEET_WEBAPP_URL) || '';
+    const email = String(progressEmail && progressEmail.value || '').trim().toLowerCase();
+    const studentName = String(progressStudentName && progressStudentName.value || '').trim();
+    s.syncEmail=email; s.syncStudentName=studentName;
+    localStorage.setItem('typing_sync_email', s.syncEmail||'');
+    localStorage.setItem('typing_sync_name', s.syncStudentName||'');
+    if(!email){
+      if(showMessage){ msg.textContent='Please enter your email to sync typing progress.'; msg.style.color='#ffd7a1'; }
+      return;
+    }
+    if(!base){
+      if(showMessage){ msg.textContent='Sync is not configured. Add SHEET_WEBAPP_URL in config.js.'; msg.style.color='#ffd7a1'; }
+      return;
+    }
+    try{
+      await fetch(base, {
+        method:'POST',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:new URLSearchParams({
+          action:'typing_progress_save',
+          email:email,
+          student_name:studentName,
+          progress_json:JSON.stringify(serializeTypingProgress()),
+          ts:new Date().toISOString()
+        })
+      });
+      if(showMessage){ msg.textContent='Typing progress synced by email successfully.'; msg.style.color='#9df5ba'; }
+    }catch(err){
+      if(showMessage){ msg.textContent='Unable to sync right now. Local progress is still safe on this browser.'; msg.style.color='#ffd7a1'; }
+    }
+  }
+
+  async function loadTypingProgressByEmail(){
+    const base = (window.DL10X_CONFIG && window.DL10X_CONFIG.SHEET_WEBAPP_URL) || '';
+    const email = String(progressEmail && progressEmail.value || '').trim().toLowerCase();
+    s.syncEmail=email;
+    localStorage.setItem('typing_sync_email', s.syncEmail||'');
+    if(!email){
+      msg.textContent='Please enter your email to load progress.'; msg.style.color='#ffd7a1';
+      return;
+    }
+    if(!base){
+      msg.textContent='Sync is not configured. Add SHEET_WEBAPP_URL in config.js.'; msg.style.color='#ffd7a1';
+      return;
+    }
+    try{
+      const res = await fetch(`${base}?action=typing_progress_get&email=${encodeURIComponent(email)}`, {cache:'no-store'});
+      const data = await res.json();
+      if(data && data.progress && Object.keys(data.progress).length){
+        applyTypingProgress(data.progress);
+        msg.textContent='Typing progress loaded from email and applied successfully.'; msg.style.color='#9df5ba';
+      }else{
+        msg.textContent='No typing progress found for this email yet.'; msg.style.color='#ffd7a1';
+      }
+    }catch(err){
+      msg.textContent='Could not load typing progress from server right now.'; msg.style.color='#ffd7a1';
+    }
   }
 
   function renderProgress(){
@@ -408,6 +504,7 @@ textarea:focus{outline:2px solid #6991ff}
       msg.style.color='#ffd7a1';
     }
     save(); render();
+    syncTypingProgress(false);
   }
 
   function tick(){
@@ -443,6 +540,10 @@ textarea:focus{outline:2px solid #6991ff}
 
   $('startBtn').onclick=start;
   $('resetBtn').onclick=()=>{resetLevel(); msg.textContent='Level reset. Press Start.'; msg.style.color='#d7e2ff';};
+  if(loadProgressBtn) loadProgressBtn.onclick=loadTypingProgressByEmail;
+  if(syncProgressBtn) syncProgressBtn.onclick=()=>syncTypingProgress(true);
+  if(progressEmail) progressEmail.value = s.syncEmail || '';
+  if(progressStudentName) progressStudentName.value = s.syncStudentName || '';
 
   $('clearProgressBtn').onclick=()=>{
     if(!confirm('Clear all saved typing progress on this browser?')) return;
@@ -511,7 +612,8 @@ textarea:focus{outline:2px solid #6991ff}
       .sign-box{font-family:Arial,sans-serif;text-align:center;color:#1f2937}
       .sign-line{width:220px;border-top:1.5px solid #1e3a8a;margin:0 auto 6px}
       .seal{width:92px;height:92px;border-radius:50%;border:2px solid #1d4ed8;display:flex;align-items:center;justify-content:center;text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#1e40af;background:#eff6ff;letter-spacing:.4px}
-    </style></head><body><div class="page"><div class="cert">
+    </style>
+</head><body><div class="page"><div class="cert">
       <div class="brand"><img src="dl10x.png" alt="DataLearn10X logo"></div>
       <div class="course">English Typing Mastery</div>
       <h1>${heading}</h1>
