@@ -3,109 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Free interactive practice tests for Python, SQL, and Excel with 3 levels and progress tracking by email." />
-  <title>Free Practice Hub - DataLearn10X</title>
+  <meta name="description" content="Free mixed practice hub with MCQ, typing, query writing, coding and labs for Python, SQL and Excel." />
+  <title>Practice Hub - DataLearn10X</title>
   <link rel="icon" type="image/png" href="dl10x.png" />
   <script src="analytics.js" defer></script>
   <script src="config.js" defer></script>
+  <link rel="stylesheet" href="theme_light.css">
   <style>
-    :root{--bg:#070f1e;--panel:#0e1d38;--panel2:#102748;--line:#335b98;--text:#e9f2ff;--muted:#a7bddf;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444;--accent:#38bdf8;--accent2:#6366f1}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top left,#1f407f 0,#0d1528 35%,#070f1e 100%);color:var(--text);min-height:100vh}
-    .bgfx,.bgfx:before,.bgfx:after{position:fixed;inset:0;pointer-events:none;z-index:-1}
-    .bgfx{background-image:radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px);background-size:28px 28px;opacity:.16}
-    .bgfx:before,.bgfx:after{content:"";border-radius:50%;filter:blur(20px)}
-    .bgfx:before{width:260px;height:260px;left:-50px;top:20px;background:rgba(56,189,248,.35);animation:float 7s ease-in-out infinite}
-    .bgfx:after{width:220px;height:220px;right:-40px;bottom:8%;background:rgba(99,102,241,.36);animation:float 9s ease-in-out infinite reverse}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
-    .wrap{max-width:1180px;margin:0 auto;padding:18px 14px 48px}
-    .hero,.card{background:linear-gradient(145deg,rgba(10,20,40,.96),rgba(16,38,72,.85));border:1px solid rgba(116,168,255,.26);border-radius:18px;box-shadow:0 16px 36px rgba(0,0,0,.3)}
-    .hero{padding:18px 20px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:56px;height:56px;border-radius:12px;background:#fff;padding:4px}
-    h1{font-size:28px;margin:0}
-    .sub{margin:6px 0 0;color:#cfe0ff;font-size:14px;max-width:760px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:12px;padding:11px 14px;font-weight:700;cursor:pointer;color:#fff;text-decoration:none}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2))}
-    .btn.secondary{background:#142951;border:1px solid rgba(116,168,255,.24)}
-    .grid{margin-top:16px;display:grid;grid-template-columns:320px 1fr;gap:16px}
-    .card{padding:16px}
-    .label{font-size:12px;color:var(--muted);margin-top:10px;display:block}
-    input,select{width:100%;padding:11px;border-radius:12px;border:1px solid #3a5f9a;background:#0a162c;color:#f7fbff}
-    .course-list{display:grid;gap:10px;margin-top:12px}
-    .course-btn{padding:12px;border-radius:12px;border:1px solid rgba(120,173,255,.25);background:#12284a;color:#fff;text-align:left;font-weight:700;cursor:pointer;transition:.2s}
-    .course-btn.active,.course-btn:hover{transform:translateY(-2px);border-color:#67e8f9;background:linear-gradient(120deg,#15356a,#1d4d96)}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .chip{padding:7px 10px;border-radius:999px;border:1px solid rgba(116,168,255,.25);background:#10233f;font-size:12px;color:#d6e4ff;cursor:pointer}
-    .chip.active{background:#1d4ed8;border-color:#93c5fd}
-    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
-    .stat{background:#0f223f;border:1px solid rgba(116,168,255,.25);border-radius:12px;padding:10px}
-    .stat b{font-size:26px;display:block}
-    .small{font-size:12px;color:var(--muted)}
-    .bar{margin-top:12px;height:9px;border-radius:99px;background:#1b2f52;overflow:hidden}
-    .bar > span{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#38bdf8);width:0%;transition:width .35s}
-    .qbox{min-height:220px;display:grid;gap:10px}
-    .qtitle{font-size:21px;margin:0}
-    .qmeta{color:var(--muted);font-size:13px}
-    .options{display:grid;gap:10px}
-    .opt{padding:12px;border-radius:12px;border:1px solid rgba(116,168,255,.24);background:#112548;cursor:pointer}
-    .opt:hover{border-color:#7dd3fc}
-    .opt.correct{border-color:var(--good);background:rgba(34,197,94,.14)}
-    .opt.wrong{border-color:var(--bad);background:rgba(239,68,68,.16)}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    .hint{padding:11px;border-radius:12px;background:#0f2342;border:1px solid rgba(116,168,255,.2);color:#d8ebff;font-size:14px}
-    .sync{margin-top:10px;font-size:12px;color:#c5d8f8}
-    .success{color:#9ef7c3}.warning{color:#ffd58d}.danger{color:#fca5a5}
-    @media (max-width:960px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}}
-    @media (max-width:620px){h1{font-size:24px}.stats{grid-template-columns:1fr}}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif}
+    .wrap{max-width:1200px;margin:0 auto;padding:18px 14px 40px}
+    .hero,.card{border:1px solid #d8e5ff;border-radius:16px;padding:16px;background:#fff}
+    .hero{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .brand{display:flex;gap:12px;align-items:center}.brand img{width:56px;height:56px;border-radius:12px;padding:4px;background:#fff;border:1px solid #d8e5ff}
+    h1{margin:0;font-size:28px}.sub{margin:6px 0 0;color:#4f6487}
+    .btn{border:none;border-radius:11px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .btn.primary{background:#2563eb;color:#fff}.btn.secondary{background:#dbeafe;color:#10213d}
+    .grid{display:grid;grid-template-columns:330px 1fr;gap:14px;margin-top:14px}
+    .label{font-size:12px;color:#4f6487;display:block;margin:10px 0 6px}
+    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #cfe0ff}
+    .course-buttons,.level-buttons{display:grid;gap:8px;margin-top:10px}
+    .course-btn,.level-btn{padding:10px;border:1px solid #cfe0ff;border-radius:10px;background:#eff6ff;cursor:pointer;text-align:left;font-weight:700}
+    .course-btn.active,.level-btn.active{background:#2563eb;color:#fff}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+    .stat{border:1px solid #dbe8ff;border-radius:10px;padding:10px;background:#f7fbff}
+    .stat b{font-size:24px;display:block}.small{font-size:12px;color:#4f6487}
+    .progress{margin-top:8px;height:8px;background:#e2ebff;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;background:#2563eb;width:0}
+    .meta{color:#4f6487;font-size:13px}
+    .question-type{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;background:#dbeafe;color:#1e40af;font-weight:700;margin-bottom:8px}
+    .question{font-size:20px;margin:4px 0 8px}
+    .options{display:grid;gap:9px}.option{padding:10px;border:1px solid #cfe0ff;border-radius:10px;background:#f8fbff;cursor:pointer;text-align:left}
+    .option.correct{border-color:#16a34a;background:#ecfdf3}.option.wrong{border-color:#dc2626;background:#fef2f2}
+    .input-zone{display:grid;gap:10px}
+    .feedback{padding:10px;border-radius:10px;border:1px solid #dbe8ff;background:#f8fbff}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .labs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}
+    .lab{border:1px solid #dbe8ff;border-radius:12px;padding:10px;background:#f7fbff}
+    .lab a{display:inline-block;margin-top:6px;color:#1d4ed8;font-weight:700;text-decoration:none}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-<div class="bgfx" aria-hidden="true"></div>
 <div class="wrap">
   <section class="hero">
-    <div class="brand">
-      <img src="dl10x.png" alt="DataLearn10X logo" />
-      <div>
-        <h1>DataLearn10X Free Practice Hub</h1>
-        <p class="sub">Python, SQL, and Excel practice with <b>100 questions per course</b> across Beginner (30), Intermediate (30), and Advanced (40). Save by email to continue on another device.</p>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <a class="btn secondary" href="index.html">Back to Home</a>
-      <button class="btn primary" id="syncNowBtn" type="button">Sync Progress</button>
-    </div>
+    <div class="brand"><img src="dl10x.png" alt="DataLearn10X logo"><div><h1>DataLearn10X Practice Hub</h1><p class="sub">Bright, simple and interactive practice. 100 questions each in Python, SQL and Excel (30 Beginner, 30 Intermediate, 40 Advanced).</p></div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="index.html" class="btn secondary" style="text-decoration:none">Back Home</a><button id="syncBtn" class="btn primary" type="button">Sync by Email</button></div>
   </section>
 
   <div class="grid">
     <aside class="card">
-      <label class="label" for="email">Student email (for progress sync)</label>
-      <input id="email" type="email" placeholder="you@example.com" />
-      <label class="label" for="studentName">Student name (optional)</label>
-      <input id="studentName" type="text" placeholder="Your name" />
-      <div class="course-list" id="courseList"></div>
-      <div class="chips" id="levelChips"></div>
+      <label class="label" for="email">Email (for cross-device progress)</label>
+      <input id="email" type="email" placeholder="you@example.com"/>
+      <label class="label" for="name">Student Name</label>
+      <input id="name" type="text" placeholder="Your name"/>
+      <div class="course-buttons" id="courseButtons"></div>
+      <div class="level-buttons" id="levelButtons"></div>
       <div class="stats">
-        <div class="stat"><span class="small">Attempted</span><b id="attemptedCount">0</b></div>
-        <div class="stat"><span class="small">Correct</span><b id="correctCount">0</b></div>
-        <div class="stat"><span class="small">Accuracy</span><b id="accuracyCount">0%</b></div>
+        <div class="stat"><span class="small">Attempted</span><b id="attempted">0</b></div>
+        <div class="stat"><span class="small">Correct</span><b id="correct">0</b></div>
+        <div class="stat"><span class="small">Accuracy</span><b id="accuracy">0%</b></div>
       </div>
-      <div class="bar"><span id="progressBar"></span></div>
-      <div class="small" id="coverageText" style="margin-top:6px">Coverage: 0 / 100</div>
-      <div class="sync" id="syncStatus">Tip: enter email and click Sync Progress to restore on any system.</div>
+      <div class="progress"><span id="progressFill"></span></div>
+      <div class="small" id="coverage">Coverage: 0 / 100</div>
+      <div class="small" id="syncStatus" style="margin-top:8px">Tip: add email and click sync to use on phone/laptop.</div>
     </aside>
 
     <main class="card">
-      <div class="qbox">
-        <h2 class="qtitle" id="questionText">Select course and level to start.</h2>
-        <div class="qmeta" id="questionMeta">Question 0 of 0</div>
-        <div class="options" id="options"></div>
-        <div class="hint" id="explainBox">You will see instant explanation after each answer.</div>
-        <div class="actions">
-          <button class="btn secondary" id="prevBtn" type="button">Previous</button>
-          <button class="btn primary" id="nextBtn" type="button">Next</button>
-          <button class="btn secondary" id="randomBtn" type="button">Random Question</button>
-        </div>
+      <span class="question-type" id="qType">MCQ</span>
+      <h2 class="question" id="questionText">Choose course and level to begin.</h2>
+      <div class="meta" id="questionMeta">Question 0 / 0</div>
+      <div id="mcqZone" class="options"></div>
+      <div id="inputZone" class="input-zone" style="display:none">
+        <textarea id="answerBox" rows="5" placeholder="Type your answer/query/code here"></textarea>
+        <button class="btn primary" id="checkAnswerBtn" type="button">Check Answer</button>
+      </div>
+      <div class="feedback" id="feedback">You will get instant feedback after each response.</div>
+      <div class="actions" style="margin-top:10px">
+        <button class="btn secondary" id="prevBtn" type="button">Previous</button>
+        <button class="btn primary" id="nextBtn" type="button">Next</button>
+        <button class="btn secondary" id="randomBtn" type="button">Random</button>
+      </div>
+
+      <h3 style="margin:18px 0 6px">Free Online Labs (Practice Now)</h3>
+      <div class="labs">
+        <div class="lab"><b>Python Lab (Google Colab)</b><p class="small">Run Python notebooks in browser.</p><a href="https://colab.research.google.com" target="_blank" rel="noopener">Open Colab</a></div>
+        <div class="lab"><b>SQL Lab (DB Fiddle)</b><p class="small">Write and run SQL queries online.</p><a href="https://www.db-fiddle.com/" target="_blank" rel="noopener">Open DB Fiddle</a></div>
+        <div class="lab"><b>Excel Lab (Microsoft 365)</b><p class="small">Use Excel online free with Microsoft account.</p><a href="https://www.office.com/launch/excel" target="_blank" rel="noopener">Open Excel Online</a></div>
+        <div class="lab"><b>Kaggle Learn</b><p class="small">Short data exercises for skills practice.</p><a href="https://www.kaggle.com/learn" target="_blank" rel="noopener">Open Kaggle Learn</a></div>
       </div>
     </main>
   </div>
@@ -113,274 +96,162 @@
 
 <script>
 (() => {
-  const LEVELS = [
-    { key: 'Beginner', total: 30 },
-    { key: 'Intermediate', total: 30 },
-    { key: 'Advanced', total: 40 }
-  ];
-
-  const COURSE_BLUEPRINT = {
+  const LEVELS = [{key:'Beginner',count:30},{key:'Intermediate',count:30},{key:'Advanced',count:40}];
+  const topics = {
     Python: {
-      Beginner: ['Variables','Data Types','Type Casting','Input/Output','Operators','If Else','Loops','For Loop','While Loop','Break Continue','Lists','Tuples','Sets','Dictionaries','Functions','Parameters','Return','String Methods','List Methods','Slicing','Indexing','Comments','Indentation','Boolean Logic','Comparison','Range','Membership','Error Basics','File Read','File Write'],
-      Intermediate: ['Comprehensions','Lambda','Map Filter','Exception Handling','Modules','Packages','Virtual Environment','PIP','OOP Class','OOP Inheritance','Encapsulation','Polymorphism','Decorators','Generators','Iterators','Datetime','JSON','CSV','Regex','API Requests','NumPy Basics','Pandas Basics','Data Cleaning','GroupBy','Merge Join','Visualization Basics','Testing Basics','CLI Scripts','Context Manager','Best Practices'],
-      Advanced: ['Asyncio','Concurrency','Threading','Multiprocessing','Memory Optimization','Profiling','Caching','Type Hints','Dataclasses','Abstract Classes','Design Patterns','Dependency Injection','Unit Testing','Mocking','Pytest Fixtures','Logging','Advanced Regex','Web Scraping','FastAPI','Flask API','SQLAlchemy','Pandas Optimization','Vectorization','Feature Engineering','Model Evaluation','Pipelines','Docker for Python','Packaging','CI CD','Security Basics','Authentication','Authorization','Rate Limiting','System Design','Message Queues','Streaming Data','Cloud Deployment','Monitoring','Refactoring','Code Review']
+      Beginner: ['Variables','Data Types','Input/Output','Operators','If Else','Loops','Lists','Tuples','Sets','Dict','Functions','Parameters','Return','Strings','Slicing','Indexing','Range','Boolean','Comparison','Type Casting','Comments','Indentation','Membership','File Read','File Write','Error Basics','Break Continue','List Methods','String Methods','While Loop'],
+      Intermediate: ['Comprehension','Lambda','Map','Filter','Exceptions','Modules','Packages','OOP Class','Inheritance','Polymorphism','Encapsulation','Decorators','Generators','Iterators','Regex','JSON','CSV','Datetime','API Request','Pandas','NumPy','Merge','GroupBy','Virtualenv','PIP','Context Manager','Testing','CLI Script','Visualization','Best Practices'],
+      Advanced: ['Asyncio','Threading','Multiprocessing','Profiling','Caching','Type Hints','Dataclass','Abstract Class','Design Pattern','Dependency Injection','Unit Test','Mocking','Pytest','Logging','FastAPI','Flask API','SQLAlchemy','Web Scraping','Vectorization','Feature Engineering','Model Evaluation','Pipeline','Docker','Packaging','CI CD','Security','Auth','Rate Limiting','System Design','Queue','Streaming','Cloud Deploy','Monitoring','Refactor','Code Review','Memory Optimize','Performance Tuning','Data Validation','Automation','Scheduling']
     },
     SQL: {
-      Beginner: ['SELECT','WHERE','ORDER BY','LIMIT','DISTINCT','COUNT','SUM','AVG','MIN MAX','GROUP BY','HAVING','LIKE','IN','BETWEEN','IS NULL','INNER JOIN','LEFT JOIN','RIGHT JOIN','Alias','Primary Key','Foreign Key','INSERT','UPDATE','DELETE','CREATE TABLE','ALTER TABLE','DROP TABLE','Constraints','Date Functions','String Functions'],
-      Intermediate: ['Subqueries','Correlated Subquery','CTE','Window Functions','ROW_NUMBER','RANK','DENSE_RANK','PARTITION BY','Indexes','Query Plan','Normalization','Denormalization','UNION','UNION ALL','CASE','COALESCE','Transactions','COMMIT ROLLBACK','Views','Stored Procedure','Functions','Triggers','Temp Tables','Data Types','Casting','Joins Optimization','Aggregation Strategy','Date Arithmetic','Pivot Basics','Security Roles'],
-      Advanced: ['Query Optimization','Execution Plan Analysis','Composite Indexes','Index Selectivity','Locking','Isolation Levels','Deadlocks','Materialized Views','Partitioning','Sharding Basics','Replication','Backup Recovery','ETL SQL','Data Warehouse Schema','Slowly Changing Dimensions','Fact Dimension','Advanced Window Frames','Recursive CTE','JSON in SQL','Analytical Functions','MERGE UPSERT','Audit Trails','Permission Models','SQL Injection Prevention','Parameterized Queries','High Availability','Performance Monitoring','Workload Management','Distributed SQL','CDC','Data Quality Rules','Constraint Strategy','Temporal Tables','Query Refactoring','Cost Based Optimization','Batch vs Streaming SQL','Resource Governance','Stored Proc Tuning','BigQuery Style SQL','Snowflake Style SQL']
+      Beginner: ['SELECT','WHERE','ORDER BY','LIMIT','DISTINCT','COUNT','SUM','AVG','MIN MAX','GROUP BY','HAVING','LIKE','IN','BETWEEN','IS NULL','INNER JOIN','LEFT JOIN','RIGHT JOIN','Aliases','Primary Key','Foreign Key','INSERT','UPDATE','DELETE','CREATE TABLE','ALTER TABLE','DROP TABLE','Constraints','Date Functions','String Functions'],
+      Intermediate: ['Subquery','Correlated Subquery','CTE','Window Function','ROW_NUMBER','RANK','DENSE_RANK','PARTITION BY','CASE','COALESCE','UNION','UNION ALL','Transaction','Commit Rollback','Views','Stored Procedure','Trigger','Temp Table','Index','Query Plan','Normalization','Denormalization','Casting','Pivot','Date Arithmetic','Joins Optimize','Aggregation','Security Roles','Functions','Data Types'],
+      Advanced: ['Execution Plan','Composite Index','Index Selectivity','Isolation Level','Deadlock','Materialized View','Partitioning','Replication','Backup Recovery','ETL SQL','Warehouse Schema','SCD','Fact Dimension','Recursive CTE','JSON SQL','Analytical Function','MERGE','Audit Trail','Permission Model','SQL Injection','Parameterized Query','High Availability','Monitoring','Distributed SQL','CDC','Data Quality','Temporal Table','Cost Optimization','Workload Management','Stored Proc Tuning','Resource Governance','Batch SQL','Streaming SQL','Sharding','Locking','Performance Fix','Refactoring Query','Constraint Design','Scalability','Reliability']
     },
     Excel: {
-      Beginner: ['Cell Reference','Relative Reference','Absolute Reference','Basic Formatting','Number Formats','Sort','Filter','Conditional Formatting','Data Validation','Text to Columns','Flash Fill','AutoFill','SUM','AVERAGE','COUNT','MAX MIN','IF','AND OR','VLOOKUP','XLOOKUP Basics','INDEX MATCH','LEFT RIGHT MID','LEN TRIM','CONCAT','Find Replace','Basic Charts','Freeze Panes','Print Setup','Table Format','Protect Sheet'],
-      Intermediate: ['XLOOKUP Advanced','INDEX MATCH Advanced','SUMIFS','COUNTIFS','AVERAGEIFS','Nested IF','IFS','IFERROR','Named Ranges','Dynamic Arrays','FILTER Function','SORT Function','UNIQUE Function','SEQUENCE','Pivot Table','Pivot Charts','Slicers','Timeline','Power Query Basics','Data Cleaning','Remove Duplicates','Text Functions','Date Functions','Logical Functions','What-if Analysis','Goal Seek','Scenario Manager','Sparklines','Dashboard Basics','Collaboration'],
-      Advanced: ['Power Query Transform','M Language Basics','Power Pivot','Data Model','DAX Basics','CALCULATE','RELATED','Time Intelligence','Advanced Charts','Waterfall Chart','Combo Chart','Forecasting','Solver','Advanced Conditional Formatting','Array Formulas','Dynamic Dashboard','VBA Basics','VBA Loops','VBA UserForm','Macro Security','Automation Workflow','Workbook Optimization','Large Data Handling','Error Auditing','Scenario Automation','Template Design','KPI Tracking','Variance Analysis','Financial Modeling','Sensitivity Analysis','Monte Carlo Basics','Data Governance','Version Control Practice','Protection Strategy','Cross Workbook Links','External Data Refresh','Performance Tuning','Office Scripts','Advanced Pivot Analytics','Executive Reporting']
+      Beginner: ['Cell Ref','Absolute Ref','Relative Ref','Formatting','Number Format','Sort','Filter','Conditional Formatting','Data Validation','Text to Columns','AutoFill','SUM','AVERAGE','COUNT','MAX MIN','IF','AND OR','VLOOKUP','XLOOKUP','INDEX MATCH','LEFT RIGHT MID','LEN TRIM','CONCAT','Find Replace','Charts','Freeze Panes','Print Setup','Tables','Protect Sheet','Flash Fill'],
+      Intermediate: ['SUMIFS','COUNTIFS','AVERAGEIFS','Nested IF','IFS','IFERROR','Named Range','Dynamic Arrays','FILTER','SORT','UNIQUE','SEQUENCE','Pivot Table','Pivot Chart','Slicer','Timeline','Power Query','Data Cleaning','Remove Duplicates','Text Functions','Date Functions','What-if','Goal Seek','Scenario Manager','Sparklines','Dashboard','XLOOKUP Adv','INDEX MATCH Adv','Collaboration','Validation Rules'],
+      Advanced: ['Power Pivot','Data Model','DAX','CALCULATE','RELATED','Time Intelligence','Advanced Charts','Waterfall','Combo Chart','Forecast','Solver','Array Formula','Dynamic Dashboard','VBA Macro','VBA Loop','VBA UserForm','Macro Security','Workbook Optimize','Large Data','Error Auditing','Scenario Automation','Template Design','KPI Tracking','Variance Analysis','Financial Model','Sensitivity','Monte Carlo','Governance','Protection Strategy','Cross Workbook','External Data','Performance','Office Scripts','Advanced Pivot','Executive Report','M Language','Automation','Refresh Strategy','Data Pipeline','Audit Control']
     }
   };
 
-  const state = {
-    email: '', name: '',
-    course: 'Python', level: 'Beginner',
-    indexByCourseLevel: { Python: { Beginner: 0, Intermediate: 0, Advanced: 0 }, SQL: { Beginner: 0, Intermediate: 0, Advanced: 0 }, Excel: { Beginner: 0, Intermediate: 0, Advanced: 0 } },
-    progress: {}
-  };
+  const state = {course:'Python',level:'Beginner',idx:{Python:{Beginner:0,Intermediate:0,Advanced:0},SQL:{Beginner:0,Intermediate:0,Advanced:0},Excel:{Beginner:0,Intermediate:0,Advanced:0}},progress:{},email:'',name:''};
+  const courses = Object.keys(topics);
 
-  const el = {
-    courseList: document.getElementById('courseList'), levelChips: document.getElementById('levelChips'),
-    questionText: document.getElementById('questionText'), questionMeta: document.getElementById('questionMeta'), options: document.getElementById('options'), explainBox: document.getElementById('explainBox'),
-    attemptedCount: document.getElementById('attemptedCount'), correctCount: document.getElementById('correctCount'), accuracyCount: document.getElementById('accuracyCount'), progressBar: document.getElementById('progressBar'), coverageText: document.getElementById('coverageText'),
-    email: document.getElementById('email'), studentName: document.getElementById('studentName'), syncStatus: document.getElementById('syncStatus')
-  };
-
-  const banks = Object.fromEntries(Object.keys(COURSE_BLUEPRINT).map(course => [course, buildCourseBank(course)]));
-
-  function buildQuestion(course, level, topic, idx) {
-    const stem = `${course} ${level} #${idx + 1}: Which statement best describes ${topic}?`;
-    const correct = `${topic} is a core ${course} concept used in practical tasks.`;
-    const distractors = [
-      `${topic} is only used for graphic design and not for data work.`,
-      `${topic} means deleting all historical data by default.`,
-      `${topic} is not relevant once projects move to production.`
-    ];
-    const rotate = idx % 4;
-    const options = [...distractors];
-    options.splice(rotate, 0, correct);
-    return { id: `${course}_${level}_${idx + 1}`, stem, options, correctIndex: rotate, explanation: `Remember: ${correct}` };
+  function qTypeByIndex(i, course){
+    if (course === 'SQL' && i % 4 === 1) return 'sql_query';
+    if (course === 'Excel' && i % 4 === 1) return 'excel_formula';
+    if (course === 'Python' && i % 4 === 1) return 'coding';
+    if (i % 4 === 2) return 'typing';
+    return 'mcq';
   }
 
-  function buildCourseBank(course) {
-    const out = {};
-    LEVELS.forEach(({ key, total }) => {
-      const topics = COURSE_BLUEPRINT[course][key];
-      out[key] = Array.from({ length: total }, (_, i) => buildQuestion(course, key, topics[i], i));
-    });
+  function buildQuestion(course, level, topic, i){
+    const type = qTypeByIndex(i, course);
+    if (type === 'mcq') {
+      const correctText = `${topic} is used in practical ${course} tasks.`;
+      const wrong = [`${topic} is only for animations.`,`Never used in data work.`,`Always deletes data automatically.`];
+      const correctIndex = i % 4;
+      const options = [...wrong]; options.splice(correctIndex, 0, correctText);
+      return {id:`${course}_${level}_${i+1}`,type,question:`${course} ${level}: Which option is correct about ${topic}?`,options,correctIndex,explain:`${topic} is important for real projects.`};
+    }
+    if (type === 'typing') {
+      return {id:`${course}_${level}_${i+1}`,type,question:`In one line, explain what "${topic}" means in ${course}.`,keywords:[topic.split(' ')[0].toLowerCase()],explain:`Include concept + where it is used.`};
+    }
+    if (type === 'coding') {
+      return {id:`${course}_${level}_${i+1}`,type,question:`Write a short Python snippet using ${topic}. (2-5 lines)`,keywords:['def','for','if','print'],explain:`Any valid snippet is accepted if it contains coding structure.`};
+    }
+    if (type === 'sql_query') {
+      return {id:`${course}_${level}_${i+1}`,type,question:`Write an SQL query that demonstrates ${topic}.`,keywords:['select','from'],explain:`Include SELECT and FROM; bonus if ${topic} keyword appears.`};
+    }
+    return {id:`${course}_${level}_${i+1}`,type,question:`Write an Excel formula/example using ${topic}.`,keywords:['='],explain:`Start with '=' and use a relevant Excel function.`};
+  }
+
+  const banks = {};
+  courses.forEach(c=>{banks[c]={}; LEVELS.forEach(l=>{banks[c][l.key]=topics[c][l.key].map((t,i)=>buildQuestion(c,l.key,t,i));});});
+
+  const el = {
+    courseButtons:document.getElementById('courseButtons'), levelButtons:document.getElementById('levelButtons'),
+    attempted:document.getElementById('attempted'),correct:document.getElementById('correct'),accuracy:document.getElementById('accuracy'),coverage:document.getElementById('coverage'),progressFill:document.getElementById('progressFill'),
+    qType:document.getElementById('qType'), questionText:document.getElementById('questionText'),questionMeta:document.getElementById('questionMeta'),
+    mcqZone:document.getElementById('mcqZone'), inputZone:document.getElementById('inputZone'),answerBox:document.getElementById('answerBox'),feedback:document.getElementById('feedback'),
+    email:document.getElementById('email'),name:document.getElementById('name'),syncStatus:document.getElementById('syncStatus')
+  };
+
+  const key = () => `dl10xPractice::${state.email.toLowerCase()}`;
+  function setStatus(msg){el.syncStatus.textContent=msg;}
+  function getList(){return banks[state.course][state.level];}
+  function getQ(){return getList()[state.idx[state.course][state.level]];}
+  function getProgressNode(c,l){state.progress[c]??={}; state.progress[c][l]??={}; return state.progress[c][l];}
+
+  function saveLocal(){ if(!state.email) return; localStorage.setItem(key(), JSON.stringify({email:state.email,name:state.name,progress:state.progress,updatedAt:new Date().toISOString()})); }
+  function loadLocal(){ if(!state.email) return; const raw=localStorage.getItem(key()); if(!raw) return; try{const x=JSON.parse(raw); state.progress=x.progress||{}; if(x.name&&!state.name){state.name=x.name;el.name.value=x.name;} setStatus('Loaded local progress.');}catch(_){setStatus('Local progress could not be loaded.');}}
+
+  function gradeText(input, keywords){
+    const val=String(input||'').toLowerCase().trim();
+    if(!val) return false;
+    const hits=keywords.filter(k=>val.includes(k.toLowerCase())).length;
+    return hits>=Math.max(1, Math.ceil(keywords.length/3));
+  }
+
+  function renderLeft(){
+    el.courseButtons.innerHTML = courses.map(c=>`<button class="course-btn ${c===state.course?'active':''}" data-course="${c}">${c} (100 Questions)</button>`).join('');
+    el.levelButtons.innerHTML = LEVELS.map(l=>`<button class="level-btn ${l.key===state.level?'active':''}" data-level="${l.key}">${l.key} (${l.count})</button>`).join('');
+    const rows=Object.values(((((state.progress||{})[state.course]||{})[state.level])||{}));
+    const attempted=rows.length, correct=rows.filter(r=>r.correct).length, total=getList().length;
+    el.attempted.textContent=attempted; el.correct.textContent=correct; el.accuracy.textContent=`${attempted?Math.round(correct*100/attempted):0}%`;
+    el.coverage.textContent=`Coverage: ${attempted} / ${total}`; el.progressFill.style.width=`${Math.round(attempted*100/total)}%`;
+  }
+
+  function renderQuestion(){
+    const q=getQ(); const i=state.idx[state.course][state.level];
+    el.qType.textContent=q.type.replace('_',' ').toUpperCase();
+    el.questionText.textContent=q.question;
+    el.questionMeta.textContent=`Question ${i+1} / ${getList().length}`;
+    el.answerBox.value='';
+    const saved=((((state.progress||{})[state.course]||{})[state.level]||{})[q.id]);
+
+    if(q.type==='mcq'){
+      el.mcqZone.style.display='grid'; el.inputZone.style.display='none';
+      el.mcqZone.innerHTML=q.options.map((o,idx)=>{
+        let cls='option';
+        if(saved){ if(idx===q.correctIndex) cls+=' correct'; else if(saved.selected===idx&&!saved.correct) cls+=' wrong'; }
+        return `<button class="${cls}" data-opt="${idx}">${String.fromCharCode(65+idx)}. ${o}</button>`;
+      }).join('');
+    } else {
+      el.mcqZone.style.display='none'; el.inputZone.style.display='grid';
+      el.feedback.textContent = saved ? `${saved.correct?'✅ Good attempt.':'❌ Needs improvement.'} ${q.explain}` : 'Type your answer and click Check Answer.';
+    }
+  }
+
+  function record(q, payload){
+    const node=getProgressNode(state.course,state.level);
+    node[q.id]={...payload,answeredAt:new Date().toISOString()};
+    saveLocal(); renderLeft(); renderQuestion();
+    sync(false);
+  }
+
+  function submitMCQ(i){ const q=getQ(); record(q,{selected:i,correct:i===q.correctIndex}); el.feedback.textContent = `${i===q.correctIndex?'✅ Correct!':'❌ Incorrect.'} ${q.explain}`; }
+  function submitText(){ const q=getQ(); const txt=el.answerBox.value; const ok=gradeText(txt,q.keywords||[]); record(q,{typed:txt,correct:ok}); el.feedback.textContent=`${ok?'✅ Accepted.':'❌ Not enough key elements.'} ${q.explain}`; }
+
+  function nav(step){const arr=getList(); const i=state.idx[state.course][state.level]; state.idx[state.course][state.level]=Math.max(0,Math.min(arr.length-1,i+step)); renderQuestion();}
+  function randomQ(){state.idx[state.course][state.level]=Math.floor(Math.random()*getList().length); renderQuestion();}
+
+  function mergeProgress(local,remote){
+    const out={...local};
+    Object.entries(remote||{}).forEach(([c,lv])=>{ out[c]??={}; Object.entries(lv||{}).forEach(([l,qs])=>{ out[c][l]??={}; Object.entries(qs||{}).forEach(([id,row])=>{const cur=out[c][l][id]; if(!cur || new Date(row.answeredAt||0) > new Date(cur.answeredAt||0)) out[c][l][id]=row;});});});
     return out;
   }
 
-  function questionSet() {
-    return banks[state.course][state.level];
+  async function sync(show=true){
+    if(!state.email){ if(show) setStatus('Please enter email first.'); return; }
+    const base=window.DL10X_CONFIG?.SHEET_WEBAPP_URL;
+    if(!base){ if(show) setStatus('Sync not configured in config.js.'); return; }
+    try{
+      await fetch(base,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({action:'analytics_event',event_name:'practice_progress',email:state.email,student_name:state.name,progress_json:JSON.stringify(state.progress),timestamp:new Date().toISOString()})});
+      const res=await fetch(`${base}?action=analytics_export&limit=5000`,{cache:'no-store'});
+      const data=await res.json();
+      const rows=Array.isArray(data)?data:(Array.isArray(data.events)?data.events:[]);
+      const mine=rows.filter(r=>String(r.email||r.user_email||'').toLowerCase()===state.email.toLowerCase() && String(r.event_name||r.event||'').includes('practice_progress')).sort((a,b)=>new Date(b.timestamp||b.created_at||0)-new Date(a.timestamp||a.created_at||0));
+      if(mine[0]?.progress_json){ state.progress=mergeProgress(state.progress, JSON.parse(mine[0].progress_json)); saveLocal(); }
+      if(show) setStatus('Progress synced for this email.'); renderLeft(); renderQuestion();
+    }catch(_){ if(show) setStatus('Remote sync unavailable, local progress still works.'); }
   }
 
-  function currentQuestion() {
-    const list = questionSet();
-    return list[state.indexByCourseLevel[state.course][state.level]];
+  function bind(){
+    el.courseButtons.addEventListener('click',e=>{const b=e.target.closest('[data-course]'); if(!b)return; state.course=b.dataset.course; renderLeft(); renderQuestion();});
+    el.levelButtons.addEventListener('click',e=>{const b=e.target.closest('[data-level]'); if(!b)return; state.level=b.dataset.level; renderLeft(); renderQuestion();});
+    el.mcqZone.addEventListener('click',e=>{const b=e.target.closest('[data-opt]'); if(!b)return; submitMCQ(Number(b.dataset.opt));});
+    document.getElementById('checkAnswerBtn').addEventListener('click',submitText);
+    document.getElementById('prevBtn').addEventListener('click',()=>nav(-1));
+    document.getElementById('nextBtn').addEventListener('click',()=>nav(1));
+    document.getElementById('randomBtn').addEventListener('click',randomQ);
+    document.getElementById('syncBtn').addEventListener('click',()=>sync(true));
+    el.email.addEventListener('change',()=>{state.email=el.email.value.trim().toLowerCase(); loadLocal(); renderLeft(); renderQuestion();});
+    el.name.addEventListener('change',()=>{state.name=el.name.value.trim(); saveLocal();});
   }
 
-  function progressKey() {
-    return `dl10xPracticeProgress::${state.email.toLowerCase()}`;
-  }
-
-  function ensureNode(path) {
-    if (!state.progress[path.course]) state.progress[path.course] = {};
-    if (!state.progress[path.course][path.level]) state.progress[path.course][path.level] = {};
-    return state.progress[path.course][path.level];
-  }
-
-  function saveLocal() {
-    if (!state.email) return;
-    localStorage.setItem(progressKey(), JSON.stringify({ email: state.email, name: state.name, progress: state.progress, updatedAt: new Date().toISOString() }));
-  }
-
-  function loadLocal() {
-    if (!state.email) return;
-    const raw = localStorage.getItem(progressKey());
-    if (!raw) return;
-    try {
-      const parsed = JSON.parse(raw);
-      state.progress = parsed.progress || {};
-      if (parsed.name && !state.name) { state.name = parsed.name; el.studentName.value = parsed.name; }
-      setSync('Loaded saved local progress.', 'success');
-    } catch (e) {
-      setSync('Could not load local progress file.', 'warning');
-    }
-  }
-
-  function getStats(course, level) {
-    const qLen = banks[course][level].length;
-    const rows = Object.values((((state.progress[course] || {})[level]) || {}));
-    const attempted = rows.length;
-    const correct = rows.filter(r => r.correct).length;
-    return { qLen, attempted, correct, accuracy: attempted ? Math.round((correct / attempted) * 100) : 0 };
-  }
-
-  function setSync(text, tone = '') {
-    el.syncStatus.className = `sync ${tone}`.trim();
-    el.syncStatus.textContent = text;
-  }
-
-  function renderSidebar() {
-    el.courseList.innerHTML = Object.keys(banks).map(course => `<button class="course-btn ${course === state.course ? 'active' : ''}" data-course="${course}">${course} Practice (100 Q)</button>`).join('');
-    el.levelChips.innerHTML = LEVELS.map(l => `<button class="chip ${l.key === state.level ? 'active' : ''}" data-level="${l.key}">${l.key} (${l.total})</button>`).join('');
-    const s = getStats(state.course, state.level);
-    el.attemptedCount.textContent = s.attempted;
-    el.correctCount.textContent = s.correct;
-    el.accuracyCount.textContent = `${s.accuracy}%`;
-    el.coverageText.textContent = `Coverage: ${s.attempted} / ${s.qLen}`;
-    el.progressBar.style.width = `${Math.round((s.attempted / s.qLen) * 100)}%`;
-  }
-
-  function renderQuestion() {
-    const q = currentQuestion();
-    const index = state.indexByCourseLevel[state.course][state.level];
-    el.questionText.textContent = q.stem;
-    el.questionMeta.textContent = `Question ${index + 1} of ${questionSet().length}`;
-    const attempt = ((((state.progress[state.course] || {})[state.level]) || {})[q.id]) || null;
-    el.options.innerHTML = q.options.map((opt, i) => {
-      let cls = 'opt';
-      if (attempt) {
-        if (i === q.correctIndex) cls += ' correct';
-        else if (attempt.selectedIndex === i && !attempt.correct) cls += ' wrong';
-      }
-      return `<button class="${cls}" data-option="${i}">${String.fromCharCode(65 + i)}. ${opt}</button>`;
-    }).join('');
-    el.explainBox.textContent = attempt ? `${attempt.correct ? '✅ Correct.' : '❌ Not correct.'} ${q.explanation}` : 'Select an option to see explanation instantly.';
-  }
-
-  function answer(optionIndex) {
-    const q = currentQuestion();
-    const correct = optionIndex === q.correctIndex;
-    const node = ensureNode({ course: state.course, level: state.level });
-    node[q.id] = { selectedIndex: optionIndex, correct, answeredAt: new Date().toISOString() };
-    saveLocal();
-    renderSidebar();
-    renderQuestion();
-    syncProgress(false);
-  }
-
-  function navigate(step) {
-    const list = questionSet();
-    const current = state.indexByCourseLevel[state.course][state.level];
-    state.indexByCourseLevel[state.course][state.level] = Math.max(0, Math.min(list.length - 1, current + step));
-    renderQuestion();
-  }
-
-  function randomQuestion() {
-    state.indexByCourseLevel[state.course][state.level] = Math.floor(Math.random() * questionSet().length);
-    renderQuestion();
-  }
-
-  async function syncProgress(forceMessage = true) {
-    const base = window.DL10X_CONFIG?.SHEET_WEBAPP_URL;
-    if (!state.email) {
-      if (forceMessage) setSync('Add email first to sync on phone or other systems.', 'warning');
-      return;
-    }
-    if (!base) {
-      if (forceMessage) setSync('Sync unavailable: SHEET_WEBAPP_URL is missing in config.js.', 'warning');
-      return;
-    }
-    try {
-      const payload = {
-        action: 'analytics_event',
-        event_name: 'practice_progress',
-        email: state.email,
-        student_name: state.name,
-        course: state.course,
-        level: state.level,
-        progress_json: JSON.stringify(state.progress),
-        timestamp: new Date().toISOString()
-      };
-      await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(payload) });
-
-      const response = await fetch(`${base}?action=analytics_export&limit=2000`, { cache: 'no-store' });
-      if (!response.ok) throw new Error('analytics_export not reachable');
-      const rows = await response.json();
-      const list = Array.isArray(rows) ? rows : (Array.isArray(rows.events) ? rows.events : []);
-      const mine = list.filter(r => String(r.email || r.user_email || '').toLowerCase() === state.email.toLowerCase() && String(r.event_name || r.event || '').includes('practice_progress'));
-      const latest = mine.sort((a,b) => new Date(b.timestamp || b.created_at || 0) - new Date(a.timestamp || a.created_at || 0))[0];
-      const remoteProgress = latest?.progress_json ? JSON.parse(latest.progress_json) : null;
-      if (remoteProgress && typeof remoteProgress === 'object') {
-        state.progress = deepMergeProgress(state.progress, remoteProgress);
-        saveLocal();
-      }
-      if (forceMessage) setSync('Progress synced successfully for this email.', 'success');
-      renderSidebar();
-      renderQuestion();
-    } catch (err) {
-      if (forceMessage) setSync('Remote sync not available yet. Local email progress still saved on this browser.', 'warning');
-    }
-  }
-
-  function deepMergeProgress(local, remote) {
-    const merged = { ...local };
-    for (const [course, levels] of Object.entries(remote || {})) {
-      if (!merged[course]) merged[course] = {};
-      for (const [level, attempts] of Object.entries(levels || {})) {
-        if (!merged[course][level]) merged[course][level] = {};
-        for (const [qid, attempt] of Object.entries(attempts || {})) {
-          const current = merged[course][level][qid];
-          if (!current || new Date(attempt.answeredAt || 0) > new Date(current.answeredAt || 0)) {
-            merged[course][level][qid] = attempt;
-          }
-        }
-      }
-    }
-    return merged;
-  }
-
-  function bind() {
-    el.courseList.addEventListener('click', e => {
-      const btn = e.target.closest('[data-course]');
-      if (!btn) return;
-      state.course = btn.dataset.course;
-      renderSidebar();
-      renderQuestion();
-    });
-    el.levelChips.addEventListener('click', e => {
-      const btn = e.target.closest('[data-level]');
-      if (!btn) return;
-      state.level = btn.dataset.level;
-      renderSidebar();
-      renderQuestion();
-    });
-    el.options.addEventListener('click', e => {
-      const btn = e.target.closest('[data-option]');
-      if (!btn) return;
-      answer(Number(btn.dataset.option));
-    });
-    document.getElementById('nextBtn').addEventListener('click', () => navigate(1));
-    document.getElementById('prevBtn').addEventListener('click', () => navigate(-1));
-    document.getElementById('randomBtn').addEventListener('click', randomQuestion);
-    document.getElementById('syncNowBtn').addEventListener('click', () => syncProgress(true));
-
-    el.email.addEventListener('change', () => {
-      state.email = el.email.value.trim().toLowerCase();
-      loadLocal();
-      renderSidebar();
-      renderQuestion();
-    });
-    el.studentName.addEventListener('change', () => {
-      state.name = el.studentName.value.trim();
-      saveLocal();
-    });
-  }
-
-  function init() {
-    bind();
-    renderSidebar();
-    renderQuestion();
-  }
-
-  init();
+  bind(); renderLeft(); renderQuestion();
 })();
 </script>
 </body>
