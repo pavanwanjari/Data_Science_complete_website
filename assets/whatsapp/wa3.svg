@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="780" viewBox="0 0 440 780" role="img" aria-label="WhatsApp feedback placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1f39"/>
+      <stop offset="100%" stop-color="#1f3b65"/>
+    </linearGradient>
+  </defs>
+  <rect width="440" height="780" fill="url(#bg)"/>
+  <rect x="24" y="24" width="392" height="732" rx="24" fill="#0b1629" stroke="#5b88c9" stroke-width="2"/>
+  <text x="220" y="120" text-anchor="middle" fill="#dcecff" font-size="28" font-family="Poppins, Arial, sans-serif">WhatsApp Proof IMAGE</text>
+  <text x="220" y="170" text-anchor="middle" fill="#a9c4eb" font-size="18" font-family="Poppins, Arial, sans-serif">Replace this file with real screenshot</text>
+  <rect x="54" y="240" width="332" height="110" rx="14" fill="#1e3a5f"/>
+  <rect x="54" y="370" width="282" height="90" rx="14" fill="#25466f"/>
+  <rect x="54" y="480" width="332" height="100" rx="14" fill="#1e3a5f"/>
+  <text x="220" y="690" text-anchor="middle" fill="#88b5f2" font-size="20" font-family="Poppins, Arial, sans-serif">wa3.svg</text>
+</svg>

@@ -21,7 +21,7 @@
     .hero:after{width:210px;height:210px;background:radial-gradient(circle,#93f8e8,#3648ff);right:-40px;bottom:-45px;animation-delay:1.2s}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
     .hero h1{font-size:46px;margin-bottom:10px;position:relative;z-index:1;cursor:pointer;letter-spacing:.5px;text-shadow:0 4px 16px rgba(5,16,38,.6)}
-    .hero p{opacity:.96;position:relative;z-index:1;color:#d8e5ff}
+    .hero p{opacity:.96;position:relative;z-index:1;color:#d8e5ff;max-width:860px;margin:0 auto}
     .pill{display:inline-block;margin-top:16px;background:linear-gradient(92deg,#ec4899,#f43f5e,#f97316);padding:10px 22px;border-radius:24px;font-weight:700;position:relative;z-index:1;animation:pulse 1.6s infinite;color:#fff;text-decoration:none;cursor:pointer;border:none;box-shadow:0 8px 18px rgba(248,113,113,.36)}
     @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
     .hero-tech{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px;position:relative;z-index:1}
@@ -66,14 +66,12 @@
     .btn-link.secondary{background:linear-gradient(90deg,#1e293b,#334155)}
     #msg{text-align:center;min-height:20px;margin-top:8px}
     .feedback-wrap{background:linear-gradient(145deg,rgba(12,22,44,.92),rgba(19,30,58,.82));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 10px 28px rgba(0,0,0,.3)}
-    .feedback-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:18px}
-    .feedback-card{background:rgba(255,255,255,.04);border:1px solid rgba(126,175,245,.26);border-radius:14px;padding:14px}
-    .feedback-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:600;color:#93c5fd}
-    .feedback-head img{width:22px;height:22px}
-    .wa-shot{border-radius:12px;border:1px solid rgba(126,175,245,.28);background:linear-gradient(160deg,#132949,#0f1f38);padding:12px}
-    .wa-bubble{background:#1f3c5f;color:#e6f1ff;border-radius:10px;padding:8px 10px;display:inline-block;max-width:95%;font-size:13px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-    .wa-time{font-size:11px;color:#9db4d7;margin-top:4px;text-align:right}
-    .feedback-name{font-size:12px;color:#b8c9e6;margin-top:8px}
+    .wa-gallery{margin-top:14px;overflow:hidden;border:1px solid rgba(126,175,245,.28);border-radius:14px;background:linear-gradient(160deg,#0c1a33,#11274a)}
+    .wa-gallery-track{display:flex;gap:14px;width:max-content;padding:14px;animation:waSlide 28s linear infinite}
+    .wa-gallery:hover .wa-gallery-track{animation-play-state:paused}
+    @keyframes waSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .wa-proof{width:220px;height:390px;object-fit:cover;border-radius:12px;border:1px solid rgba(145,191,255,.45);background:#0b1629;box-shadow:0 8px 20px rgba(0,0,0,.28)}
+    .proof-note{margin-top:12px;font-size:13px;color:#adc2e8;text-align:center}
     .hiring-wrap{background:linear-gradient(145deg,rgba(12,22,44,.92),rgba(19,30,58,.82));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 10px 24px rgba(0,0,0,.3)}
     .logo-marquee{margin-top:16px;overflow:hidden;border:1px solid rgba(126,175,245,.28);border-radius:14px;background:linear-gradient(155deg,#0c1a33,#142a4d)}
     .logo-track{display:flex;align-items:center;gap:12px;width:max-content;padding:10px;animation:logoSlide 26s linear infinite}
@@ -171,7 +169,7 @@
   <section class="section reveal" id="explore-courses" style="background:linear-gradient(180deg,rgba(6,12,24,.45),rgba(20,45,92,.28))">
     <div class="container">
       <h2>Explore Courses</h2>
-      <p class="sub">Open any course page for roadmap, resources and details.</p>
+      <p class="sub">Choose your track, watch prerecorded video lessons, practice with real tasks, and build job-ready project skills.</p>
       <div class="grid">
         <a class="card course-card" href="course_advance_excel.html"><img src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="Advance Excel"><h3>Advance Excel (Video Course)</h3><div class="muted">MRP ₹999 | Offer ₹49</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_python.html"><img src="https://img.icons8.com/color/96/python--v1.png" alt="Python"><h3>Python (Video Course)</h3><div class="muted">MRP ₹2000 | Offer ₹99</div><span class="tag">Open Course</span></a>
@@ -224,34 +222,23 @@
   <section class="section" id="student-feedbacks" style="padding-top:0">
     <div class="container">
       <div class="feedback-wrap">
-        <h2>Student Feedbacks (WhatsApp)</h2>
-        <p class="sub">Thank-you messages from learners who purchased combo courses.</p>
-        <div class="feedback-grid">
-          <div class="feedback-card">
-            <div class="feedback-head"><img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp icon"> </div>
-            <div class="wa-shot">
-              <div class="wa-bubble">Thank you sir 🙏 Combo course is wonderful. Excel + Python both are very clear and beginner friendly.</div>
-              <div class="wa-time">10:42 PM</div>
-            </div>
-            <div class="feedback-name">— Student (Pune)</div>
-          </div>
-          <div class="feedback-card">
-            <div class="feedback-head"><img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp icon"> </div>
-            <div class="wa-shot">
-              <div class="wa-bubble">Sir, thank you so much! I purchased combo and loved Power BI videos + cheat sheets. Great value ❤️</div>
-              <div class="wa-time">8:15 PM</div>
-            </div>
-            <div class="feedback-name">— Working Professional (Nashik)</div>
-          </div>
-          <div class="feedback-card">
-            <div class="feedback-head"><img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp icon"> </div>
-            <div class="wa-shot">
-              <div class="wa-bubble">Amazing combo course! ML + DL basics समझ में आ गया. Thank you DataLearn10X team 🙌</div>
-              <div class="wa-time">7:03 PM</div>
-            </div>
-            <div class="feedback-name">— Student (Mumbai)</div>
+        <h2>Student Proofs (WhatsApp Screenshots)</h2>
+        <p class="sub">Upload five WhatsApp screenshots in <b>assets/whatsapp/</b> to show real learner feedback with social proof.</p>
+        <div class="wa-gallery" aria-label="WhatsApp feedback screenshots moving right to left">
+          <div class="wa-gallery-track">
+            <img class="wa-proof" src="assets/whatsapp/wa1.svg" alt="WhatsApp student feedback screenshot 1" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa2.svg" alt="WhatsApp student feedback screenshot 2" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa3.svg" alt="WhatsApp student feedback screenshot 3" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa4.svg" alt="WhatsApp student feedback screenshot 4" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa5.svg" alt="WhatsApp student feedback screenshot 5" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa1.svg" alt="WhatsApp student feedback screenshot 1 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa2.svg" alt="WhatsApp student feedback screenshot 2 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa3.svg" alt="WhatsApp student feedback screenshot 3 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa4.svg" alt="WhatsApp student feedback screenshot 4 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa5.svg" alt="WhatsApp student feedback screenshot 5 duplicate" loading="lazy">
           </div>
         </div>
+        <p class="proof-note">Image naming required: <b>wa1.svg</b>, <b>wa2.svg</b>, <b>wa3.svg</b>, <b>wa4.svg</b>, <b>wa5.svg</b>.</p>
       </div>
     </div>
   </section>
