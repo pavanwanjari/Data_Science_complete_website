@@ -111,6 +111,10 @@
     .faq-item[open] summary::after{content:'–'}
     .faq-answer{padding:0 16px 14px;color:#b8cceb;font-size:14px}
     .glow-line{height:2px;width:160px;margin:10px auto 0;background:linear-gradient(90deg,transparent,#67e8f9,#60a5fa,transparent);filter:drop-shadow(0 0 7px rgba(96,165,250,.7))}
+    .social-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px 0 6px}
+    .social-links a{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border:1px solid rgba(169,196,240,.35);transition:.2s}
+    .social-links a:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}
+    .social-links img{width:22px;height:22px}
     footer{margin-top:32px;background:linear-gradient(160deg,#0e1a31,#1a2f56);color:#d9e8ff;padding:24px 16px;text-align:center;font-size:13px;border-top:1px solid rgba(126,175,245,.24)}
     .brand{font-weight:700}
     @media (max-width:640px){
@@ -325,20 +329,22 @@
   </a>
 
   <footer>
-  <div class="brand">DataLearn10X</div>
-  <div style="margin:8px 0 6px;">
-    <a href="about.html" style="color:#bfdbfe;text-decoration:none;font-weight:600;">About Us</a> | 
-    <a href="privacy-policy.html" style="color:#bfdbfe;text-decoration:none;font-weight:600;">Privacy Policy</a> | 
-    <a href="terms-of-service.html" style="color:#bfdbfe;text-decoration:none;font-weight:600;">Terms of Service</a>
-  </div>
-  © 2026 DataLearn10X <br> 📧 shubhams2018@gmail.com | 📞 9403030512 / 7507940073
-</footer>
+    <div class="brand">DataLearn10X</div>
+    <div class="social-links" aria-label="Social media links">
+      <a id="linkedinLink" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn"></a>
+      <a id="instagramLink" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="https://img.icons8.com/color/48/instagram-new--v1.png" alt="Instagram"></a>
+      <a id="facebookLink" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook"></a>
+    </div>
+    <div style="margin:8px 0 6px;"><a href="about.html" style="color:#bfdbfe;text-decoration:none;font-weight:600;">About Us</a></div>
+    © 2026 DataLearn10X <br> 📧 shubhams2018@gmail.com | 📞 9403030512 / 7507940073
+  </footer>
 
 <script>
 const SITE_CONFIG = window.DL10X_CONFIG || {};
 const SHEET_WEBAPP_URL = SITE_CONFIG.SHEET_WEBAPP_URL || "https://script.google.com/macros/s/AKfycbw_qylYBxeRqEkXhED_Mq6-e71iq6w2A_aYlybpqdEQdcCglRrijCEWVwjnl0sh_mPJ/exec";
 const WHATSAPP_NUMBER = SITE_CONFIG.WHATSAPP_NUMBER || "919403030512";
 const WHATSAPP_TEXT = SITE_CONFIG.WHATSAPP_TEXT || "Hi DataLearn10X, I want details about courses";
+const SOCIAL_LINKS = SITE_CONFIG.SOCIAL_LINKS || {};
 const AD_IMAGES_BASE_URL = SITE_CONFIG.AD_IMAGES_BASE_URL || "";
 const AD_IMAGES = Array.isArray(SITE_CONFIG.AD_IMAGES) && SITE_CONFIG.AD_IMAGES.length
   ? SITE_CONFIG.AD_IMAGES
@@ -351,9 +357,9 @@ const YOUTUBE_CHANNEL_URL = SITE_CONFIG.YOUTUBE_CHANNEL_URL || "https://www.yout
 const YOUTUBE_REELS = Array.isArray(SITE_CONFIG.YOUTUBE_REELS) && SITE_CONFIG.YOUTUBE_REELS.length
   ? SITE_CONFIG.YOUTUBE_REELS
   : [
-      { id: "dQw4w9WgXcQ", title: "Data Analytics Career Roadmap", note: "Career clarity in 60 seconds" },
-      { id: "3fumBcKC6RE", title: "Power BI Mini Project", note: "Dashboard design + storytelling tips" },
-      { id: "9bZkp7q19f0", title: "Python + SQL Fast Tips", note: "Beginner-friendly reel for daily practice" }
+      { id: "VJrP2FUzKP0", title: "Data Analysis with Python (freeCodeCamp)", note: "Beginner-friendly data analysis learning session" },
+      { id: "2jGhQpbzHes", title: "SQL Data Analyst Portfolio Project", note: "Real-world SQL analytics project walkthrough" },
+      { id: "e6QD8lP-m6E", title: "Power BI Full Course Tutorial", note: "Dashboard + modeling + analytics basics" }
     ];
 const comboChk = document.getElementById('comboChk');
 const individualChecks = Array.from(document.querySelectorAll('.courseChk'));
@@ -363,6 +369,12 @@ const whatsappLink=document.getElementById('whatsappLink');
 if(whatsappLink){
   whatsappLink.href='https://wa.me/'+encodeURIComponent(WHATSAPP_NUMBER)+'?text='+encodeURIComponent(WHATSAPP_TEXT);
 }
+const linkedinLink=document.getElementById('linkedinLink');
+const instagramLink=document.getElementById('instagramLink');
+const facebookLink=document.getElementById('facebookLink');
+if(linkedinLink && SOCIAL_LINKS.linkedin){linkedinLink.href=SOCIAL_LINKS.linkedin;}
+if(instagramLink && SOCIAL_LINKS.instagram){instagramLink.href=SOCIAL_LINKS.instagram;}
+if(facebookLink && SOCIAL_LINKS.facebook){facebookLink.href=SOCIAL_LINKS.facebook;}
 
 const adsSlider = document.getElementById('adsSlider');
 const adsSlideImage = document.getElementById('adsSlideImage');
