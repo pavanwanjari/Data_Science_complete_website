@@ -21,7 +21,7 @@
     .hero:after{width:210px;height:210px;background:radial-gradient(circle,#93f8e8,#3648ff);right:-40px;bottom:-45px;animation-delay:1.2s}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
     .hero h1{font-size:46px;margin-bottom:10px;position:relative;z-index:1;cursor:pointer;letter-spacing:.5px;text-shadow:0 4px 16px rgba(5,16,38,.6)}
-    .hero p{opacity:.96;position:relative;z-index:1;color:#d8e5ff}
+    .hero p{opacity:.96;position:relative;z-index:1;color:#d8e5ff;max-width:860px;margin:0 auto}
     .pill{display:inline-block;margin-top:16px;background:linear-gradient(92deg,#ec4899,#f43f5e,#f97316);padding:10px 22px;border-radius:24px;font-weight:700;position:relative;z-index:1;animation:pulse 1.6s infinite;color:#fff;text-decoration:none;cursor:pointer;border:none;box-shadow:0 8px 18px rgba(248,113,113,.36)}
     @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
     .hero-tech{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px;position:relative;z-index:1}
@@ -40,7 +40,7 @@
     .course-card:hover{transform:translateY(-4px)}
     .course-card.coming-soon{pointer-events:none;opacity:.72;cursor:not-allowed}
     .course-card.coming-soon:hover{transform:none}
-    .tag.coming-soon{background:#fff3cd;color:#92400e}
+    .tag.coming-soon{background:#2f3f63;color:#f8fbff;border:1px solid rgba(166,193,255,.45)}
     .course-card img{width:58px;height:58px;object-fit:contain;margin-bottom:6px}
     .tag{display:inline-block;margin-top:8px;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#f8fbff;padding:4px 10px;border-radius:16px;font-size:12px;font-weight:600}
     .muted{color:#a8bbdc;font-size:14px}
@@ -55,8 +55,8 @@
     .cart-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:16px 0}
     .chk{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(126,175,245,.35);border-radius:10px;padding:10px}
     .chk input{margin-top:3px}
-    .chk.combo-offer{background:#edf4ff;border-color:#8cb8ff;color:#0f172a;font-weight:600}
-    .chk.combo-offer b{color:#0f172a}
+    .chk.combo-offer{background:linear-gradient(135deg,rgba(19,68,148,.35),rgba(10,132,255,.2));border-color:#8cb8ff;color:#eff6ff;font-weight:600}
+    .chk.combo-offer b{color:#eff6ff}
     .form{margin-top:10px;text-align:center}
     .form input,.form select{width:92%;max-width:380px;padding:12px;margin:6px;border:1px solid rgba(134,187,255,.38);border-radius:8px;background:rgba(8,19,42,.7);color:#e8f2ff}
     .total{font-size:22px;font-weight:700;color:#87f6c5;text-align:center;margin:10px 0}
@@ -66,16 +66,14 @@
     .btn-link.secondary{background:linear-gradient(90deg,#1e293b,#334155)}
     #msg{text-align:center;min-height:20px;margin-top:8px}
     .feedback-wrap{background:linear-gradient(145deg,rgba(12,22,44,.92),rgba(19,30,58,.82));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 10px 28px rgba(0,0,0,.3)}
-    .feedback-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:18px}
-    .feedback-card{background:rgba(255,255,255,.04);border:1px solid rgba(126,175,245,.26);border-radius:14px;padding:14px}
-    .feedback-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:600;color:#93c5fd}
-    .feedback-head img{width:22px;height:22px}
-    .wa-shot{border-radius:12px;border:1px solid #d9e4fb;background:linear-gradient(160deg,#d9fdd3,#e8f6ff);padding:12px}
-    .wa-bubble{background:#dcf8c6;color:#1f2f46;border-radius:10px;padding:8px 10px;display:inline-block;max-width:95%;font-size:13px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-    .wa-time{font-size:11px;color:#4d617f;margin-top:4px;text-align:right}
-    .feedback-name{font-size:12px;color:#b8c9e6;margin-top:8px}
+    .wa-gallery{margin-top:14px;overflow:hidden;border:1px solid rgba(126,175,245,.28);border-radius:14px;background:linear-gradient(160deg,#0c1a33,#11274a)}
+    .wa-gallery-track{display:flex;gap:14px;width:max-content;padding:14px;animation:waSlide 28s linear infinite}
+    .wa-gallery:hover .wa-gallery-track{animation-play-state:paused}
+    @keyframes waSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .wa-proof{width:220px;height:390px;object-fit:cover;border-radius:12px;border:1px solid rgba(145,191,255,.45);background:#0b1629;box-shadow:0 8px 20px rgba(0,0,0,.28)}
+    .proof-note{margin-top:12px;font-size:13px;color:#adc2e8;text-align:center}
     .hiring-wrap{background:linear-gradient(145deg,rgba(12,22,44,.92),rgba(19,30,58,.82));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 10px 24px rgba(0,0,0,.3)}
-    .logo-marquee{margin-top:16px;overflow:hidden;border:1px solid #dbe8ff;border-radius:14px;background:#f8fbff}
+    .logo-marquee{margin-top:16px;overflow:hidden;border:1px solid #d6e4ff;border-radius:14px;background:#ffffff}
     .logo-track{display:flex;align-items:center;gap:12px;width:max-content;padding:10px;animation:logoSlide 26s linear infinite}
     @keyframes logoSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     .logo-card{background:rgba(255,255,255,.06);border:1px solid rgba(126,175,245,.26);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;min-height:76px;min-width:170px}
@@ -104,9 +102,28 @@
     .yt-meta h3{font-size:15px;color:#eef4ff;margin-bottom:4px}
     .yt-meta p{font-size:13px;color:#aec3e8}
     .yt-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .faq-wrap{background:linear-gradient(145deg,rgba(12,22,44,.96),rgba(19,30,58,.86));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 14px 28px rgba(0,0,0,.32)}
+    .faq-list{display:grid;gap:10px;margin-top:16px}
+    .faq-item{border:1px solid rgba(126,175,245,.28);border-radius:12px;background:rgba(255,255,255,.03);overflow:hidden}
+    .faq-item summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:600;color:#edf3ff;display:flex;justify-content:space-between;gap:8px}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary::after{content:'+';font-size:20px;line-height:1;color:#93c5fd}
+    .faq-item[open] summary::after{content:'–'}
+    .faq-answer{padding:0 16px 14px;color:#b8cceb;font-size:14px}
     .glow-line{height:2px;width:160px;margin:10px auto 0;background:linear-gradient(90deg,transparent,#67e8f9,#60a5fa,transparent);filter:drop-shadow(0 0 7px rgba(96,165,250,.7))}
+    .social-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px 0 6px}
+    .social-links a{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border:1px solid rgba(169,196,240,.35);transition:.2s}
+    .social-links a:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}
+    .social-links img{width:22px;height:22px}
     footer{margin-top:32px;background:linear-gradient(160deg,#0e1a31,#1a2f56);color:#d9e8ff;padding:24px 16px;text-align:center;font-size:13px;border-top:1px solid rgba(126,175,245,.24)}
     .brand{font-weight:700}
+    @media (max-width:640px){
+      #explore-courses .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+      #explore-courses .course-card{padding:12px}
+      #explore-courses .course-card h3{font-size:15px;line-height:1.3}
+      #explore-courses .course-card .muted{font-size:12px}
+      #explore-courses .course-card img{width:46px;height:46px}
+    }
   </style>
   <link rel="stylesheet" href="theme_professional.css">
 </head>
@@ -163,14 +180,14 @@
   <section class="section reveal" id="explore-courses" style="background:linear-gradient(180deg,rgba(6,12,24,.45),rgba(20,45,92,.28))">
     <div class="container">
       <h2>Explore Courses</h2>
-      <p class="sub">Open any course page for roadmap, resources and details.</p>
+      <p class="sub">Choose your track, watch prerecorded video lessons, practice with real tasks, and build job-ready project skills.</p>
       <div class="grid">
-        <a class="card course-card" href="course_advance_excel.html"><img src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="Advance Excel"><h3>Advance Excel</h3><div class="muted">MRP ₹999 | Offer ₹49</div><span class="tag">Open Course</span></a>
-        <a class="card course-card" href="course_python.html"><img src="https://img.icons8.com/color/96/python--v1.png" alt="Python"><h3>Python</h3><div class="muted">MRP ₹2000 | Offer ₹99</div><span class="tag">Open Course</span></a>
-        <a class="card course-card" href="course_power_bi.html"><img src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI"><h3>Power BI</h3><div class="muted">MRP ₹2500 | Offer ₹99</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_advance_excel.html"><img src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="Advance Excel"><h3>Advance Excel (Video Course)</h3><div class="muted">MRP ₹999 | Offer ₹49</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_python.html"><img src="https://img.icons8.com/color/96/python--v1.png" alt="Python"><h3>Python (Video Course)</h3><div class="muted">MRP ₹2000 | Offer ₹99</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_power_bi.html"><img src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI"><h3>Power BI (Video Course)</h3><div class="muted">MRP ₹2500 | Offer ₹99</div><span class="tag">Open Course</span></a>
         <div class="card course-card coming-soon" aria-disabled="true"><img src="https://img.icons8.com/color/96/tableau-software.png" alt="Tableau"><h3>Tableau</h3><div class="muted">Course currently unavailable</div><span class="tag coming-soon">Coming Soon</span></div>
         <div class="card course-card coming-soon" aria-disabled="true"><img src="https://img.icons8.com/fluency/96/mysql-logo.png" alt="SQL"><h3>SQL (MySQL)</h3><div class="muted">Course currently unavailable</div><span class="tag coming-soon">Coming Soon</span></div>
-        <a class="card course-card" href="course_ml_dl.html"><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="ML DL"><h3>Machine Learning + Deep Learning</h3><div class="muted">MRP ₹3000 | Offer ₹99</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_ml_dl.html"><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="ML DL"><h3>Machine Learning + Deep Learning (Video Course)</h3><div class="muted">MRP ₹3000 | Offer ₹99</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_cheat_sheets.html"><img src="https://img.icons8.com/color/96/todo-list.png" alt="Cheat Sheets"><h3>Cheat Sheets and Interview Questions </h3><div class="muted">MRP ₹499 | FREE </div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_hr_emails.html"><img src="https://img.icons8.com/color/96/new-post.png" alt="HR Emails"><h3>20000+ HR Emails</h3><div class="muted">MRP ₹499 | Offer ₹19</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_english_typing.html"><img src="https://img.icons8.com/color/96/keyboard.png" alt="Typing Course"><h3>English Typing Course (100 Levels)</h3><div class="muted">100% Free Practice for All</div><span class="tag">Start Free</span></a>
@@ -186,12 +203,12 @@
       <h2>Buy Courses (Multi-select Cart)</h2>
       <p class="sub">Select one or more courses. Combo overrides individual selection.</p>
       <div class="cart-grid">
-        <label class="chk"><input type="checkbox" class="courseChk" value="Advance Excel" data-price="49"> Advance Excel (₹49)</label>
-        <label class="chk"><input type="checkbox" class="courseChk" value="Python" data-price="99"> Python (₹99)</label>
-        <label class="chk"><input type="checkbox" class="courseChk" value="Power BI" data-price="99"> Power BI (₹99)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Advance Excel" data-price="49"> Advance Excel (Video Course) (₹49)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Python" data-price="99"> Python (Video Course) (₹99)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Power BI" data-price="99"> Power BI (Video Course) (₹99)</label>
         <label class="chk" style="opacity:.65"><input type="checkbox" class="courseChk" value="Tableau" data-price="0" disabled> Tableau (Coming Soon)</label>
         <label class="chk" style="opacity:.65"><input type="checkbox" class="courseChk" value="SQL (MySQL)" data-price="0" disabled> SQL (MySQL) (Coming Soon)</label>
-        <label class="chk"><input type="checkbox" class="courseChk" value="Machine Learning + Deep Learning" data-price="99"> ML + DL (₹99)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Machine Learning + Deep Learning" data-price="99"> ML + DL (Video Course) (₹99)</label>
         <label class="chk" style="opacity:.6"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="1" disabled> Cheat Sheets and Interview Questions (FREE)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="20000+ HR Emails" data-price="19"> 20000+ HR Emails (₹19)</label>
         <label class="chk combo-offer"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="0"> <b>Data Analytics Combo (all courses + resources) ₹0 till 31 March 2026</b></label>
@@ -216,34 +233,23 @@
   <section class="section" id="student-feedbacks" style="padding-top:0">
     <div class="container">
       <div class="feedback-wrap">
-        <h2>Student Feedbacks (WhatsApp)</h2>
-        <p class="sub">Thank-you messages from learners who purchased combo courses.</p>
-        <div class="feedback-grid">
-          <div class="feedback-card">
-            <div class="feedback-head"><img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp icon"> </div>
-            <div class="wa-shot">
-              <div class="wa-bubble">Thank you sir 🙏 Combo course is wonderful. Excel + Python both are very clear and beginner friendly.</div>
-              <div class="wa-time">10:42 PM</div>
-            </div>
-            <div class="feedback-name">— Student (Pune)</div>
-          </div>
-          <div class="feedback-card">
-            <div class="feedback-head"><img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp icon"> </div>
-            <div class="wa-shot">
-              <div class="wa-bubble">Sir, thank you so much! I purchased combo and loved Power BI videos + cheat sheets. Great value ❤️</div>
-              <div class="wa-time">8:15 PM</div>
-            </div>
-            <div class="feedback-name">— Working Professional (Nashik)</div>
-          </div>
-          <div class="feedback-card">
-            <div class="feedback-head"><img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp icon"> </div>
-            <div class="wa-shot">
-              <div class="wa-bubble">Amazing combo course! ML + DL basics समझ में आ गया. Thank you DataLearn10X team 🙌</div>
-              <div class="wa-time">7:03 PM</div>
-            </div>
-            <div class="feedback-name">— Student (Mumbai)</div>
+        <h2>Student Proofs (WhatsApp Screenshots)</h2>
+        <p class="sub">Upload five WhatsApp screenshots in <b>assets/whatsapp/</b> to show real learner feedback with social proof.</p>
+        <div class="wa-gallery" aria-label="WhatsApp feedback screenshots moving right to left">
+          <div class="wa-gallery-track">
+            <img class="wa-proof" src="assets/whatsapp/wa1.svg" alt="WhatsApp student feedback screenshot 1" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa2.svg" alt="WhatsApp student feedback screenshot 2" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa3.svg" alt="WhatsApp student feedback screenshot 3" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa4.svg" alt="WhatsApp student feedback screenshot 4" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa5.svg" alt="WhatsApp student feedback screenshot 5" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa1.svg" alt="WhatsApp student feedback screenshot 1 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa2.svg" alt="WhatsApp student feedback screenshot 2 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa3.svg" alt="WhatsApp student feedback screenshot 3 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa4.svg" alt="WhatsApp student feedback screenshot 4 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/wa5.svg" alt="WhatsApp student feedback screenshot 5 duplicate" loading="lazy">
           </div>
         </div>
+        <p class="proof-note">Image naming required: <b>wa1.svg</b>, <b>wa2.svg</b>, <b>wa3.svg</b>, <b>wa4.svg</b>, <b>wa5.svg</b>.</p>
       </div>
     </div>
   </section>
@@ -296,6 +302,27 @@
     </div>
   </section>
 
+  <section class="section reveal" id="faq-section" style="padding-top:0">
+    <div class="container">
+      <div class="faq-wrap">
+        <h2>Top 10 FAQs</h2>
+        <p class="sub">Quick answers to common learner questions before enrollment.</p>
+        <div class="faq-list">
+          <details class="faq-item"><summary>1) Are these live classes or prerecorded classes?</summary><div class="faq-answer">All major courses (Excel, Python, Power BI, and ML + DL) are prerecorded video courses, so you can learn anytime at your own pace.</div></details>
+          <details class="faq-item"><summary>2) I am a beginner. Can I start without coding experience?</summary><div class="faq-answer">Yes. The curriculum is beginner-friendly and starts from basics, then moves to practical projects and interview-ready skills.</div></details>
+          <details class="faq-item"><summary>3) How do I get access after payment?</summary><div class="faq-answer">After successful payment, access is activated automatically on your registered email and redirected success page.</div></details>
+          <details class="faq-item"><summary>4) Can I buy only one course instead of the combo?</summary><div class="faq-answer">Yes. You can select any individual course from the cart, or choose the combo offer when available.</div></details>
+          <details class="faq-item"><summary>5) Is there any validity period for course access?</summary><div class="faq-answer">Course access validity depends on the current offer policy. Typically, learners get long-term access for self-paced revision.</div></details>
+          <details class="faq-item"><summary>6) Will I get projects and practice material?</summary><div class="faq-answer">Yes. Courses include practical tasks, and you also get additional free practice resources and interview-oriented material.</div></details>
+          <details class="faq-item"><summary>7) Do you provide placement/job support?</summary><div class="faq-answer">You get career-focused guidance, portfolio direction, resume tools, and interview preparation support to improve job readiness.</div></details>
+          <details class="faq-item"><summary>8) What if I face issues in payment or course access?</summary><div class="faq-answer">You can contact support directly on WhatsApp or email, and the team will help resolve access/payment issues quickly.</div></details>
+          <details class="faq-item"><summary>9) Are certificates provided?</summary><div class="faq-answer">Course completion/certificate policy may vary by course. Please check the specific course page for latest details.</div></details>
+          <details class="faq-item"><summary>10) Which course should I start first for data analytics?</summary><div class="faq-answer">Recommended path: Advance Excel → Python → Power BI → SQL/Tableau (when available) → Machine Learning + Deep Learning.</div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <a id="whatsappLink" class="whatsapp" href="https://wa.me/919403030512?text=Hi%20DataLearn10X%2C%20I%20want%20details%20about%20courses" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp support">
     <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp">
@@ -303,6 +330,11 @@
 
   <footer>
     <div class="brand">DataLearn10X</div>
+    <div class="social-links" aria-label="Social media links">
+      <a id="linkedinLink" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn"></a>
+      <a id="instagramLink" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="https://img.icons8.com/color/48/instagram-new--v1.png" alt="Instagram"></a>
+      <a id="facebookLink" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook"></a>
+    </div>
     <div style="margin:8px 0 6px;"><a href="about.html" style="color:#bfdbfe;text-decoration:none;font-weight:600;">About Us</a></div>
     © 2026 DataLearn10X <br> 📧 shubhams2018@gmail.com | 📞 9403030512 / 7507940073
   </footer>
@@ -312,6 +344,7 @@ const SITE_CONFIG = window.DL10X_CONFIG || {};
 const SHEET_WEBAPP_URL = SITE_CONFIG.SHEET_WEBAPP_URL || "https://script.google.com/macros/s/AKfycbw_qylYBxeRqEkXhED_Mq6-e71iq6w2A_aYlybpqdEQdcCglRrijCEWVwjnl0sh_mPJ/exec";
 const WHATSAPP_NUMBER = SITE_CONFIG.WHATSAPP_NUMBER || "919403030512";
 const WHATSAPP_TEXT = SITE_CONFIG.WHATSAPP_TEXT || "Hi DataLearn10X, I want details about courses";
+const SOCIAL_LINKS = SITE_CONFIG.SOCIAL_LINKS || {};
 const AD_IMAGES_BASE_URL = SITE_CONFIG.AD_IMAGES_BASE_URL || "";
 const AD_IMAGES = Array.isArray(SITE_CONFIG.AD_IMAGES) && SITE_CONFIG.AD_IMAGES.length
   ? SITE_CONFIG.AD_IMAGES
@@ -324,9 +357,9 @@ const YOUTUBE_CHANNEL_URL = SITE_CONFIG.YOUTUBE_CHANNEL_URL || "https://www.yout
 const YOUTUBE_REELS = Array.isArray(SITE_CONFIG.YOUTUBE_REELS) && SITE_CONFIG.YOUTUBE_REELS.length
   ? SITE_CONFIG.YOUTUBE_REELS
   : [
-      { id: "dQw4w9WgXcQ", title: "Data Analytics Career Roadmap", note: "Career clarity in 60 seconds" },
-      { id: "3fumBcKC6RE", title: "Power BI Mini Project", note: "Dashboard design + storytelling tips" },
-      { id: "9bZkp7q19f0", title: "Python + SQL Fast Tips", note: "Beginner-friendly reel for daily practice" }
+      { id: "VJrP2FUzKP0", title: "Data Analysis with Python (freeCodeCamp)", note: "Beginner-friendly data analysis learning session" },
+      { id: "2jGhQpbzHes", title: "SQL Data Analyst Portfolio Project", note: "Real-world SQL analytics project walkthrough" },
+      { id: "e6QD8lP-m6E", title: "Power BI Full Course Tutorial", note: "Dashboard + modeling + analytics basics" }
     ];
 const comboChk = document.getElementById('comboChk');
 const individualChecks = Array.from(document.querySelectorAll('.courseChk'));
@@ -336,6 +369,12 @@ const whatsappLink=document.getElementById('whatsappLink');
 if(whatsappLink){
   whatsappLink.href='https://wa.me/'+encodeURIComponent(WHATSAPP_NUMBER)+'?text='+encodeURIComponent(WHATSAPP_TEXT);
 }
+const linkedinLink=document.getElementById('linkedinLink');
+const instagramLink=document.getElementById('instagramLink');
+const facebookLink=document.getElementById('facebookLink');
+if(linkedinLink && SOCIAL_LINKS.linkedin){linkedinLink.href=SOCIAL_LINKS.linkedin;}
+if(instagramLink && SOCIAL_LINKS.instagram){instagramLink.href=SOCIAL_LINKS.instagram;}
+if(facebookLink && SOCIAL_LINKS.facebook){facebookLink.href=SOCIAL_LINKS.facebook;}
 
 const adsSlider = document.getElementById('adsSlider');
 const adsSlideImage = document.getElementById('adsSlideImage');

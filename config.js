@@ -7,6 +7,11 @@ window.DL10X_CONFIG = {
     "ad1.jpg",
     "ad4.jpg"
   ],
+  SOCIAL_LINKS: {
+    linkedin: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    facebook: "https://www.facebook.com/"
+  },
   JOB_BOARDS: [
     {
       name: "LinkedIn Jobs",
