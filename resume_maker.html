@@ -11,23 +11,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" defer></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap');
-    :root{--bg:#070b14;--txt:#e6efff;--muted:#9db3d9;--pri:#3b82f6;--line:#2e436a}
+    :root{--bg:#f4f8ff;--txt:#1a2a42;--muted:#4b5f7d;--pri:#2563eb;--line:#d2dff3}
     *{box-sizing:border-box}
-    body{margin:0;font-family:Poppins,Arial,sans-serif;background:radial-gradient(circle at 12% 10%,#23396f 0,#0b1020 40%,#070b14 100%);color:var(--txt)}
-    .top{padding:16px 12px 0;max-width:1280px;margin:auto}
+    body{margin:0;font-family:Poppins,Arial,sans-serif;background:#f4f8ff;color:var(--txt)}
+    .top{padding:16px 12px 0;max-width:1120px;margin:auto}
     .head{background:linear-gradient(135deg,rgba(26,37,71,.88),rgba(19,56,131,.68),rgba(36,162,255,.4));border:1px solid rgba(146,190,255,.35);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
     .head-left{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:8px;background:#fff;padding:2px}
     .head h1{margin:0;font-size:22px}.head p{margin:2px 0 0;color:#d4e4ff;font-size:13px}
     .home-btn{color:#fff;text-decoration:none;background:linear-gradient(135deg,#2563eb,#0ea5e9);padding:8px 12px;border-radius:9px;font-weight:600;font-size:13px}
 
-    .wrap{max-width:1280px;margin:12px auto 18px;padding:0 12px;display:grid;grid-template-columns:390px 1fr;gap:14px}
-    .panel,.preview-card{background:linear-gradient(145deg,rgba(12,23,46,.95),rgba(18,30,60,.78));border:1px solid rgba(122,165,238,.32);border-radius:14px;box-shadow:0 16px 36px rgba(2,8,20,.35)}
+    .wrap{max-width:1120px;margin:12px auto 18px;padding:0 12px;display:grid;grid-template-columns:390px 1fr;gap:14px}
+    .panel,.preview-card{background:#ffffff;border:1px solid #d2dff3;border-radius:14px;box-shadow:0 16px 36px rgba(2,8,20,.35)}
     .panel{padding:13px;max-height:calc(100vh - 30px);overflow:auto}
     .preview-card{padding:12px;overflow:auto}
 
     .sec{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}.sec:first-child{border-top:none;margin-top:0;padding-top:0}
     .title{font-size:15px;font-weight:700;margin:0 0 6px} label{font-size:12px;color:var(--muted);display:block;margin:7px 0 4px}
-    input,textarea,select{width:100%;padding:10px;border:1px solid #3f5d8f;border-radius:8px;background:#0d1a34;color:#f7fbff}
+    input,textarea,select{width:100%;padding:10px;border:1px solid #3f5d8f;border-radius:8px;background:#ffffff;color:#1a2a42}
     textarea{min-height:74px;resize:vertical}.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
     button{border:none;border-radius:8px;padding:10px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
     button.alt{background:#334155}button.gray{background:#475569}.action-link{display:flex;align-items:center;justify-content:center;border-radius:8px;padding:10px;background:#1d4ed8;color:#fff;font-weight:600;text-decoration:none}.ats{font-size:13px;background:#0a2248;border:1px solid #355d9f;border-radius:8px;padding:8px;margin-top:8px}
@@ -66,7 +66,7 @@
   </style>
   <link rel="stylesheet" href="theme_professional.css">
 </head>
-<body>
+<body class="app-resume">
   <div class="top">
     <div class="head">
       <div class="head-left">

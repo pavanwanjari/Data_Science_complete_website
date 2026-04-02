@@ -1,40 +1,151 @@
 :root{
-  --pro-bg-1:#060f22;
-  --pro-bg-2:#0b1b3d;
-  --pro-bg-3:#12366f;
-  --pro-surface:#0d1f3d;
-  --pro-surface-2:#10284d;
-  --pro-border:#2d4f86;
-  --pro-text:#eaf2ff;
-  --pro-text-soft:#c0d2f4;
-  --pro-accent:#38bdf8;
-  --pro-accent-2:#2563eb;
+  --pro-bg-1:#f6f9ff;
+  --pro-bg-2:#eef4ff;
+  --pro-bg-3:#e4edfb;
+  --pro-surface:#ffffff;
+  --pro-surface-soft:#f8fbff;
+  --pro-border:#d6e2f5;
+  --pro-text:#1a2a42;
+  --pro-text-soft:#4b5f7d;
+  --pro-title:#0f2038;
+  --pro-accent:#2563eb;
+  --pro-accent-2:#1d4ed8;
+  --pro-success:#0f766e;
 }
+*{box-sizing:border-box}
 html,body{
-  background:radial-gradient(circle at 8% 8%, var(--pro-bg-3) 0%, var(--pro-bg-2) 38%, var(--pro-bg-1) 100%) !important;
+  background:linear-gradient(180deg,var(--pro-bg-1) 0%,var(--pro-bg-2) 56%,var(--pro-bg-3) 100%) !important;
   color:var(--pro-text) !important;
+  font-family:Inter,"Poppins","Segoe UI",Roboto,Arial,sans-serif !important;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
-p,.sub,.muted,.mini,.meta,.help,.small,label,.tips,.mini-note{color:var(--pro-text-soft)!important}
-h1,h2,h3,h4,h5,h6,b,strong{color:#f8fbff!important}
+body:before,body:after{display:none!important}
+p,.sub,.muted,.mini,.meta,.help,.small,label,.tips,.mini-note,.faq-answer,li,td,th{color:var(--pro-text-soft)!important}
+h1,h2,h3,h4,h5,h6,b,strong,.metric{color:var(--pro-title)!important;text-shadow:none!important;letter-spacing:.1px}
+a{color:#1f4ca3}
+a:hover{color:#1d4ed8}
 header,.hero,.header,.head{
-  background:linear-gradient(135deg,#0d2350,#1d4ed8,#0ea5e9)!important;
-  border:1px solid rgba(148,197,255,.35)!important;
-  box-shadow:0 18px 36px rgba(2,10,28,.42)!important;
+  background:linear-gradient(135deg,#1d4ed8,#2563eb,#3b82f6)!important;
+  border:1px solid #94b7ff!important;
+  box-shadow:0 10px 24px rgba(15,30,62,.14)!important;
+  color:#fff!important;
+  padding:44px 16px 34px !important;
 }
-.card,.panel,.preview-card,.buy-wrap,.feedback-wrap,.hiring-wrap,.audience-wrap,.youtube-wrap,.site-card,.metric-card,.form-card,.g-card,.stat,.stat-card{
-  background:linear-gradient(145deg,rgba(10,24,48,.95),rgba(16,39,74,.86))!important;
+header h1,header h2,header h3,header p,.hero h1,.hero p,.hero-chip,.header h1,.header p,.head h1,.head p{color:#fff!important}
+footer{
+  background:linear-gradient(135deg,#1e40af,#1d4ed8,#2563eb)!important;
+  color:#e7efff!important;
+  border-top:1px solid #89aef8!important;
+}
+.section{background:linear-gradient(180deg,#f9fbff,#f2f7ff)!important}
+.card,.panel,.preview-card,.buy-wrap,.feedback-wrap,.hiring-wrap,.audience-wrap,.youtube-wrap,.site-card,.metric-card,.form-card,.g-card,.stat,.stat-card,.faq-wrap,.faq-item,.chk,.yt-card,.audience-item,.lab,.container section,.container .section{
+  background:var(--pro-surface)!important;
   border:1px solid var(--pro-border)!important;
-  box-shadow:0 12px 28px rgba(1,8,22,.38)!important;
+  box-shadow:0 8px 20px rgba(15,30,62,.06)!important;
 }
+.course-card,.faq-item,.lab,.stat,.chk{border-radius:12px!important}
 input,textarea,select{
-  background:#0a1a35!important;
-  border:1px solid #4167a0!important;
-  color:#f6fbff!important;
+  background:#fff!important;
+  border:1px solid #c8d7ef!important;
+  color:#12233d!important;
 }
-.btn,.btn-link,.pill,.tag{background:linear-gradient(90deg,var(--pro-accent),var(--pro-accent-2))!important;color:#fff!important}
-.btn.secondary,.chip,.quick-link,.course-btn,.option{background:#18345f!important;color:#eaf2ff!important;border-color:#3f5f94!important}
-.step{background:#eaf2ff!important;color:#0f1f3d!important;border-left:4px solid #3b82f6!important}
-a{color:inherit}
-footer{background:linear-gradient(150deg,#0e1f3f,#17376a)!important;color:#dce9ff!important}
+input::placeholder,textarea::placeholder{color:#6b7f9b!important}
+.btn,.btn-link,.pill,.tag{background:linear-gradient(90deg,var(--pro-accent),var(--pro-accent-2))!important;color:#fff!important;border:none!important}
+.btn.secondary,.chip,.quick-link,.course-btn,.option,.level-btn{background:#ebf2ff!important;color:#17315c!important;border:1px solid #bfd3f4!important}
+.course-btn.active,.level-btn.active,.option.correct{background:#2563eb!important;color:#fff!important;border-color:#2563eb!important}
+.option.wrong{background:#fff1f2!important;color:#9f1239!important;border-color:#fecdd3!important}
+.step{background:#f0f6ff!important;color:#0f1f3d!important;border-left:4px solid #3b82f6!important}
+.hero-chip{border:1px solid rgba(255,255,255,.45)!important;background:rgba(255,255,255,.14)!important}
+.hero:before,.hero:after{opacity:.12!important}
+.course-card .muted,.yt-meta p,.proof-note{color:#4a5f79!important}
+.wa-gallery,.logo-marquee,.ads-slider{background:#fff!important;border:1px solid var(--pro-border)!important}
+.logo-card,.wa-proof{background:#fff!important}
+.ads-slider{box-shadow:0 10px 24px rgba(15,30,62,.08)!important}
+.ads-overlay{background:linear-gradient(to top,rgba(22,45,82,.74),rgba(22,45,82,0))!important}
+.faq-item summary{color:#1a3253!important}
+.faq-item summary::after{color:#2b5fc2!important}
+.legal-links a{color:#e7efff!important}
+.total{color:var(--pro-success)!important}
+#explore-courses{background:linear-gradient(180deg,#f4f8ff,#edf4ff)!important}
+table{background:#fff!important;border-collapse:collapse}
+th,td{border-color:#d6e2f5!important}
+th{background:#eaf2ff!important;color:#1b3357!important}
+
+/* Course specific branding */
+body.course-page{--course-a:#1d4ed8;--course-b:#2563eb;--course-c:#3b82f6;--course-btn:#1d4ed8;--course-chip:#e8f0ff}
+body.course-page header{background:linear-gradient(135deg,var(--course-a),var(--course-b),var(--course-c))!important}
+body.course-page .btn{background:var(--course-btn)!important}
+body.course-page .step{border-left-color:var(--course-btn)!important;background:var(--course-chip)!important}
+body.course-python{--course-a:#1e3a8a;--course-b:#2563eb;--course-c:#facc15;--course-btn:#2563eb;--course-chip:#edf4ff}
+body.course-excel{--course-a:#065f46;--course-b:#10b981;--course-c:#34d399;--course-btn:#059669;--course-chip:#ecfdf5}
+body.course-powerbi{--course-a:#854d0e;--course-b:#ca8a04;--course-c:#facc15;--course-btn:#a16207;--course-chip:#fefce8}
+body.course-ml{--course-a:#5b21b6;--course-b:#7c3aed;--course-c:#a78bfa;--course-btn:#6d28d9;--course-chip:#f5f3ff}
+body.course-sql{--course-a:#0f766e;--course-b:#0ea5e9;--course-c:#38bdf8;--course-btn:#0f766e;--course-chip:#ecfeff}
+body.course-tableau{--course-a:#0f172a;--course-b:#2563eb;--course-c:#f97316;--course-btn:#1d4ed8;--course-chip:#eff6ff}
+body.course-cheatsheets{--course-a:#334155;--course-b:#64748b;--course-c:#94a3b8;--course-btn:#475569;--course-chip:#f8fafc}
+body.course-hr{--course-a:#9f1239;--course-b:#e11d48;--course-c:#fb7185;--course-btn:#be123c;--course-chip:#fff1f2}
+
+/* About page outcomes grid */
+.outcomes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.outcome-card{background:#fff;border:1px solid var(--pro-border);border-radius:12px;padding:14px}
+.outcome-card h3{font-size:16px;margin-bottom:6px}
+
+@media (max-width:680px){
+  header,.hero,.header,.head{padding:32px 14px 24px!important}
+  .outcomes-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+
+/* Readability fixes for advanced tools pages */
+.app-typing .wrap,.app-resume .wrap,.app-practice .wrap,.app-ats .shell,.app-resume .top,.app-legal .container{max-width:1120px!important;margin-left:auto!important;margin-right:auto!important}
+.app-typing .card,.app-typing .stat,.app-typing .g-card,.app-typing .finger-guide,.app-typing .keyboard-wrap,.app-typing #prompt,.app-typing textarea,.app-typing .inline-input,.app-typing .key,
+.app-resume .panel,.app-resume .preview-card,.app-resume .ats,.app-resume input,.app-resume textarea,.app-resume select,
+.app-ats .card,.app-ats .site-card,.app-ats .metric-card,.app-ats input,.app-ats textarea,.app-ats select,
+.app-practice .hero,.app-practice .card,.app-practice .stat,.app-practice .lab,.app-practice .feedback,.app-practice .option,.app-practice input,.app-practice textarea,.app-practice select{background:#ffffff!important;color:#1a2a42!important;border-color:#d2dff3!important}
+.app-typing .tips,.app-typing .mini-note,.app-typing .kb-note,.app-typing .board-list,.app-typing #msg,.app-typing small,
+.app-resume .help,.app-resume label,.app-ats .sub,.app-ats .help,.app-ats label,.app-practice .small,.app-practice .meta,.app-practice .label{color:#4b5f7d!important}
+.app-typing .hero{background:linear-gradient(135deg,#1d4ed8,#2563eb,#3b82f6)!important}
+.app-typing .badge{background:#e6efff!important;border-color:#bfd4f8!important;color:#244167!important}
+.app-typing .lv{background:#edf4ff!important;color:#1f3a60!important}
+.app-typing .lv.active{background:#2563eb!important;color:#fff!important}
+.app-typing .lv.done{background:#16a34a!important;color:#fff!important}
+.app-typing .key.active{background:#facc15!important;color:#1a1a1a!important}
+.app-resume .head,.app-ats .header,.app-practice .hero{background:linear-gradient(135deg,#1d4ed8,#2563eb,#3b82f6)!important;color:#fff!important}
+.app-resume .head h1,.app-resume .head p,.app-ats .brand h1,.app-ats .brand p,.app-practice h1,.app-practice .sub{color:#fff!important}
+.app-ats .summary-box{background:#ecf5ff!important;color:#1e385c!important;border-color:#c9ddfb!important}
+.app-ats .pill{background:#edf4ff!important;color:#28456e!important;border-color:#c7dbfa!important}
+.app-resume .mini-link,.app-ats .quick-link,.app-practice .btn.secondary{background:#edf4ff!important;color:#1f3a60!important;border-color:#c4d8f6!important}
+.app-practice .option.correct{background:#eafaf0!important;color:#14532d!important}
+.app-practice .option.wrong{background:#fff1f2!important;color:#9f1239!important}
+
+/* Ensure common sections stay light */
+#guarantee-section,#success-stories,#learning-path,.guarantee-wrap,.success-wrap,.path-wrap{background:#f4f8ff!important;color:#1a2a42!important}
+#guarantee-section h2,#success-stories h2,#learning-path h2,.guarantee-wrap h2,.success-wrap h2,.path-wrap h2{color:#12315a!important}
+
+
+/* Force-fix remaining inline dark styles for readability */
+.app-typing [style*="background:#0"],
+.app-typing [style*="background:#1"],
+.app-typing [style*="background:#24365f"],
+.app-typing [style*="border-color:#30457d"],
+.app-typing [style*="border-color:#355aa7"],
+.app-practice [style*="background:#0"],
+.app-ats [style*="background:#0"],
+.app-resume [style*="background:#0"]{background:#ffffff!important;color:#1a2a42!important;border-color:#d2dff3!important}
+
+.app-typing [style*="color:#a9beed"],
+.app-typing [style*="color:#cfe0ff"],
+.app-typing [style*="color:#9db0d8"],
+.app-typing [style*="color:#d5e4ff"],
+.app-typing [style*="color:#dbe6ff"],
+.app-resume [style*="color:#93c5fd"],
+.app-ats [style*="color:#dbe7ff"]{color:#4b5f7d!important}
+
+/* keep CTA/button contrast */
+.app-typing .btn,.app-practice .btn.primary,.app-ats .btn.primary,.app-resume button{color:#fff!important}
+
+/* Keep global section content readable */
+.section p,.section li,.card p,.card li,.panel p,.panel li{color:#4b5f7d!important}
+
+.wrap,.shell,.top,.container{max-width:1120px!important;margin-left:auto!important;margin-right:auto!important}
