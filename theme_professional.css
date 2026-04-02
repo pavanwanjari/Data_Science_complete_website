@@ -1,40 +1,60 @@
 :root{
-  --pro-bg-1:#060f22;
-  --pro-bg-2:#0b1b3d;
-  --pro-bg-3:#12366f;
-  --pro-surface:#0d1f3d;
-  --pro-surface-2:#10284d;
-  --pro-border:#2d4f86;
-  --pro-text:#eaf2ff;
-  --pro-text-soft:#c0d2f4;
-  --pro-accent:#38bdf8;
-  --pro-accent-2:#2563eb;
+  --pro-bg-1:#f4f7fc;
+  --pro-bg-2:#eef3fb;
+  --pro-bg-3:#e2ebf9;
+  --pro-surface:#ffffff;
+  --pro-surface-2:#f8fbff;
+  --pro-border:#d7e3f5;
+  --pro-text:#18253a;
+  --pro-text-soft:#42546e;
+  --pro-accent:#2563eb;
+  --pro-accent-2:#1d4ed8;
 }
 html,body{
-  background:radial-gradient(circle at 8% 8%, var(--pro-bg-3) 0%, var(--pro-bg-2) 38%, var(--pro-bg-1) 100%) !important;
+  background:linear-gradient(180deg, var(--pro-bg-1) 0%, var(--pro-bg-2) 55%, var(--pro-bg-3) 100%) !important;
   color:var(--pro-text) !important;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
-p,.sub,.muted,.mini,.meta,.help,.small,label,.tips,.mini-note{color:var(--pro-text-soft)!important}
-h1,h2,h3,h4,h5,h6,b,strong{color:#f8fbff!important}
+body:before,
+body:after{display:none!important}
+p,.sub,.muted,.mini,.meta,.help,.small,label,.tips,.mini-note,.faq-answer{color:var(--pro-text-soft)!important}
+h1,h2,h3,h4,h5,h6,b,strong,.metric{color:#12233d!important;text-shadow:none!important}
 header,.hero,.header,.head{
-  background:linear-gradient(135deg,#0d2350,#1d4ed8,#0ea5e9)!important;
-  border:1px solid rgba(148,197,255,.35)!important;
-  box-shadow:0 18px 36px rgba(2,10,28,.42)!important;
-}
-.card,.panel,.preview-card,.buy-wrap,.feedback-wrap,.hiring-wrap,.audience-wrap,.youtube-wrap,.site-card,.metric-card,.form-card,.g-card,.stat,.stat-card{
-  background:linear-gradient(145deg,rgba(10,24,48,.95),rgba(16,39,74,.86))!important;
+  background:linear-gradient(145deg,#f8fbff,#edf4ff)!important;
   border:1px solid var(--pro-border)!important;
-  box-shadow:0 12px 28px rgba(1,8,22,.38)!important;
+  box-shadow:0 10px 24px rgba(15,30,62,.08)!important;
+  color:var(--pro-text)!important;
+  padding:48px 16px 36px !important;
+}
+.card,.panel,.preview-card,.buy-wrap,.feedback-wrap,.hiring-wrap,.audience-wrap,.youtube-wrap,.site-card,.metric-card,.form-card,.g-card,.stat,.stat-card,.faq-wrap,.faq-item,.chk,.yt-card,.audience-item{
+  background:var(--pro-surface)!important;
+  border:1px solid var(--pro-border)!important;
+  box-shadow:0 8px 20px rgba(15,30,62,.06)!important;
 }
 input,textarea,select{
-  background:#0a1a35!important;
-  border:1px solid #4167a0!important;
-  color:#f6fbff!important;
+  background:#ffffff!important;
+  border:1px solid #c8d7ef!important;
+  color:#12233d!important;
 }
 .btn,.btn-link,.pill,.tag{background:linear-gradient(90deg,var(--pro-accent),var(--pro-accent-2))!important;color:#fff!important}
-.btn.secondary,.chip,.quick-link,.course-btn,.option{background:#18345f!important;color:#eaf2ff!important;border-color:#3f5f94!important}
-.step{background:#eaf2ff!important;color:#0f1f3d!important;border-left:4px solid #3b82f6!important}
+.btn.secondary,.chip,.quick-link,.course-btn,.option{background:#e8f0ff!important;color:#17315c!important;border-color:#bfd3f4!important}
+.step{background:#f0f6ff!important;color:#0f1f3d!important;border-left:4px solid #3b82f6!important}
 a{color:inherit}
-footer{background:linear-gradient(150deg,#0e1f3f,#17376a)!important;color:#dce9ff!important}
+.hero p,.hero-chip{color:#334a67!important}
+.hero-chip{border:1px solid #c9d9f1!important;background:#fff!important}
+.hero:before,.hero:after{opacity:.12!important}
+.course-card .muted,.yt-meta p,.proof-note{color:#4a5f79!important}
+.wa-gallery{background:#f8fbff!important}
+.wa-proof{background:#f2f7ff!important}
+.logo-card{background:#fff!important}
+.faq-item summary{color:#1a3253!important}
+.faq-item summary::after{color:#2b5fc2!important}
+.legal-links a{color:#274368!important}
+footer{background:linear-gradient(180deg,#f8fbff,#eaf1fc)!important;color:#364a67!important;border-top:1px solid #d6e3f5!important}
+
+
+#explore-courses{background:linear-gradient(180deg,#f4f8ff,#edf4ff)!important}
+.ads-slider{background:#ffffff!important;border:1px solid var(--pro-border)!important;box-shadow:0 10px 24px rgba(15,30,62,.08)!important}
+.ads-overlay{background:linear-gradient(to top,rgba(22,45,82,.76),rgba(22,45,82,0))!important}
+.total{color:#0f766e!important}
