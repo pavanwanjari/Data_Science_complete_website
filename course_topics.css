@@ -1,7 +1,7 @@
-.roadmap-item{margin:8px 0;border:1px solid #3d5f96;border-radius:10px;background:rgba(12,30,58,.9);overflow:hidden}
-.roadmap-item summary{cursor:pointer;list-style:none;padding:11px 12px;font-weight:700;color:#f5f9ff;display:flex;align-items:center;gap:8px}
+.roadmap-item{margin:8px 0;border:1px solid #cfdcf2;border-radius:10px;background:#f8fbff;overflow:hidden}
+.roadmap-item summary{cursor:pointer;list-style:none;padding:11px 12px;font-weight:700;color:#1c3153;display:flex;align-items:center;gap:8px;background:#edf4ff}
 .roadmap-item summary::-webkit-details-marker{display:none}
-.roadmap-item summary:after{content:'+';margin-left:auto;color:#93c5fd;font-size:18px;line-height:1}
+.roadmap-item summary:after{content:'+';margin-left:auto;color:#2563eb;font-size:18px;line-height:1}
 .roadmap-item[open] summary:after{content:'−'}
-.roadmap-item p{margin:0;padding:0 12px 12px;color:#d6e6ff !important;line-height:1.6;font-size:14px}
-.roadmap-title-tip{font-size:12px;color:#a9c2ea;margin:-2px 0 8px}
+.roadmap-item p{margin:0;padding:0 12px 12px;color:#455b79 !important;line-height:1.6;font-size:14px;background:#fff}
+.roadmap-title-tip{font-size:12px;color:#5c7291;margin:-2px 0 8px}
