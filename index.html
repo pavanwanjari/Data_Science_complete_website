@@ -51,12 +51,12 @@
     .audience-icon{font-size:20px;line-height:1}
     .audience-item h3{font-size:17px;margin-bottom:4px}
     .audience-item p{margin:0;color:#9eb4d8;font-size:14px}
-    .buy-wrap{background:linear-gradient(135deg,rgba(13,26,51,.92),rgba(16,41,91,.74));border-radius:16px;border:1px solid rgba(126,175,245,.26);padding:22px}
+    .buy-wrap{background:linear-gradient(135deg,rgba(30,58,138,.26),rgba(14,116,144,.26),rgba(37,99,235,.24));border-radius:16px;border:1px solid rgba(147,197,253,.46);padding:22px;box-shadow:0 16px 36px rgba(14,116,144,.2)}
     .cart-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:16px 0}
-    .chk{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(126,175,245,.35);border-radius:10px;padding:10px}
+    .chk{display:flex;gap:8px;align-items:flex-start;background:rgba(191,219,254,.1);border:1px solid rgba(147,197,253,.55);border-radius:10px;padding:10px}
     .chk input{margin-top:3px}
-    .chk.combo-offer{background:linear-gradient(135deg,rgba(127,29,29,.38),rgba(185,28,28,.26));border-color:#fca5a5;color:#fee2e2;font-weight:700}
-    .chk.combo-offer b{color:#fecaca}
+    .chk.combo-offer{background:rgba(191,219,254,.1);border-color:rgba(147,197,253,.55);color:#eaf2ff;font-weight:600}
+    .chk.combo-offer b{color:#eaf2ff}
     .form{margin-top:10px;text-align:center}
     .form input,.form select{width:92%;max-width:380px;padding:12px;margin:6px;border:1px solid rgba(134,187,255,.38);border-radius:8px;background:rgba(8,19,42,.7);color:#e8f2ff}
     .total{font-size:22px;font-weight:700;color:#87f6c5;text-align:center;margin:10px 0}
@@ -137,8 +137,10 @@
     .hero:before{width:240px!important;height:240px!important;background:#93c5fd!important;left:-70px!important;top:-50px!important}
     .pill,#offerPill{background:linear-gradient(92deg,#ef4444,#dc2626,#b91c1c)!important;color:#fff!important}
     .btn,#buyBtn{background:linear-gradient(90deg,#16a34a,#15803d)!important;color:#fff!important}
-    .chk.combo-offer{background:linear-gradient(135deg,rgba(127,29,29,.38),rgba(185,28,28,.26))!important;border-color:#fca5a5!important;color:#fee2e2!important}
-    .chk.combo-offer b{color:#fecaca!important}
+    .buy-wrap{background:linear-gradient(135deg,rgba(30,58,138,.26),rgba(14,116,144,.26),rgba(37,99,235,.24))!important;border:1px solid rgba(147,197,253,.46)!important}
+    .chk{background:rgba(191,219,254,.1)!important;border-color:rgba(147,197,253,.55)!important}
+    .chk.combo-offer{background:rgba(191,219,254,.1)!important;border-color:rgba(147,197,253,.55)!important;color:#eaf2ff!important}
+    .chk.combo-offer b{color:#eaf2ff!important}
     footer{background:linear-gradient(135deg,#0b1220,#12335f,#2563eb)!important}
   </style>
 </head>
@@ -332,7 +334,7 @@
         <div class="card course-card coming-soon" aria-disabled="true"><img src="https://img.icons8.com/color/96/tableau-software.png" alt="Tableau"><h3>Tableau</h3><div class="muted">Course currently unavailable</div><span class="tag coming-soon">Coming Soon</span></div>
         <div class="card course-card coming-soon" aria-disabled="true"><img src="https://img.icons8.com/fluency/96/mysql-logo.png" alt="SQL"><h3>SQL (MySQL)</h3><div class="muted">Course currently unavailable</div><span class="tag coming-soon">Coming Soon</span></div>
         <a class="card course-card" href="course_ml_dl.html"><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="ML DL"><h3>Machine Learning + Deep Learning (Video Course)</h3><div class="muted">MRP ₹3000 | Offer ₹99</div><span class="tag">Open Course</span></a>
-        <a class="card course-card" href="course_cheat_sheets.html"><img src="https://img.icons8.com/color/96/todo-list.png" alt="Cheat Sheets"><h3>Cheat Sheets and Interview Questions </h3><div class="muted">MRP ₹499 | FREE </div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_cheat_sheets.html"><img src="https://img.icons8.com/color/96/todo-list.png" alt="Cheat Sheets"><h3>Cheat Sheets and Interview Questions </h3><div class="muted">MRP ₹499 | Offer ₹19</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_hr_emails.html"><img src="https://img.icons8.com/color/96/new-post.png" alt="HR Emails"><h3>20000+ HR Emails</h3><div class="muted">MRP ₹499 | Offer ₹19</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_english_typing.html"><img src="https://img.icons8.com/color/96/keyboard.png" alt="Typing Course"><h3>English Typing Course (100 Levels)</h3><div class="muted">100% Free Practice for All</div><span class="tag">Start Free</span></a>
         <a class="card course-card" href="resume_maker.html"><img src="https://img.icons8.com/color/96/resume.png" alt="Resume Maker"><h3>ATS Friendly Resume Maker</h3><div class="muted">50 Templates | 100% Free for Students</div><span class="tag">Create Resume Free</span></a>
@@ -601,7 +603,7 @@
         <label class="chk" style="opacity:.65"><input type="checkbox" class="courseChk" value="Tableau" data-price="0" disabled> Tableau (Coming Soon)</label>
         <label class="chk" style="opacity:.65"><input type="checkbox" class="courseChk" value="SQL (MySQL)" data-price="0" disabled> SQL (MySQL) (Coming Soon)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="Machine Learning + Deep Learning" data-price="99"> ML + DL (Video Course) (₹99)</label>
-        <label class="chk" style="opacity:.6"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="1" disabled> Cheat Sheets and Interview Questions (FREE)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="19"> Cheat Sheets and Interview Questions (₹19)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="20000+ HR Emails" data-price="19"> 20000+ HR Emails (₹19)</label>
         <label class="chk combo-offer"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="0"> <b>Data Analytics Combo (all courses + resources) ₹0 (Limited-time offer)</b></label>
       </div>
