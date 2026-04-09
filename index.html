@@ -130,6 +130,17 @@
     }
   </style>
   <link rel="stylesheet" href="theme_professional.css">
+  <style>
+    /* Keep index visual colors fixed even when theme_professional.css applies global !important styles */
+    .hero{background:linear-gradient(135deg,#0b1220,#12335f,#2563eb)!important}
+    .hero:before,.hero:after{opacity:.22!important;animation:float 8s ease-in-out infinite!important}
+    .hero:before{width:240px!important;height:240px!important;background:#93c5fd!important;left:-70px!important;top:-50px!important}
+    .pill,#offerPill{background:linear-gradient(92deg,#ef4444,#dc2626,#b91c1c)!important;color:#fff!important}
+    .btn,#buyBtn{background:linear-gradient(90deg,#16a34a,#15803d)!important;color:#fff!important}
+    .chk.combo-offer{background:linear-gradient(135deg,rgba(127,29,29,.38),rgba(185,28,28,.26))!important;border-color:#fca5a5!important;color:#fee2e2!important}
+    .chk.combo-offer b{color:#fecaca!important}
+    footer{background:linear-gradient(135deg,#0b1220,#12335f,#2563eb)!important}
+  </style>
 </head>
 <body>
   <header class="hero">
