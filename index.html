@@ -123,6 +123,8 @@
     .legal-links a:hover{text-decoration:underline;color:#ffffff}
     footer{margin-top:32px;background:linear-gradient(135deg,#0b1220,#12335f,#2563eb);color:#d9e8ff;padding:24px 16px;text-align:center;font-size:13px;border-top:1px solid rgba(126,175,245,.24)}
     .brand{font-weight:700}
+    .comparison-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+    .comparison-table{width:100%;min-width:760px;border-collapse:collapse;margin:20px 0;background:rgba(12,23,46,.6);border-radius:12px;overflow:hidden}
     @media (max-width:900px){
       .hero{padding:72px 14px 54px}
       .hero h1{font-size:34px;line-height:1.15}
@@ -144,6 +146,8 @@
       .learning-path .timeline{margin-top:26px!important;padding-left:14px!important}
       .learning-path .timeline-item{margin-bottom:16px!important;padding-left:14px!important}
       .learning-path .timeline-item-card{padding:12px 14px!important}
+      .comparison-table{min-width:680px;margin:14px 0}
+      .comparison-table th,.comparison-table td{padding:11px!important;font-size:13px}
     }
     @media (max-width:640px){
       #explore-courses .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -489,7 +493,8 @@
   <div class="container">
     <h2>💪 Why Choose DataLearn10X?</h2>
     <p class="sub">Compare us with traditional bootcamps and online courses</p>
-    <table style="width:100%;border-collapse:collapse;margin:20px 0;background:rgba(12,23,46,.6);border-radius:12px;overflow:hidden">
+    <div class="comparison-table-wrap">
+    <table class="comparison-table">
       <thead>
         <tr style="background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff">
           <th style="padding:15px;text-align:left;font-weight:600">Feature</th>
@@ -537,6 +542,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </section>
 
