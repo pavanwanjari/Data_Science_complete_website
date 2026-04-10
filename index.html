@@ -125,6 +125,10 @@
     .brand{font-weight:700}
     .comparison-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
     .comparison-table{width:100%;min-width:760px;border-collapse:collapse;margin:20px 0;background:rgba(12,23,46,.6);border-radius:12px;overflow:hidden}
+    .skills-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:18px}
+    .skill-item{background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center}
+    .skill-item .skill-logo{width:42px;height:42px;object-fit:contain;margin-bottom:8px;filter:drop-shadow(0 4px 8px rgba(9,18,40,.35))}
+    .skill-item p{font-size:12px;margin-top:8px;color:#afc3ea}
     @media (max-width:900px){
       .hero{padding:72px 14px 54px}
       .hero h1{font-size:34px;line-height:1.15}
@@ -148,6 +152,7 @@
       .learning-path .timeline-item-card{padding:12px 14px!important}
       .comparison-table{min-width:680px;margin:14px 0}
       .comparison-table th,.comparison-table td{padding:11px!important;font-size:13px}
+      .skill-item .skill-logo{width:36px;height:36px}
     }
     @media (max-width:640px){
       #explore-courses .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -194,31 +199,31 @@
   <div class="container">
     <h2>🎯 Skills & Outcomes You'll Gain</h2>
     <p class="sub">Master job-ready skills that employers actively seek</p>
-    <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:18px">
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">📊</div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/microsoft-excel-2019--v1.png" alt="Microsoft Excel logo">
         <strong>Advanced Excel</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Pivot Tables, VLOOKUP, Macros</p>
+        <p>Pivot Tables, VLOOKUP, Macros</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🐍</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/python--v1.png" alt="Python logo">
         <strong>Python Analytics</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Pandas, NumPy, Data Analysis</p>
+        <p>Pandas, NumPy, Data Analysis</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">📈</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI logo">
         <strong>Power BI</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Dashboards, Visualizations</p>
+        <p>Dashboards, Visualizations</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🗂️</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/fluency/96/database.png" alt="SQL database icon">
         <strong>SQL Mastery</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Queries, Database Management</p>
+        <p>Queries, Database Management</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🤖</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Machine learning icon">
         <strong>Machine Learning</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Algorithms, Predictions</p>
+        <p>Algorithms, Predictions</p>
       </div>
       
     </div>

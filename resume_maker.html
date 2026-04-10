@@ -32,8 +32,9 @@
     .sec{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}.sec:first-child{border-top:none;margin-top:0;padding-top:0}
     .title{font-size:15px;font-weight:700;margin:0 0 6px} label{font-size:12px;color:var(--muted);display:block;margin:7px 0 4px}
     input,textarea,select{width:100%;padding:10px;border:1px solid #3f5d8f;border-radius:8px;background:#ffffff;color:#1a2a42}
-    textarea{min-height:74px;resize:vertical}.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+    textarea{min-height:74px;resize:vertical}.btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:11px}
     button{border:none;border-radius:8px;padding:10px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
+    .btns button{font-size:13px;line-height:1.25;white-space:normal;min-height:42px}
     button.alt{background:#334155}button.gray{background:#475569}.action-link{display:flex;align-items:center;justify-content:center;border-radius:8px;padding:10px;background:#1d4ed8;color:#fff;font-weight:600;text-decoration:none}.ats{font-size:13px;background:#0a2248;border:1px solid #355d9f;border-radius:8px;padding:8px;margin-top:8px}
     .help{font-size:12px;color:var(--muted);margin-top:6px}.mini-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.mini-link{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:600;background:#18294f;color:#fff;border:1px solid rgba(137,177,245,.24)}
 
@@ -187,7 +188,7 @@
       </div>
 
       <div class="sec actions"><div class="btns">
-        <button id="downloadBtn">Download PDF (A4)</button><button class="alt" id="resetBtn" type="button">Reset</button><button class="gray" id="atsBtn" type="button">Check ATS score</button><button class="gray" id="fillDemoBtn" type="button">Use sample data</button><button class="gray" id="openAdvancedAtsBtn" type="button">Open ATS Checker</button>
+        <button id="downloadBtn">Download PDF</button><button class="alt" id="resetBtn" type="button">Reset Form</button><button class="gray" id="atsBtn" type="button">Check ATS</button><button class="gray" id="fillDemoBtn" type="button">Use Sample Data</button><button class="gray" id="openAdvancedAtsBtn" type="button">Advanced ATS Tool</button>
       </div><div class="ats" id="atsResult">ATS score: Not checked</div><div class="help">Pro tip: use the advanced ATS checker to compare this resume with a real job description and get rewrite ideas.</div></div>
     </aside>
 
