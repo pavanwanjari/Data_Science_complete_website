@@ -123,6 +123,37 @@
     .legal-links a:hover{text-decoration:underline;color:#ffffff}
     footer{margin-top:32px;background:linear-gradient(135deg,#0b1220,#12335f,#2563eb);color:#d9e8ff;padding:24px 16px;text-align:center;font-size:13px;border-top:1px solid rgba(126,175,245,.24)}
     .brand{font-weight:700}
+    .comparison-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+    .comparison-table{width:100%;min-width:760px;border-collapse:collapse;margin:20px 0;background:rgba(12,23,46,.6);border-radius:12px;overflow:hidden}
+    .skills-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:18px}
+    .skill-item{background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center}
+    .skill-item .skill-logo{width:42px;height:42px;object-fit:contain;margin-bottom:8px;filter:drop-shadow(0 4px 8px rgba(9,18,40,.35))}
+    .skill-item p{font-size:12px;margin-top:8px;color:#afc3ea}
+    @media (max-width:900px){
+      .hero{padding:72px 14px 54px}
+      .hero h1{font-size:34px;line-height:1.15}
+      .hero p{font-size:14px}
+      .pill{display:block;max-width:520px;margin:14px auto 0;font-size:14px;line-height:1.35;padding:10px 16px}
+      .section{padding:42px 14px}
+      .audience-wrap,.buy-wrap,.feedback-wrap,.hiring-wrap,.youtube-wrap,.faq-wrap{padding:16px}
+      .cart-grid,.yt-grid{grid-template-columns:1fr}
+      .chk{font-size:14px}
+      .form input,.form select{width:100%;max-width:none;margin:6px 0}
+      .total{font-size:20px}
+      .wa-proof{width:168px;height:304px}
+      .ads-overlay{font-size:12px;padding:10px 12px}
+      .whatsapp{width:56px;height:56px;right:12px;bottom:12px}
+      .whatsapp img{width:31px}
+      .learning-path{padding:42px 0!important}
+      .learning-path .path-title{font-size:24px!important}
+      .learning-path .path-sub{font-size:14px!important;padding:0 8px}
+      .learning-path .timeline{margin-top:26px!important;padding-left:14px!important}
+      .learning-path .timeline-item{margin-bottom:16px!important;padding-left:14px!important}
+      .learning-path .timeline-item-card{padding:12px 14px!important}
+      .comparison-table{min-width:680px;margin:14px 0}
+      .comparison-table th,.comparison-table td{padding:11px!important;font-size:13px}
+      .skill-item .skill-logo{width:36px;height:36px}
+    }
     @media (max-width:640px){
       #explore-courses .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
       #explore-courses .course-card{padding:12px}
@@ -160,7 +191,7 @@
       <span class="hero-chip">🔐 Secure Checkout</span>
     </div>
     <div class="glow-line" aria-hidden="true"></div>
-    <a class="pill" id="offerPill" href="#explore-courses" aria-label="Go to Explore Courses">🔥 All Courses Bundle Offer ₹0 (Limited-time offer)</a>
+    <a class="pill" id="offerPill" href="#explore-courses" aria-label="Go to Explore Courses">🔥 All Courses Bundle Intro Offer ₹0 (valid for current intake)</a>
   </header>
 
 <!-- NEW: Skills & Outcomes Section -->
@@ -168,31 +199,31 @@
   <div class="container">
     <h2>🎯 Skills & Outcomes You'll Gain</h2>
     <p class="sub">Master job-ready skills that employers actively seek</p>
-    <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:18px">
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">📊</div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/microsoft-excel-2019--v1.png" alt="Microsoft Excel logo">
         <strong>Advanced Excel</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Pivot Tables, VLOOKUP, Macros</p>
+        <p>Pivot Tables, VLOOKUP, Macros</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🐍</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/python--v1.png" alt="Python logo">
         <strong>Python Analytics</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Pandas, NumPy, Data Analysis</p>
+        <p>Pandas, NumPy, Data Analysis</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">📈</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI logo">
         <strong>Power BI</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Dashboards, Visualizations</p>
+        <p>Dashboards, Visualizations</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🗂️</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/fluency/96/database.png" alt="SQL database icon">
         <strong>SQL Mastery</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Queries, Database Management</p>
+        <p>Queries, Database Management</p>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(132,183,255,.25);border-radius:12px;padding:16px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🤖</div>
+      <div class="skill-item">
+        <img class="skill-logo" src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Machine learning icon">
         <strong>Machine Learning</strong>
-        <p style="font-size:12px;margin-top:8px;color:#afc3ea">Algorithms, Predictions</p>
+        <p>Algorithms, Predictions</p>
       </div>
       
     </div>
@@ -200,59 +231,59 @@
 </section>
 
 <!-- PREMIUM: Learning Path Section (Light + Professional) -->
-<section class="section reveal" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 0;">
+<section class="section reveal learning-path" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 0;">
   <div class="container" style="max-width:900px;margin:auto;">
     
-    <h2 style="text-align:center;color:#0f172a;font-size:32px;font-weight:700;">
+    <h2 class="path-title" style="text-align:center;color:#0f172a;font-size:32px;font-weight:700;">
       📚 Recommended Learning Path
     </h2>
-    <p style="text-align:center;color:#64748b;margin-top:8px;">
+    <p class="path-sub" style="text-align:center;color:#64748b;margin-top:8px;">
       A structured roadmap to become a job-ready Data Analyst in 16 weeks
     </p>
 
     <!-- Timeline Container -->
-    <div style="position:relative;margin-top:40px;padding-left:20px;border-left:2px solid #e2e8f0;">
+    <div class="timeline" style="position:relative;margin-top:40px;padding-left:20px;border-left:2px solid #e2e8f0;">
 
       <!-- Item -->
-      <div style="position:relative;margin-bottom:28px;padding-left:20px;">
+      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
           <strong style="color:#0284c7;">Week 1-2</strong>
           <p style="margin:4px 0 0;color:#1e293b;">Excel Fundamentals & Advanced Techniques</p>
         </div>
       </div>
 
       <!-- Item -->
-      <div style="position:relative;margin-bottom:28px;padding-left:20px;">
+      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
           <strong style="color:#0284c7;">Week 3-6</strong>
           <p style="margin:4px 0 0;color:#1e293b;">Python for Data Analysis & Automation</p>
         </div>
       </div>
 
       <!-- Item -->
-      <div style="position:relative;margin-bottom:28px;padding-left:20px;">
+      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
           <strong style="color:#0284c7;">Week 7-10</strong>
           <p style="margin:4px 0 0;color:#1e293b;">Power BI Dashboards & SQL Basics</p>
         </div>
       </div>
 
       <!-- Item -->
-      <div style="position:relative;margin-bottom:28px;padding-left:20px;">
+      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
           <strong style="color:#0284c7;">Week 11-14</strong>
           <p style="margin:4px 0 0;color:#1e293b;">Machine Learning Fundamentals</p>
         </div>
       </div>
 
       <!-- Item -->
-      <div style="position:relative;padding-left:20px;">
+      <div class="timeline-item" style="position:relative;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
           <strong style="color:#0284c7;">Week 15-16</strong>
           <p style="margin:4px 0 0;color:#1e293b;">Capstone Project & Interview Preparation</p>
         </div>
@@ -467,7 +498,8 @@
   <div class="container">
     <h2>💪 Why Choose DataLearn10X?</h2>
     <p class="sub">Compare us with traditional bootcamps and online courses</p>
-    <table style="width:100%;border-collapse:collapse;margin:20px 0;background:rgba(12,23,46,.6);border-radius:12px;overflow:hidden">
+    <div class="comparison-table-wrap">
+    <table class="comparison-table">
       <thead>
         <tr style="background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff">
           <th style="padding:15px;text-align:left;font-weight:600">Feature</th>
@@ -515,6 +547,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </section>
 
@@ -744,7 +777,7 @@
 
 <script>
 const SITE_CONFIG = window.DL10X_CONFIG || {};
-const SHEET_WEBAPP_URL = SITE_CONFIG.SHEET_WEBAPP_URL || "https://script.google.com/macros/s/AKfycbw_qylYBxeRqEkXhED_Mq6-e71iq6w2A_aYlybpqdEQdcCglRrijCEWVwjnl0sh_mPJ/exec";
+const SHEET_WEBAPP_URL = SITE_CONFIG.SHEET_WEBAPP_URL || "";
 const WHATSAPP_NUMBER = SITE_CONFIG.WHATSAPP_NUMBER || "919403030512";
 const WHATSAPP_TEXT = SITE_CONFIG.WHATSAPP_TEXT || "Hi DataLearn10X, I want details about courses";
 const SOCIAL_LINKS = SITE_CONFIG.SOCIAL_LINKS || {};
@@ -992,6 +1025,11 @@ function markPaid(email,paymentId,courses){
 }
 
 function savePayment(lead,paymentId,total){
+  if(!SHEET_WEBAPP_URL){
+    track('sheet_save_skipped',{reason:'missing_sheet_webapp_url'});
+    return Promise.resolve(false);
+  }
+
   const payload={
     name:lead.name,
     mobile:lead.mobile,

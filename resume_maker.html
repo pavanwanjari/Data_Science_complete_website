@@ -15,10 +15,14 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:Poppins,Arial,sans-serif;background:#f4f8ff;color:var(--txt)}
     .top{padding:16px 12px 0;max-width:1120px;margin:auto}
-    .head{background:linear-gradient(135deg,rgba(26,37,71,.88),rgba(19,56,131,.68),rgba(36,162,255,.4));border:1px solid rgba(146,190,255,.35);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-    .head-left{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:8px;background:#fff;padding:2px}
+    .head{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(26,37,71,.92),rgba(19,56,131,.72),rgba(36,162,255,.5));border:1px solid rgba(146,190,255,.35);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .head:before,.head:after{content:"";position:absolute;border-radius:999px;opacity:.26;pointer-events:none}
+    .head:before{width:180px;height:180px;background:#93c5fd;left:-60px;top:-70px;animation:floatOrb 7s ease-in-out infinite}
+    .head:after{width:150px;height:150px;background:#60a5fa;right:-50px;bottom:-68px;animation:floatOrb 7s ease-in-out 1s infinite}
+    @keyframes floatOrb{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .head-left{display:flex;align-items:center;gap:10px;position:relative;z-index:1}.logo{width:42px;height:42px;border-radius:8px;background:#fff;padding:2px}
     .head h1{margin:0;font-size:22px}.head p{margin:2px 0 0;color:#d4e4ff;font-size:13px}
-    .home-btn{color:#fff;text-decoration:none;background:linear-gradient(135deg,#2563eb,#0ea5e9);padding:8px 12px;border-radius:9px;font-weight:600;font-size:13px}
+    .home-btn{position:relative;z-index:1;color:#fff;text-decoration:none;background:linear-gradient(135deg,#2563eb,#0ea5e9);padding:8px 12px;border-radius:9px;font-weight:600;font-size:13px}
 
     .wrap{max-width:1120px;margin:12px auto 18px;padding:0 12px;display:grid;grid-template-columns:390px 1fr;gap:14px}
     .panel,.preview-card{background:#ffffff;border:1px solid #d2dff3;border-radius:14px;box-shadow:0 16px 36px rgba(2,8,20,.35)}
@@ -28,8 +32,9 @@
     .sec{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}.sec:first-child{border-top:none;margin-top:0;padding-top:0}
     .title{font-size:15px;font-weight:700;margin:0 0 6px} label{font-size:12px;color:var(--muted);display:block;margin:7px 0 4px}
     input,textarea,select{width:100%;padding:10px;border:1px solid #3f5d8f;border-radius:8px;background:#ffffff;color:#1a2a42}
-    textarea{min-height:74px;resize:vertical}.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+    textarea{min-height:74px;resize:vertical}.btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:11px}
     button{border:none;border-radius:8px;padding:10px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer}
+    .btns button{font-size:13px;line-height:1.25;white-space:normal;min-height:42px}
     button.alt{background:#334155}button.gray{background:#475569}.action-link{display:flex;align-items:center;justify-content:center;border-radius:8px;padding:10px;background:#1d4ed8;color:#fff;font-weight:600;text-decoration:none}.ats{font-size:13px;background:#0a2248;border:1px solid #355d9f;border-radius:8px;padding:8px;margin-top:8px}
     .help{font-size:12px;color:var(--muted);margin-top:6px}.mini-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.mini-link{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:600;background:#18294f;color:#fff;border:1px solid rgba(137,177,245,.24)}
 
@@ -37,14 +42,21 @@
     .thumb{width:70px;height:88px;border-radius:8px;overflow:hidden;border:1px solid #4569a1;background:#17305a}
     .thumb img{width:100%;height:100%;object-fit:cover;transform-origin:center}
 
-    .page{width:210mm;min-height:297mm;background:#fff;color:#111;margin:0 auto;border:1px solid #ddd;--hdr:#1e3a8a;--left:#eef2ff;--line2:#cbd5e1;--chip:#e2e8f0;--accent:#1d4ed8;--hdrTxt:#fff}
+    .page{width:210mm;min-height:297mm;background:var(--pageBg,#fff);color:var(--txtColor,#111);margin:0 auto;border:1px solid #ddd;--hdr:#1e3a8a;--left:#eef2ff;--line2:#cbd5e1;--chip:#e2e8f0;--accent:#1d4ed8;--hdrTxt:#fff;--bodySize:12px;--bodyLine:1.5}
     .hdr{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:16px}
     .body{display:grid;grid-template-columns:35% 65%}
     .left,.right{padding:16px}.left{background:var(--left)}
-    .nm{font-size:28px;font-weight:700;line-height:1.1;margin:0}.role{margin-top:4px;font-size:14px}.small{font-size:12px;line-height:1.6}
-    .h{font-size:14px;font-weight:700;border-bottom:1px solid var(--line2);padding-bottom:4px;margin:10px 0 6px}
-    .item{font-size:12px;line-height:1.5;margin:4px 0;white-space:pre-wrap}.chips{display:flex;flex-wrap:wrap;gap:4px}.chip{font-size:11px;background:var(--chip);padding:3px 8px;border-radius:999px}
+    .nm{font-size:28px;font-weight:700;line-height:1.1;margin:0;color:var(--txtColor,#111)}.role{margin-top:4px;font-size:14px;color:var(--txtColor,#111)}.small{font-size:12px;line-height:1.6;color:var(--txtColor,#111)}
+    .h{font-size:14px;font-weight:700;border-bottom:1px solid var(--line2);padding-bottom:4px;margin:10px 0 6px;color:var(--txtColor,#111)}
+    .item{font-size:var(--bodySize);line-height:var(--bodyLine);margin:4px 0;white-space:pre-wrap;color:var(--txtColor,#111)}.chips{display:flex;flex-wrap:wrap;gap:4px}.chip{font-size:11px;background:var(--chip);padding:3px 8px;border-radius:999px;color:var(--txtColor,#111)}
     .photo{width:86px;height:108px;object-fit:cover;border:2px solid #fff;border-radius:6px;background:#dbeafe;display:none}.photo.show{display:block}
+    .control-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .control-grid .full{grid-column:1/-1}
+    .preset-row{display:flex;gap:8px;flex-wrap:wrap}
+    .preset-btn{background:#e7efff;color:#163867;border:1px solid #bfd3f4;padding:8px 11px;border-radius:999px;font-size:12px;font-weight:600}
+    .preset-btn:hover{background:#dbeafe}
+    .advanced-custom{margin-top:6px;border:1px dashed #c6d8f5;border-radius:10px;padding:6px 8px;background:#f8fbff}
+    .advanced-custom summary{cursor:pointer;font-size:12px;font-weight:600;color:#254777}
 
     .layout-modern .hdr{background:var(--hdr);color:var(--hdrTxt)}
     .layout-clean .hdr{border-bottom:4px solid var(--accent);padding-bottom:12px}.layout-clean .body{grid-template-columns:1fr}.layout-clean .left{background:#fff;padding:0 16px 8px}.layout-clean .right{padding-top:0}
@@ -61,6 +73,7 @@
       .page{width:100%;min-height:auto}
       .hdr,.left,.right{padding:12px}
       .nm{font-size:22px}
+      .control-grid{grid-template-columns:1fr}
     }
     @media print{body{background:#fff}.head,.panel{display:none}.wrap{display:block}.preview-card{padding:0;border:none;box-shadow:none}.page{border:none;width:210mm;min-height:297mm}}
   </style>
@@ -90,6 +103,73 @@
         <div class="help">12 distinct combinations of layout + typography + spacing for professional resume looks.</div>
         <div class="mini-actions">
           <a class="mini-link" href="ats_resume_checker.html">Open advanced ATS checker</a>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="title">Quick resume customization</div>
+        <div class="control-grid">
+          <div class="full">
+            <label>Quick style</label>
+            <div class="preset-row">
+              <button type="button" class="preset-btn" data-preset="classic">Classic</button>
+              <button type="button" class="preset-btn" data-preset="modern">Modern</button>
+              <button type="button" class="preset-btn" data-preset="minimal">Minimal</button>
+            </div>
+          </div>
+          <div>
+            <label>Font style</label>
+            <select id="customFont">
+              <option value="template">Use template default</option>
+              <option value="inter">Inter</option>
+              <option value="poppins">Poppins</option>
+              <option value="roboto">Roboto</option>
+              <option value="lato">Lato</option>
+              <option value="merri">Merriweather</option>
+            </select>
+          </div>
+          <div>
+            <label>Resume text color</label>
+            <input id="textColor" type="color" value="#111111">
+          </div>
+          <div>
+            <label>Resume background color</label>
+            <input id="pageBgColor" type="color" value="#ffffff">
+          </div>
+          <div>
+            <label>Line spacing</label>
+            <input id="lineHeight" type="range" min="1.3" max="1.8" step="0.05" value="1.5">
+          </div>
+          <div>
+            <label>Body font size</label>
+            <input id="bodyFontSize" type="range" min="11" max="15" step="0.5" value="12">
+          </div>
+          <details class="advanced-custom full">
+            <summary>Advanced colors (optional)</summary>
+            <div class="control-grid">
+              <div>
+                <label>Header background</label>
+                <input id="headerColor" type="color" value="#1e3a8a">
+              </div>
+              <div>
+                <label>Left panel background</label>
+                <input id="leftBgColor" type="color" value="#eef2ff">
+              </div>
+              <div>
+                <label>Accent color</label>
+                <input id="accentColor" type="color" value="#1d4ed8">
+              </div>
+              <div>
+                <label>Section divider color</label>
+                <input id="lineColor" type="color" value="#cbd5e1">
+              </div>
+              <div class="full">
+                <label>Skill chip background</label>
+                <input id="chipColor" type="color" value="#e2e8f0">
+              </div>
+            </div>
+          </details>
+          <div class="help full">Simple tip: pick one quick style + readable colors and keep it clean.</div>
         </div>
       </div>
 
@@ -126,7 +206,7 @@
       </div>
 
       <div class="sec actions"><div class="btns">
-        <button id="downloadBtn">Download PDF (A4)</button><button class="alt" id="resetBtn" type="button">Reset</button><button class="gray" id="atsBtn" type="button">Check ATS score</button><button class="gray" id="fillDemoBtn" type="button">Use sample data</button><button class="gray" id="openAdvancedAtsBtn" type="button">Open ATS Checker</button>
+        <button id="downloadBtn">Download PDF</button><button class="alt" id="resetBtn" type="button">Reset Form</button><button class="gray" id="atsBtn" type="button">Check ATS</button><button class="gray" id="fillDemoBtn" type="button">Use Sample Data</button><button class="gray" id="openAdvancedAtsBtn" type="button">Advanced ATS Tool</button>
       </div><div class="ats" id="atsResult">ATS score: Not checked</div><div class="help">Pro tip: use the advanced ATS checker to compare this resume with a real job description and get rewrite ideas.</div></div>
     </aside>
 
@@ -143,6 +223,7 @@
   const p = Object.fromEntries(ids.map(i => [i, document.getElementById(i)]));
 
   const resumeDraftStorageKey = 'dl10xResumeDraft';
+  const styleControlIds = ['customFont','textColor','pageBgColor','headerColor','leftBgColor','accentColor','lineColor','chipColor','bodyFontSize','lineHeight'];
 
   const templates = {
     t1:{name:'Executive Blue',layout:'modern',font:'inter',hdr:'#1e3a8a',left:'#eef2ff',line:'#cbd5e1',chip:'#dbeafe',accent:'#1d4ed8'},
@@ -178,7 +259,9 @@
     const key=document.getElementById('templateDesign').value;
     const cfg=templates[key] || templates.t1;
     const page=document.getElementById('resumePage');
-    page.className=`page layout-${cfg.layout} font-${cfg.font}`;
+    const selectedFont = document.getElementById('customFont')?.value || 'template';
+    const activeFont = selectedFont === 'template' ? cfg.font : selectedFont;
+    page.className=`page layout-${cfg.layout} font-${activeFont}`;
     page.dataset.template=key;
     page.style.setProperty('--hdr', cfg.hdr);
     page.style.setProperty('--left', cfg.left);
@@ -186,7 +269,74 @@
     page.style.setProperty('--chip', cfg.chip);
     page.style.setProperty('--accent', cfg.accent);
     page.style.setProperty('--hdrTxt', cfg.hdrTxt || '#fff');
+    const hdrText = (cfg.hdrTxt || '#fff').toLowerCase() === '#111' ? '#111111' : '#ffffff';
+    page.style.setProperty('--txtColor', document.getElementById('textColor')?.value || '#111111');
+    page.style.setProperty('--pageBg', document.getElementById('pageBgColor')?.value || '#ffffff');
+    document.getElementById('headerColor').value = cfg.hdr;
+    document.getElementById('leftBgColor').value = cfg.left;
+    document.getElementById('lineColor').value = cfg.line;
+    document.getElementById('chipColor').value = cfg.chip;
+    document.getElementById('accentColor').value = cfg.accent;
+    page.style.setProperty('--hdrTxt', hdrText);
+    applyManualStyles();
     refreshPhotoPlacement();
+  }
+
+  function applyManualStyles(){
+    const page=document.getElementById('resumePage');
+    if(!page) return;
+    const templateCfg = templates[document.getElementById('templateDesign').value] || templates.t1;
+    const selectedFont = document.getElementById('customFont').value;
+    const activeFont = selectedFont === 'template' ? templateCfg.font : selectedFont;
+    page.className = `page layout-${templateCfg.layout} font-${activeFont}`;
+    page.style.setProperty('--txtColor', document.getElementById('textColor').value || '#111111');
+    page.style.setProperty('--pageBg', document.getElementById('pageBgColor').value || '#ffffff');
+    page.style.setProperty('--hdr', document.getElementById('headerColor').value || templateCfg.hdr);
+    page.style.setProperty('--left', document.getElementById('leftBgColor').value || templateCfg.left);
+    page.style.setProperty('--accent', document.getElementById('accentColor').value || templateCfg.accent);
+    page.style.setProperty('--line2', document.getElementById('lineColor').value || templateCfg.line);
+    page.style.setProperty('--chip', document.getElementById('chipColor').value || templateCfg.chip);
+    page.style.setProperty('--bodySize', `${document.getElementById('bodyFontSize').value || 12}px`);
+    page.style.setProperty('--bodyLine', document.getElementById('lineHeight').value || 1.5);
+  }
+
+  function applyStylePreset(mode){
+    if(mode==='classic'){
+      document.getElementById('customFont').value='template';
+      document.getElementById('textColor').value='#111111';
+      document.getElementById('pageBgColor').value='#ffffff';
+      document.getElementById('lineHeight').value='1.5';
+      document.getElementById('bodyFontSize').value='12';
+      document.getElementById('headerColor').value='#1e3a8a';
+      document.getElementById('leftBgColor').value='#eef2ff';
+      document.getElementById('accentColor').value='#1d4ed8';
+      document.getElementById('lineColor').value='#cbd5e1';
+      document.getElementById('chipColor').value='#e2e8f0';
+    } else if(mode==='modern'){
+      document.getElementById('customFont').value='inter';
+      document.getElementById('textColor').value='#0f172a';
+      document.getElementById('pageBgColor').value='#ffffff';
+      document.getElementById('lineHeight').value='1.45';
+      document.getElementById('bodyFontSize').value='12.5';
+      document.getElementById('headerColor').value='#0f172a';
+      document.getElementById('leftBgColor').value='#eff6ff';
+      document.getElementById('accentColor').value='#2563eb';
+      document.getElementById('lineColor').value='#bfdbfe';
+      document.getElementById('chipColor').value='#dbeafe';
+    } else if(mode==='minimal'){
+      document.getElementById('customFont').value='lato';
+      document.getElementById('textColor').value='#1f2937';
+      document.getElementById('pageBgColor').value='#ffffff';
+      document.getElementById('lineHeight').value='1.6';
+      document.getElementById('bodyFontSize').value='11.5';
+      document.getElementById('headerColor').value='#ffffff';
+      document.getElementById('leftBgColor').value='#ffffff';
+      document.getElementById('accentColor').value='#334155';
+      document.getElementById('lineColor').value='#d1d5db';
+      document.getElementById('chipColor').value='#f3f4f6';
+    }
+    applyManualStyles();
+    saveDraft();
   }
 
   function saveDraft(){
@@ -199,6 +349,7 @@
       cropY: document.getElementById('cropY').value
     };
     ids.forEach(key => payload[key] = p[key].value);
+    styleControlIds.forEach(key => payload[key] = document.getElementById(key).value);
     localStorage.setItem(resumeDraftStorageKey, JSON.stringify(payload));
   }
 
@@ -213,6 +364,11 @@
       if(draft.cropZoom) document.getElementById('cropZoom').value = draft.cropZoom;
       if(draft.cropX) document.getElementById('cropX').value = draft.cropX;
       if(draft.cropY) document.getElementById('cropY').value = draft.cropY;
+      styleControlIds.forEach(key => {
+        if(typeof draft[key] === 'string' && document.getElementById(key)){
+          document.getElementById(key).value = draft[key];
+        }
+      });
     } catch(err){ console.error(err); }
   }
 
@@ -308,9 +464,11 @@
 
   document.getElementById('downloadBtn').addEventListener('click', downloadPdfA4);
   document.getElementById('templateDesign').addEventListener('change', ()=>{ applyTemplateDesign(); saveDraft(); });
+  styleControlIds.forEach(id=>document.getElementById(id).addEventListener('input', ()=>{ applyManualStyles(); saveDraft(); }));
+  document.querySelectorAll('.preset-btn').forEach(btn=>btn.addEventListener('click', ()=>applyStylePreset(btn.dataset.preset)));
   document.getElementById('profileType').addEventListener('change', ()=>{ refreshPreview(); saveDraft(); });
 
-  document.getElementById('resetBtn').addEventListener('click', ()=>{ ids.forEach(k=>p[k].value=''); ['pPhoto','thumbPhoto'].forEach(id=>document.getElementById(id).src=''); document.getElementById('photoStyle').value='none'; document.getElementById('cropZoom').value=1; document.getElementById('cropX').value=50; document.getElementById('cropY').value=30; document.getElementById('templateDesign').value='t1'; document.getElementById('profileType').value='Data Analyst'; refreshPreview(); applyCrop(); applyTemplateDesign(); document.getElementById('atsResult').textContent='ATS score: Not checked'; localStorage.removeItem(resumeDraftStorageKey); });
+  document.getElementById('resetBtn').addEventListener('click', ()=>{ ids.forEach(k=>p[k].value=''); ['pPhoto','thumbPhoto'].forEach(id=>document.getElementById(id).src=''); document.getElementById('photoStyle').value='none'; document.getElementById('cropZoom').value=1; document.getElementById('cropX').value=50; document.getElementById('cropY').value=30; document.getElementById('templateDesign').value='t1'; document.getElementById('profileType').value='Data Analyst'; document.getElementById('customFont').value='template'; document.getElementById('textColor').value='#111111'; document.getElementById('pageBgColor').value='#ffffff'; document.getElementById('headerColor').value='#1e3a8a'; document.getElementById('leftBgColor').value='#eef2ff'; document.getElementById('accentColor').value='#1d4ed8'; document.getElementById('lineColor').value='#cbd5e1'; document.getElementById('chipColor').value='#e2e8f0'; document.getElementById('bodyFontSize').value='12'; document.getElementById('lineHeight').value='1.5'; refreshPreview(); applyCrop(); applyTemplateDesign(); applyManualStyles(); document.getElementById('atsResult').textContent='ATS score: Not checked'; localStorage.removeItem(resumeDraftStorageKey); });
   document.getElementById('fillDemoBtn').addEventListener('click', ()=>{ p.name.value='Aarav Sharma'; p.targetRole.value='Data Analyst'; p.email.value='aarav.sharma@email.com'; p.phone.value='+91 9876543210'; p.location.value='Pune, India'; p.summary.value='Data analyst with hands-on experience in SQL, Python, and BI dashboards. Improved reporting speed and identified growth opportunities using data storytelling.'; p.skills.value='Excel, SQL, Python, Power BI, Tableau, Statistics, Pandas'; p.education.value='B.Tech in Computer Science, 2023, Pune University'; p.certifications.value='Google Data Analytics, Microsoft Power BI Data Analyst'; p.projects.value='Sales KPI Dashboard\n- Built Power BI dashboard reducing manual reporting by 60%\nChurn Prediction\n- Built classification model with 84% accuracy'; p.experience.value='ABC Analytics | Data Analyst Intern | Jan 2024 - Jun 2024\n- Automated weekly reports using SQL + Python\n- Presented insights to operations team'; document.getElementById('photoStyle').value='right'; refreshPreview(); scoreATS(); });
 
   document.getElementById('openAdvancedAtsBtn').addEventListener('click', ()=>{ saveDraft(); window.location.href='ats_resume_checker.html?source=resume-builder'; });
@@ -319,6 +477,7 @@
   loadDraft();
   if(!document.getElementById('templateDesign').value) document.getElementById('templateDesign').value='t1';
   applyTemplateDesign();
+  applyManualStyles();
   refreshPreview();
   applyCrop();
   saveDraft();
