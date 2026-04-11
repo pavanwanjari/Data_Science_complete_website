@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,7 +86,7 @@
     @media (prefers-reduced-motion:reduce){.logo-track{animation:none;transform:none}}
     .ads-section{padding:26px 16px 10px}
     .ads-slider{max-width:1120px;margin:0 auto;position:relative;border-radius:18px;overflow:hidden;box-shadow:0 18px 38px rgba(2,6,23,.45);background:#0f172a;cursor:pointer;border:1px solid rgba(126,175,245,.24)}
-    .ads-slide{width:100%;aspect-ratio:16/5;display:block;object-fit:cover;opacity:1;transition:opacity .45s ease}
+    .ads-slide{width:100%;height:320px;display:block;object-fit:cover;opacity:1;transition:opacity .45s ease}
     .ads-overlay{position:absolute;inset:auto 0 0 0;padding:14px 16px;background:linear-gradient(to top,rgba(2,6,23,.68),rgba(2,6,23,0));color:#fff;font-weight:600;font-size:14px}
     .ads-dots{display:flex;justify-content:center;gap:8px;margin-top:10px}
     .ads-dot{width:9px;height:9px;border-radius:50%;background:#cbd5e1;opacity:.55;border:none;padding:0}
@@ -155,11 +156,28 @@
       .skill-item .skill-logo{width:36px;height:36px}
     }
     @media (max-width:640px){
+      h2{font-size:22px}
+      .sub{font-size:13px}
       #explore-courses .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
       #explore-courses .course-card{padding:12px}
       #explore-courses .course-card h3{font-size:15px;line-height:1.3}
       #explore-courses .course-card .muted{font-size:12px}
       #explore-courses .course-card img{width:46px;height:46px}
+      .ads-slide{height:220px}
+      .learning-path .path-title{font-size:22px!important}
+      .learning-path .path-sub{font-size:13px!important}
+      #why-analytics h2,#program-for h2,#candidate-benefits h2,#comparison-section h2,#guarantee-section h2,#success-stories h2,#faq-section h2{font-size:21px!important}
+      #why-analytics .sub,#program-for .sub,#candidate-benefits .sub,#comparison-section .sub,#guarantee-section .sub,#success-stories p,#faq-section .sub{font-size:12px!important}
+      #why-analytics .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      #why-analytics .card b{font-size:13px}
+      #why-analytics .mini{font-size:11px}
+      #why-analytics .metric{font-size:24px}
+      #program-for .audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      #program-for .audience-item{padding:12px}
+      #program-for .audience-item h3{font-size:15px}
+      #program-for .audience-item p{font-size:12px}
+      #candidate-benefits .audience-item h3{font-size:15px}
+      #candidate-benefits .audience-item p{font-size:12px}
     }
   </style>
   <link rel="stylesheet" href="theme_professional.css">
@@ -180,7 +198,9 @@
     footer{background:linear-gradient(135deg,#0b1220,#12335f,#2563eb)!important}
   </style>
 </head>
+  <!-- SECTION: BODY (page content) -->
 <body>
+  <!-- SECTION: HEADER .hero -->
   <header class="hero">
     <h1>DataLearn10X</h1>
     <p>Job-ready Data Analytics training for candidates: recorded courses, guided projects, resume tools, interview prep, and placement-focused support.</p>
@@ -194,43 +214,17 @@
     <a class="pill" id="offerPill" href="#explore-courses" aria-label="Go to Explore Courses">🔥 All Courses Bundle Intro Offer ₹0 (valid for current intake)</a>
   </header>
 
-<!-- NEW: Skills & Outcomes Section -->
-<section class="section interactive reveal">
-  <div class="container">
-    <h2>🎯 Skills & Outcomes You'll Gain</h2>
-    <p class="sub">Master job-ready skills that employers actively seek</p>
-    <div class="skills-grid">
-      <div class="skill-item">
-        <img class="skill-logo" src="https://img.icons8.com/color/96/microsoft-excel-2019--v1.png" alt="Microsoft Excel logo">
-        <strong>Advanced Excel</strong>
-        <p>Pivot Tables, VLOOKUP, Macros</p>
-      </div>
-      <div class="skill-item">
-        <img class="skill-logo" src="https://img.icons8.com/color/96/python--v1.png" alt="Python logo">
-        <strong>Python Analytics</strong>
-        <p>Pandas, NumPy, Data Analysis</p>
-      </div>
-      <div class="skill-item">
-        <img class="skill-logo" src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI logo">
-        <strong>Power BI</strong>
-        <p>Dashboards, Visualizations</p>
-      </div>
-      <div class="skill-item">
-        <img class="skill-logo" src="https://img.icons8.com/fluency/96/database.png" alt="SQL database icon">
-        <strong>SQL Mastery</strong>
-        <p>Queries, Database Management</p>
-      </div>
-      <div class="skill-item">
-        <img class="skill-logo" src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Machine learning icon">
-        <strong>Machine Learning</strong>
-        <p>Algorithms, Predictions</p>
-      </div>
-      
+  <!-- SECTION: SECTION .ads-section -->
+  <section class="ads-section" aria-label="Latest offers">
+    <div id="adsSlider" class="ads-slider" role="button" tabindex="0" aria-label="Advertisement slider. Click to explore courses.">
+      <img id="adsSlideImage" class="ads-slide" src="dl10x.png" alt="DataLearn10X advertisement" loading="eager">
+      <div class="ads-overlay">Special Offers</div>
     </div>
-  </div>
-</section>
+    <div id="adsDots" class="ads-dots" aria-hidden="true"></div>
+  </section>
 
 <!-- PREMIUM: Learning Path Section (Light + Professional) -->
+<!-- SECTION: SECTION .section -->
 <section class="section reveal learning-path" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 0;">
   <div class="container" style="max-width:900px;margin:auto;">
     
@@ -244,49 +238,44 @@
     <!-- Timeline Container -->
     <div class="timeline" style="position:relative;margin-top:40px;padding-left:20px;border-left:2px solid #e2e8f0;">
 
-      <!-- Item -->
       <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <strong style="color:#0284c7;">Week 1-2</strong>
-          <p style="margin:4px 0 0;color:#1e293b;">Excel Fundamentals & Advanced Techniques</p>
-        </div>
+        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;" open>
+          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 1-2</summary>
+          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Excel Fundamentals & Advanced Techniques</p>
+        </details>
       </div>
 
-      <!-- Item -->
       <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <strong style="color:#0284c7;">Week 3-6</strong>
-          <p style="margin:4px 0 0;color:#1e293b;">Python for Data Analysis & Automation</p>
-        </div>
+        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 3-6</summary>
+          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Python for Data Analysis & Automation</p>
+        </details>
       </div>
 
-      <!-- Item -->
       <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <strong style="color:#0284c7;">Week 7-10</strong>
-          <p style="margin:4px 0 0;color:#1e293b;">Power BI Dashboards & SQL Basics</p>
-        </div>
+        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 7-10</summary>
+          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Power BI Dashboards & SQL Basics</p>
+        </details>
       </div>
 
-      <!-- Item -->
       <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <strong style="color:#0284c7;">Week 11-14</strong>
-          <p style="margin:4px 0 0;color:#1e293b;">Machine Learning Fundamentals</p>
-        </div>
+        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 11-14</summary>
+          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Machine Learning Fundamentals</p>
+        </details>
       </div>
 
-      <!-- Item -->
       <div class="timeline-item" style="position:relative;padding-left:20px;">
         <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <div class="timeline-item-card" style="background:#ffffff;padding:16px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <strong style="color:#0284c7;">Week 15-16</strong>
-          <p style="margin:4px 0 0;color:#1e293b;">Capstone Project & Interview Preparation</p>
-        </div>
+        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
+          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 15-16</summary>
+          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Capstone Project & Interview Preparation</p>
+        </details>
       </div>
 
     </div>
@@ -307,16 +296,8 @@
   }
 </style>
 
-  
-  <section class="ads-section" aria-label="Latest offers">
-    <div id="adsSlider" class="ads-slider" role="button" tabindex="0" aria-label="Advertisement slider. Click to explore courses.">
-      <img id="adsSlideImage" class="ads-slide" src="dl10x.png" alt="DataLearn10X advertisement" loading="eager">
-      <div class="ads-overlay">Special Offers</div>
-    </div>
-    <div id="adsDots" class="ads-dots" aria-hidden="true"></div>
-  </section>
-
-  <section class="section interactive reveal">
+  <!-- SECTION: SECTION #why-analytics -->
+  <section class="section interactive reveal" id="why-analytics">
     <div class="container">
       <h2>Why Data Analytics?</h2>
       <p class="sub">Interactive learning path from beginner to job-ready level.</p>
@@ -329,7 +310,8 @@
     </div>
   </section>
 
-  <section class="section reveal">
+  <!-- SECTION: SECTION #program-for -->
+  <section class="section reveal" id="program-for">
     <div class="container">
       <div class="audience-wrap">
         <h2>Who is this program for?</h2>
@@ -345,7 +327,8 @@
   </section>
 
 
-  <section class="section reveal">
+  <!-- SECTION: SECTION #candidate-benefits -->
+  <section class="section reveal" id="candidate-benefits">
     <div class="container">
       <div class="audience-wrap">
         <h2>What candidates get with DataLearn10X</h2>
@@ -359,6 +342,7 @@
       </div>
     </div>
   </section>
+  <!-- SECTION: SECTION #explore-courses -->
   <section class="section reveal" id="explore-courses" style="background:linear-gradient(180deg,rgba(6,12,24,.45),rgba(20,45,92,.28))">
     <div class="container">
       <h2>Explore Courses</h2>
@@ -383,7 +367,8 @@
   
 <!-- NEW: Success Stories Section -->
 <!-- PREMIUM: Success Stories Section (Light Theme) -->
-<section class="section reveal" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 20px;">
+<!-- SECTION: SECTION #success-stories -->
+<section class="section reveal" id="success-stories" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 20px;">
   <div class="container" style="max-width:1000px;margin:auto;">
     
     <h2 style="text-align:center;color:#0f172a;font-size:32px;font-weight:700;">
@@ -494,7 +479,8 @@
 
   
 <!-- NEW: Comparison Section -->
-<section class="section reveal">
+<!-- SECTION: SECTION #comparison-section -->
+<section class="section reveal" id="comparison-section">
   <div class="container">
     <h2>💪 Why Choose DataLearn10X?</h2>
     <p class="sub">Compare us with traditional bootcamps and online courses</p>
@@ -553,7 +539,8 @@
 
 <!-- NEW: Guarantee Section -->
 <!-- PREMIUM: Guarantee & Support Section (Light Theme) -->
-<section class="section reveal" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 20px;">
+<!-- SECTION: SECTION #guarantee-section -->
+<section class="section reveal" id="guarantee-section" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 20px;">
   <div class="container" style="max-width:900px;margin:auto;">
 
     <div style="background:#ffffff;border-radius:16px;border:1px solid #e2e8f0;padding:26px;box-shadow:0 10px 30px rgba(0,0,0,0.06);">
@@ -630,6 +617,7 @@
 }
 </style>
   
+  <!-- SECTION: SECTION #buy-section -->
   <section class="section reveal" id="buy-section">
     <div class="container buy-wrap">
       <h2>Buy Courses (Multi-select Cart)</h2>
@@ -662,6 +650,7 @@
     </div>
   </section>
 
+  <!-- SECTION: SECTION #student-feedbacks -->
   <section class="section" id="student-feedbacks" style="padding-top:0">
     <div class="container">
       <div class="feedback-wrap">
@@ -687,6 +676,7 @@
   </section>
 
 
+  <!-- SECTION: SECTION #hiring-companies -->
   <section class="section reveal" id="hiring-companies">
     <div class="container">
       <div class="hiring-wrap">
@@ -720,6 +710,7 @@
     </div>
   </section>
 
+  <!-- SECTION: SECTION #youtube-showcase -->
   <section class="section reveal" id="youtube-showcase">
     <div class="container">
       <div class="youtube-wrap">
@@ -734,6 +725,7 @@
     </div>
   </section>
 
+  <!-- SECTION: SECTION #faq-section -->
   <section class="section reveal" id="faq-section" style="padding-top:0">
     <div class="container">
       <div class="faq-wrap">
@@ -760,6 +752,7 @@
     <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp">
   </a>
 
+  <!-- SECTION: FOOTER -->
   <footer>
     <div class="brand">DataLearn10X</div>
     <div class="social-links" aria-label="Social media links">
