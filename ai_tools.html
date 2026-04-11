@@ -14,7 +14,9 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Poppins',sans-serif;background:radial-gradient(circle at 10% 10%,#dbeafe 0,#f8fbff 40%,#eff6ff 100%);color:#0f172a}
-    .hero{background:linear-gradient(135deg,#0f172a,#1d4ed8,#0ea5e9);color:#fff;padding:64px 16px 54px;text-align:center}
+    .hero{position:relative;background:linear-gradient(135deg,#0f172a,#1d4ed8,#0ea5e9);color:#fff;padding:64px 16px 54px;text-align:center}
+    .home-logo{position:absolute;left:14px;top:14px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:700}
+    .home-logo img{width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.08)}
     .hero h1{font-size:42px;line-height:1.15}
     .hero p{max-width:860px;margin:10px auto 0;opacity:.95}
     .hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
@@ -28,7 +30,7 @@
     .chip.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
     .sort{padding:12px;border:1px solid #cbd5e1;border-radius:12px;background:#fff}
     .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px}
-    .tool-card{background:#fff;border:1px solid #dbe5f2;border-radius:16px;padding:16px;box-shadow:0 12px 24px rgba(30,58,138,.08);transition:.25s}
+    .tool-card{background:#fff;border:1px solid #dbe5f2;border-radius:16px;padding:16px;box-shadow:0 12px 24px rgba(30,58,138,.08);transition:.25s;display:flex;flex-direction:column;min-height:100%}
     .tool-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(30,58,138,.14)}
     .tool-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
     .tool-top h3{font-size:18px}
@@ -37,11 +39,17 @@
     .tool-card p{font-size:13px;color:#334155}
     .use-list{margin-top:10px;padding-left:18px}
     .use-list li{font-size:12px;color:#475569;margin:5px 0}
-    .tool-actions{display:flex;justify-content:space-between;gap:8px;margin-top:14px}
-    .tool-actions a{flex:1;text-align:center;text-decoration:none;padding:9px 10px;border-radius:10px;font-size:12px;font-weight:600}
+    .tool-actions{display:flex;justify-content:space-between;gap:8px;margin-top:auto;padding-top:14px}
+    .tool-actions a{flex:1;text-align:center;text-decoration:none;padding:9px 10px;border-radius:10px;font-size:12px;font-weight:600;min-height:36px;display:flex;align-items:center;justify-content:center}
     .btn-primary{background:#1d4ed8;color:#fff}
     .btn-light{background:#eef4ff;color:#1e3a8a;border:1px solid #c7d8ff}
     .note{margin-top:12px;font-size:12px;color:#475569}
+    .new-wrap{margin-top:18px;background:linear-gradient(135deg,#fff,#f8fbff);border:1px solid #d8e5f7;border-radius:14px;padding:14px}
+    .new-wrap h2{font-size:20px;margin-bottom:8px}
+    .new-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+    .new-item{background:#fff;border:1px solid #dde9ff;border-radius:12px;padding:10px}
+    .new-item h4{font-size:14px;color:#1e3a8a}
+    .new-item p{font-size:12px;color:#475569;margin-top:4px}
     footer{margin-top:24px;text-align:center;padding:20px;color:#475569}
     @media (max-width:760px){
       .hero h1{font-size:30px}
@@ -54,6 +62,10 @@
 <body>
   <!-- SECTION: HEADER .hero -->
   <header class="hero">
+    <a class="home-logo" href="index.html" aria-label="Go to DataLearn10X home">
+      <img src="dl10x.png" alt="DataLearn10X logo">
+      <span>DataLearn10X</span>
+    </a>
     <h1>AI Tools Hub for Students</h1>
     <p>Discover premium AI tools for study, coding, analytics, resume building, interview prep, and productivity—organized by use case with ratings and practical guidance.</p>
     <div class="hero-badges">
@@ -89,6 +101,17 @@
       <!-- SECTION: SECTION #tools-grid -->
       <section id="tools-grid" class="tools-grid" aria-live="polite"></section>
       <p class="note">Tip: Use tools as assistants, not replacements. Always verify facts, citations, and final outputs before submission/interview use.</p>
+
+      <!-- SECTION: SECTION #whats-new -->
+      <section class="new-wrap" id="whats-new">
+        <h2>What’s New & Useful for Students</h2>
+        <div class="new-grid">
+          <article class="new-item"><h4>NotebookLM Study Audio</h4><p>Turn your sources into AI summaries and quick audio-style revision flow.</p></article>
+          <article class="new-item"><h4>Gemini Workspace Flow</h4><p>Draft in Docs, summarize Sheets, and speed up assignments within Google workflow.</p></article>
+          <article class="new-item"><h4>AI Mock Interviews</h4><p>Use role-based mock Q&A tools for confidence before internship and job interviews.</p></article>
+          <article class="new-item"><h4>Presentation-from-Notes Tools</h4><p>Convert rough notes into polished decks quickly for class seminars and viva.</p></article>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -103,12 +126,18 @@
       {name:'ChatGPT',category:'study',rating:4.9,desc:'Best all-round AI assistant for explanations, learning plans, summaries, and mock interview prep.',uses:['Concept explanation','Assignment drafts','Interview Q&A'],url:'https://chat.openai.com/'},
       {name:'Perplexity',category:'study',rating:4.7,desc:'Research-focused answer engine with source links and fast topic exploration.',uses:['Source-backed research','Quick fact checking','Topic discovery'],url:'https://www.perplexity.ai/'},
       {name:'Claude',category:'study',rating:4.7,desc:'Excellent for long-form reading, structured writing, and document analysis.',uses:['Long PDF summary','Policy/doc analysis','Clean writing'],url:'https://claude.ai/'},
+      {name:'Google Gemini',category:'study',rating:4.7,desc:'Strong all-round assistant for study planning, writing, and Google ecosystem users.',uses:['Docs/Slides drafting','Homework planning','Quick explanations'],url:'https://gemini.google.com/'},
+      {name:'NotebookLM',category:'study',rating:4.8,desc:'Best for source-grounded study: upload notes/PDFs and ask focused questions.',uses:['Research notebooks','Revision notes','Source-based Q&A'],url:'https://notebooklm.google/'},
       {name:'GitHub Copilot',category:'coding',rating:4.8,desc:'AI coding assistant inside IDE for auto-completion, refactoring, and tests.',uses:['Code suggestions','Bug fixing help','Test generation'],url:'https://github.com/features/copilot'},
       {name:'Cursor',category:'coding',rating:4.6,desc:'AI-first code editor for faster project building and understanding codebases.',uses:['Project scaffolding','Codebase Q&A','Refactor support'],url:'https://www.cursor.com/'},
+      {name:'Replit AI',category:'coding',rating:4.4,desc:'Fast browser-based coding + AI help for beginners building mini projects.',uses:['Quick prototypes','Class coding practice','Deploy simple apps'],url:'https://replit.com/'},
       {name:'Canva Magic Studio',category:'design',rating:4.7,desc:'Create social graphics, resumes, and presentations quickly with AI support.',uses:['Presentation design','Poster/social creatives','Resume visuals'],url:'https://www.canva.com/'},
       {name:'Gamma',category:'design',rating:4.5,desc:'Turns prompts into polished slide decks and documents in minutes.',uses:['Pitch decks','Class presentations','Portfolio overviews'],url:'https://gamma.app/'},
+      {name:'Adobe Firefly',category:'design',rating:4.5,desc:'Generate visual assets and creative concepts for projects and portfolios.',uses:['Design concepts','Poster assets','Creative brainstorming'],url:'https://firefly.adobe.com/'},
       {name:'Notion AI',category:'productivity',rating:4.6,desc:'Smart writing and organization assistant inside notes and planning workflows.',uses:['Meeting notes','Task planning','Study tracker'],url:'https://www.notion.so/product/ai'},
+      {name:'Otter.ai',category:'productivity',rating:4.5,desc:'Transcribes lectures and meetings to help with review and note making.',uses:['Lecture transcription','Meeting notes','Revision extraction'],url:'https://otter.ai/'},
       {name:'Grammarly',category:'career',rating:4.6,desc:'Improves grammar, clarity, and tone for resumes, emails, and SOPs.',uses:['Resume polish','Professional emails','LinkedIn copy'],url:'https://www.grammarly.com/'},
+      {name:'QuillBot',category:'career',rating:4.4,desc:'Paraphrasing and rewriting support for clearer writing drafts and edits.',uses:['Sentence rewrite','Draft refinement','Clarity boost'],url:'https://quillbot.com/'},
       {name:'Interview Warmup',category:'career',rating:4.4,desc:'Practice interview responses with AI feedback and keyword suggestions.',uses:['Mock interviews','Role-specific prep','Answer improvement'],url:'https://grow.google/certificates/interview-warmup/'}
     ];
 
