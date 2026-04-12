@@ -1,36 +1,686 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
 <meta charset="UTF-8">
 <title>SQL (MySQL) Course - DataLearn10X</title>
 <link rel="icon" type="image/png" href="dl10x.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Master SQL and MySQL fundamentals for analytics, querying, and database-driven problem solving.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js" defer></script>
 <script src="analytics.js" defer></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Poppins',sans-serif;background:#f4f7fc;color:#1f2f46}header{position:relative;padding:52px 14px;color:#fff;text-align:center;background:linear-gradient(135deg,#081221,#173a64,#2563eb)}header .home-logo{position:absolute;top:12px;left:12px;display:inline-block}header .home-logo img{height:34px;width:auto;display:block}header img{width:84px;height:84px;object-fit:contain}.wrap{max-width:1000px;margin:auto;padding:24px 14px 45px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.08)}ul{text-align:left;padding-left:20px;line-height:1.7}.step{background:#eef3ff;border-left:4px solid #4f79ff;border-radius:8px;padding:10px;margin:8px 0}.mrp{text-decoration:line-through;color:#777}.offer{color:#15803d;font-weight:700;font-size:26px}.btn{display:inline-block;margin:8px 8px 0 0;text-decoration:none;color:#fff;background:#16a34a;padding:10px 16px;border-radius:22px}.btn.dark{background:#1f3b78}footer{text-align:center;font-size:13px;color:#566;padding:20px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f0f4fb;
+    color: #1f2f46;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    padding: 60px 20px 48px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #060e1c 0%, #0f2a52 45%, #1a4ba8 100%);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #f0f4fb;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+  .home-logo img { height: 36px; width: auto; display: block; }
+
+  .header-icon {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.12);
+    padding: 8px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(6px);
+  }
+
+  /* LAYOUT */
+  .wrap {
+    max-width: 1060px;
+    margin: auto;
+    padding: 36px 16px 60px;
+  }
+
+  /* TOP CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1a3060;
+  }
+  .card ul {
+    padding-left: 18px;
+    line-height: 1.85;
+    font-size: 0.92rem;
+    color: #374151;
+  }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0f2a52;
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #2563eb22, transparent);
+    border-radius: 2px;
+  }
+
+  /* ROADMAP */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  /* vertical line */
+  .roadmap-item:not(:last-child) .step-line {
+    position: absolute;
+    left: 22px;
+    top: 46px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #2563eb40, #2563eb10);
+    z-index: 0;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #1a4ba8, #2563eb);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+    position: relative;
+    z-index: 1;
+    margin-top: 2px;
+  }
+  .step-body {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    margin: 0 0 14px 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-left: 3px solid #2563eb;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-body:hover { box-shadow: 0 6px 20px rgba(37,99,235,0.12); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+  }
+  .step-header h4 {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #1a3060;
+    margin: 0;
+    flex: 1;
+  }
+  .chevron {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background: #eef3ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.2s;
+  }
+  .chevron svg {
+    width: 12px;
+    height: 12px;
+    stroke: #2563eb;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+  .step-body.open .chevron {
+    transform: rotate(180deg);
+    background: #2563eb;
+  }
+  .step-body.open .chevron svg { stroke: #fff; }
+
+  .step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s ease;
+  }
+  .step-body.open .step-tags {
+    max-height: 300px;
+    padding: 0 20px 16px;
+  }
+  .tag {
+    display: inline-block;
+    background: #eef3ff;
+    color: #2563eb;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid #dbeafe;
+  }
+  .tag.python {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: #fde68a;
+  }
+  .tag.operator {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
+  }
+  .tag.advanced {
+    background: #fdf4ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+  }
+
+  /* STATUS CARD */
+  .status-card {
+    background: linear-gradient(135deg, #eff6ff, #fff);
+    border: 1.5px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 28px 28px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .status-text h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a3060;
+    margin-bottom: 6px;
+  }
+  .status-text p {
+    font-size: 0.9rem;
+    color: #4b5563;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    border-radius: 50px;
+    padding: 7px 18px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #166534;
+    margin-bottom: 6px;
+  }
+  .status-pill span.dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.35); }
+  }
+  .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    background: #2563eb;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 3px 10px rgba(37,99,235,0.3);
+  }
+  .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn.dark { background: #1f3b78; box-shadow: 0 3px 10px rgba(31,59,120,0.25); }
+  .btn.dark:hover { background: #162f62; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    padding: 28px 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+  }
+  footer a { color: #2563eb; text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 560px) {
+    .status-card { flex-direction: column; }
+    .step-body { padding: 14px 16px; }
+  }
 </style>
-  <link rel="stylesheet" href="theme_professional.css">
-  <link rel="stylesheet" href="course_topics.css">
+<link rel="stylesheet" href="theme_professional.css">
+<link rel="stylesheet" href="course_topics.css">
 </head>
-  <!-- SECTION: BODY (page content) -->
 <body class="course-page course-sql">
-<!-- SECTION: HEADER -->
-<header><a href="index.html" aria-label="DataLearn10X Home" class="home-logo"><img src="dl10x.png" alt="DataLearn10X logo"></a><img src="https://img.icons8.com/fluency/96/mysql-logo.png" alt="SQL (MySQL) logo"><h1>SQL (MySQL) Course</h1><p>Course is being updated and will be available soon</p></header>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" aria-label="DataLearn10X Home" class="home-logo">
+    <img src="dl10x.png" alt="DataLearn10X logo">
+  </a>
+  <img class="header-icon" src="https://img.icons8.com/fluency/96/mysql-logo.png" alt="SQL (MySQL) logo">
+  <h1>SQL (MySQL) Course</h1>
+  <div class="header-badge">✅ Now Live — Enroll Today</div>
+</header>
+
 <div class="wrap">
-<div class="grid">
-<div class="card"><h3>🚀 Why SQL (MySQL) is Important?</h3><ul><li>SQL is mandatory for data analytics and backend jobs.</li><li>MySQL is easy to start and widely used in real systems.</li><li>Strong SQL helps crack analyst interviews.</li></ul></div>
-<div class="card"><h3>📦 What You Will Get</h3><ul><li>📘 PDF Notes</li><li>🎥 Video Lessons</li><li>❓ Interview Questions</li><li>🧪 Practice tasks & projects</li></ul></div>
+
+  <!-- TOP CARDS -->
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 Why SQL (MySQL)?</h3>
+      <ul>
+        <li>SQL is mandatory for data analytics &amp; backend roles</li>
+        <li>MySQL is beginner-friendly and industry-standard</li>
+        <li>Strong SQL skills help crack analyst interviews</li>
+        <li>Used in real-world systems at every company scale</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📦 What You Will Get</h3>
+      <ul>
+        <li>📘 Structured PDF Notes</li>
+        <li>🎥 Step-by-step Video Lessons</li>
+        <li>❓ Interview Questions &amp; Answers</li>
+        <li>🧪 Hands-on Practice Projects</li>
+        <li>🐍 SQL + Python Integration Labs</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Introduction to Databases &amp; Tables</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">What is a Database?</span>
+          <span class="tag">Tables &amp; Schemas</span>
+          <span class="tag">Rows &amp; Columns</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Need of SQL</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Why SQL?</span>
+          <span class="tag">SQL vs Spreadsheets</span>
+          <span class="tag">Real-world use cases</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>SQL with Command Prompt</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">USE</span>
+          <span class="tag">DESCRIBE</span>
+          <span class="tag">SHOW DATABASES</span>
+          <span class="tag">SHOW TABLES</span>
+          <span class="tag">CREATE TABLE</span>
+          <span class="tag">Single Row INSERT</span>
+          <span class="tag">Load Data from File</span>
+          <span class="tag">Data Selection</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Definition Language (DDL)</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">CREATE TABLE</span>
+          <span class="tag">ADD</span>
+          <span class="tag">MODIFY</span>
+          <span class="tag">DROP</span>
+          <span class="tag">DROP TABLE</span>
+          <span class="tag">TRUNCATE</span>
+          <span class="tag">DELETE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Control Language (DCL)</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">GRANT</span>
+          <span class="tag">REVOKE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Manipulation Language (DML)</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">INSERT</span>
+          <span class="tag">UPDATE</span>
+          <span class="tag">DELETE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>SQL with Python — Part 1</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag python">Create Database</span>
+          <span class="tag python">Create Table</span>
+          <span class="tag python">Single Row INSERT</span>
+          <span class="tag python">Multiple Row INSERT</span>
+          <span class="tag python">Order of Keywords</span>
+          <span class="tag python">SELECT</span>
+          <span class="tag python">WHERE</span>
+          <span class="tag python">ORDER BY</span>
+          <span class="tag python">GROUP BY</span>
+          <span class="tag python">HAVING</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>SQL with Python — Part 2</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag python">UPDATE</span>
+          <span class="tag python">LIMIT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>SQL with Python — Part 3</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag python">IN</span>
+          <span class="tag python">BETWEEN</span>
+          <span class="tag python">LIKE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Comparison Operators</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag operator">= &nbsp;Equal to</span>
+          <span class="tag operator">&gt; &nbsp;Greater than</span>
+          <span class="tag operator">&lt; &nbsp;Less than</span>
+          <span class="tag operator">&gt;= &nbsp;Greater than or equal</span>
+          <span class="tag operator">&lt;= &nbsp;Less than or equal</span>
+          <span class="tag operator">&lt;&gt; &nbsp;Not equal to</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">11</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Logical Operators</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag operator">AND</span>
+          <span class="tag operator">OR</span>
+          <span class="tag operator">NOT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">12</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Aggregate Functions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">COUNT</span>
+          <span class="tag">MIN</span>
+          <span class="tag">MAX</span>
+          <span class="tag">AVG</span>
+          <span class="tag">SUM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">13</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Joins</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag advanced">INNER JOIN</span>
+          <span class="tag advanced">LEFT JOIN</span>
+          <span class="tag advanced">RIGHT JOIN</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">14</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Parent &amp; Child Tables (Constraints)</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag advanced">Primary Key</span>
+          <span class="tag advanced">Foreign Key</span>
+          <span class="tag advanced">Parent Table</span>
+          <span class="tag advanced">Child Table</span>
+          <span class="tag advanced">UNIQUE Constraint</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-num">15</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Sub Queries / Nested Queries / Inner Queries</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag advanced">Subquery Basics</span>
+          <span class="tag advanced">Nested SELECT</span>
+          <span class="tag advanced">Correlated Subqueries</span>
+          <span class="tag advanced">Subquery in WHERE</span>
+          <span class="tag advanced">Subquery in FROM</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /roadmap -->
+
+  <!-- STATUS CARD -->
+  <div class="status-card">
+    <div class="status-text">
+      <div class="status-pill"><span class="dot"></span>Live Now</div>
+      <h3>Start Learning SQL (MySQL) Today</h3>
+      <p>Get instant access to all 15 modules — video lessons, PDF notes, interview questions, and hands-on practice projects. Everything you need to master SQL from scratch.</p>
+      <div class="btn-group">
+        <a class="btn" href="enroll.html">Enroll Now →</a>
+        <a class="btn dark" href="index.html">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
 </div>
-<div class="card" style="margin-top:14px"><h3>🗺️ Complete Roadmap</h3><div class="step"><b>Step 1:</b> Database Basics</div><div class="step"><b>Step 2:</b> Filters & Aggregations</div><div class="step"><b>Step 3:</b> Joins</div><div class="step"><b>Step 4:</b> Subqueries + CTE</div><div class="step"><b>Step 5:</b> Optimization</div><div class="step"><b>Step 6:</b> Interview Questions</div></div>
-<div class="card" style="margin-top:14px"><h3>📢 Course Status</h3><p class="offer" style="font-size:22px">Coming Soon</p><p>This course is currently unavailable. Please check back soon.</p><a class="btn dark" href="index.html">← Back to Home</a></div>
-</div>
-<!-- SECTION: FOOTER -->
-<footer>© 2026 DataLearn10X</footer>
-<script>PSAAnalytics.trackEvent('course_page_viewed',{course:'SQL (MySQL)'});</script>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 <strong>DataLearn10X</strong> &nbsp;|&nbsp; <a href="index.html">Home</a>
+</footer>
+
+<script>
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'SQL (MySQL)' });
+  }
+
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var body = header.closest('.step-body');
+      body.classList.toggle('open');
+    });
+  });
+</script>
 <script src="course_topics.js" defer></script>
 </body>
 </html>
