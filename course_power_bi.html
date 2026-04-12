@@ -1,40 +1,683 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
 <meta charset="UTF-8">
 <title>Power BI Course - DataLearn10X</title>
 <link rel="icon" type="image/png" href="dl10x.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Build interactive Power BI dashboards and reporting skills with DataLearn10X guided learning.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Learn Power BI for data analytics with dashboards, DAX, Power Query, projects, notes, and interview-focused training.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js" defer></script>
 <script src="analytics.js" defer></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Poppins',sans-serif;background:#f4f7fc;color:#1f2f46}header{position:relative;padding:52px 14px;color:#fff;text-align:center;background:linear-gradient(135deg,#081221,#173a64,#2563eb)}header .home-logo{position:absolute;top:12px;left:12px;display:inline-block}header .home-logo img{height:34px;width:auto;display:block}header img{width:84px;height:84px;object-fit:contain}.wrap{max-width:1000px;margin:auto;padding:24px 14px 45px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.08)}ul{text-align:left;padding-left:20px;line-height:1.7}.step{background:#eef3ff;border-left:4px solid #4f79ff;border-radius:8px;padding:10px;margin:8px 0}.mrp{text-decoration:line-through;color:#777}.offer{color:#15803d;font-weight:700;font-size:26px}.btn{display:inline-block;margin:8px 8px 0 0;text-decoration:none;color:#fff;background:#16a34a;padding:10px 16px;border-radius:22px}.btn.dark{background:#1f3b78}footer{text-align:center;font-size:13px;color:#566;padding:20px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8f5e8;
+    color: #1f2f46;
+  }
+
+  header {
+    position: relative;
+    padding: 60px 20px 48px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #15110a 0%, #4d3900 45%, #f2c811 100%);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #f8f5e8;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+  .home-logo img { height: 36px; width: auto; display: block; }
+
+  .header-icon {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.14);
+    padding: 8px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.32);
+  }
+  header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(6px);
+  }
+
+  .wrap {
+    max-width: 1060px;
+    margin: auto;
+    padding: 36px 16px 60px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #4d3900;
+  }
+  .card ul {
+    padding-left: 18px;
+    line-height: 1.85;
+    font-size: 0.92rem;
+    color: #374151;
+  }
+
+  .price-card {
+    background: linear-gradient(135deg, #fff8d2, #fff);
+    border: 1.5px solid #f2c811;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+  }
+  .price-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #4d3900;
+  }
+  .mrp {
+    text-decoration: line-through;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+  .offer {
+    color: #b77900;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #1f2937;
+    background: #f2c811;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 3px 10px rgba(242,200,17,0.35);
+  }
+  .btn:hover { background: #ddb500; transform: translateY(-1px); }
+  .btn.dark { background: #2c260f; color: #fff; box-shadow: 0 3px 10px rgba(44,38,15,0.25); }
+  .btn.dark:hover { background: #171307; }
+  .btn.blue { background: #b77900; color: #fff; box-shadow: 0 3px 10px rgba(183,121,0,0.3); }
+  .btn.blue:hover { background: #935f00; }
+
+  .section-heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #4d3900;
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #f2c81144, transparent);
+    border-radius: 2px;
+  }
+
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  .roadmap-item:not(:last-child) .step-line {
+    position: absolute;
+    left: 22px;
+    top: 46px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #f2c81170, #f2c81118);
+    z-index: 0;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #b77900, #f2c811);
+    color: #1f2937;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(242,200,17,0.45);
+    position: relative;
+    z-index: 1;
+    margin-top: 2px;
+  }
+  .step-body {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    margin: 0 0 14px 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-left: 3px solid #f2c811;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-body:hover { box-shadow: 0 6px 20px rgba(242,200,17,0.18); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+  }
+  .step-header h4 {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #4d3900;
+    margin: 0;
+    flex: 1;
+  }
+  .chevron {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background: #fff6c7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.2s;
+  }
+  .chevron svg {
+    width: 12px;
+    height: 12px;
+    stroke: #b77900;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+  .step-body.open .chevron {
+    transform: rotate(180deg);
+    background: #f2c811;
+  }
+  .step-body.open .chevron svg { stroke: #1f2937; }
+
+  .step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.25s ease;
+  }
+  .step-body.open .step-tags {
+    max-height: 800px;
+    padding: 0 20px 18px;
+  }
+
+  .step-desc {
+    width: 100%;
+    font-size: 0.83rem;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .step-desc strong { color: #4d3900; font-weight: 600; }
+  .step-desc code {
+    background: #fff6c7;
+    color: #8a5a00;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #f7df75;
+  }
+
+  .tag {
+    display: inline-block;
+    background: #fff6c7;
+    color: #8a5a00;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid #f7df75;
+  }
+  .tag.fn {
+    background: #ecfeff;
+    color: #0e7490;
+    border-color: #a5f3fc;
+  }
+  .tag.oop {
+    background: #fdf4ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+  }
+  .tag.data {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
+  }
+  .tag.lib {
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    padding: 28px 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+  }
+  footer a { color: #b77900; text-decoration: none; }
+
+  @media (max-width: 560px) {
+    .btn-group { flex-direction: column; }
+    .step-body { padding: 0; }
+  }
 </style>
-  <link rel="stylesheet" href="theme_professional.css">
-  <link rel="stylesheet" href="course_topics.css">
+<link rel="stylesheet" href="theme_professional.css">
+<link rel="stylesheet" href="course_topics.css">
 </head>
-  <!-- SECTION: BODY (page content) -->
 <body class="course-page course-powerbi">
-<!-- SECTION: HEADER -->
-<header><a href="index.html" aria-label="DataLearn10X Home" class="home-logo"><img src="dl10x.png" alt="DataLearn10X logo"></a><img src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI logo"><h1>Power BI Course</h1><p>Importance, roadmap, resources, pricing</p></header>
+
+<header>
+  <a href="index.html" aria-label="DataLearn10X Home" class="home-logo">
+    <img src="dl10x.png" alt="DataLearn10X logo">
+  </a>
+  <img class="header-icon" src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI logo">
+  <h1>Power BI Course</h1>
+  <div class="header-badge">✅ Recorded Video Course — Enroll Today</div>
+</header>
+
 <div class="wrap">
-<div class="grid">
-<div class="card"><h3>🚀 Why Power BI is Important?</h3><ul><li>Power BI is a standard BI tool used in many companies.</li><li>It helps transform data into business dashboards.</li><li>Essential for Data Analyst and BI interviews.</li></ul></div>
-<div class="card"><h3>📦 What You Will Get</h3><ul><li>📘 PDF Notes</li><li>🎥 Video Lessons</li><li>❓ Interview Questions</li><li>🧪 Practice tasks & projects</li></ul></div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 Why Power BI?</h3>
+      <ul>
+        <li>Most popular BI tool for dashboards &amp; reporting</li>
+        <li>Used by companies for business intelligence decisions</li>
+        <li>Important skill for Data Analyst &amp; BI Developer roles</li>
+        <li>Helps convert raw data into professional insights</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📦 What You Will Get</h3>
+      <ul>
+        <li>📘 Structured PDF Notes</li>
+        <li>🎥 Step-by-step Recorded Video Lessons</li>
+        <li>❓ Interview Questions &amp; Answers</li>
+        <li>🧪 Hands-on Dashboard Practice Projects</li>
+        <li>⚡ Power Query, DAX &amp; Data Modeling Labs</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Power BI Introduction &amp; Setup</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Power BI Desktop</span>
+          <span class="tag">Power BI Service</span>
+          <span class="tag">Report View</span>
+          <span class="tag">Data View</span>
+          <span class="tag">Model View</span>
+          <span class="tag">Workspace Basics</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Start from the basics and understand what Power BI is, where it is used, and how it helps businesses make decisions. You will install <strong>Power BI Desktop</strong>, understand the interface, and learn the difference between <code>Report View</code>, <code>Data View</code>, and <code>Model View</code>. This module makes you comfortable with Power BI before starting real dashboard work.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Import &amp; Source Connections</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Excel</span>
+          <span class="tag data">CSV</span>
+          <span class="tag data">SQL Server</span>
+          <span class="tag data">Web Data</span>
+          <span class="tag data">Folder Import</span>
+          <span class="tag data">Refresh Preview</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn how to connect Power BI with common data sources like <strong>Excel</strong>, <strong>CSV</strong>, folders, web tables, and SQL databases. You will understand how to preview data, select required tables, load data, and avoid common import mistakes. This is important because every dashboard starts with clean and correctly connected data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Power Query — Data Cleaning &amp; ETL</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">Remove Duplicates</span>
+          <span class="tag fn">Split Columns</span>
+          <span class="tag fn">Merge Queries</span>
+          <span class="tag fn">Append Queries</span>
+          <span class="tag fn">Pivot / Unpivot</span>
+          <span class="tag fn">Conditional Column</span>
+          <span class="tag fn">Applied Steps</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Power Query is used to clean and transform data before creating reports. You will remove duplicates, change data types, split columns, merge tables, append files, replace errors, handle null values, and create conditional columns. You will also learn how <code>Applied Steps</code> work so you can edit and troubleshoot transformations professionally.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Modeling &amp; Relationships</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Fact Table</span>
+          <span class="tag data">Dimension Table</span>
+          <span class="tag data">Star Schema</span>
+          <span class="tag data">Relationships</span>
+          <span class="tag data">Cardinality</span>
+          <span class="tag data">Cross Filter Direction</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn how to design a proper data model using <strong>fact tables</strong> and <strong>dimension tables</strong>. You will understand one-to-many relationships, many-to-many problems, active and inactive relationships, cardinality, and cross-filter direction. Strong data modeling is the foundation of accurate Power BI reports and is commonly asked in interviews.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>DAX Basics — Calculated Columns &amp; Measures</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">SUM</span>
+          <span class="tag lib">COUNT</span>
+          <span class="tag lib">AVERAGE</span>
+          <span class="tag lib">DISTINCTCOUNT</span>
+          <span class="tag lib">Calculated Column</span>
+          <span class="tag lib">Measure</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> DAX is the formula language of Power BI. You will learn the difference between <strong>calculated columns</strong> and <strong>measures</strong>, and practise functions like <code>SUM()</code>, <code>COUNT()</code>, <code>AVERAGE()</code>, and <code>DISTINCTCOUNT()</code>. This module helps you create KPIs like total sales, total customers, average profit, and unique orders.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Advanced DAX &amp; Filter Context</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">CALCULATE</span>
+          <span class="tag lib">FILTER</span>
+          <span class="tag lib">ALL</span>
+          <span class="tag lib">SUMX</span>
+          <span class="tag lib">AVERAGEX</span>
+          <span class="tag lib">VAR / RETURN</span>
+          <span class="tag lib">Filter Context</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> This module explains one of the most important Power BI concepts: <strong>filter context</strong>. You will learn how <code>CALCULATE()</code> changes filters, how <code>FILTER()</code> is used for custom conditions, how <code>ALL()</code> removes filters, and how iterator functions like <code>SUMX()</code> work. You will also learn <code>VAR</code> and <code>RETURN</code> to write clean professional DAX.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Time Intelligence in Power BI</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">Date Table</span>
+          <span class="tag fn">YTD</span>
+          <span class="tag fn">QTD</span>
+          <span class="tag fn">MTD</span>
+          <span class="tag fn">SAMEPERIODLASTYEAR</span>
+          <span class="tag fn">DATEADD</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn how to build date-based analysis like month-to-date, quarter-to-date, year-to-date, previous year sales, and period comparisons. You will create a proper <strong>Date Table</strong> and use functions like <code>TOTALYTD()</code>, <code>DATEADD()</code>, and <code>SAMEPERIODLASTYEAR()</code>. Time intelligence is very useful in sales, finance, and business reports.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Charts, Visuals &amp; Report Design</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag oop">Bar Chart</span>
+          <span class="tag oop">Line Chart</span>
+          <span class="tag oop">Matrix</span>
+          <span class="tag oop">Cards</span>
+          <span class="tag oop">Slicers</span>
+          <span class="tag oop">KPIs</span>
+          <span class="tag oop">Conditional Formatting</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn how to select the correct visual for the right business question. You will create bar charts, line charts, cards, KPI visuals, tables, matrix visuals, slicers, and conditional formatting. You will also learn basic report design principles so your dashboards look clean, professional, and easy to understand.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Dashboard Interactivity</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Drill Down</span>
+          <span class="tag data">Drill Through</span>
+          <span class="tag data">Bookmarks</span>
+          <span class="tag data">Buttons</span>
+          <span class="tag data">Page Navigation</span>
+          <span class="tag data">Tooltip Pages</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Make dashboards interactive and user-friendly. You will learn drill down, drill through, bookmarks, buttons, custom tooltip pages, and page navigation. These features help users explore data without confusion and make your report feel like a professional business application.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Power BI Service, Sharing &amp; Refresh</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">Publish Report</span>
+          <span class="tag fn">Workspace</span>
+          <span class="tag fn">Dashboard Pinning</span>
+          <span class="tag fn">Scheduled Refresh</span>
+          <span class="tag fn">Gateway Basics</span>
+          <span class="tag fn">Sharing</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn what happens after building a report. You will publish reports to <strong>Power BI Service</strong>, understand workspaces, dashboards, refresh settings, sharing options, and gateway basics. This module helps you understand how Power BI is used in companies after development is complete.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">11</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>End-to-End Dashboard Projects</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">Sales Dashboard</span>
+          <span class="tag lib">HR Dashboard</span>
+          <span class="tag lib">Finance Dashboard</span>
+          <span class="tag lib">KPI Dashboard</span>
+          <span class="tag lib">Data Cleaning</span>
+          <span class="tag lib">Business Insights</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Bring all your skills together by building complete dashboards. You will clean data, create relationships, write measures, design visuals, and present insights. Projects may include <strong>Sales Dashboard</strong>, <strong>HR Dashboard</strong>, and <strong>Finance Dashboard</strong>. These projects help you build confidence and portfolio-ready work.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-num">12</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Power BI Interview Questions &amp; Career Preparation</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Top Interview Questions</span>
+          <span class="tag data">DAX Questions</span>
+          <span class="tag data">Power Query Questions</span>
+          <span class="tag oop">Data Modeling Questions</span>
+          <span class="tag oop">Dashboard Explanation</span>
+          <span class="tag oop">Resume Tips</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Prepare for Power BI interviews with important questions on Power Query, DAX, data modeling, relationships, visuals, and Power BI Service. You will also learn how to explain your dashboard projects clearly, how to describe business insights, and what Power BI skills to highlight on your resume.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-heading">💰 Course Pricing</div>
+  <div class="price-card">
+    <h3>Choose Your Plan</h3>
+    <p class="mrp">MRP ₹2,500</p>
+    <p class="offer">Offer ₹99</p>
+    <p class="mrp" style="margin-top:10px">Combo MRP ₹10,999</p>
+    <p class="offer">Combo Offer ₹0 <span style="font-size:0.85rem;color:#b77900;font-weight:500">(Limited-time offer)</span></p>
+    <div class="btn-group">
+      <a class="btn" href="index.html?add=Power%20BI#buy-section">Buy Power BI — ₹99</a>
+      <a class="btn blue" href="index.html?add=Data%20Analytics%20Combo#buy-section">Buy Combo (₹0)</a>
+      <a class="btn dark" href="check_email.html">Already Purchased?</a>
+      <a class="btn dark" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
 </div>
-<div class="card" style="margin-top:14px"><h3>🗺️ Complete Roadmap</h3><div class="step"><b>Step 1:</b> Power BI Basics</div><div class="step"><b>Step 2:</b> Power Query</div><div class="step"><b>Step 3:</b> Data Modeling</div><div class="step"><b>Step 4:</b> DAX Measures</div><div class="step"><b>Step 5:</b> Dashboard Project</div><div class="step"><b>Step 6:</b> Interview Questions</div></div>
-<div class="card" style="margin-top:14px"><h3>💰 Price</h3><p class="mrp">MRP ₹2500</p><p class="offer">Offer ₹99</p><p class="mrp">Combo MRP ₹10,999</p><p class="offer">Combo Offer ₹0 (Limited-time offer)</p>
-<a class="btn" href="index.html?add=Power%20BI#buy-section">Buy Power BI</a>
-<a class="btn" href="index.html?add=Data%20Analytics%20Combo#buy-section">Buy Combo (₹0)</a>
-<a class="btn dark" href="check_email.html">Already Purchased?</a>
-<a class="btn dark" href="index.html">← Back to Home</a></div>
-</div>
-<!-- SECTION: FOOTER -->
-<footer>© 2026 DataLearn10X</footer>
-<script>PSAAnalytics.trackEvent('course_page_viewed',{course:'Power BI'});</script>
+
+<footer>
+  © 2026 <strong>DataLearn10X</strong> &nbsp;|&nbsp; <a href="index.html">Home</a>
+</footer>
+
+<script>
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'Power BI' });
+  }
+
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var body = header.closest('.step-body');
+      body.classList.toggle('open');
+    });
+  });
+</script>
 <script src="course_topics.js" defer></script>
 </body>
 </html>
