@@ -1,40 +1,718 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
 <meta charset="UTF-8">
 <title>Advance Excel Course - DataLearn10X</title>
 <link rel="icon" type="image/png" href="dl10x.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Master Advance Excel with practical lessons, projects, and interview preparation at DataLearn10X.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Master Advance Excel with recorded sessions, hands-on projects, dashboard building, and interview preparation at DataLearn10X.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js" defer></script>
 <script src="analytics.js" defer></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Poppins',sans-serif;background:#f4f7fc;color:#1f2f46}header{position:relative;padding:52px 14px;color:#fff;text-align:center;background:linear-gradient(135deg,#081221,#173a64,#2563eb)}header .home-logo{position:absolute;top:12px;left:12px;display:inline-block}header .home-logo img{height:34px;width:auto;display:block}header img{width:84px;height:84px;object-fit:contain}.wrap{max-width:1000px;margin:auto;padding:24px 14px 45px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.08)}ul{text-align:left;padding-left:20px;line-height:1.7}.step{background:#eef3ff;border-left:4px solid #4f79ff;border-radius:8px;padding:10px;margin:8px 0}.mrp{text-decoration:line-through;color:#777}.offer{color:#15803d;font-weight:700;font-size:26px}.btn{display:inline-block;margin:8px 8px 0 0;text-decoration:none;color:#fff;background:#16a34a;padding:10px 16px;border-radius:22px}.btn.dark{background:#1f3b78}footer{text-align:center;font-size:13px;color:#566;padding:20px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: #f0f4fb; color: #1f2f46; }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 56px 20px 52px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #071a0b, #145c2d, #1d8c45);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 42px;
+    background: #f0f4fb;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo { position: absolute; top: 16px; left: 16px; }
+  .home-logo img { height: 36px; width: auto; display: block; }
+
+  .status-pill-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 50px;
+    padding: 5px 14px;
+    font-size: 12.5px;
+    font-weight: 500;
+    backdrop-filter: blur(6px);
+    margin-bottom: 14px;
+  }
+  .dot-live {
+    width: 8px; height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 0 0 rgba(74,222,128,0.5);
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.6); }
+    70%  { box-shadow: 0 0 0 7px rgba(74,222,128,0); }
+    100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  }
+
+  .header-icon {
+    width: 90px; height: 90px;
+    object-fit: contain;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    padding: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  header p.sub { font-size: 0.9rem; opacity: 0.82; margin-bottom: 14px; }
+
+  .header-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px; }
+  .hbadge {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 4px 13px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .hbadge.rec   { background: #f97316; color: #fff; }
+  .hbadge.info  { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width: 1060px; margin: auto; padding: 36px 16px 60px; }
+
+  /* ── CARDS ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: #163d1c; }
+  .card ul { padding-left: 18px; line-height: 1.9; font-size: 0.91rem; color: #374151; }
+
+  /* Value highlight card */
+  .value-card {
+    background: linear-gradient(135deg, #071a0b 0%, #145c2d 50%, #1d8c45 100%);
+    border-radius: 16px;
+    padding: 24px 28px;
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(29,140,69,0.28);
+    margin-bottom: 20px;
+  }
+  .value-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; }
+  .value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .value-item {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    padding: 14px 16px;
+    backdrop-filter: blur(4px);
+  }
+  .value-item .vi-icon  { font-size: 1.5rem; margin-bottom: 6px; }
+  .value-item .vi-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 3px; }
+  .value-item .vi-desc  { font-size: 0.78rem; opacity: 0.82; line-height: 1.5; }
+
+  /* Session badge */
+  .session-badge {
+    display: inline-block;
+    background: #fff7ed; color: #c2410c;
+    border: 1px solid #fed7aa;
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-size: 0.78rem; font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-heading {
+    font-size: 1.25rem; font-weight: 700; color: #163d1c;
+    margin: 32px 0 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-heading::after {
+    content: ''; flex: 1; height: 2px;
+    background: linear-gradient(90deg, #1d8c4533, transparent);
+    border-radius: 2px;
+  }
+
+  /* ── ROADMAP ── */
+  .roadmap { display: flex; flex-direction: column; }
+  .roadmap-item { display: flex; position: relative; }
+  .roadmap-item:not(:last-child) .step-line {
+    position: absolute;
+    left: 22px; top: 46px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #1d8c4544, #1d8c4510);
+    z-index: 0;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #145c2d, #1d8c45);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(29,140,69,0.35);
+    position: relative; z-index: 1; margin-top: 2px;
+  }
+  .step-body {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    margin: 0 0 14px 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-left: 3px solid #1d8c45;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-body:hover { box-shadow: 0 6px 22px rgba(29,140,69,0.13); }
+
+  .step-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer; user-select: none; gap: 10px;
+  }
+  .step-header h4 { font-size: 0.96rem; font-weight: 600; color: #163d1c; margin: 0; flex: 1; }
+
+  .chevron {
+    width: 24px; height: 24px; flex-shrink: 0;
+    background: #ecfdf5;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s ease, background 0.2s;
+  }
+  .chevron svg {
+    width: 13px; height: 13px;
+    stroke: #1d8c45; fill: none;
+    stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+  .step-body.open .chevron { transform: rotate(180deg); background: #1d8c45; }
+  .step-body.open .chevron svg { stroke: #fff; }
+
+  .step-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 0 20px;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.45s ease, padding 0.25s ease;
+  }
+  .step-body.open .step-tags { max-height: 800px; padding: 0 20px 20px; }
+
+  .step-desc {
+    width: 100%;
+    font-size: 0.82rem; color: #4b5563; line-height: 1.7;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .step-desc strong { color: #163d1c; font-weight: 600; }
+  .step-desc code {
+    background: #ecfdf5; color: #15803d;
+    border-radius: 4px; padding: 1px 6px;
+    font-size: 0.79rem; font-family: 'Courier New', monospace;
+    border: 1px solid #bbf7d0;
+  }
+  .rec-note {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #fff7ed; color: #c2410c;
+    border: 1px solid #fed7aa; border-radius: 6px;
+    padding: 3px 10px; font-size: 0.78rem; font-weight: 600;
+    margin-top: 8px;
+  }
+
+  /* Tags */
+  .tag      { display: inline-block; background: #ecfdf5; color: #15803d; border-radius: 6px; padding: 3px 10px; font-size: 0.77rem; font-weight: 500; border: 1px solid #bbf7d0; }
+  .tag.form { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .tag.piv  { background: #eef3ff; color: #2563eb; border-color: #dbeafe; }
+  .tag.adv  { background: #fdf4ff; color: #7e22ce; border-color: #e9d5ff; }
+  .tag.data { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+
+  /* ── PRICING ── */
+  .price-card {
+    background: linear-gradient(135deg, #f0fdf4, #f8fff9);
+    border: 2px solid #86efac;
+    border-radius: 18px;
+    padding: 26px 28px;
+    box-shadow: 0 6px 22px rgba(22,163,74,0.12);
+    margin-top: 8px;
+  }
+  .price-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 18px; color: #163d1c; }
+  .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .price-block {
+    background: #fff; border-radius: 12px; padding: 14px 16px;
+    border: 1px solid #d1fae5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .plan-name { font-size: 0.82rem; font-weight: 600; color: #6b7280; margin-bottom: 4px; }
+  .mrp   { text-decoration: line-through; color: #9ca3af; font-size: 0.85rem; }
+  .offer { color: #15803d; font-weight: 700; font-size: 1.6rem; line-height: 1.2; }
+  .offer-note  { font-size: 0.75rem; color: #6b7280; margin-top: 2px; }
+  .combo-badge { display: inline-block; background: #dcfce7; color: #15803d; border-radius: 4px; padding: 1px 7px; font-size: 0.72rem; font-weight: 700; margin-left: 4px; }
+
+  .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-block; text-decoration: none; color: #fff;
+    background: #16a34a;
+    padding: 11px 20px; border-radius: 50px;
+    font-size: 0.86rem; font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn:hover { background: #15803d; transform: translateY(-1px); }
+  .btn.blue  { background: #2563eb; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+  .btn.blue:hover { background: #1d4ed8; }
+  .btn.dark  { background: #1f3b78; box-shadow: 0 4px 12px rgba(31,59,120,0.25); }
+  .btn.dark:hover { background: #162f62; }
+
+  /* ── STATUS CARD ── */
+  .status-card {
+    background: linear-gradient(135deg, #071a0b, #145c2d);
+    border-radius: 18px;
+    padding: 28px 30px;
+    color: #fff;
+    margin-top: 28px;
+    box-shadow: 0 8px 28px rgba(7,26,11,0.3);
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .status-text { flex: 1; min-width: 240px; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(74,222,128,0.15);
+    border: 1px solid rgba(74,222,128,0.4);
+    border-radius: 50px;
+    padding: 4px 13px; font-size: 12px; font-weight: 600; color: #4ade80;
+    margin-bottom: 10px;
+  }
+  .status-text h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+  .status-text p  { font-size: 0.88rem; opacity: 0.85; line-height: 1.6; margin-bottom: 16px; }
+  .status-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .status-actions .btn { padding: 10px 20px; font-size: 0.84rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; font-size: 13px; color: #6b7280;
+    padding: 28px 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff; margin-top: 40px;
+  }
+  footer a { color: #1d8c45; text-decoration: none; }
+
+  @media (max-width: 580px) {
+    .price-row { grid-template-columns: 1fr; }
+    .btn-group  { flex-direction: column; }
+    .status-card { flex-direction: column; gap: 16px; padding: 22px 20px; }
+  }
 </style>
-  <link rel="stylesheet" href="theme_professional.css">
-  <link rel="stylesheet" href="course_topics.css">
+<link rel="stylesheet" href="theme_professional.css">
+<link rel="stylesheet" href="course_topics.css">
 </head>
-  <!-- SECTION: BODY (page content) -->
 <body class="course-page course-excel">
-<!-- SECTION: HEADER -->
-<header><a href="index.html" aria-label="DataLearn10X Home" class="home-logo"><img src="dl10x.png" alt="DataLearn10X logo"></a><img src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="Advance Excel logo"><h1>Advance Excel Course</h1><p>Importance, roadmap, resources, pricing</p></header>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" aria-label="DataLearn10X Home" class="home-logo">
+    <img src="dl10x.png" alt="DataLearn10X logo">
+  </a>
+  <div class="status-pill-header"><span class="dot-live"></span> Live Now — Enroll Today</div>
+  <br>
+  <img class="header-icon" src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="Advance Excel logo">
+  <h1>Advance Excel Course</h1>
+  <p class="sub">From Basics to Dashboards — Build Real Analyst Skills</p>
+  <div class="header-badges">
+    <span class="hbadge rec">🎬 Recorded Sessions Available</span>
+    <span class="hbadge info">💰 Starts at just ₹49</span>
+    <span class="hbadge info">📊 Dashboard Building Included</span>
+  </div>
+</header>
+
 <div class="wrap">
-<div class="grid">
-<div class="card"><h3>🚀 Why Advance Excel is Important?</h3><ul><li>Excel is required in operations, MIS, finance, and analyst roles.</li><li>Advance Excel speeds up reporting and reduces manual effort.</li><li>Great starting point for data analyst journey.</li></ul></div>
-<div class="card"><h3>📦 What You Will Get</h3><ul><li>📘 PDF Notes</li><li>🎥 Video Lessons</li><li>❓ Interview Questions</li><li>🧪 Practice tasks & projects</li></ul></div>
-</div>
-<div class="card" style="margin-top:14px"><h3>🗺️ Complete Roadmap</h3><div class="step"><b>Step 1:</b> Excel Basics Refresh</div><div class="step"><b>Step 2:</b> Advanced Formulas</div><div class="step"><b>Step 3:</b> Data Cleaning</div><div class="step"><b>Step 4:</b> Pivot & Dashboards</div><div class="step"><b>Step 5:</b> Power Query</div><div class="step"><b>Step 6:</b> Interview Questions</div></div>
-<div class="card" style="margin-top:14px"><h3>💰 Price</h3><p class="mrp">MRP ₹999</p><p class="offer">Offer ₹49</p><p class="mrp">Combo MRP ₹10,999</p><p class="offer">Combo Offer ₹0 (Limited-time offer)</p>
-<a class="btn" href="index.html?add=Advance%20Excel#buy-section">Buy Advance Excel</a>
-<a class="btn" href="index.html?add=Data%20Analytics%20Combo#buy-section">Buy Combo (₹0)</a>
-<a class="btn dark" href="check_email.html">Already Purchased?</a>
-<a class="btn dark" href="index.html">← Back to Home</a></div>
-</div>
-<!-- SECTION: FOOTER -->
-<footer>© 2026 DataLearn10X</footer>
-<script>PSAAnalytics.trackEvent('course_page_viewed',{course:'Advance Excel'});</script>
+
+  <!-- VALUE PROPOSITION -->
+  <div class="value-card">
+    <h3>🏆 Why This Course is Different</h3>
+    <div class="value-grid">
+      <div class="value-item">
+        <div class="vi-icon">🎬</div>
+        <div class="vi-title">Recorded Video Sessions</div>
+        <div class="vi-desc">Every session is recorded — watch, pause, and re-watch at your own pace. No need to rush. Learn when it suits you.</div>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon">💰</div>
+        <div class="vi-title">Market's Lowest Price</div>
+        <div class="vi-desc">Full Advance Excel course at just ₹49. Excel coaching classes charge ₹8,000–₹20,000 for the same content. Save 99%.</div>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon">📊</div>
+        <div class="vi-title">Dashboard & MIS Focused</div>
+        <div class="vi-desc">Every topic is taught with real MIS, reporting, and analyst tasks in mind — Pivot Tables, dashboards, Power Query, and more.</div>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon">💼</div>
+        <div class="vi-title">Interview Ready</div>
+        <div class="vi-desc">Excel interview Q&amp;A for every module. Practise the exact questions asked in MIS, operations, and analyst job interviews.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP INFO CARDS -->
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 Why Advance Excel?</h3>
+      <ul>
+        <li>Required skill in MIS, Finance, Operations &amp; Analyst roles</li>
+        <li>Used daily at every company regardless of size or industry</li>
+        <li>Reduces manual work by 80% — dashboards refresh in one click</li>
+        <li>Best entry point into the data analytics career path</li>
+        <li>Pairs directly with Python, SQL &amp; Tableau for full analytics stack</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📦 What You Will Get</h3>
+      <div class="session-badge">🎬 Recorded Sessions — Watch Anytime</div>
+      <ul>
+        <li>🎬 Full recorded video sessions for every module</li>
+        <li>📘 Structured PDF notes for offline revision</li>
+        <li>📊 Downloadable Excel practice files with real data</li>
+        <li>🧪 Hands-on tasks after every module</li>
+        <li>❓ Module-wise interview questions &amp; answers</li>
+        <li>🖥️ Full dashboard &amp; MIS reporting project</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+
+    <!-- MODULE 1 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Excel Basics Refresh</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Workbook &amp; Worksheet Navigation</span>
+          <span class="tag">Cell References — Relative, Absolute ($), Mixed</span>
+          <span class="tag">Number Formatting</span>
+          <span class="tag">Keyboard Shortcuts</span>
+          <span class="tag">Named Ranges</span>
+          <span class="tag">Paste Special</span>
+          <span class="tag">Freeze Panes &amp; Split View</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Before jumping into advanced features, you'll nail the fundamentals that most people never truly master. The most important concept here is <strong>cell references</strong>: <strong>Relative</strong> references (like <code>A1</code>) shift automatically when you copy a formula — so <code>=A1+B1</code> becomes <code>=A2+B2</code> when pasted down. <strong>Absolute</strong> references (like <code>$A$1</code>) are locked and never change — use this when a formula always needs to refer to a fixed cell like a tax rate or target value. <strong>Mixed</strong> references lock only the row (<code>A$1</code>) or only the column (<code>$A1</code>). Getting this right eliminates 90% of formula errors. You'll also learn the most valuable <strong>keyboard shortcuts</strong> that save hours every week: <code>Ctrl+Shift+End</code> to jump to the last used cell, <code>Ctrl+D</code> to fill down, <code>Alt+E+S</code> for Paste Special. <strong>Named Ranges</strong> let you refer to a range by name — e.g. write <code>=SUM(Sales)</code> instead of <code>=SUM(B2:B200)</code> — making formulas readable and easier to maintain.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 2 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Lookup &amp; Reference Formulas</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag form">VLOOKUP</span>
+          <span class="tag form">HLOOKUP</span>
+          <span class="tag form">INDEX + MATCH</span>
+          <span class="tag form">XLOOKUP (Excel 365)</span>
+          <span class="tag form">CHOOSE</span>
+          <span class="tag form">INDIRECT</span>
+          <span class="tag form">OFFSET</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Lookup formulas are the most tested Excel skill in every analyst interview. <strong>VLOOKUP</strong> searches a value in the first column of a table and returns a value from another column — e.g. look up Employee ID and return their Department. Common traps: the lookup column must be the leftmost column, and always use <code>FALSE</code> as the 4th argument for exact match. <strong>INDEX + MATCH</strong> is the professional upgrade — it can look left, right, and doesn't break when you insert columns. <code>=INDEX(result_column, MATCH(lookup_value, lookup_column, 0))</code> — learn this and you'll always be the smartest person in the room. <strong>XLOOKUP</strong> (available in Excel 365) replaces both VLOOKUP and HLOOKUP with a cleaner, more powerful syntax. <strong>INDIRECT</strong> converts a text string into a cell reference — powerful for dynamic dashboards where the sheet name changes. <strong>OFFSET</strong> returns a range that shifts by a specified number of rows and columns — used in dynamic charts.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 3 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Logical &amp; Conditional Formulas</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag form">IF</span>
+          <span class="tag form">Nested IF</span>
+          <span class="tag form">IFS (Excel 2019+)</span>
+          <span class="tag form">SUMIF &amp; SUMIFS</span>
+          <span class="tag form">COUNTIF &amp; COUNTIFS</span>
+          <span class="tag form">AVERAGEIF &amp; AVERAGEIFS</span>
+          <span class="tag form">AND, OR, NOT</span>
+          <span class="tag form">IFERROR &amp; IFNA</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> These formulas add intelligence to your spreadsheets. <strong>IF</strong> is the most used formula in Excel: <code>=IF(score&gt;=60, "Pass", "Fail")</code>. <strong>Nested IF</strong> handles multiple conditions: <code>=IF(score&gt;=90,"A", IF(score&gt;=75,"B","C"))</code> — but with more than 3 levels, use <strong>IFS</strong> instead, which is much cleaner. <strong>SUMIF</strong> adds only the rows that meet a condition — e.g. total sales for a specific region: <code>=SUMIF(region_col,"North",sales_col)</code>. <strong>SUMIFS</strong> supports multiple conditions. <strong>COUNTIF</strong> counts matching rows — e.g. how many employees are in "HR"? <strong>COUNTIFS</strong> adds multiple criteria. These are used in almost every MIS report and dashboard. <strong>IFERROR</strong> silences error messages — wrap any formula with <code>=IFERROR(your_formula, "Not Found")</code> so your reports look clean even when lookups fail.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 4 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Date, Time &amp; Text Functions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">TODAY() &amp; NOW()</span>
+          <span class="tag">DATE, YEAR, MONTH, DAY</span>
+          <span class="tag">DATEDIF — Age &amp; Tenure</span>
+          <span class="tag">EOMONTH &amp; WORKDAY</span>
+          <span class="tag">TEXT() — Format as String</span>
+          <span class="tag">LEFT, RIGHT, MID</span>
+          <span class="tag">LEN, FIND, SEARCH</span>
+          <span class="tag">TRIM, CLEAN, PROPER</span>
+          <span class="tag">CONCATENATE &amp; TEXTJOIN</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Date and text operations are used in every HR report, attendance tracker, and MIS file. <strong>Date functions:</strong> <code>TODAY()</code> returns today's date dynamically — use <code>=TODAY()-B2</code> to calculate how many days since an order. <code>DATEDIF(start, end, "Y")</code> calculates the age or tenure of an employee in years. <code>EOMONTH</code> returns the last day of the month — essential for finance reports. <code>WORKDAY</code> adds business days (skipping weekends) — used in project timelines. <strong>Text functions:</strong> <code>LEFT(cell, n)</code>, <code>RIGHT(cell, n)</code>, <code>MID(cell, start, n)</code> extract specific characters — e.g. extract the year from "INV-2024-001". <code>TRIM()</code> removes extra spaces from imported data (a lifesaver for cleaning messy reports). <code>PROPER()</code> fixes inconsistent capitalisation. <code>TEXTJOIN</code> joins multiple cells with a separator — far better than the old concatenate approach.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 5 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Cleaning &amp; Validation</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Remove Duplicates</span>
+          <span class="tag data">Find &amp; Replace (Wildcards)</span>
+          <span class="tag data">Text to Columns</span>
+          <span class="tag data">Flash Fill</span>
+          <span class="tag data">Data Validation — Dropdown Lists</span>
+          <span class="tag data">Data Validation — Custom Rules</span>
+          <span class="tag data">Conditional Formatting</span>
+          <span class="tag data">Go To Special — Blanks &amp; Errors</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Raw data from systems is always messy — cleaning it efficiently is what separates junior and senior analysts. <strong>Remove Duplicates</strong> is a one-click tool to eliminate repeated rows — but you'll learn how to identify duplicates with COUNTIF first so you can review before deleting. <strong>Text to Columns</strong> splits a single column into multiple — e.g. split "Rahul, 25, Mumbai" into three separate columns. <strong>Flash Fill</strong> (Ctrl+E) is Excel's AI — show it a pattern once and it fills the rest automatically. <strong>Data Validation</strong> creates dropdown lists so users can only select valid values — critical for any shared MIS file. Custom validation rules prevent invalid entries like negative salaries or future dates. <strong>Conditional Formatting</strong> highlights cells automatically based on rules — e.g. colour all sales below target in red, top 10 values in green, duplicate values in yellow. <strong>Go To Special</strong> selects only blank cells, only formulas, or only constants in one step — essential for bulk editing large datasets.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 6 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Pivot Tables &amp; Pivot Charts</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag piv">Creating Pivot Tables</span>
+          <span class="tag piv">Rows, Columns, Values, Filters</span>
+          <span class="tag piv">Calculated Fields</span>
+          <span class="tag piv">Grouping — Dates &amp; Numbers</span>
+          <span class="tag piv">Show Values As — % of Total, Running Total</span>
+          <span class="tag piv">Slicers &amp; Timelines</span>
+          <span class="tag piv">Pivot Charts</span>
+          <span class="tag piv">Refreshing &amp; Data Source Update</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Pivot Tables are the most powerful feature in Excel — and the most asked-about topic in analyst interviews. A Pivot Table can summarise 100,000 rows of data in seconds with zero formulas. You drag fields into Rows, Columns, Values, and Filters — and Excel instantly produces a summary. You'll learn to <strong>group dates</strong> by month, quarter, or year — so a daily sales table becomes a monthly summary in two clicks. <strong>Calculated Fields</strong> let you add custom formulas inside the pivot — e.g. calculate profit margin as % without modifying the source data. <strong>Show Values As</strong> lets you display numbers as % of row total, % of column total, or running totals — essential for performance dashboards. <strong>Slicers</strong> are visual filter buttons that make your report interactive — click "North" and every pivot on the page updates instantly. <strong>Timelines</strong> are slicers specifically for date fields. Connect multiple pivot tables to one slicer and build a fully interactive management dashboard.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 7 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Charts &amp; Interactive Dashboards</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag piv">Column &amp; Bar Charts</span>
+          <span class="tag piv">Line Charts — Trend Analysis</span>
+          <span class="tag piv">Pie &amp; Donut Charts</span>
+          <span class="tag piv">Combo Charts (Bar + Line)</span>
+          <span class="tag piv">Sparklines</span>
+          <span class="tag piv">Dynamic Chart with Dropdowns</span>
+          <span class="tag piv">Dashboard Layout &amp; Design</span>
+          <span class="tag piv">KPI Cards with Shapes</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> A well-designed dashboard turns raw numbers into decisions. You'll build every chart type needed in business reporting: <strong>Column charts</strong> for monthly comparisons, <strong>Line charts</strong> for trends, <strong>Pie/Donut charts</strong> for proportions, and <strong>Combo charts</strong> that overlay a bar chart with a line chart on a secondary axis — e.g. show Sales (bars) and Profit % (line) together. <strong>Sparklines</strong> are mini charts inside a single cell — perfect for showing trends inline in a table. You'll build a <strong>Dynamic Chart</strong> that changes based on a dropdown selection using INDIRECT and named ranges — this is the most impressive Excel skill to show in an interview. Then you'll design a complete <strong>MIS Dashboard</strong> from scratch: arrange charts, add KPI summary cards using shapes and linked cells, apply a professional colour scheme, and lock the layout so stakeholders can interact but not accidentally break it.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 8 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Power Query — Automate Data Import &amp; Transformation</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag adv">Connect to CSV, Excel, Web</span>
+          <span class="tag adv">Remove Columns &amp; Filter Rows</span>
+          <span class="tag adv">Split Column &amp; Replace Values</span>
+          <span class="tag adv">Merge Queries — JOIN Tables</span>
+          <span class="tag adv">Append Queries — Stack Tables</span>
+          <span class="tag adv">Group By — Summarise Data</span>
+          <span class="tag adv">Unpivot Columns</span>
+          <span class="tag adv">Refresh All — One-Click Update</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Power Query is the biggest productivity upgrade in Excel in 20 years — and most Excel users don't know it exists. Instead of manually cleaning data every month, you build a transformation pipeline once and click <strong>Refresh All</strong> every month — Power Query re-applies every step automatically. Connect to <strong>CSV files, Excel workbooks, folders full of files, or websites</strong> as your data source. Transform the data: remove unwanted columns, filter rows, split columns, replace values, and change data types. <strong>Merge Queries</strong> is Power Query's version of VLOOKUP — join two tables by a common column (like a SQL JOIN) without any formula. <strong>Append Queries</strong> stacks multiple tables vertically — e.g. combine 12 monthly sales files into one table instantly. <strong>Unpivot</strong> converts wide (crosstab) tables into long (flat) tables — essential for feeding data into Pivot Tables or Power BI. Power Query alone can save 5–10 hours of manual work per week.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 9 -->
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Macros &amp; VBA Basics — Automate Repetitive Tasks</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag adv">Record Macro</span>
+          <span class="tag adv">Run &amp; Assign Macro to Button</span>
+          <span class="tag adv">VBA Editor (Alt+F11)</span>
+          <span class="tag adv">Sub &amp; End Sub</span>
+          <span class="tag adv">Variables &amp; MsgBox</span>
+          <span class="tag adv">Loops — For Each Row</span>
+          <span class="tag adv">If Condition in VBA</span>
+          <span class="tag adv">Automate Formatting &amp; Copy-Paste</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Macros let you record a sequence of actions in Excel and replay them instantly with one click or button press. <strong>Record Macro</strong> captures everything you do — formatting, filtering, copying, pasting — and plays it back every time without you repeating the steps. You'll then open the <strong>VBA Editor</strong> (<code>Alt+F11</code>) to see the auto-generated code and make small edits to make it smarter. You'll write basic VBA: <code>Sub</code> defines a macro, <code>MsgBox</code> shows a pop-up message, variables store values, <code>For Each</code> loops process every row in a table. You'll use VBA to <strong>automate formatting</strong> (apply colour based on value), <strong>automate copy-paste</strong> (copy filtered data to a new sheet), and <strong>create a one-click report generator</strong>. You don't need to become a programmer — just enough VBA to automate your most repetitive Excel tasks saves you hours every week.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 10 -->
+    <div class="roadmap-item">
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>MIS Dashboard Project &amp; Interview Preparation</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Project: Full MIS Sales Dashboard</span>
+          <span class="tag">Project: HR Attendance Tracker</span>
+          <span class="tag">Project: Automated Monthly Report</span>
+          <span class="tag form">Top 50 Excel Interview Questions</span>
+          <span class="tag form">VLOOKUP vs INDEX-MATCH — When to Use Which</span>
+          <span class="tag form">Pivot Table Scenario Questions</span>
+          <span class="tag form">What is Power Query vs VLOOKUP?</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Bring all skills together through three portfolio-ready real-world projects. <strong>Project 1 — MIS Sales Dashboard:</strong> Start with raw monthly sales data in a messy CSV, clean it with Power Query, build multiple pivot tables (by region, product, salesperson), create interactive charts with slicers, and design a professional KPI dashboard — exactly what MIS analysts do every day. <strong>Project 2 — HR Attendance Tracker:</strong> Use COUNTIF formulas to calculate present/absent days, DATEDIF for tenure, conditional formatting for leave alerts, and a summary pivot for the HR manager. <strong>Project 3 — Automated Monthly Report:</strong> Use Power Query + a Macro to refresh data from a folder, update all pivots, and produce a formatted report sheet — all with one button click. For <strong>interview preparation</strong>, you'll practise the 50 most common Excel questions: VLOOKUP limitations and how INDEX-MATCH solves them, how to handle errors in formulas, difference between SUMIF and SUMPRODUCT, what Power Query is and when to use it vs formulas — so you walk into every Excel interview with complete confidence.
+            <br><span class="rec-note">🎬 Recorded session available — watch at your own pace</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /roadmap -->
+
+  <!-- PRICING -->
+  <div class="section-heading">💰 Course Pricing</div>
+  <div class="price-card">
+    <h3>💡 Best Value in the Market — Master Excel at a Fraction of the Cost</h3>
+    <div class="price-row">
+      <div class="price-block">
+        <div class="plan-name">📊 Advance Excel Only</div>
+        <p class="mrp">MRP ₹999</p>
+        <p class="offer">₹49</p>
+        <p class="offer-note">One-time payment · Lifetime access</p>
+      </div>
+      <div class="price-block">
+        <div class="plan-name">🎯 Data Analytics Combo <span class="combo-badge">BEST DEAL</span></div>
+        <p class="mrp">MRP ₹10,999</p>
+        <p class="offer">₹0</p>
+        <p class="offer-note">Limited-time offer · Excel + Python + SQL + Tableau</p>
+      </div>
+    </div>
+    <div class="btn-group">
+      <a class="btn" href="index.html?add=Advance%20Excel#buy-section">Buy Advance Excel — ₹49</a>
+      <a class="btn blue" href="index.html?add=Data%20Analytics%20Combo#buy-section">Get Combo FREE →</a>
+      <a class="btn dark" href="check_email.html">Already Purchased?</a>
+      <a class="btn dark" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
+  <!-- STATUS CARD -->
+  <div class="status-card">
+    <div class="status-text">
+      <div class="status-pill"><span class="dot-live"></span> Live Now</div>
+      <h3>Start Learning Advance Excel Today</h3>
+      <p>Get instant access to all 10 modules with <strong>recorded video sessions</strong> — watch at your own pace, rewind and re-watch as many times as you need. Includes PDF notes, downloadable practice files, a full MIS dashboard project, and interview Q&amp;A. At just ₹49, there is no cheaper or more practical way to master Advance Excel for analyst roles in India.</p>
+      <div class="status-actions">
+        <a class="btn" href="index.html?add=Advance%20Excel#buy-section">Enroll for ₹49 →</a>
+        <a class="btn blue" href="index.html?add=Data%20Analytics%20Combo#buy-section">Get Full Combo FREE</a>
+        <a class="btn dark" href="index.html">← Home</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer>
+  © 2026 <strong>DataLearn10X</strong> &nbsp;|&nbsp;
+  <a href="index.html">Home</a> &nbsp;|&nbsp;
+  <a href="python-course.html">Python Course</a> &nbsp;|&nbsp;
+  <a href="sql-course.html">SQL Course</a> &nbsp;|&nbsp;
+  <a href="tableau-course.html">Tableau Course</a>
+</footer>
+
+<script>
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'Advance Excel' });
+  }
+
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      header.closest('.step-body').classList.toggle('open');
+    });
+  });
+</script>
 <script src="course_topics.js" defer></script>
 </body>
 </html>
