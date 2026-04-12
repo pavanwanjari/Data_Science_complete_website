@@ -1,36 +1,683 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
 <meta charset="UTF-8">
 <title>Tableau Course - DataLearn10X</title>
 <link rel="icon" type="image/png" href="dl10x.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Learn Tableau data visualization, dashboard design, and storytelling with practical exercises.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js" defer></script>
 <script src="analytics.js" defer></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Poppins',sans-serif;background:#f4f7fc;color:#1f2f46}header{position:relative;padding:52px 14px;color:#fff;text-align:center;background:linear-gradient(135deg,#081221,#173a64,#2563eb)}header .home-logo{position:absolute;top:12px;left:12px;display:inline-block}header .home-logo img{height:34px;width:auto;display:block}header img{width:84px;height:84px;object-fit:contain}.wrap{max-width:1000px;margin:auto;padding:24px 14px 45px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.08)}ul{text-align:left;padding-left:20px;line-height:1.7}.step{background:#eef3ff;border-left:4px solid #4f79ff;border-radius:8px;padding:10px;margin:8px 0}.mrp{text-decoration:line-through;color:#777}.offer{color:#15803d;font-weight:700;font-size:26px}.btn{display:inline-block;margin:8px 8px 0 0;text-decoration:none;color:#fff;background:#16a34a;padding:10px 16px;border-radius:22px}.btn.dark{background:#1f3b78}footer{text-align:center;font-size:13px;color:#566;padding:20px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f0f4fb;
+    color: #1f2f46;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    padding: 60px 20px 48px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #060e1c 0%, #0f2a52 45%, #1a4ba8 100%);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #f0f4fb;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+  .home-logo img { height: 36px; width: auto; display: block; }
+
+  .header-icon {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.12);
+    padding: 8px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(6px);
+  }
+
+  /* LAYOUT */
+  .wrap {
+    max-width: 1060px;
+    margin: auto;
+    padding: 36px 16px 60px;
+  }
+
+  /* TOP CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1a3060;
+  }
+  .card ul {
+    padding-left: 18px;
+    line-height: 1.85;
+    font-size: 0.92rem;
+    color: #374151;
+  }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0f2a52;
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #2563eb22, transparent);
+    border-radius: 2px;
+  }
+
+  /* ROADMAP */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  .roadmap-item:not(:last-child) .step-line {
+    position: absolute;
+    left: 22px;
+    top: 46px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #2563eb40, #2563eb10);
+    z-index: 0;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #1a4ba8, #2563eb);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+    position: relative;
+    z-index: 1;
+    margin-top: 2px;
+  }
+  .step-body {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    margin: 0 0 14px 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-left: 3px solid #2563eb;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-body:hover { box-shadow: 0 6px 20px rgba(37,99,235,0.12); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+  }
+  .step-header h4 {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #1a3060;
+    margin: 0;
+    flex: 1;
+  }
+  .chevron {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background: #eef3ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.2s;
+  }
+  .chevron svg {
+    width: 12px;
+    height: 12px;
+    stroke: #2563eb;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+  .step-body.open .chevron {
+    transform: rotate(180deg);
+    background: #2563eb;
+  }
+  .step-body.open .chevron svg { stroke: #fff; }
+
+  .step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s ease;
+  }
+  .step-body.open .step-tags {
+    max-height: 600px;
+    padding: 0 20px 18px;
+  }
+
+  .step-desc {
+    width: 100%;
+    font-size: 0.83rem;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .step-desc strong {
+    color: #1a3060;
+    font-weight: 600;
+  }
+
+  .tag {
+    display: inline-block;
+    background: #eef3ff;
+    color: #2563eb;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid #dbeafe;
+  }
+  .tag.visual {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: #fde68a;
+  }
+  .tag.calc {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
+  }
+  .tag.advanced {
+    background: #fdf4ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+  }
+
+  /* STATUS CARD */
+  .status-card {
+    background: linear-gradient(135deg, #eff6ff, #fff);
+    border: 1.5px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 28px 28px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .status-text h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a3060;
+    margin-bottom: 6px;
+  }
+  .status-text p {
+    font-size: 0.9rem;
+    color: #4b5563;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    border-radius: 50px;
+    padding: 7px 18px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #166534;
+    margin-bottom: 6px;
+  }
+  .status-pill span.dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.35); }
+  }
+  .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    background: #2563eb;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 3px 10px rgba(37,99,235,0.3);
+  }
+  .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn.dark { background: #1f3b78; box-shadow: 0 3px 10px rgba(31,59,120,0.25); }
+  .btn.dark:hover { background: #162f62; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    padding: 28px 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+  }
+  footer a { color: #2563eb; text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 560px) {
+    .status-card { flex-direction: column; }
+    .step-body { padding: 0; }
+  }
 </style>
-  <link rel="stylesheet" href="theme_professional.css">
-  <link rel="stylesheet" href="course_topics.css">
+<link rel="stylesheet" href="theme_professional.css">
+<link rel="stylesheet" href="course_topics.css">
 </head>
-  <!-- SECTION: BODY (page content) -->
 <body class="course-page course-tableau">
-<!-- SECTION: HEADER -->
-<header><a href="index.html" aria-label="DataLearn10X Home" class="home-logo"><img src="dl10x.png" alt="DataLearn10X logo"></a><img src="https://img.icons8.com/color/96/tableau-software.png" alt="Tableau logo"><h1>Tableau Course</h1><p>Course is being updated and will be available soon</p></header>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" aria-label="DataLearn10X Home" class="home-logo">
+    <img src="dl10x.png" alt="DataLearn10X logo">
+  </a>
+  <img class="header-icon" src="https://img.icons8.com/color/96/tableau-software.png" alt="Tableau logo">
+  <h1>Tableau Course</h1>
+  <div class="header-badge">✅ Now Live — Enroll Today</div>
+</header>
+
 <div class="wrap">
-<div class="grid">
-<div class="card"><h3>🚀 Why Tableau is Important?</h3><ul><li>Tableau is a top tool for interactive data visualization.</li><li>It is used for analytics storytelling and reporting.</li><li>Useful for analyst and consulting roles.</li></ul></div>
-<div class="card"><h3>📦 What You Will Get</h3><ul><li>📘 PDF Notes</li><li>🎥 Video Lessons</li><li>❓ Interview Questions</li><li>🧪 Practice tasks & projects</li></ul></div>
+
+  <!-- TOP CARDS -->
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 Why Tableau?</h3>
+      <ul>
+        <li>Top tool for interactive data visualization</li>
+        <li>Used for analytics storytelling and reporting</li>
+        <li>Highly valued in analyst and consulting roles</li>
+        <li>No coding required — drag-and-drop interface</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📦 What You Will Get</h3>
+      <ul>
+        <li>📘 Structured PDF Notes</li>
+        <li>🎥 Step-by-step Video Lessons</li>
+        <li>❓ Interview Questions &amp; Answers</li>
+        <li>🧪 Hands-on Practice Projects</li>
+        <li>📊 Real Dataset Exercises</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Tableau Setup &amp; Introduction</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Download &amp; Install Tableau Public</span>
+          <span class="tag">Tableau Interface Overview</span>
+          <span class="tag">Connecting to Data Sources</span>
+          <span class="tag">Data Pane &amp; Dimensions vs Measures</span>
+          <span class="tag">Tableau vs Excel</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Get Tableau Public installed (it's free!) and take a guided tour of the workspace — Sheets, Data Pane, Rows/Columns shelves, and the Marks card. You'll connect to Excel and CSV files, then learn the most important concept in Tableau: the difference between <strong>Dimensions</strong> (categories like Region, Product) and <strong>Measures</strong> (numbers like Sales, Profit). By the end of this module you'll have created your very first chart from a real dataset.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Basic Chart Building</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag visual">Bar Chart</span>
+          <span class="tag visual">Line Chart</span>
+          <span class="tag visual">Pie Chart</span>
+          <span class="tag visual">Area Chart</span>
+          <span class="tag visual">Scatter Plot</span>
+          <span class="tag visual">Dual Axis Chart</span>
+          <span class="tag visual">Show Me Panel</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Build the most commonly used chart types from scratch. You'll learn <strong>when to use each chart</strong> — Bar Charts for comparisons, Line Charts for trends over time, Scatter Plots to find correlations between two measures, and Dual Axis Charts to overlay two different metrics on the same view. The <strong>Show Me panel</strong> lets you instantly switch between chart types with one click, helping you explore your data faster.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Filters &amp; Sorting</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Dimension Filters</span>
+          <span class="tag">Measure Filters</span>
+          <span class="tag">Date Filters</span>
+          <span class="tag">Top N Filter</span>
+          <span class="tag">Quick Filters</span>
+          <span class="tag">Sorting Data</span>
+          <span class="tag">Filter Order of Operations</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Control exactly what data your audience sees. Filter by category (e.g. show only "Electronics"), by a number range (e.g. Sales &gt; 10,000), or by a specific date window. The <strong>Top N Filter</strong> is especially useful in interviews — it lets you show only your top 5 or 10 performers dynamically. You'll also learn Tableau's <strong>Filter Order of Operations</strong>, which determines the sequence in which filters are applied — a critical concept that many analysts get wrong.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Calculated Fields</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag calc">Creating Calculated Fields</span>
+          <span class="tag calc">String Functions</span>
+          <span class="tag calc">Date Functions</span>
+          <span class="tag calc">Numeric Functions</span>
+          <span class="tag calc">Logical Functions (IF / CASE)</span>
+          <span class="tag calc">Aggregate Functions</span>
+          <span class="tag calc">Table Calculations</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Calculated Fields let you create new data columns on the fly — without touching the original dataset. You'll write <strong>IF/CASE logic</strong> to classify data (e.g. "High / Medium / Low" based on sales), use <strong>Date Functions</strong> like DATEDIFF and DATEPART to calculate time between events, and clean text with String Functions like TRIM and UPPER. <strong>Table Calculations</strong> like Running Total, % of Total, and Rank are among the most asked-about topics in Tableau interviews.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Advanced Charts &amp; Maps</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag visual">Tree Map</span>
+          <span class="tag visual">Heat Map</span>
+          <span class="tag visual">Bullet Chart</span>
+          <span class="tag visual">Waterfall Chart</span>
+          <span class="tag visual">Box &amp; Whisker Plot</span>
+          <span class="tag visual">Geographic Map</span>
+          <span class="tag visual">Filled Map</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Go beyond basic charts to communicate complex insights clearly. <strong>Tree Maps</strong> show part-to-whole relationships using area size. <strong>Heat Maps</strong> use color intensity to reveal patterns across two dimensions. <strong>Waterfall Charts</strong> are perfect for showing cumulative changes (e.g. how monthly profits lead to a yearly total). <strong>Geographic Maps</strong> plot data on a real map by country, state, or city — ideal for any regional sales or performance analysis.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Dashboard Design &amp; Actions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag advanced">Building a Dashboard</span>
+          <span class="tag advanced">Layout Containers</span>
+          <span class="tag advanced">Filter Actions</span>
+          <span class="tag advanced">Highlight Actions</span>
+          <span class="tag advanced">URL Actions</span>
+          <span class="tag advanced">Navigation Buttons</span>
+          <span class="tag advanced">Dashboard Formatting</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> A dashboard combines multiple sheets into one view. You'll use <strong>Layout Containers</strong> (horizontal and vertical) to precisely position your charts. The real power comes from <strong>Actions</strong> — clicking a bar in one chart can automatically filter all other charts on the dashboard (Filter Action), highlight related rows (Highlight Action), or open a web page (URL Action). You'll also learn formatting tips to make your dashboards look clean and professional.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Parameters &amp; Sets</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag calc">Creating Parameters</span>
+          <span class="tag calc">Parameters in Calculated Fields</span>
+          <span class="tag calc">Dynamic Reference Lines</span>
+          <span class="tag calc">Creating Sets</span>
+          <span class="tag calc">Combined Sets</span>
+          <span class="tag calc">Set Actions</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> <strong>Parameters</strong> are user-controlled inputs — for example, a slider that lets the viewer choose a sales target, which then dynamically updates a reference line on the chart. <strong>Sets</strong> let you define a custom group of data points (e.g. "Top 10 Customers") and compare them against everything else. Combined with <strong>Set Actions</strong>, clicking on a chart element can dynamically add or remove it from a Set — creating a very engaging interactive experience.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>LOD Expressions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag advanced">What is LOD?</span>
+          <span class="tag advanced">FIXED</span>
+          <span class="tag advanced">INCLUDE</span>
+          <span class="tag advanced">EXCLUDE</span>
+          <span class="tag advanced">LOD vs Table Calculations</span>
+          <span class="tag advanced">Practical LOD Use Cases</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> LOD (Level of Detail) expressions are one of the most powerful — and most asked-about — features in Tableau. They let you compute aggregations at a <strong>different granularity than what's in the current view</strong>. For example, <strong>FIXED</strong> calculates the result independently of the view (e.g. total sales per customer regardless of which region is filtered). <strong>INCLUDE</strong> adds more granularity, and <strong>EXCLUDE</strong> removes a dimension from the calculation. Mastering LOD separates junior analysts from senior ones.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Blending &amp; Joins</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Joins in Tableau</span>
+          <span class="tag">Inner / Left / Right Join</span>
+          <span class="tag">Data Blending</span>
+          <span class="tag">Unions</span>
+          <span class="tag">Relationships</span>
+          <span class="tag">Cross-Database Joins</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Real-world data rarely lives in one table. <strong>Joins</strong> let you combine two tables from the same data source by a common key (e.g. customer ID). <strong>Data Blending</strong> is used when your data lives in two different sources (e.g. one sheet in Excel and one in Google Sheets). <strong>Unions</strong> stack tables that have the same columns — useful when you have monthly data in separate files. <strong>Relationships</strong> are Tableau's modern approach to multi-table analysis, letting Tableau handle the join logic automatically based on context.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Storytelling with Data</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag visual">Creating Story Points</span>
+          <span class="tag visual">Narrative Design</span>
+          <span class="tag visual">Annotations &amp; Callouts</span>
+          <span class="tag visual">Reference Lines &amp; Bands</span>
+          <span class="tag visual">Trend Lines</span>
+          <span class="tag visual">Forecasting</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Data is only valuable if people understand it. <strong>Story Points</strong> let you chain dashboards and charts into a guided narrative — like a presentation, but interactive. You'll add <strong>Annotations</strong> to highlight key data points (e.g. "Sales dropped here due to supply issues"), draw <strong>Reference Lines</strong> to show targets or averages, and use <strong>Trend Lines</strong> to show the direction of data over time. <strong>Forecasting</strong> uses Tableau's built-in exponential smoothing model to predict future values — a favourite in executive dashboards.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-num">11</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>End-to-End Project &amp; Interview Questions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag advanced">Real Dataset Project</span>
+          <span class="tag advanced">Interactive Dashboard Build</span>
+          <span class="tag advanced">Publishing to Tableau Public</span>
+          <span class="tag advanced">Top Interview Questions</span>
+          <span class="tag advanced">Scenario-based Questions</span>
+          <span class="tag advanced">Performance Optimization Tips</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Put everything together in one real-world project using a business dataset (e.g. Superstore Sales or HR Analytics). You'll build a multi-page interactive dashboard covering KPIs, trends, and drill-downs — then <strong>publish it to Tableau Public</strong> so you can add it to your portfolio or LinkedIn. The module also covers the <strong>top Tableau interview questions</strong> (LOD, filters, performance, blending vs joins), scenario-based questions interviewers ask, and tips to optimize slow dashboards using extracts and context filters.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /roadmap -->
+
+  <!-- STATUS CARD -->
+  <div class="status-card">
+    <div class="status-text">
+      <div class="status-pill"><span class="dot"></span>Live Now</div>
+      <h3>Start Learning Tableau Today</h3>
+      <p>Get instant access to all 11 modules — video lessons, PDF notes, interview questions, and hands-on dashboard projects. Go from zero to job-ready in Tableau.</p>
+      <div class="btn-group">
+        <a class="btn" href="enroll.html">Enroll Now →</a>
+        <a class="btn dark" href="index.html">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
 </div>
-<div class="card" style="margin-top:14px"><h3>🗺️ Complete Roadmap</h3><div class="step"><b>Step 1:</b> Tableau Setup</div><div class="step"><b>Step 2:</b> Chart Building</div><div class="step"><b>Step 3:</b> Calculated Fields</div><div class="step"><b>Step 4:</b> Dashboard Actions</div><div class="step"><b>Step 5:</b> Project Building</div><div class="step"><b>Step 6:</b> Interview Questions</div></div>
-<div class="card" style="margin-top:14px"><h3>📢 Course Status</h3><p class="offer" style="font-size:22px">Coming Soon</p><p>This course is currently unavailable. Please check back soon.</p><a class="btn dark" href="index.html">← Back to Home</a></div>
-</div>
-<!-- SECTION: FOOTER -->
-<footer>© 2026 DataLearn10X</footer>
-<script>PSAAnalytics.trackEvent('course_page_viewed',{course:'Tableau'});</script>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 <strong>DataLearn10X</strong> &nbsp;|&nbsp; <a href="index.html">Home</a>
+</footer>
+
+<script>
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'Tableau' });
+  }
+
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var body = header.closest('.step-body');
+      body.classList.toggle('open');
+    });
+  });
+</script>
 <script src="course_topics.js" defer></script>
 </body>
 </html>
