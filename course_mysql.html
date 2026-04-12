@@ -228,8 +228,40 @@
     transition: max-height 0.35s ease, padding 0.25s ease;
   }
   .step-body.open .step-tags {
-    max-height: 300px;
-    padding: 0 20px 16px;
+    max-height: 700px;
+    padding: 0 20px 18px;
+  }
+  .step-desc {
+    width: 100%;
+    font-size: 0.83rem;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .step-desc strong { color: #1a3060; font-weight: 600; }
+  .step-desc code {
+    background: #eef3ff;
+    color: #2563eb;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #dbeafe;
+  }
+  .session-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff7ed;
+    border: 1.5px solid #fed7aa;
+    border-radius: 50px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #c2410c;
+    margin-bottom: 14px;
   }
   .tag {
     display: inline-block;
@@ -371,7 +403,9 @@
     </div>
     <div class="card">
       <h3>📦 What You Will Get</h3>
+      <div class="session-badge">🎬 Recorded Sessions Available</div>
       <ul>
+        <li>🎬 Recorded Video Sessions (watch anytime)</li>
         <li>📘 Structured PDF Notes</li>
         <li>🎥 Step-by-step Video Lessons</li>
         <li>❓ Interview Questions &amp; Answers</li>
@@ -397,6 +431,9 @@
           <span class="tag">What is a Database?</span>
           <span class="tag">Tables &amp; Schemas</span>
           <span class="tag">Rows &amp; Columns</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Start from absolute zero. You'll understand what a database is — think of it as a smart, organised filing cabinet that stores millions of rows of data and lets you search or filter instantly. You'll see how data is stored in <strong>tables</strong> made up of rows (records) and columns (fields), and what a <strong>schema</strong> is (the blueprint that defines table structure). You'll also understand the difference between a Database and a Spreadsheet — and why companies always choose databases for real data. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -413,6 +450,9 @@
           <span class="tag">Why SQL?</span>
           <span class="tag">SQL vs Spreadsheets</span>
           <span class="tag">Real-world use cases</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> SQL (Structured Query Language) is the universal language for talking to databases. While Excel crashes with 100,000 rows, SQL handles <strong>millions of rows in seconds</strong>. You'll see exactly why Data Analysts, Business Analysts, Data Scientists, and Backend Developers all need SQL — and look at real job descriptions that list SQL as a required skill. By the end, you'll be motivated and clear on how SQL fits into your learning journey. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -434,6 +474,9 @@
           <span class="tag">Single Row INSERT</span>
           <span class="tag">Load Data from File</span>
           <span class="tag">Data Selection</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Get hands-on with MySQL using the command prompt — no GUI, just you and the terminal. You'll use <code>USE db_name</code> to select a database, <code>SHOW DATABASES</code> and <code>SHOW TABLES</code> to explore what exists, and <code>DESCRIBE table_name</code> to see a table's column structure. You'll also <strong>create your first real table</strong> with proper data types (INT, VARCHAR, DATE), insert a single row of data, and even load a bulk CSV file into MySQL using <code>LOAD DATA INFILE</code>. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -454,6 +497,9 @@
           <span class="tag">DROP TABLE</span>
           <span class="tag">TRUNCATE</span>
           <span class="tag">DELETE</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> DDL commands define and change the <strong>structure</strong> of your database — not the data inside it. You'll use <code>CREATE TABLE</code> to design a table from scratch, <code>ADD</code> to add a new column, and <code>MODIFY</code> to change a column's data type. You'll also understand a critical difference that trips up beginners: <strong>TRUNCATE vs DELETE</strong> — TRUNCATE wipes all rows instantly and can't be rolled back, while DELETE removes specific rows and can be undone. <code>DROP TABLE</code> removes the entire table permanently. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -469,6 +515,9 @@
         <div class="step-tags">
           <span class="tag">GRANT</span>
           <span class="tag">REVOKE</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> In real companies, not everyone should have the same level of database access. DCL lets you control <strong>who can do what</strong>. <code>GRANT</code> gives a user specific permissions — for example, allowing a junior analyst to only SELECT (read) data without being able to modify or delete it. <code>REVOKE</code> takes those permissions away. You'll also learn about privilege levels — database-level, table-level, and column-level — which are essential knowledge for database admin and security roles. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -485,6 +534,9 @@
           <span class="tag">INSERT</span>
           <span class="tag">UPDATE</span>
           <span class="tag">DELETE</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> DML commands work on the <strong>data inside tables</strong> — not the structure. <code>INSERT INTO</code> adds new rows, <code>UPDATE</code> modifies existing rows (always use <code>WHERE</code> or you'll update every row!), and <code>DELETE FROM</code> removes specific rows. A key tip: always write and test your <code>WHERE</code> clause with a <code>SELECT</code> first before running <code>UPDATE</code> or <code>DELETE</code> — this is a professional habit that saves you from accidents in real databases. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -508,6 +560,9 @@
           <span class="tag python">ORDER BY</span>
           <span class="tag python">GROUP BY</span>
           <span class="tag python">HAVING</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Here SQL meets Python using the <code>mysql-connector-python</code> library. You'll connect Python to your MySQL server, create databases and tables via Python code, and insert both single and multiple rows using <code>executemany()</code>. Then you'll write the core queries: <code>SELECT</code> to fetch data, <code>WHERE</code> to filter rows, <code>ORDER BY</code> to sort results, <code>GROUP BY</code> to group and summarise, and <code>HAVING</code> to filter groups (think of HAVING as a WHERE that works after grouping). You'll also learn the <strong>correct order SQL keywords must be written</strong> — a common interview question. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -523,6 +578,9 @@
         <div class="step-tags">
           <span class="tag python">UPDATE</span>
           <span class="tag python">LIMIT</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Build on Part 1 by running <code>UPDATE</code> statements through Python to modify existing records in MySQL. You'll also master <code>LIMIT</code> — a crucial clause that restricts how many rows a query returns. <code>LIMIT</code> is essential when working with large tables (e.g. "show me the top 10 orders") and is used heavily in dashboards and reports. Combined with <code>ORDER BY</code>, you can easily fetch the top or bottom N records from any dataset. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -539,6 +597,9 @@
           <span class="tag python">IN</span>
           <span class="tag python">BETWEEN</span>
           <span class="tag python">LIKE</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Three powerful filtering keywords used in almost every real-world SQL query. <code>IN</code> lets you match multiple values at once — e.g. <code>WHERE city IN ('Mumbai', 'Delhi', 'Pune')</code> instead of writing three OR conditions. <code>BETWEEN</code> filters a range — e.g. <code>WHERE salary BETWEEN 30000 AND 60000</code>. <code>LIKE</code> does pattern matching using wildcards: <code>%</code> matches any number of characters and <code>_</code> matches exactly one — e.g. <code>WHERE name LIKE 'A%'</code> returns all names starting with A. All practised through Python. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -558,6 +619,9 @@
           <span class="tag operator">&gt;= &nbsp;Greater than or equal</span>
           <span class="tag operator">&lt;= &nbsp;Less than or equal</span>
           <span class="tag operator">&lt;&gt; &nbsp;Not equal to</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Comparison operators are the backbone of every <code>WHERE</code> clause. <code>=</code> checks exact equality, <code>&lt;&gt;</code> (or <code>!=</code>) checks inequality. <code>&gt;</code> and <code>&lt;</code> filter ranges of numbers or dates. You'll practise with real examples like: find all employees with salary <code>&gt; 50000</code>, find products where stock <code>&lt;= 10</code>, find orders placed <code>&gt;= '2024-01-01'</code>. These six operators appear in <strong>every single SQL query</strong> you'll ever write professionally. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -574,6 +638,9 @@
           <span class="tag operator">AND</span>
           <span class="tag operator">OR</span>
           <span class="tag operator">NOT</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Combine multiple conditions in one query. <code>AND</code> requires <strong>all</strong> conditions to be true — e.g. <code>WHERE city = 'Delhi' AND salary &gt; 40000</code>. <code>OR</code> requires <strong>at least one</strong> condition to be true. <code>NOT</code> inverts a condition — e.g. <code>WHERE NOT department = 'HR'</code>. A key concept is <strong>operator precedence</strong>: SQL evaluates AND before OR, so always use parentheses to make your logic clear — e.g. <code>WHERE (city = 'Delhi' OR city = 'Mumbai') AND salary &gt; 50000</code>. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -592,6 +659,9 @@
           <span class="tag">MAX</span>
           <span class="tag">AVG</span>
           <span class="tag">SUM</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Aggregate functions let you summarise large amounts of data into a single meaningful number. <code>COUNT(*)</code> tells you how many rows exist, <code>SUM(salary)</code> totals all salaries, <code>AVG(marks)</code> calculates the average, <code>MIN</code> and <code>MAX</code> find the lowest and highest values. These are almost always used with <strong>GROUP BY</strong> — e.g. "total sales per region" or "average salary per department". You'll also learn <code>COUNT(DISTINCT col)</code> to count unique values — a very common interview question. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -608,6 +678,9 @@
           <span class="tag advanced">INNER JOIN</span>
           <span class="tag advanced">LEFT JOIN</span>
           <span class="tag advanced">RIGHT JOIN</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Joins are the most tested SQL topic in every data analyst interview — and for good reason. Real databases have data spread across multiple tables that you need to combine. <strong>INNER JOIN</strong> returns only rows where there's a match in both tables. <strong>LEFT JOIN</strong> returns all rows from the left table, filling NULL for rows that have no match on the right — useful when you want to see all customers, even those with no orders. <strong>RIGHT JOIN</strong> does the opposite. You'll practise on real table pairs like Customers + Orders and Employees + Departments. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -626,6 +699,9 @@
           <span class="tag advanced">Parent Table</span>
           <span class="tag advanced">Child Table</span>
           <span class="tag advanced">UNIQUE Constraint</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Good database design prevents data errors before they happen. A <strong>Primary Key</strong> uniquely identifies every row in a table — no two rows can have the same value (e.g. Employee ID, Order ID). A <strong>Foreign Key</strong> links a child table back to a parent table — e.g. an Orders table has a <code>customer_id</code> Foreign Key that references the Customers table. This relationship ensures you can't add an order for a customer that doesn't exist. The <strong>UNIQUE</strong> constraint ensures a column (like Email) has no duplicates. These concepts directly enable Joins. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -643,6 +719,9 @@
           <span class="tag advanced">Correlated Subqueries</span>
           <span class="tag advanced">Subquery in WHERE</span>
           <span class="tag advanced">Subquery in FROM</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> A subquery is a query inside another query — it lets you answer complex questions in one step. Example: "Find all employees who earn more than the average salary" — you can't use <code>AVG()</code> directly in <code>WHERE</code>, but you can nest it: <code>WHERE salary &gt; (SELECT AVG(salary) FROM employees)</code>. You'll learn subqueries in <code>WHERE</code> (to filter using a computed value), in <code>FROM</code> (to create a virtual table), and <strong>correlated subqueries</strong> that reference the outer query row by row. This is an advanced topic that separates strong SQL writers from average ones. 🎬 <strong>Recorded session included.</strong>
+          </p>
         </div>
       </div>
     </div>
@@ -654,7 +733,7 @@
     <div class="status-text">
       <div class="status-pill"><span class="dot"></span>Live Now</div>
       <h3>Start Learning SQL (MySQL) Today</h3>
-      <p>Get instant access to all 15 modules — video lessons, PDF notes, interview questions, and hands-on practice projects. Everything you need to master SQL from scratch.</p>
+      <p>Get instant access to all 15 modules with <strong>recorded video sessions</strong> — watch at your own pace, anytime. Includes PDF notes, interview questions, Python integration labs, and hands-on practice projects. Everything you need to master SQL from scratch.</p>
       <div class="btn-group">
         <a class="btn" href="enroll.html">Enroll Now →</a>
         <a class="btn dark" href="index.html">← Back to Home</a>
