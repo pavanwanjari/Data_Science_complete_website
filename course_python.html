@@ -1,40 +1,697 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
 <meta charset="UTF-8">
 <title>Python Course - DataLearn10X</title>
 <link rel="icon" type="image/png" href="dl10x.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Learn Python for data analytics with hands-on projects, notes, and interview-focused training.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js" defer></script>
 <script src="analytics.js" defer></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Poppins',sans-serif;background:#f4f7fc;color:#1f2f46}header{position:relative;padding:52px 14px;color:#fff;text-align:center;background:linear-gradient(135deg,#081221,#173a64,#2563eb)}header .home-logo{position:absolute;top:12px;left:12px;display:inline-block}header .home-logo img{height:34px;width:auto;display:block}header img{width:84px;height:84px;object-fit:contain}.wrap{max-width:1000px;margin:auto;padding:24px 14px 45px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.08)}ul{text-align:left;padding-left:20px;line-height:1.7}.step{background:#eef3ff;border-left:4px solid #4f79ff;border-radius:8px;padding:10px;margin:8px 0}.mrp{text-decoration:line-through;color:#777}.offer{color:#15803d;font-weight:700;font-size:26px}.btn{display:inline-block;margin:8px 8px 0 0;text-decoration:none;color:#fff;background:#16a34a;padding:10px 16px;border-radius:22px}.btn.dark{background:#1f3b78}footer{text-align:center;font-size:13px;color:#566;padding:20px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f0f4fb;
+    color: #1f2f46;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    padding: 60px 20px 48px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #060e1c 0%, #0f2a52 45%, #1a4ba8 100%);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #f0f4fb;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+  .home-logo img { height: 36px; width: auto; display: block; }
+
+  .header-icon {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.12);
+    padding: 8px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(6px);
+  }
+
+  /* LAYOUT */
+  .wrap {
+    max-width: 1060px;
+    margin: auto;
+    padding: 36px 16px 60px;
+  }
+
+  /* TOP CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1a3060;
+  }
+  .card ul {
+    padding-left: 18px;
+    line-height: 1.85;
+    font-size: 0.92rem;
+    color: #374151;
+  }
+
+  /* PRICING CARD */
+  .price-card {
+    background: linear-gradient(135deg, #f0fdf4, #fff);
+    border: 1.5px solid #86efac;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+  }
+  .price-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #1a3060;
+  }
+  .mrp {
+    text-decoration: line-through;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+  .offer {
+    color: #15803d;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    background: #16a34a;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 3px 10px rgba(22,163,74,0.3);
+  }
+  .btn:hover { background: #15803d; transform: translateY(-1px); }
+  .btn.dark { background: #1f3b78; box-shadow: 0 3px 10px rgba(31,59,120,0.25); }
+  .btn.dark:hover { background: #162f62; }
+  .btn.blue { background: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.3); }
+  .btn.blue:hover { background: #1d4ed8; }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0f2a52;
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #2563eb22, transparent);
+    border-radius: 2px;
+  }
+
+  /* ROADMAP */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  .roadmap-item:not(:last-child) .step-line {
+    position: absolute;
+    left: 22px;
+    top: 46px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #2563eb40, #2563eb10);
+    z-index: 0;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #1a4ba8, #2563eb);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+    position: relative;
+    z-index: 1;
+    margin-top: 2px;
+  }
+  .step-body {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    margin: 0 0 14px 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-left: 3px solid #2563eb;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-body:hover { box-shadow: 0 6px 20px rgba(37,99,235,0.12); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+  }
+  .step-header h4 {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #1a3060;
+    margin: 0;
+    flex: 1;
+  }
+  .chevron {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background: #eef3ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.2s;
+  }
+  .chevron svg {
+    width: 12px;
+    height: 12px;
+    stroke: #2563eb;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+  .step-body.open .chevron {
+    transform: rotate(180deg);
+    background: #2563eb;
+  }
+  .step-body.open .chevron svg { stroke: #fff; }
+
+  .step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.25s ease;
+  }
+  .step-body.open .step-tags {
+    max-height: 700px;
+    padding: 0 20px 18px;
+  }
+
+  .step-desc {
+    width: 100%;
+    font-size: 0.83rem;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .step-desc strong { color: #1a3060; font-weight: 600; }
+  .step-desc code {
+    background: #eef3ff;
+    color: #2563eb;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #dbeafe;
+  }
+
+  .tag {
+    display: inline-block;
+    background: #eef3ff;
+    color: #2563eb;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid #dbeafe;
+  }
+  .tag.fn {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: #fde68a;
+  }
+  .tag.oop {
+    background: #fdf4ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+  }
+  .tag.data {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
+  }
+  .tag.lib {
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    padding: 28px 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+  }
+  footer a { color: #2563eb; text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 560px) {
+    .btn-group { flex-direction: column; }
+    .step-body { padding: 0; }
+  }
 </style>
-  <link rel="stylesheet" href="theme_professional.css">
-  <link rel="stylesheet" href="course_topics.css">
+<link rel="stylesheet" href="theme_professional.css">
+<link rel="stylesheet" href="course_topics.css">
 </head>
-  <!-- SECTION: BODY (page content) -->
 <body class="course-page course-python">
-<!-- SECTION: HEADER -->
-<header><a href="index.html" aria-label="DataLearn10X Home" class="home-logo"><img src="dl10x.png" alt="DataLearn10X logo"></a><img src="https://img.icons8.com/color/96/python--v1.png" alt="Python logo"><h1>Python Course</h1><p>Importance, roadmap, resources, pricing</p></header>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" aria-label="DataLearn10X Home" class="home-logo">
+    <img src="dl10x.png" alt="DataLearn10X logo">
+  </a>
+  <img class="header-icon" src="https://img.icons8.com/color/96/python--v1.png" alt="Python logo">
+  <h1>Python Course</h1>
+  <div class="header-badge">✅ Now Live — Enroll Today</div>
+</header>
+
 <div class="wrap">
-<div class="grid">
-<div class="card"><h3>🚀 Why Python is Important?</h3><ul><li>Python is in high demand across analytics and software roles.</li><li>Used for automation, analysis, ML and backend tasks.</li><li>Strong Python skill improves job opportunities quickly.</li></ul></div>
-<div class="card"><h3>📦 What You Will Get</h3><ul><li>📘 PDF Notes</li><li>🎥 Video Lessons</li><li>❓ Interview Questions</li><li>🧪 Practice tasks & projects</li></ul></div>
+
+  <!-- TOP CARDS -->
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 Why Python?</h3>
+      <ul>
+        <li>Most in-demand language for data analytics &amp; ML</li>
+        <li>Used for automation, analysis &amp; backend tasks</li>
+        <li>Beginner-friendly with massive community support</li>
+        <li>Boosts job opportunities across every tech domain</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📦 What You Will Get</h3>
+      <ul>
+        <li>📘 Structured PDF Notes</li>
+        <li>🎥 Step-by-step Video Lessons</li>
+        <li>❓ Interview Questions &amp; Answers</li>
+        <li>🧪 Hands-on Practice Projects</li>
+        <li>⚡ Automation &amp; Data Analytics Labs</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Python Fundamentals</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Variables &amp; Data Types</span>
+          <span class="tag">int, float, str, bool</span>
+          <span class="tag">print() &amp; input()</span>
+          <span class="tag">Type Conversion</span>
+          <span class="tag">Comments &amp; Indentation</span>
+          <span class="tag">String Methods</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Start with zero experience and write your first Python program in minutes. You'll understand <strong>variables</strong> (containers that store data), the four core data types — <code>int</code> (whole numbers), <code>float</code> (decimals), <code>str</code> (text), <code>bool</code> (True/False) — and how to convert between them using <code>int()</code>, <code>str()</code>, <code>float()</code>. You'll use <code>print()</code> to display output and <code>input()</code> to take user input. Indentation is Python's way of structuring code — getting this right from day one builds good habits. You'll also explore powerful string methods like <code>.upper()</code>, <code>.strip()</code>, <code>.replace()</code>, and <code>.split()</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Operators &amp; Expressions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">Arithmetic Operators</span>
+          <span class="tag">Comparison Operators</span>
+          <span class="tag">Logical Operators</span>
+          <span class="tag">Assignment Operators</span>
+          <span class="tag">Membership Operators (in, not in)</span>
+          <span class="tag">Operator Precedence</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Operators are the building blocks of any expression in Python. <strong>Arithmetic</strong> operators (+, -, *, /, //, %, **) handle maths — note that <code>//</code> is floor division and <code>**</code> is power. <strong>Comparison</strong> operators (==, !=, &gt;, &lt;, &gt;=, &lt;=) return True or False and are used in conditions. <strong>Logical</strong> operators (<code>and</code>, <code>or</code>, <code>not</code>) combine conditions. <strong>Membership</strong> operators (<code>in</code>, <code>not in</code>) check if a value exists in a list or string — very commonly used. You'll also learn <strong>operator precedence</strong> so your expressions evaluate in the correct order.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Control Flow — Conditions &amp; Loops</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">if / elif / else</span>
+          <span class="tag fn">Nested Conditions</span>
+          <span class="tag fn">for Loop</span>
+          <span class="tag fn">while Loop</span>
+          <span class="tag fn">range()</span>
+          <span class="tag fn">break / continue / pass</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Control flow is how your program makes decisions and repeats actions. <code>if / elif / else</code> lets you run different code based on conditions. <strong>Nested conditions</strong> handle multi-level logic (e.g. check age, then check membership). The <code>for</code> loop iterates over a list or range — e.g. <code>for i in range(1, 11)</code> runs 10 times. The <code>while</code> loop repeats as long as a condition is True — always make sure it eventually becomes False or you'll create an infinite loop! <code>break</code> exits a loop early, <code>continue</code> skips the current iteration, and <code>pass</code> is a placeholder when no action is needed yet.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Functions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">def keyword</span>
+          <span class="tag fn">Parameters &amp; Arguments</span>
+          <span class="tag fn">return Statement</span>
+          <span class="tag fn">Default Arguments</span>
+          <span class="tag fn">*args &amp; **kwargs</span>
+          <span class="tag fn">Lambda Functions</span>
+          <span class="tag fn">Scope (local vs global)</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Functions let you write reusable blocks of code — define once, use anywhere. You define a function with <code>def function_name():</code> and call it by name. <strong>Parameters</strong> are inputs the function accepts; <strong>return</strong> sends a value back to the caller. <strong>Default arguments</strong> have pre-set values if none is provided. <code>*args</code> accepts any number of positional arguments, <code>**kwargs</code> accepts any number of keyword arguments — both are very common in real-world Python code. <strong>Lambda functions</strong> are one-line anonymous functions — e.g. <code>double = lambda x: x * 2</code>. You'll also learn variable <strong>scope</strong>: local variables exist only inside a function, global ones are accessible everywhere.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Structures</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Lists</span>
+          <span class="tag data">Tuples</span>
+          <span class="tag data">Dictionaries</span>
+          <span class="tag data">Sets</span>
+          <span class="tag data">Indexing &amp; Slicing</span>
+          <span class="tag data">List Methods</span>
+          <span class="tag data">List Comprehensions</span>
+          <span class="tag data">Dictionary Methods</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Python's built-in data structures are essential for storing and organising data. <strong>Lists</strong> are ordered and changeable — e.g. <code>marks = [85, 90, 78]</code>. <strong>Tuples</strong> are like lists but immutable (can't be changed after creation) — use them for fixed data like coordinates. <strong>Dictionaries</strong> store key-value pairs — e.g. <code>student = {'name': 'Rahul', 'age': 22}</code> — and are extremely common in real code and APIs. <strong>Sets</strong> store unique values with no duplicates. You'll master <strong>indexing</strong> (access by position), <strong>slicing</strong> (extract a portion), and powerful list methods like <code>.append()</code>, <code>.sort()</code>, <code>.pop()</code>. <strong>List comprehensions</strong> let you create lists in one line — e.g. <code>[x**2 for x in range(10)]</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Object-Oriented Programming (OOP)</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag oop">Classes &amp; Objects</span>
+          <span class="tag oop">__init__ Method</span>
+          <span class="tag oop">Instance Variables &amp; Methods</span>
+          <span class="tag oop">Inheritance</span>
+          <span class="tag oop">Encapsulation</span>
+          <span class="tag oop">self Keyword</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> OOP is the way professional Python developers structure large programs. A <strong>class</strong> is a blueprint — an <strong>object</strong> is a specific instance of that blueprint (e.g. class = Car, object = your specific car). The <code>__init__</code> method runs automatically when an object is created and sets its initial values. <code>self</code> refers to the current object. <strong>Inheritance</strong> lets a child class reuse all the code of a parent class and add its own on top — this is how code reuse is achieved in real projects. <strong>Encapsulation</strong> hides internal details, exposing only what's needed. OOP is heavily tested in Python interviews.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>File Handling</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">open() &amp; close()</span>
+          <span class="tag fn">read() / readline() / readlines()</span>
+          <span class="tag fn">write() &amp; append()</span>
+          <span class="tag fn">with Statement</span>
+          <span class="tag fn">Working with CSV Files</span>
+          <span class="tag fn">os Module Basics</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Python can read and write files directly — critical for any data task. <code>open('file.txt', 'r')</code> opens a file for reading; <code>'w'</code> writes (overwrites), <code>'a'</code> appends. <code>read()</code> gets the entire file content, <code>readlines()</code> returns each line as a list item. Always use the <code>with</code> statement (e.g. <code>with open('file.txt') as f:</code>) — it automatically closes the file even if an error occurs, which is the professional way to handle files. You'll also read and write <strong>CSV files</strong> using Python's built-in <code>csv</code> module, and use the <code>os</code> module to check if a file exists, create directories, or list files in a folder.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Exception Handling</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">try / except</span>
+          <span class="tag fn">Multiple except Blocks</span>
+          <span class="tag fn">else &amp; finally</span>
+          <span class="tag fn">raise</span>
+          <span class="tag fn">Common Exceptions</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Real programs encounter errors — file not found, division by zero, invalid user input. Exception handling lets your program deal with these gracefully instead of crashing. <code>try</code> wraps the risky code, <code>except</code> catches the error and handles it. You can have <strong>multiple except blocks</strong> for different error types — e.g. <code>except FileNotFoundError</code>, <code>except ValueError</code>. <code>finally</code> runs regardless of whether an error occurred — perfect for closing files or database connections. <code>raise</code> lets you throw your own custom error. Common exceptions you'll practise: <code>ZeroDivisionError</code>, <code>TypeError</code>, <code>IndexError</code>, <code>KeyError</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Python for Data Analytics — NumPy &amp; Pandas</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">NumPy Arrays</span>
+          <span class="tag lib">Array Operations</span>
+          <span class="tag lib">Pandas Series &amp; DataFrame</span>
+          <span class="tag lib">read_csv() &amp; read_excel()</span>
+          <span class="tag lib">head(), tail(), info(), describe()</span>
+          <span class="tag lib">Filtering &amp; Sorting</span>
+          <span class="tag lib">groupby() &amp; agg()</span>
+          <span class="tag lib">Handling Missing Data</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> This is where Python becomes a data superpower. <strong>NumPy</strong> provides fast multi-dimensional arrays and mathematical operations — the backbone of all data science libraries. <strong>Pandas</strong> is the go-to tool for data analysis in Python. You'll load datasets from CSV and Excel using <code>pd.read_csv()</code>, explore them with <code>.head()</code>, <code>.info()</code>, and <code>.describe()</code>, and clean them by handling missing values with <code>.fillna()</code> and <code>.dropna()</code>. You'll filter rows, sort by columns, and use <code>.groupby()</code> to summarise data by category — the Pandas equivalent of SQL's GROUP BY. This module is the most important for any data analyst role.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Visualisation — Matplotlib &amp; Seaborn</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">Line Chart</span>
+          <span class="tag lib">Bar Chart</span>
+          <span class="tag lib">Histogram</span>
+          <span class="tag lib">Scatter Plot</span>
+          <span class="tag lib">Pie Chart</span>
+          <span class="tag lib">Heatmap (Seaborn)</span>
+          <span class="tag lib">Labels, Titles &amp; Legends</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Numbers alone don't tell a story — charts do. <strong>Matplotlib</strong> is Python's foundational plotting library. You'll create Line Charts (trends), Bar Charts (comparisons), Histograms (distribution of data), and Scatter Plots (relationships between two variables). <code>plt.title()</code>, <code>plt.xlabel()</code>, <code>plt.legend()</code> make your charts presentation-ready. <strong>Seaborn</strong> is built on top of Matplotlib and makes beautiful statistical charts with less code — particularly the <strong>Heatmap</strong>, which is essential for showing correlations in a dataset. Knowing how to visualise data is a core skill in every data analytics job.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">11</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Automation Scripts</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag oop">Web Scraping (requests + BeautifulSoup)</span>
+          <span class="tag oop">Working with APIs</span>
+          <span class="tag oop">Automating Excel (openpyxl)</span>
+          <span class="tag oop">Sending Emails (smtplib)</span>
+          <span class="tag oop">Scheduling Tasks</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Python's true power is automation — making your computer do repetitive tasks for you. <strong>Web Scraping</strong> with <code>requests</code> and <code>BeautifulSoup</code> lets you extract data from any website automatically. <strong>API integration</strong> connects your Python code to live services (weather, stocks, news) using <code>requests.get()</code> and parsing JSON responses. <strong>Excel automation</strong> with <code>openpyxl</code> lets you read, write, and format Excel files without opening Excel. <strong>Email automation</strong> with <code>smtplib</code> lets you send emails programmatically — combine it with Pandas to auto-generate and email daily reports.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-num">12</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Projects &amp; Interview Questions</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Mini Project: Data Analysis with Pandas</span>
+          <span class="tag data">Mini Project: Automation Script</span>
+          <span class="tag data">Mini Project: Web Scraper</span>
+          <span class="tag oop">Top Python Interview Questions</span>
+          <span class="tag oop">OOP &amp; Function Challenges</span>
+          <span class="tag oop">Data Structure Problems</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Bring everything together through three hands-on mini projects. The <strong>Data Analysis project</strong> loads a real business dataset, cleans it with Pandas, performs a full analysis (groupby, filtering, aggregations), and produces visualised charts. The <strong>Automation project</strong> builds a script that reads an Excel file, processes the data, and emails a formatted report. The <strong>Web Scraper project</strong> extracts live data from a website and saves it to a CSV. You'll also cover the <strong>most common Python interview questions</strong> — list vs tuple, mutable vs immutable, OOP pillars, how Python handles memory — so you walk into interviews with confidence.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /roadmap -->
+
+  <!-- PRICING CARD -->
+  <div class="section-heading">💰 Course Pricing</div>
+  <div class="price-card">
+    <h3>Choose Your Plan</h3>
+    <p class="mrp">MRP ₹2,000</p>
+    <p class="offer">Offer ₹99</p>
+    <p class="mrp" style="margin-top:10px">Combo MRP ₹10,999</p>
+    <p class="offer">Combo Offer ₹0 <span style="font-size:0.85rem;color:#15803d;font-weight:500">(Limited-time offer)</span></p>
+    <div class="btn-group">
+      <a class="btn" href="index.html?add=Python#buy-section">Buy Python — ₹99</a>
+      <a class="btn blue" href="index.html?add=Data%20Analytics%20Combo#buy-section">Buy Combo (₹0)</a>
+      <a class="btn dark" href="check_email.html">Already Purchased?</a>
+      <a class="btn dark" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
 </div>
-<div class="card" style="margin-top:14px"><h3>🗺️ Complete Roadmap</h3><div class="step"><b>Step 1:</b> Python Fundamentals</div><div class="step"><b>Step 2:</b> Functions + OOP</div><div class="step"><b>Step 3:</b> File & API Handling</div><div class="step"><b>Step 4:</b> Pandas Basics</div><div class="step"><b>Step 5:</b> Automation Scripts</div><div class="step"><b>Step 6:</b> Interview Questions</div></div>
-<div class="card" style="margin-top:14px"><h3>💰 Price</h3><p class="mrp">MRP ₹2000</p><p class="offer">Offer ₹99</p><p class="mrp">Combo MRP ₹10,999</p><p class="offer">Combo Offer ₹0 (Limited-time offer)</p>
-<a class="btn" href="index.html?add=Python#buy-section">Buy Python</a>
-<a class="btn" href="index.html?add=Data%20Analytics%20Combo#buy-section">Buy Combo (₹0)</a>
-<a class="btn dark" href="check_email.html">Already Purchased?</a>
-<a class="btn dark" href="index.html">← Back to Home</a></div>
-</div>
-<!-- SECTION: FOOTER -->
-<footer>© 2026 DataLearn10X</footer>
-<script>PSAAnalytics.trackEvent('course_page_viewed',{course:'Python'});</script>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 <strong>DataLearn10X</strong> &nbsp;|&nbsp; <a href="index.html">Home</a>
+</footer>
+
+<script>
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'Python' });
+  }
+
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var body = header.closest('.step-body');
+      body.classList.toggle('open');
+    });
+  });
+</script>
 <script src="course_topics.js" defer></script>
 </body>
 </html>
