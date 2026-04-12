@@ -1,40 +1,704 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
 <meta charset="UTF-8">
 <title>Machine Learning + Deep Learning Course - DataLearn10X</title>
 <link rel="icon" type="image/png" href="dl10x.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Build ML and deep learning foundations with practical projects and interview preparation at DataLearn10X.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js" defer></script>
 <script src="analytics.js" defer></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:'Poppins',sans-serif;background:#f4f7fc;color:#1f2f46}header{position:relative;padding:52px 14px;color:#fff;text-align:center;background:linear-gradient(135deg,#081221,#173a64,#2563eb)}header .home-logo{position:absolute;top:12px;left:12px;display:inline-block}header .home-logo img{height:34px;width:auto;display:block}header img{width:84px;height:84px;object-fit:contain}.wrap{max-width:1000px;margin:auto;padding:24px 14px 45px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.08)}ul{text-align:left;padding-left:20px;line-height:1.7}.step{background:#eef3ff;border-left:4px solid #4f79ff;border-radius:8px;padding:10px;margin:8px 0}.mrp{text-decoration:line-through;color:#777}.offer{color:#15803d;font-weight:700;font-size:26px}.btn{display:inline-block;margin:8px 8px 0 0;text-decoration:none;color:#fff;background:#16a34a;padding:10px 16px;border-radius:22px}.btn.dark{background:#1f3b78}footer{text-align:center;font-size:13px;color:#566;padding:20px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f2f5fb;
+    color: #1f2f46;
+  }
+
+  header {
+    position: relative;
+    padding: 60px 20px 48px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #07111f 0%, #173a64 45%, #7c3aed 100%);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #f2f5fb;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+  .home-logo img { height: 36px; width: auto; display: block; }
+
+  .header-icon {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.14);
+    padding: 8px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.32);
+  }
+  header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(6px);
+  }
+
+  .wrap {
+    max-width: 1060px;
+    margin: auto;
+    padding: 36px 16px 60px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #173a64;
+  }
+  .card ul {
+    padding-left: 18px;
+    line-height: 1.85;
+    font-size: 0.92rem;
+    color: #374151;
+  }
+
+  .price-card {
+    background: linear-gradient(135deg, #eef2ff, #fff);
+    border: 1.5px solid #a78bfa;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+  }
+  .price-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #173a64;
+  }
+  .mrp {
+    text-decoration: line-through;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+  .offer {
+    color: #6d28d9;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    background: #7c3aed;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 3px 10px rgba(124,58,237,0.3);
+  }
+  .btn:hover { background: #6d28d9; transform: translateY(-1px); }
+  .btn.dark { background: #173a64; box-shadow: 0 3px 10px rgba(23,58,100,0.25); }
+  .btn.dark:hover { background: #0f2a52; }
+  .btn.blue { background: #2563eb; box-shadow: 0 3px 10px rgba(37,99,235,0.3); }
+  .btn.blue:hover { background: #1d4ed8; }
+
+  .section-heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #173a64;
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #7c3aed33, transparent);
+    border-radius: 2px;
+  }
+
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  .roadmap-item:not(:last-child) .step-line {
+    position: absolute;
+    left: 22px;
+    top: 46px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #7c3aed55, #7c3aed12);
+    z-index: 0;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(124,58,237,0.35);
+    position: relative;
+    z-index: 1;
+    margin-top: 2px;
+  }
+  .step-body {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    margin: 0 0 14px 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-left: 3px solid #7c3aed;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step-body:hover { box-shadow: 0 6px 20px rgba(124,58,237,0.14); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+  }
+  .step-header h4 {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #173a64;
+    margin: 0;
+    flex: 1;
+  }
+  .chevron {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background: #eef2ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.2s;
+  }
+  .chevron svg {
+    width: 12px;
+    height: 12px;
+    stroke: #7c3aed;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+  .step-body.open .chevron {
+    transform: rotate(180deg);
+    background: #7c3aed;
+  }
+  .step-body.open .chevron svg { stroke: #fff; }
+
+  .step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.25s ease;
+  }
+  .step-body.open .step-tags {
+    max-height: 900px;
+    padding: 0 20px 18px;
+  }
+
+  .step-desc {
+    width: 100%;
+    font-size: 0.83rem;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .step-desc strong { color: #173a64; font-weight: 600; }
+  .step-desc code {
+    background: #eef2ff;
+    color: #6d28d9;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #ddd6fe;
+  }
+
+  .tag {
+    display: inline-block;
+    background: #eef2ff;
+    color: #6d28d9;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid #ddd6fe;
+  }
+  .tag.fn {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+  }
+  .tag.oop {
+    background: #fdf4ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+  }
+  .tag.data {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
+  }
+  .tag.lib {
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    padding: 28px 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+  }
+  footer a { color: #7c3aed; text-decoration: none; }
+
+  @media (max-width: 560px) {
+    .btn-group { flex-direction: column; }
+    .step-body { padding: 0; }
+  }
 </style>
-  <link rel="stylesheet" href="theme_professional.css">
-  <link rel="stylesheet" href="course_topics.css">
+<link rel="stylesheet" href="theme_professional.css">
+<link rel="stylesheet" href="course_topics.css">
 </head>
-  <!-- SECTION: BODY (page content) -->
 <body class="course-page course-ml">
-<!-- SECTION: HEADER -->
-<header><a href="index.html" aria-label="DataLearn10X Home" class="home-logo"><img src="dl10x.png" alt="DataLearn10X logo"></a><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Machine Learning + Deep Learning logo"><h1>Machine Learning + Deep Learning Course</h1><p>Importance, roadmap, resources, pricing</p></header>
+
+<header>
+  <a href="index.html" aria-label="DataLearn10X Home" class="home-logo">
+    <img src="dl10x.png" alt="DataLearn10X logo">
+  </a>
+  <img class="header-icon" src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Machine Learning + Deep Learning logo">
+  <h1>Machine Learning + Deep Learning Course</h1>
+  <div class="header-badge">✅ Recorded Video Course — Enroll Today</div>
+</header>
+
 <div class="wrap">
-<div class="grid">
-<div class="card"><h3>🚀 Why Machine Learning + Deep Learning is Important?</h3><ul><li>ML/DL skills are in high demand in AI-driven companies.</li><li>You learn predictive models and intelligent systems.</li><li>Helps transition from analyst to AI-focused roles.</li></ul></div>
-<div class="card"><h3>📦 What You Will Get</h3><ul><li>📘 PDF Notes</li><li>🎥 Video Lessons</li><li>❓ Interview Questions</li><li>🧪 Practice tasks & projects</li></ul></div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 Why Machine Learning + Deep Learning?</h3>
+      <ul>
+        <li>ML/DL skills are in high demand in AI-driven companies</li>
+        <li>Learn predictive models, classification, NLP &amp; neural networks</li>
+        <li>Helps candidates move from analytics to AI-focused roles</li>
+        <li>Builds strong foundation for real-world AI projects &amp; interviews</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📦 What You Will Get</h3>
+      <ul>
+        <li>📘 Structured PDF Notes</li>
+        <li>🎥 Step-by-step Recorded Video Lessons</li>
+        <li>❓ Interview Questions &amp; Answers</li>
+        <li>🧪 Hands-on ML/DL Practice Projects</li>
+        <li>⚡ Model Building, Evaluation &amp; Deployment Concepts</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>AI, ML &amp; Deep Learning Fundamentals</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag">AI vs ML vs DL</span>
+          <span class="tag">Types of ML</span>
+          <span class="tag">Dataset Basics</span>
+          <span class="tag">Features &amp; Target</span>
+          <span class="tag">Training vs Testing</span>
+          <span class="tag">Model Workflow</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Start with the core difference between <strong>Artificial Intelligence</strong>, <strong>Machine Learning</strong>, and <strong>Deep Learning</strong>. You will understand what a dataset is, what <code>features</code> and <code>target</code> mean, how models learn from data, and the full workflow from data collection to prediction. This foundation is important before writing ML code.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Python Libraries for ML</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">NumPy</span>
+          <span class="tag lib">Pandas</span>
+          <span class="tag lib">Matplotlib</span>
+          <span class="tag lib">Seaborn</span>
+          <span class="tag lib">Scikit-learn</span>
+          <span class="tag lib">Jupyter Notebook</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn the essential Python libraries used in machine learning. <strong>NumPy</strong> helps with numerical operations, <strong>Pandas</strong> handles data tables, <strong>Matplotlib</strong> and <strong>Seaborn</strong> create charts, and <strong>Scikit-learn</strong> is used for model building. You will understand how these libraries work together in real ML projects.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Data Preprocessing &amp; Feature Engineering</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Missing Values</span>
+          <span class="tag data">Outliers</span>
+          <span class="tag data">Encoding</span>
+          <span class="tag data">Scaling</span>
+          <span class="tag data">Train-Test Split</span>
+          <span class="tag data">Feature Selection</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Real-world data is messy. You will clean missing values, handle outliers, convert categorical data using encoding, scale numerical features, and split data into training and testing sets. You will also understand <code>feature engineering</code>, which means creating useful input columns that help models make better predictions.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Supervised Learning — Regression</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">Linear Regression</span>
+          <span class="tag fn">Multiple Regression</span>
+          <span class="tag fn">Polynomial Regression</span>
+          <span class="tag fn">Ridge</span>
+          <span class="tag fn">Lasso</span>
+          <span class="tag fn">MAE / MSE / RMSE</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Regression is used to predict continuous values like price, sales, salary, or profit. You will learn <strong>Linear Regression</strong>, multiple regression, polynomial regression, regularization using <code>Ridge</code> and <code>Lasso</code>, and evaluation metrics like <code>MAE</code>, <code>MSE</code>, and <code>RMSE</code>. This is one of the most important ML interview topics.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Supervised Learning — Classification</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">Logistic Regression</span>
+          <span class="tag fn">KNN</span>
+          <span class="tag fn">Decision Tree</span>
+          <span class="tag fn">Random Forest</span>
+          <span class="tag fn">SVM</span>
+          <span class="tag fn">Naive Bayes</span>
+          <span class="tag fn">Confusion Matrix</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Classification is used to predict categories like yes/no, fraud/not fraud, spam/not spam, or churn/not churn. You will learn common algorithms like <strong>Logistic Regression</strong>, <strong>KNN</strong>, <strong>Decision Tree</strong>, <strong>Random Forest</strong>, <strong>SVM</strong>, and <strong>Naive Bayes</strong>. You will also understand accuracy, precision, recall, F1-score, and confusion matrix.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Unsupervised Learning</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag oop">K-Means</span>
+          <span class="tag oop">Hierarchical Clustering</span>
+          <span class="tag oop">PCA</span>
+          <span class="tag oop">Dimensionality Reduction</span>
+          <span class="tag oop">Customer Segmentation</span>
+          <span class="tag oop">Cluster Evaluation</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Unsupervised learning finds patterns when there is no target column. You will learn clustering using <code>K-Means</code> and hierarchical clustering, dimensionality reduction using <code>PCA</code>, and business use cases like customer segmentation. This module helps you understand how companies group customers, products, and behaviors using data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Model Evaluation &amp; Improvement</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">Overfitting</span>
+          <span class="tag data">Underfitting</span>
+          <span class="tag data">Cross Validation</span>
+          <span class="tag data">GridSearchCV</span>
+          <span class="tag data">Hyperparameters</span>
+          <span class="tag data">Pipeline</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Building a model is not enough; you must know whether it performs well. You will learn overfitting, underfitting, cross-validation, hyperparameter tuning, and model pipelines. You will also learn how <code>GridSearchCV</code> helps find better model settings and how to compare multiple algorithms for a business problem.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Deep Learning &amp; Neural Network Basics</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">Neuron</span>
+          <span class="tag lib">Activation Function</span>
+          <span class="tag lib">Forward Propagation</span>
+          <span class="tag lib">Backpropagation</span>
+          <span class="tag lib">Loss Function</span>
+          <span class="tag lib">Optimizer</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Understand how neural networks work from the ground level. You will learn neurons, layers, weights, biases, activation functions, forward propagation, backpropagation, loss functions, and optimizers. This module explains deep learning concepts in a beginner-friendly way before moving to CNNs and real projects.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>TensorFlow / Keras Practical Deep Learning</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag lib">TensorFlow</span>
+          <span class="tag lib">Keras</span>
+          <span class="tag lib">Sequential Model</span>
+          <span class="tag lib">Dense Layers</span>
+          <span class="tag lib">Epochs</span>
+          <span class="tag lib">Batch Size</span>
+          <span class="tag lib">Model Training</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn how to build neural networks practically using <strong>TensorFlow</strong> and <strong>Keras</strong>. You will create sequential models, add dense layers, compile models, train using epochs and batch size, and evaluate model performance. This gives you hands-on practice with deep learning code used in real projects.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Computer Vision with CNN</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag oop">Image Data</span>
+          <span class="tag oop">CNN</span>
+          <span class="tag oop">Convolution Layer</span>
+          <span class="tag oop">Pooling</span>
+          <span class="tag oop">Flatten</span>
+          <span class="tag oop">Image Classification</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Computer vision is used for image-based AI tasks. You will learn how CNNs work, including convolution layers, pooling layers, flattening, and image classification. You will understand how deep learning models identify patterns in images and how this is used in face detection, product recognition, medical images, and automation.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">11</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>NLP &amp; Text Classification Basics</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag fn">Text Cleaning</span>
+          <span class="tag fn">Tokenization</span>
+          <span class="tag fn">Stopwords</span>
+          <span class="tag fn">TF-IDF</span>
+          <span class="tag fn">Sentiment Analysis</span>
+          <span class="tag fn">Spam Detection</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Learn how machine learning works with text data. You will clean text, tokenize words, remove stopwords, convert text into numbers using <code>TF-IDF</code>, and build simple NLP projects like sentiment analysis and spam detection. This module is useful for candidates interested in AI, chatbots, and text analytics.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-line"></div>
+      <div class="step-num">12</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>ML + DL Projects</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag data">House Price Prediction</span>
+          <span class="tag data">Customer Churn</span>
+          <span class="tag data">Loan Approval</span>
+          <span class="tag data">Spam Detection</span>
+          <span class="tag data">Image Classification</span>
+          <span class="tag data">Model Report</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Build practical projects to connect theory with real-world usage. Projects may include <strong>house price prediction</strong>, <strong>customer churn prediction</strong>, <strong>loan approval classification</strong>, <strong>spam detection</strong>, and <strong>image classification</strong>. You will learn how to explain your project workflow, model choice, metrics, and business result.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-item">
+      <div class="step-num">13</div>
+      <div class="step-body">
+        <div class="step-header">
+          <h4>Interview Questions &amp; Career Preparation</h4>
+          <div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="step-tags">
+          <span class="tag oop">Top ML Questions</span>
+          <span class="tag oop">Top DL Questions</span>
+          <span class="tag oop">Algorithm Comparison</span>
+          <span class="tag oop">Metrics Explanation</span>
+          <span class="tag oop">Project Explanation</span>
+          <span class="tag oop">Resume Tips</span>
+          <p class="step-desc">
+            <strong>What you'll learn:</strong> Prepare for interviews with important questions on supervised learning, unsupervised learning, regression, classification, neural networks, CNN, NLP, and evaluation metrics. You will also learn how to explain ML projects confidently, how to compare algorithms, and which ML/DL skills to highlight on your resume.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-heading">💰 Course Pricing</div>
+  <div class="price-card">
+    <h3>Choose Your Plan</h3>
+    <p class="mrp">MRP ₹3,000</p>
+    <p class="offer">Offer ₹99</p>
+    <p class="mrp" style="margin-top:10px">Combo MRP ₹10,999</p>
+    <p class="offer">Combo Offer ₹0 <span style="font-size:0.85rem;color:#6d28d9;font-weight:500">(Limited-time offer)</span></p>
+    <div class="btn-group">
+      <a class="btn" href="index.html?add=Machine%20Learning%20%2B%20Deep%20Learning#buy-section">Buy Machine Learning + Deep Learning — ₹99</a>
+      <a class="btn blue" href="index.html?add=Data%20Analytics%20Combo#buy-section">Buy Combo (₹0)</a>
+      <a class="btn dark" href="check_email.html">Already Purchased?</a>
+      <a class="btn dark" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
 </div>
-<div class="card" style="margin-top:14px"><h3>🗺️ Complete Roadmap</h3><div class="step"><b>Step 1:</b> ML Fundamentals</div><div class="step"><b>Step 2:</b> Supervised Learning</div><div class="step"><b>Step 3:</b> Unsupervised Learning</div><div class="step"><b>Step 4:</b> Neural Networks</div><div class="step"><b>Step 5:</b> Deep Learning Projects</div><div class="step"><b>Step 6:</b> Interview Questions</div></div>
-<div class="card" style="margin-top:14px"><h3>💰 Price</h3><p class="mrp">MRP ₹3000</p><p class="offer">Offer ₹99</p><p class="mrp">Combo MRP ₹10,999</p><p class="offer">Combo Offer ₹0 (Limited-time offer)</p>
-<a class="btn" href="index.html?add=Machine%20Learning%20%2B%20Deep%20Learning#buy-section">Buy Machine Learning + Deep Learning</a>
-<a class="btn" href="index.html?add=Data%20Analytics%20Combo#buy-section">Buy Combo (₹0)</a>
-<a class="btn dark" href="check_email.html">Already Purchased?</a>
-<a class="btn dark" href="index.html">← Back to Home</a></div>
-</div>
-<!-- SECTION: FOOTER -->
-<footer>© 2026 DataLearn10X</footer>
-<script>PSAAnalytics.trackEvent('course_page_viewed',{course:'Machine Learning + Deep Learning'});</script>
+
+<footer>
+  © 2026 <strong>DataLearn10X</strong> &nbsp;|&nbsp; <a href="index.html">Home</a>
+</footer>
+
+<script>
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'Machine Learning + Deep Learning' });
+  }
+
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var body = header.closest('.step-body');
+      body.classList.toggle('open');
+    });
+  });
+</script>
 <script src="course_topics.js" defer></script>
 </body>
 </html>
