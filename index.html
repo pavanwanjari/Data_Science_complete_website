@@ -332,108 +332,337 @@
     </div>
   </section>
 
-<!-- SECTION: SECTION .section -->
-<section class="section reveal learning-path" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 0;">
-  <div class="container" style="max-width:900px;margin:auto;">
-    
-    <h2 class="path-title" style="text-align:center;color:#0f172a;font-size:32px;font-weight:700;">
-      📚 Recommended Learning Path
-    </h2>
-    <p class="path-sub" style="text-align:center;color:#64748b;margin-top:8px;">
-      A structured roadmap to become a job-ready Data Analyst in 16 weeks
-    </p>
+<!-- ══ RECOMMENDED LEARNING PATH (ROADMAP DROPDOWNS) ══ -->
+<section class="section reveal learning-path" id="learning-path" style="background:#fff">
+  <div class="container" style="max-width:920px;margin:auto">
+    <h2>📚 Recommended Learning Path</h2>
+    <p class="sub">Click on any course below to see the full topic-wise roadmap — 16 weeks to job-ready</p>
 
-    <!-- Timeline Container -->
-    <div class="timeline" style="position:relative;margin-top:40px;padding-left:20px;border-left:2px solid #e2e8f0;">
+    <div class="lp-wrap">
 
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;" open>
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Excel (Week 1–3)</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Foundation
-SUM, IF, COUNT
-VLOOKUP, INDEX MATCH
-Cleaning</p>
-        </details>
+      <!-- EXCEL -->
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="Excel">
+          <span class="lp-week">Week 1–3</span>
+          <div><div class="lp-title">Advance Excel</div><div class="lp-subtitle">MRP ₹999 | Offer ₹49 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown">
+          <div class="lp-dropdown-inner">
+            <div class="lp-timeline">
+              <div class="lp-step">
+                <div class="lp-dot">1</div>
+                <div class="lp-step-body">
+                  <h4>Excel Interface & Cell References</h4>
+                  <div class="lp-tags"><span class="lp-tag">Workbook vs Worksheet</span><span class="lp-tag">Ribbon & Tabs</span><span class="lp-tag">Relative / Absolute Ref</span></div>
+                  <p class="lp-desc">Navigate the Excel interface, understand workbook structure, and master relative, absolute, and mixed cell references — the foundation of every formula.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">2</div>
+                <div class="lp-step-body">
+                  <h4>Essential Formulas & Functions</h4>
+                  <div class="lp-tags"><span class="lp-tag">SUM / AVERAGE</span><span class="lp-tag">COUNT / COUNTA</span><span class="lp-tag">IF / Nested IF</span><span class="lp-tag">MIN / MAX</span></div>
+                  <p class="lp-desc">Master the most-used Excel functions. Build formulas for calculations, counting, conditional logic, and learn to nest functions for complex scenarios.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">3</div>
+                <div class="lp-step-body">
+                  <h4>Lookup & Reference Functions</h4>
+                  <div class="lp-tags"><span class="lp-tag">VLOOKUP</span><span class="lp-tag">HLOOKUP</span><span class="lp-tag">INDEX MATCH</span><span class="lp-tag">XLOOKUP</span></div>
+                  <p class="lp-desc">Pull data from other tables using VLOOKUP and INDEX-MATCH. Understand when to use each — and why INDEX-MATCH is more flexible and powerful.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">4</div>
+                <div class="lp-step-body">
+                  <h4>Data Cleaning & Conditional Functions</h4>
+                  <div class="lp-tags"><span class="lp-tag">TRIM / CLEAN</span><span class="lp-tag">LEFT / MID / RIGHT</span><span class="lp-tag">SUMIF / COUNTIF</span><span class="lp-tag">IFERROR</span></div>
+                  <p class="lp-desc">Clean messy data using text functions, apply conditional aggregation with SUMIFS/COUNTIFS, and handle errors gracefully with IFERROR.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">5</div>
+                <div class="lp-step-body">
+                  <h4>Pivot Tables, Charts & Dashboard</h4>
+                  <div class="lp-tags"><span class="lp-tag adv">Pivot Tables</span><span class="lp-tag adv">Slicers</span><span class="lp-tag adv">Charts</span><span class="lp-tag adv">Dashboard</span></div>
+                  <p class="lp-desc">Create powerful summaries with Pivot Tables, add interactivity with Slicers, build professional charts, and combine everything into a dynamic reporting dashboard.</p>
+                </div>
+              </div>
+            </div>
+            <a class="lp-link" href="course_advance_excel.html">Open Full Excel Course →</a>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;"> SQL (Week 4–6)</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Basics
-SELECT, WHERE
-GROUP BY
-Advanced
-JOIN
-Window Functions</p>
-        </details>
+      <!-- SQL -->
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/fluency/96/mysql-logo.png" alt="SQL">
+          <span class="lp-week">Week 4–6</span>
+          <div><div class="lp-title">SQL (MySQL)</div><div class="lp-subtitle">Full roadmap available · Recorded Sessions (Coming Soon)</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown">
+          <div class="lp-dropdown-inner">
+            <div class="lp-timeline">
+              <div class="lp-step">
+                <div class="lp-dot">1</div>
+                <div class="lp-step-body">
+                  <h4>Databases, Tables & Need of SQL</h4>
+                  <div class="lp-tags"><span class="lp-tag">What is a Database?</span><span class="lp-tag">Tables & Schemas</span><span class="lp-tag">SQL vs Spreadsheets</span></div>
+                  <p class="lp-desc">Understand what databases are, how data is stored in tables (rows & columns), and why SQL handles millions of rows where Excel crashes at 100K.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">2</div>
+                <div class="lp-step-body">
+                  <h4>SQL with Command Prompt & DDL / DCL / DML</h4>
+                  <div class="lp-tags"><span class="lp-tag">CREATE / ALTER / DROP</span><span class="lp-tag">GRANT / REVOKE</span><span class="lp-tag">INSERT / UPDATE / DELETE</span></div>
+                  <p class="lp-desc">Get hands-on with MySQL terminal. Master all three SQL pillars: DDL for structure, DCL for permissions, and DML for data operations.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">3</div>
+                <div class="lp-step-body">
+                  <h4>SQL with Python — Querying & Filtering</h4>
+                  <div class="lp-tags"><span class="lp-tag py">SELECT / WHERE</span><span class="lp-tag py">ORDER BY</span><span class="lp-tag py">GROUP BY / HAVING</span><span class="lp-tag py">IN / BETWEEN / LIKE</span></div>
+                  <p class="lp-desc">Connect Python to MySQL via mysql-connector. Run all core queries: SELECT, WHERE, GROUP BY, HAVING, and master filtering with IN, BETWEEN, LIKE.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">4</div>
+                <div class="lp-step-body">
+                  <h4>Operators, Aggregate Functions & JOINs</h4>
+                  <div class="lp-tags"><span class="lp-tag">Comparison Operators</span><span class="lp-tag">SUM / AVG / COUNT</span><span class="lp-tag adv">INNER JOIN</span><span class="lp-tag adv">LEFT / RIGHT JOIN</span></div>
+                  <p class="lp-desc">Use logical operators, aggregate data across groups, and master all JOIN types to combine data from multiple tables — an essential interview topic.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">5</div>
+                <div class="lp-step-body">
+                  <h4>Advanced SQL: Subqueries, Views & Window Functions</h4>
+                  <div class="lp-tags"><span class="lp-tag adv">Subqueries</span><span class="lp-tag adv">Views</span><span class="lp-tag adv">ROW_NUMBER / RANK</span><span class="lp-tag adv">LAG / LEAD</span></div>
+                  <p class="lp-desc">Write nested subqueries, create reusable Views, and use Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD) for advanced analytics — used in top analyst interviews.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Python (Week 7–10)</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Basics
-Variables, Loops
-Functions
-Data Analysis
-Pandas
-Cleaning
-Visualization</p>
-        </details>
+      <!-- PYTHON -->
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/python--v1.png" alt="Python">
+          <span class="lp-week">Week 7–10</span>
+          <div><div class="lp-title">Python for Data Analytics</div><div class="lp-subtitle">MRP ₹2000 | Offer ₹99 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown">
+          <div class="lp-dropdown-inner">
+            <div class="lp-timeline">
+              <div class="lp-step">
+                <div class="lp-dot">1</div>
+                <div class="lp-step-body">
+                  <h4>Python Basics & Setup</h4>
+                  <div class="lp-tags"><span class="lp-tag py">Variables & Data Types</span><span class="lp-tag py">if / elif / else</span><span class="lp-tag py">for / while Loops</span><span class="lp-tag py">Functions</span></div>
+                  <p class="lp-desc">Install Python, write your first programs, master variables, data types, conditional logic, loops, and reusable functions with parameters and return values.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">2</div>
+                <div class="lp-step-body">
+                  <h4>Data Structures & File Handling</h4>
+                  <div class="lp-tags"><span class="lp-tag py">Lists / Tuples</span><span class="lp-tag py">Dictionaries / Sets</span><span class="lp-tag py">CSV Files</span><span class="lp-tag py">try / except</span></div>
+                  <p class="lp-desc">Master Python's built-in data structures, read/write files, work with CSV data, and handle errors gracefully with try-except blocks.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">3</div>
+                <div class="lp-step-body">
+                  <h4>NumPy & Pandas for Data Analysis</h4>
+                  <div class="lp-tags"><span class="lp-tag py">NumPy Arrays</span><span class="lp-tag py">Pandas DataFrame</span><span class="lp-tag py">Filtering</span><span class="lp-tag py">GroupBy</span><span class="lp-tag py">Merge / Join</span></div>
+                  <p class="lp-desc">Work with NumPy arrays for numerical operations. Use Pandas to load, filter, sort, group, and merge real-world datasets — the core of data analytics in Python.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">4</div>
+                <div class="lp-step-body">
+                  <h4>Data Cleaning & Visualization</h4>
+                  <div class="lp-tags"><span class="lp-tag py">Missing Values</span><span class="lp-tag py">Duplicates</span><span class="lp-tag py">Matplotlib</span><span class="lp-tag py">Seaborn</span></div>
+                  <p class="lp-desc">Handle missing values, remove duplicates, fix data types, and create insightful bar, line, scatter, and heatmap visualizations with Matplotlib and Seaborn.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">5</div>
+                <div class="lp-step-body">
+                  <h4>Python Projects (EDA + Dashboard)</h4>
+                  <div class="lp-tags"><span class="lp-tag adv">EDA Project</span><span class="lp-tag adv">Sales Analysis</span><span class="lp-tag adv">Python Dashboard</span></div>
+                  <p class="lp-desc">Apply all skills in real projects: Exploratory Data Analysis on a real dataset, Sales Data Analysis, and building a Python-based analytics dashboard.</p>
+                </div>
+              </div>
+            </div>
+            <a class="lp-link" href="course_python.html">Open Full Python Course →</a>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Power BI (Week 11–13)</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Foundation
-Data Import
-Charts
-DAX
-Measures
-CALCULATE
-Dashboard
-KPI
-Filterss</p>
-        </details>
+      <!-- POWER BI -->
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI">
+          <span class="lp-week">Week 11–13</span>
+          <div><div class="lp-title">Power BI</div><div class="lp-subtitle">MRP ₹2500 | Offer ₹99 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown">
+          <div class="lp-dropdown-inner">
+            <div class="lp-timeline">
+              <div class="lp-step">
+                <div class="lp-dot">1</div>
+                <div class="lp-step-body">
+                  <h4>Power BI Interface & Data Import</h4>
+                  <div class="lp-tags"><span class="lp-tag">Get Data</span><span class="lp-tag">Power Query</span><span class="lp-tag">Data Cleaning</span><span class="lp-tag">Merge Queries</span></div>
+                  <p class="lp-desc">Install Power BI Desktop, understand the Report / Data / Model views, and use Power Query Editor to clean, transform, and shape data before building reports.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">2</div>
+                <div class="lp-step-body">
+                  <h4>Visualizations & Charts</h4>
+                  <div class="lp-tags"><span class="lp-tag">Bar / Column</span><span class="lp-tag">Line Charts</span><span class="lp-tag">Pie / Donut</span><span class="lp-tag">Maps</span><span class="lp-tag">Tables & Matrix</span></div>
+                  <p class="lp-desc">Build all major chart types, customize formatting, apply conditional formatting, and choose the right visual to communicate your data story clearly.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">3</div>
+                <div class="lp-step-body">
+                  <h4>DAX Formulas & Measures</h4>
+                  <div class="lp-tags"><span class="lp-tag adv">DAX Basics</span><span class="lp-tag adv">CALCULATE</span><span class="lp-tag adv">SUMX / AVERAGEX</span><span class="lp-tag adv">Time Intelligence</span></div>
+                  <p class="lp-desc">Learn DAX to create calculated columns and measures. Master CALCULATE, iterator functions, and time intelligence functions for YoY comparisons and MTD metrics.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">4</div>
+                <div class="lp-step-body">
+                  <h4>Dashboards, KPIs, Slicers & Drill-through</h4>
+                  <div class="lp-tags"><span class="lp-tag adv">KPI Cards</span><span class="lp-tag adv">Slicers</span><span class="lp-tag adv">Bookmarks</span><span class="lp-tag adv">Drill-through</span></div>
+                  <p class="lp-desc">Build interactive dashboards with KPI cards, slicers, bookmarks for page navigation, and drill-through pages for detailed analysis — the full professional workflow.</p>
+                </div>
+              </div>
+            </div>
+            <a class="lp-link" href="course_power_bi.html">Open Full Power BI Course →</a>
+          </div>
+        </div>
       </div>
 
-      <div class="timeline-item" style="position:relative;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;"> ML (Week 14–16)</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Basics
-Regression
-Classification
-Project
-Prediction Model</p>
-        </details>
+      <!-- ML + DL -->
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="ML DL">
+          <span class="lp-week">Week 14–16</span>
+          <div><div class="lp-title">Machine Learning + Deep Learning</div><div class="lp-subtitle">MRP ₹3000 | Offer ₹99 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown">
+          <div class="lp-dropdown-inner">
+            <div class="lp-timeline">
+              <div class="lp-step">
+                <div class="lp-dot">1</div>
+                <div class="lp-step-body">
+                  <h4>Introduction to ML & Data Preprocessing</h4>
+                  <div class="lp-tags"><span class="lp-tag py">Supervised vs Unsupervised</span><span class="lp-tag py">Encoding</span><span class="lp-tag py">Scaling</span><span class="lp-tag py">Train-Test Split</span></div>
+                  <p class="lp-desc">Understand ML types (Supervised, Unsupervised, Reinforcement). Prepare data: handle missing values, encode categorical columns, scale features, and split datasets.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">2</div>
+                <div class="lp-step-body">
+                  <h4>Regression Models</h4>
+                  <div class="lp-tags"><span class="lp-tag py">Linear Regression</span><span class="lp-tag py">Multiple Regression</span><span class="lp-tag py">Polynomial Regression</span><span class="lp-tag py">R² / MSE</span></div>
+                  <p class="lp-desc">Build regression models to predict continuous values. Understand the math behind linear regression and evaluate models using R-squared, MSE, and RMSE metrics.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">3</div>
+                <div class="lp-step-body">
+                  <h4>Classification Models</h4>
+                  <div class="lp-tags"><span class="lp-tag py">Logistic Regression</span><span class="lp-tag py">Decision Trees</span><span class="lp-tag py">Random Forest</span><span class="lp-tag py">Confusion Matrix</span></div>
+                  <p class="lp-desc">Classify data using Logistic Regression, Decision Trees, and Random Forest. Evaluate with Confusion Matrix, Precision, Recall, F1-Score — all key interview topics.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">4</div>
+                <div class="lp-step-body">
+                  <h4>Deep Learning & Neural Networks</h4>
+                  <div class="lp-tags"><span class="lp-tag adv">Neural Networks</span><span class="lp-tag adv">TensorFlow / Keras</span><span class="lp-tag adv">Activation Functions</span><span class="lp-tag adv">CNN Basics</span></div>
+                  <p class="lp-desc">Build neural networks with TensorFlow/Keras: understand layers, activation functions, backpropagation, and get introduced to Convolutional Neural Networks for image tasks.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">5</div>
+                <div class="lp-step-body">
+                  <h4>ML + DL End-to-End Projects</h4>
+                  <div class="lp-tags"><span class="lp-tag adv">Price Prediction</span><span class="lp-tag adv">Churn Classification</span><span class="lp-tag adv">Image Recognition</span></div>
+                  <p class="lp-desc">Build complete ML/DL projects: House Price Prediction, Customer Churn Classification, and an Image Recognition model — all portfolio-ready projects for your resume.</p>
+                </div>
+              </div>
+            </div>
+            <a class="lp-link" href="course_ml_dl.html">Open Full ML+DL Course →</a>
+          </div>
+        </div>
       </div>
-      
-    <div class="timeline-item" style="position:relative;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Job Preparation (2 Month)</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Resume</p>
-ATS Resume</p>
-Projects add</p>
-Job Strategy</p>
-Daily apply</p>
-LinkedIn networking</p>
-Portfolio</p>
-GitHub</p>
-Kaggle</p>
-        </details>
+
+      <!-- JOB PREP -->
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/resume.png" alt="Job Prep">
+          <span class="lp-week soon">2 Months</span>
+          <div><div class="lp-title">Job Preparation & Placement Support</div><div class="lp-subtitle">Resume · Interview Prep · LinkedIn · Portfolio</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown">
+          <div class="lp-dropdown-inner">
+            <div class="lp-timeline">
+              <div class="lp-step">
+                <div class="lp-dot">1</div>
+                <div class="lp-step-body">
+                  <h4>Resume Building & ATS Optimization</h4>
+                  <div class="lp-tags"><span class="lp-tag gr">ATS Resume</span><span class="lp-tag gr">50 Templates</span><span class="lp-tag gr">ATS Score Checker</span></div>
+                  <p class="lp-desc">Build an ATS-friendly resume using our free Resume Maker with 50 templates. Check your ATS score with our advanced checker and fix issues before applying.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">2</div>
+                <div class="lp-step-body">
+                  <h4>Portfolio, GitHub & Kaggle</h4>
+                  <div class="lp-tags"><span class="lp-tag gr">GitHub Portfolio</span><span class="lp-tag gr">Kaggle Competitions</span><span class="lp-tag gr">Project Documentation</span></div>
+                  <p class="lp-desc">Host your projects on GitHub with proper README files, participate in Kaggle competitions, and build a data portfolio that proves your skills to employers.</p>
+                </div>
+              </div>
+              <div class="lp-step">
+                <div class="lp-dot">3</div>
+                <div class="lp-step-body">
+                  <h4>Job Strategy & Interview Preparation</h4>
+                  <div class="lp-tags"><span class="lp-tag gr">LinkedIn Optimization</span><span class="lp-tag gr">HR Emails (20000+)</span><span class="lp-tag gr">Interview Q&amp;A</span><span class="lp-tag gr">Daily Applications</span></div>
+                  <p class="lp-desc">Optimize your LinkedIn, use 20000+ HR email contacts to apply directly, study Cheat Sheets + Interview Q&A, and follow a daily application strategy to land your first role.</p>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+              <a class="lp-link" href="resume_maker.html">Free Resume Maker →</a>
+              <a class="lp-link" style="background:linear-gradient(135deg,#0284c7,#0ea5e9)" href="ats_resume_checker.html">ATS Score Checker →</a>
+              <a class="lp-link" style="background:linear-gradient(135deg,#166534,#16a34a)" href="course_hr_emails.html">HR Emails →</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Footer Note -->
-    <p style="text-align:center;margin-top:40px;color:#64748b;font-size:14px;">
-      ⏱️ 16 Weeks • Self-Paced • Lifetime Access • WhatsApp Support
-    </p>
-
+    </div><!-- /.lp-wrap -->
+    <p class="lp-path-note">⏱️ 16 Weeks + 2 Months Job Prep · Self-Paced · Lifetime Access · WhatsApp Support</p>
   </div>
 </section>
 
