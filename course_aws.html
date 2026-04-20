@@ -2,286 +2,141 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Agentic AI - DataLearn10X</title>
-
+<title>AWS Full Stack Development - DataLearn10X</title>
+<link rel="icon" type="image/png" href="dl10x.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
+<meta name="description" content="Learn full-stack backend development with Spring Boot, AWS RDS, MySQL, and Heroku deployments.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="config.js" defer></script>
+<script src="analytics.js" defer></script>
 <style>
-body{
-  font-family:Poppins,sans-serif;
-  margin:0;
-  background:#020617;
-  color:#e0f2fe;
-}
-
-/* HEADER */
-header{
-  text-align:center;
-  padding:40px 15px;
-  background:linear-gradient(135deg,#020617,#0ea5e9,#38bdf8);
-}
-
-header img{
-  width:100px;
-  border-radius:10px;
-}
-
-h1{margin:10px 0;font-size:22px;}
-
-.wrap{
-  padding:15px;
-  max-width:500px;
-  margin:auto;
-}
-
-/* SECTION */
-.section{
-  margin-top:25px;
-}
-
-.section h2{
-  color:#38bdf8;
-  font-size:18px;
-}
-
-/* DROPDOWN */
-.item{
-  margin-top:10px;
-  border-radius:10px;
-  overflow:hidden;
-  border:1px solid #1e293b;
-}
-
-.title{
-  padding:12px;
-  background:#0f172a;
-  display:flex;
-  justify-content:space-between;
-  cursor:pointer;
-}
-
-.title:hover{background:#1e293b;}
-
-.content{
-  max-height:0;
-  overflow:hidden;
-  transition:0.5s;
-  background:#020617;
-  padding:0 12px;
-}
-
-.content ul{
-  padding:10px 0 10px 18px;
-}
-
-.active .content{
-  max-height:1000px;
-}
-
-/* CARD */
-.card{
-  background:#0f172a;
-  padding:15px;
-  margin-top:20px;
-  border-radius:10px;
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:15px;
-  color:#94a3b8;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: #f0f4fb; color: #1f2f46; }
+  header {
+    position: relative;
+    padding: 60px 20px 48px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #0b1324 0%, #1d4ed8 45%, #0ea5e9 100%);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #f0f4fb;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo { position: absolute; top: 16px; left: 16px; }
+  .home-logo img { height: 36px; width: auto; display: block; }
+  .header-icon { width: 88px; height: 88px; object-fit: contain; border-radius: 18px; background: rgba(255,255,255,0.12); padding: 8px; margin-bottom: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .header-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; padding: 5px 16px; font-size: 13px; font-weight: 500; letter-spacing: 0.3px; backdrop-filter: blur(6px); }
+  .wrap { max-width: 1060px; margin: auto; padding: 36px 16px 60px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #fff; border-radius: 16px; padding: 22px 24px; box-shadow: 0 4px 18px rgba(0,0,0,0.07); border: 1px solid rgba(0,0,0,0.05); }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: #1d4ed8; }
+  .card ul { padding-left: 18px; line-height: 1.85; font-size: 0.92rem; color: #374151; }
+  .section-heading { font-size: 1.3rem; font-weight: 700; color: #1d4ed8; margin: 32px 0 16px; display: flex; align-items: center; gap: 10px; }
+  .section-heading::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, #1d4ed822, transparent); border-radius: 2px; }
+  .roadmap { display: flex; flex-direction: column; gap: 0; }
+  .roadmap-item { display: flex; gap: 0; position: relative; }
+  .roadmap-item:not(:last-child) .step-line { position: absolute; left: 22px; top: 46px; bottom: 0; width: 2px; background: linear-gradient(180deg, #1d4ed840, #1d4ed810); z-index: 0; }
+  .step-num { flex-shrink: 0; width: 44px; height: 44px; background: linear-gradient(135deg, #1d4ed8, #0ea5e9); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(37,99,235,0.35); position: relative; z-index: 1; margin-top: 2px; }
+  .step-body { flex: 1; background: #fff; border-radius: 14px; margin: 0 0 14px 14px; box-shadow: 0 3px 14px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05); border-left: 3px solid #0ea5e9; overflow: hidden; transition: box-shadow 0.2s; }
+  .step-body:hover { box-shadow: 0 6px 20px rgba(37,99,235,0.12); }
+  .step-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; cursor: pointer; user-select: none; gap: 10px; }
+  .step-header h4 { font-size: 0.97rem; font-weight: 600; color: #1d4ed8; margin: 0; flex: 1; }
+  .chevron { width: 22px; height: 22px; flex-shrink: 0; background: #eef3ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease, background 0.2s; }
+  .chevron svg { width: 12px; height: 12px; stroke: #0ea5e9; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .step-body.open .chevron { transform: rotate(180deg); background: #0ea5e9; }
+  .step-body.open .chevron svg { stroke: #fff; }
+  .step-tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s ease; }
+  .step-body.open .step-tags { max-height: 700px; padding: 0 20px 18px; }
+  .step-desc { width: 100%; font-size: 0.83rem; color: #4b5563; line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e5e7eb; }
+  .tag { display: inline-block; background: #eef3ff; color: #0ea5e9; border-radius: 6px; padding: 3px 10px; font-size: 0.78rem; font-weight: 500; border: 1px solid #dbeafe; }
+  .tag.adv { background: #ecfeff; color: #0f766e; border-color: #a5f3fc; }
+  .tag.tool { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .price-card { background: linear-gradient(135deg, #ffffff, #f8fbff); border: 1.5px solid #bfdbfe; border-radius: 18px; padding: 24px; box-shadow: 0 8px 24px rgba(37,99,235,0.12); text-align: center; }
+  .price-card .mrp { text-decoration: line-through; color: #64748b; margin-right: 10px; }
+  .price-card .offer { color: #16a34a; font-weight: 700; font-size: 1.35rem; }
+  .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
+  .btn { display: inline-block; text-decoration: none; border-radius: 12px; padding: 11px 18px; font-weight: 600; transition: .2s; }
+  .btn.primary { background: linear-gradient(90deg, #16a34a, #15803d); color: #fff; }
+  .btn.secondary { background: #e2e8f0; color: #1e293b; }
+  .btn:hover { transform: translateY(-1px); }
+  footer { text-align: center; margin-top: 24px; color: #64748b; font-size: 13px; }
+  @media (max-width: 720px) {
+    .wrap { padding: 26px 12px 48px; }
+    .grid { grid-template-columns: 1fr; }
+    .step-body { margin: 0 0 12px 10px; }
+    .step-header { padding: 13px 14px; }
+    .step-header h4 { font-size: 0.91rem; }
+    .step-body.open .step-tags { padding: 0 14px 14px; }
+    .step-tags { padding: 0 14px; }
+    .section-heading { font-size: 1.08rem; }
+  }
 </style>
+<link rel="stylesheet" href="theme_professional.css">
 </head>
-
-<body>
-
+<body class="course-page course-aws">
 <header>
-<img src="https://img.freepik.com/free-photo/futuristic-ai-robot_23-2151908208.jpg">
-<h1>Agentic Artificial Intelligent 🚀</h1>
-<p>AI • Automation • Productivity • Future Tech</p>
+  <a class="home-logo" href="index.html"><img src="dl10x.png" alt="DataLearn10X"></a>
+  <img class="header-icon" src="https://img.icons8.com/color/96/amazon-web-services.png" alt="AWS Full Stack Development">
+  <h1>AWS Full Stack Development</h1>
+  <div class="header-badge">Spring Boot • AWS RDS • MySQL • Heroku</div>
 </header>
-
 <div class="wrap">
+  <div class="grid">
+    <div class="card"><h3>🎯 Best for</h3><ul><li>Students targeting Java backend roles</li><li>Developers moving into cloud deployment</li><li>Learners building production-ready APIs</li></ul></div>
+    <div class="card"><h3>🧰 Tools & Stack</h3><ul><li>Java, Spring Boot, Maven</li><li>MySQL + AWS RDS</li><li>Heroku deployment workflow</li><li>Git & GitHub CI basics</li></ul></div>
+    <div class="card"><h3>🚀 Outcomes</h3><ul><li>Build secure REST APIs from scratch</li><li>Deploy backend apps to cloud environments</li><li>Create resume-ready full-stack backend projects</li></ul></div>
+  </div>
 
-<!-- ================= SECTION 1 ================= -->
-<div class="section">
-<h2>📊 AI for Productivity & Business</h2>
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+    <div class="roadmap-item"><span class="step-line"></span><div class="step-num">1</div><div class="step-body open"><div class="step-header"><h4>Spring Boot Fundamentals & Architecture</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag ">Project setup</span><span class="tag ">Controllers</span><span class="tag adv">Service layer</span><p class="step-desc">Start with enterprise-grade Spring Boot structure and clean code architecture.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">2</div><div class="step-body"><div class="step-header"><h4>MySQL Schema Design + JPA/Hibernate</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag ">ER Design</span><span class="tag ">CRUD</span><span class="tag tool">JPA</span><p class="step-desc">Design scalable schemas and connect your APIs with relational databases.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">3</div><div class="step-body"><div class="step-header"><h4>Authentication, Validation & Error Handling</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag adv">JWT</span><span class="tag ">Validation</span><span class="tag ">Exception Handling</span><p class="step-desc">Secure endpoints and build robust APIs with professional validation patterns.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">4</div><div class="step-body"><div class="step-header"><h4>AWS RDS + Environment Config</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag tool">RDS setup</span><span class="tag ">Connection pools</span><span class="tag adv">Secrets</span><p class="step-desc">Move from local DB to AWS RDS and handle environment-specific configs.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">5</div><div class="step-body"><div class="step-header"><h4>Heroku Deployment + Production Debugging</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag tool">Procfile</span><span class="tag ">Logs</span><span class="tag adv">Release flow</span><p class="step-desc">Deploy backend applications and troubleshoot real production issues.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">6</div><div class="step-body"><div class="step-header"><h4>Capstone API Project</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag adv">Real project</span><span class="tag tool">Portfolio</span><span class="tag ">Interview prep</span><p class="step-desc">Build and deploy a complete backend project with documentation and demo steps.</p></div></div></div>
+  </div>
 
-<!-- 1 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">AI Productivity Fundamentals ⌄</div>
-<div class="content">
-<ul>
-<li>10x productivity using AI tools</li>
-<li>Choose right AI tools for tasks</li>
-<li>Decision making with AI insights</li>
-<li>Workflow automation basics</li>
-<li>AI as personal assistant (Jarvis concept)</li>
-</ul>
-</div>
-</div>
+  
 
-<!-- 2 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Prompt Engineering Mastery ⌄</div>
-<div class="content">
-<ul>
-<li>Prompt frameworks</li>
-<li>Get better results every time</li>
-<li>Structured prompting</li>
-<li>Business prompts & automation</li>
-<li>Fast learning techniques</li>
-</ul>
-</div>
-</div>
+  <div class="section-heading">🎁 What You Get in This Course</div>
+  <div class="grid">
+    <div class="card"><h3>📂 Practical Resources</h3><ul><li>Module-wise notes and implementation checklists</li><li>Practice assignments for each roadmap step</li><li>Interview-focused revision guide</li></ul></div>
+    <div class="card"><h3>🧑‍🏫 Student Support</h3><ul><li>Beginner-friendly progression from basics to advanced</li><li>Self-paced learning with lifetime access</li><li>WhatsApp support for major learning blockers</li></ul></div>
+    <div class="card"><h3>💼 Career Readiness</h3><ul><li>Portfolio project direction and implementation tips</li><li>Common interview questions mapped to modules</li><li>Recommended project publishing flow</li></ul></div>
+  </div>
 
-<!-- 3 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Real World Applications ⌄</div>
-<div class="content">
-<ul>
-<li>Write reports in minutes</li>
-<li>Email automation (Inbox Zero)</li>
-<li>Content generation</li>
-<li>Data analysis with AI</li>
-<li>Meeting summaries & notes</li>
-</ul>
-</div>
-</div>
+  <div class="section-heading">💰 Course Pricing</div>
+  <div class="price-card">
+    <p><span class="mrp">MRP ₹2999</span> <span class="offer">Offer ₹99</span></p>
+    <p style="color:#475569;margin-top:4px">Self-paced + lifetime access + WhatsApp support</p>
+    <div class="btn-group">
+      <a class="btn primary" href="index.html?add=AWS%20Full%20Stack%20Development#buy-section">Buy AWS Full Stack Development — ₹99</a>
+      <a class="btn secondary" href="index.html">← Back to Home</a>
+    </div>
+  </div>
 
-<!-- 4 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Advanced Productivity ⌄</div>
-<div class="content">
-<ul>
-<li>Automate repetitive tasks</li>
-<li>Scale productivity 10x</li>
-<li>AI workflow integration</li>
-<li>Decision making frameworks</li>
-<li>Business automation systems</li>
-</ul>
+  <footer>© 2026 DataLearn10X</footer>
 </div>
-</div>
-
-<!-- 5 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Career & Growth Benefits ⌄</div>
-<div class="content">
-<ul>
-<li>Work faster & smarter</li>
-<li>Become AI expert in office</li>
-<li>Future-proof your career</li>
-<li>Reduce workload stress</li>
-<li>Better work-life balance</li>
-</ul>
-</div>
-</div>
-
-</div>
-
-<!-- ================= SECTION 2 ================= -->
-<div class="section">
-<h2>🎨 GenAI Image & Video Creation</h2>
-
-<!-- 1 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">GenAI Basics ⌄</div>
-<div class="content">
-<ul>
-<li>What is Generative AI</li>
-<li>Image vs Video AI</li>
-<li>AI tools overview</li>
-<li>Nano Banana intro</li>
-<li>Veo 3.1 overview</li>
-</ul>
-</div>
-</div>
-
-<!-- 2 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Prompt Engineering ⌄</div>
-<div class="content">
-<ul>
-<li>Image prompts</li>
-<li>Video prompts</li>
-<li>Script generation</li>
-<li>Prompt optimization</li>
-<li>Real examples</li>
-</ul>
-</div>
-</div>
-
-<!-- 3 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Image Creation ⌄</div>
-<div class="content">
-<ul>
-<li>Product images</li>
-<li>Logos & thumbnails</li>
-<li>Social media posts</li>
-<li>Gaming avatars</li>
-<li>High-resolution outputs</li>
-</ul>
-</div>
-</div>
-
-<!-- 4 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Video Creation ⌄</div>
-<div class="content">
-<ul>
-<li>Short videos</li>
-<li>Product ads</li>
-<li>Animated content</li>
-<li>UGC videos</li>
-<li>Reels & shorts</li>
-</ul>
-</div>
-</div>
-
-<!-- 5 -->
-<div class="item">
-<div class="title" onclick="toggle(this)">Real Projects & Use Cases ⌄</div>
-<div class="content">
-<ul>
-<li>Marketing campaigns</li>
-<li>YouTube content</li>
-<li>Instagram reels</li>
-<li>Brand promotions</li>
-<li>AI content business</li>
-</ul>
-</div>
-</div>
-
-</div>
-
-<!-- BONUS -->
-<div class="card">
-<h3>🎁 Bonus</h3>
-<ul>
-<li>50+ AI Books</li>
-<li>Video Tutorials</li>
-<li>100 Interview Questions</li>
-<li>Case Studies</li>
-</ul>
-</div>
-
-</div>
-
-<footer>
-© 2026 DataLearn10X
-</footer>
-
 <script>
-function toggle(e){
-  let parent=e.parentElement;
-  parent.classList.toggle("active");
-}
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'AWS Full Stack Development' });
+  }
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var body = header.closest('.step-body');
+      body.classList.toggle('open');
+    });
+  });
 </script>
-
 </body>
 </html>
