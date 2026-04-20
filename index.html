@@ -119,6 +119,43 @@
     .social-links a{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border:1px solid rgba(169,196,240,.35);transition:.2s}
     .social-links a:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}
     .social-links img{width:22px;height:22px}
+
+    /* Hero curve + section color sync */
+    .hero{position:relative}
+    .hero-curve{position:absolute;left:0;right:0;bottom:-1px;height:44px;background:#0b1020;clip-path:ellipse(58% 100% at 50% 100%);pointer-events:none}
+
+    /* Recommended Learning Path (dropdown roadmap) */
+    .learning-path{background:linear-gradient(to bottom,#f8fafc,#eef2f7)!important;padding:60px 0!important}
+    .learning-path h2{color:#0f172a;text-shadow:none}
+    .learning-path .sub{color:#64748b}
+    .lp-wrap{display:grid;gap:12px;margin-top:26px}
+    .lp-course{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(2,6,23,.06)}
+    .lp-header{display:grid;grid-template-columns:56px auto 1fr 24px;align-items:center;gap:10px;padding:14px 16px;cursor:pointer}
+    .lp-header img{width:44px;height:44px;object-fit:contain}
+    .lp-week{background:#e0f2fe;color:#0369a1;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;justify-self:start}
+    .lp-week.soon{background:#fef3c7;color:#92400e}
+    .lp-title{color:#0f172a;font-weight:700;font-size:15px}
+    .lp-subtitle{color:#64748b;font-size:12px}
+    .lp-chevron{display:flex;align-items:center;justify-content:center;transition:transform .25s ease}
+    .lp-chevron svg{width:18px;height:18px;fill:none;stroke:#334155;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .lp-dropdown{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .lp-course.open .lp-dropdown{max-height:1400px}
+    .lp-course.open .lp-chevron{transform:rotate(180deg)}
+    .lp-dropdown-inner{padding:0 16px 16px;border-top:1px solid #e2e8f0}
+    .lp-timeline{display:grid;gap:10px;margin-top:12px}
+    .lp-step{display:flex;gap:10px;align-items:flex-start}
+    .lp-dot{min-width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+    .lp-step-body h4{font-size:14px;color:#0f172a;margin-bottom:6px}
+    .lp-tags{display:flex;flex-wrap:wrap;gap:6px}
+    .lp-tag{font-size:11px;border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:2px 8px}
+    .lp-tag.adv{background:#eef2ff;border-color:#c7d2fe;color:#3730a3}
+    .lp-tag.py{background:#f0fdfa;border-color:#99f6e4;color:#0f766e}
+    .lp-tag.gr{background:#f0fdf4;border-color:#bbf7d0;color:#166534}
+    .lp-desc{margin-top:6px;font-size:12px;line-height:1.6;color:#475569}
+    .lp-link{display:inline-block;margin-top:14px;background:linear-gradient(135deg,#0284c7,#2563eb);color:#fff;text-decoration:none;padding:9px 14px;border-radius:10px;font-weight:600;font-size:13px}
+    .lp-link:hover{filter:brightness(1.05)}
+    .lp-path-note{text-align:center;margin-top:16px;color:#64748b;font-size:13px}
+
     .legal-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:6px 0 4px}
     .legal-links a{color:#cfe2ff;text-decoration:none;font-weight:600;font-size:13px}
     .legal-links a:hover{text-decoration:underline;color:#ffffff}
@@ -146,11 +183,11 @@
       .whatsapp{width:56px;height:56px;right:12px;bottom:12px}
       .whatsapp img{width:31px}
       .learning-path{padding:42px 0!important}
-      .learning-path .path-title{font-size:24px!important}
-      .learning-path .path-sub{font-size:14px!important;padding:0 8px}
-      .learning-path .timeline{margin-top:26px!important;padding-left:14px!important}
-      .learning-path .timeline-item{margin-bottom:16px!important;padding-left:14px!important}
-      .learning-path .timeline-item-card{padding:12px 14px!important}
+      .lp-header{grid-template-columns:48px 1fr 20px;gap:8px;padding:12px}
+      .lp-header .lp-week{grid-column:2;justify-self:start}
+      .lp-header .lp-title{font-size:14px}
+      .lp-subtitle{font-size:11px}
+      .lp-dropdown-inner{padding:0 12px 14px}
       .comparison-table{min-width:680px;margin:14px 0}
       .comparison-table th,.comparison-table td{padding:11px!important;font-size:13px}
       .skill-item .skill-logo{width:36px;height:36px}
@@ -164,8 +201,9 @@
       #explore-courses .course-card .muted{font-size:12px}
       #explore-courses .course-card img{width:46px;height:46px}
       .ads-slide{height:220px}
-      .learning-path .path-title{font-size:22px!important}
-      .learning-path .path-sub{font-size:13px!important}
+      .lp-step-body h4{font-size:13px}
+      .lp-desc{font-size:11px}
+      .lp-link{width:100%;text-align:center}
       #why-analytics h2,#program-for h2,#candidate-benefits h2,#comparison-section h2,#guarantee-section h2,#success-stories h2,#faq-section h2{font-size:21px!important}
       #why-analytics .sub,#program-for .sub,#candidate-benefits .sub,#comparison-section .sub,#guarantee-section .sub,#success-stories p,#faq-section .sub{font-size:12px!important}
       #why-analytics .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -212,6 +250,7 @@
     </div>
     <div class="glow-line" aria-hidden="true"></div>
     <a class="pill" id="offerPill" href="#explore-courses" aria-label="Go to Explore Courses">🔥 All Courses Bundle Intro Offer ₹0 (valid for current intake)</a>
+    <div class="hero-curve" aria-hidden="true"></div>
   </header>
 
   <!-- SECTION: SECTION .ads-section -->
@@ -282,66 +321,120 @@
   </section>
 
 <!-- SECTION: SECTION .section -->
-<section class="section reveal learning-path" style="background:linear-gradient(to bottom,#f8fafc,#eef2f7);padding:60px 0;">
-  <div class="container" style="max-width:900px;margin:auto;">
-    
-    <h2 class="path-title" style="text-align:center;color:#0f172a;font-size:32px;font-weight:700;">
-      📚 Recommended Learning Path
-    </h2>
-    <p class="path-sub" style="text-align:center;color:#64748b;margin-top:8px;">
-      A structured roadmap to become a job-ready Data Analyst in 16 weeks
-    </p>
+<section class="section reveal learning-path" id="learning-path" style="background:#fff">
+  <div class="container" style="max-width:920px;margin:auto">
+    <h2>📚 Recommended Learning Path</h2>
+    <p class="sub">Click on any course below to see the full topic-wise roadmap — 16 weeks to job-ready</p>
 
-    <!-- Timeline Container -->
-    <div class="timeline" style="position:relative;margin-top:40px;padding-left:20px;border-left:2px solid #e2e8f0;">
-
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;" open>
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 1-2</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Excel Fundamentals & Advanced Techniques</p>
-        </details>
+    <div class="lp-wrap">
+      <div class="lp-course open">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="true">
+          <img src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="Excel">
+          <span class="lp-week">Week 1–3</span>
+          <div><div class="lp-title">Advance Excel</div><div class="lp-subtitle">MRP ₹999 | Offer ₹49 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown"><div class="lp-dropdown-inner">
+          <div class="lp-timeline">
+            <div class="lp-step"><div class="lp-dot">1</div><div class="lp-step-body"><h4>Excel Interface & Cell References</h4><div class="lp-tags"><span class="lp-tag">Workbook vs Worksheet</span><span class="lp-tag">Ribbon & Tabs</span><span class="lp-tag">Relative / Absolute Ref</span></div><p class="lp-desc">Learn workbook structure and master relative, absolute, and mixed references.</p></div></div>
+            <div class="lp-step"><div class="lp-dot">2</div><div class="lp-step-body"><h4>Essential Formulas & Functions</h4><div class="lp-tags"><span class="lp-tag">SUM / AVERAGE</span><span class="lp-tag">COUNT / COUNTA</span><span class="lp-tag">IF / Nested IF</span></div><p class="lp-desc">Build strong formula logic for day-to-day analyst work.</p></div></div>
+            <div class="lp-step"><div class="lp-dot">3</div><div class="lp-step-body"><h4>Lookup & Reference Functions</h4><div class="lp-tags"><span class="lp-tag">VLOOKUP</span><span class="lp-tag">INDEX MATCH</span><span class="lp-tag">XLOOKUP</span></div><p class="lp-desc">Pull and map data efficiently across large sheets.</p></div></div>
+            <div class="lp-step"><div class="lp-dot">4</div><div class="lp-step-body"><h4>Data Cleaning & Conditional Functions</h4><div class="lp-tags"><span class="lp-tag">TRIM / CLEAN</span><span class="lp-tag">SUMIF / COUNTIF</span><span class="lp-tag">IFERROR</span></div><p class="lp-desc">Clean messy data and automate error-safe summaries.</p></div></div>
+            <div class="lp-step"><div class="lp-dot">5</div><div class="lp-step-body"><h4>Pivot Tables, Charts & Dashboard</h4><div class="lp-tags"><span class="lp-tag adv">Pivot Tables</span><span class="lp-tag adv">Slicers</span><span class="lp-tag adv">Dashboard</span></div><p class="lp-desc">Create interactive reports and business dashboards.</p></div></div>
+          </div>
+          <a class="lp-link" href="course_advance_excel.html">Open Full Excel Course →</a>
+        </div></div>
       </div>
 
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 3-6</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Python for Data Analysis & Automation</p>
-        </details>
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/fluency/96/mysql-logo.png" alt="SQL">
+          <span class="lp-week">Week 4–6</span>
+          <div><div class="lp-title">SQL (MySQL)</div><div class="lp-subtitle">Full roadmap available · Recorded Sessions (Coming Soon)</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown"><div class="lp-dropdown-inner"><div class="lp-timeline">
+          <div class="lp-step"><div class="lp-dot">1</div><div class="lp-step-body"><h4>Database Basics & SQL Need</h4><div class="lp-tags"><span class="lp-tag">Schemas</span><span class="lp-tag">Tables</span><span class="lp-tag">Rows & Columns</span></div><p class="lp-desc">Understand why SQL is essential for large-scale analytics.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">2</div><div class="lp-step-body"><h4>DDL / DCL / DML</h4><div class="lp-tags"><span class="lp-tag">CREATE/ALTER</span><span class="lp-tag">GRANT/REVOKE</span><span class="lp-tag">INSERT/UPDATE</span></div><p class="lp-desc">Master structure, permissions, and data operations.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">3</div><div class="lp-step-body"><h4>Querying & Filtering</h4><div class="lp-tags"><span class="lp-tag py">SELECT</span><span class="lp-tag py">WHERE</span><span class="lp-tag py">GROUP BY</span></div><p class="lp-desc">Write interview-level queries with filters and grouping.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">4</div><div class="lp-step-body"><h4>JOINs & Aggregations</h4><div class="lp-tags"><span class="lp-tag adv">INNER JOIN</span><span class="lp-tag adv">LEFT JOIN</span><span class="lp-tag">SUM/AVG/COUNT</span></div><p class="lp-desc">Combine data from multiple tables and aggregate insights.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">5</div><div class="lp-step-body"><h4>Advanced SQL</h4><div class="lp-tags"><span class="lp-tag adv">Subqueries</span><span class="lp-tag adv">Views</span><span class="lp-tag adv">Window Functions</span></div><p class="lp-desc">Cover advanced analytics queries used in real projects.</p></div></div>
+        </div></div></div>
       </div>
 
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 7-10</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Power BI Dashboards & SQL Basics</p>
-        </details>
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/python--v1.png" alt="Python">
+          <span class="lp-week">Week 7–10</span>
+          <div><div class="lp-title">Python for Data Analytics</div><div class="lp-subtitle">MRP ₹2000 | Offer ₹99 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown"><div class="lp-dropdown-inner"><div class="lp-timeline">
+          <div class="lp-step"><div class="lp-dot">1</div><div class="lp-step-body"><h4>Python Basics & Setup</h4><div class="lp-tags"><span class="lp-tag py">Variables</span><span class="lp-tag py">if/else</span><span class="lp-tag py">Loops</span></div><p class="lp-desc">Start from zero and build coding confidence quickly.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">2</div><div class="lp-step-body"><h4>Data Structures & Files</h4><div class="lp-tags"><span class="lp-tag py">Lists</span><span class="lp-tag py">Dict</span><span class="lp-tag py">CSV</span></div><p class="lp-desc">Handle real data files and structured Python objects.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">3</div><div class="lp-step-body"><h4>NumPy & Pandas</h4><div class="lp-tags"><span class="lp-tag py">DataFrame</span><span class="lp-tag py">GroupBy</span><span class="lp-tag py">Merge</span></div><p class="lp-desc">Use the core analytics stack used by data analysts.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">4</div><div class="lp-step-body"><h4>Cleaning & Visualization</h4><div class="lp-tags"><span class="lp-tag py">Missing Values</span><span class="lp-tag py">Matplotlib</span><span class="lp-tag py">Seaborn</span></div><p class="lp-desc">Clean datasets and build clear data visualizations.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">5</div><div class="lp-step-body"><h4>Projects (EDA + Dashboard)</h4><div class="lp-tags"><span class="lp-tag adv">EDA</span><span class="lp-tag adv">Sales Analysis</span><span class="lp-tag adv">Portfolio Project</span></div><p class="lp-desc">Create portfolio-ready projects for interviews.</p></div></div>
+        </div>
+        <a class="lp-link" href="course_python.html">Open Full Python Course →</a>
+      </div></div>
       </div>
 
-      <div class="timeline-item" style="position:relative;margin-bottom:28px;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 11-14</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Machine Learning Fundamentals</p>
-        </details>
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI">
+          <span class="lp-week">Week 11–13</span>
+          <div><div class="lp-title">Power BI</div><div class="lp-subtitle">MRP ₹2500 | Offer ₹99 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown"><div class="lp-dropdown-inner"><div class="lp-timeline">
+          <div class="lp-step"><div class="lp-dot">1</div><div class="lp-step-body"><h4>Power BI Interface & Import</h4><div class="lp-tags"><span class="lp-tag">Get Data</span><span class="lp-tag">Power Query</span><span class="lp-tag">Merge</span></div><p class="lp-desc">Import and transform raw data into model-ready tables.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">2</div><div class="lp-step-body"><h4>Visualizations</h4><div class="lp-tags"><span class="lp-tag">Bar/Line</span><span class="lp-tag">Maps</span><span class="lp-tag">Matrix</span></div><p class="lp-desc">Create impactful business visuals and report pages.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">3</div><div class="lp-step-body"><h4>DAX Measures</h4><div class="lp-tags"><span class="lp-tag adv">CALCULATE</span><span class="lp-tag adv">SUMX</span><span class="lp-tag adv">Time Intelligence</span></div><p class="lp-desc">Build smart metrics for analysis and KPI tracking.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">4</div><div class="lp-step-body"><h4>Dashboard Interactivity</h4><div class="lp-tags"><span class="lp-tag adv">Slicers</span><span class="lp-tag adv">Bookmarks</span><span class="lp-tag adv">Drill-through</span></div><p class="lp-desc">Deliver interactive executive dashboards.</p></div></div>
+        </div>
+        <a class="lp-link" href="course_power_bi.html">Open Full Power BI Course →</a>
+      </div></div>
       </div>
 
-      <div class="timeline-item" style="position:relative;padding-left:20px;">
-        <div style="position:absolute;left:-11px;top:6px;width:14px;height:14px;background:#0284c7;border-radius:50%;box-shadow:0 0 0 4px #e0f2fe;"></div>
-        <details class="timeline-item-card" style="background:#ffffff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:.3s;">
-          <summary style="padding:16px 18px;color:#0284c7;font-weight:700;cursor:pointer;">Week 15-16</summary>
-          <p style="margin:0;padding:0 18px 16px;color:#1e293b;">Capstone Project & Interview Preparation</p>
-        </details>
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="ML DL">
+          <span class="lp-week">Week 14–16</span>
+          <div><div class="lp-title">Machine Learning + Deep Learning</div><div class="lp-subtitle">MRP ₹3000 | Offer ₹99 · Recorded Sessions</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown"><div class="lp-dropdown-inner"><div class="lp-timeline">
+          <div class="lp-step"><div class="lp-dot">1</div><div class="lp-step-body"><h4>ML Foundations</h4><div class="lp-tags"><span class="lp-tag py">Supervised</span><span class="lp-tag py">Preprocessing</span><span class="lp-tag py">Train/Test</span></div><p class="lp-desc">Learn model-building foundations and feature prep.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">2</div><div class="lp-step-body"><h4>Regression & Classification</h4><div class="lp-tags"><span class="lp-tag py">Linear Regression</span><span class="lp-tag py">Random Forest</span><span class="lp-tag py">F1 Score</span></div><p class="lp-desc">Train and evaluate ML models for prediction tasks.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">3</div><div class="lp-step-body"><h4>Neural Networks</h4><div class="lp-tags"><span class="lp-tag adv">TensorFlow</span><span class="lp-tag adv">Keras</span><span class="lp-tag adv">CNN Basics</span></div><p class="lp-desc">Get started with deep learning architecture.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">4</div><div class="lp-step-body"><h4>End-to-End Projects</h4><div class="lp-tags"><span class="lp-tag adv">Price Prediction</span><span class="lp-tag adv">Churn</span><span class="lp-tag adv">Image Recognition</span></div><p class="lp-desc">Build capstone models ready for portfolio showcases.</p></div></div>
+        </div>
+        <a class="lp-link" href="course_ml_dl.html">Open Full ML+DL Course →</a>
+      </div></div>
       </div>
 
+      <div class="lp-course">
+        <div class="lp-header" onclick="toggleLP(this)" aria-expanded="false">
+          <img src="https://img.icons8.com/color/96/resume.png" alt="Job Prep">
+          <span class="lp-week soon">2 Months</span>
+          <div><div class="lp-title">Job Preparation & Placement Support</div><div class="lp-subtitle">Resume · Interview Prep · LinkedIn · Portfolio</div></div>
+          <div class="lp-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="lp-dropdown"><div class="lp-dropdown-inner"><div class="lp-timeline">
+          <div class="lp-step"><div class="lp-dot">1</div><div class="lp-step-body"><h4>Resume + ATS Optimization</h4><div class="lp-tags"><span class="lp-tag gr">ATS Resume</span><span class="lp-tag gr">Templates</span><span class="lp-tag gr">Score Checker</span></div><p class="lp-desc">Build a recruiter-friendly resume and improve ATS score.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">2</div><div class="lp-step-body"><h4>Portfolio & LinkedIn</h4><div class="lp-tags"><span class="lp-tag gr">GitHub</span><span class="lp-tag gr">Kaggle</span><span class="lp-tag gr">LinkedIn</span></div><p class="lp-desc">Showcase projects professionally to attract interviews.</p></div></div>
+          <div class="lp-step"><div class="lp-dot">3</div><div class="lp-step-body"><h4>Job Application Strategy</h4><div class="lp-tags"><span class="lp-tag gr">HR Emails</span><span class="lp-tag gr">Interview Q&A</span><span class="lp-tag gr">Daily Apply Plan</span></div><p class="lp-desc">Run an effective application pipeline until you get offers.</p></div></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+          <a class="lp-link" href="resume_maker.html">Free Resume Maker →</a>
+          <a class="lp-link" style="background:linear-gradient(135deg,#0284c7,#0ea5e9)" href="ats_resume_checker.html">ATS Score Checker →</a>
+          <a class="lp-link" style="background:linear-gradient(135deg,#166534,#16a34a)" href="course_hr_emails.html">HR Emails →</a>
+        </div>
+      </div></div>
+      </div>
     </div>
-
-    <!-- Footer Note -->
-    <p style="text-align:center;margin-top:40px;color:#64748b;font-size:14px;">
-      ⏱️ 16 Weeks • Self-Paced • Lifetime Access • WhatsApp Support
-    </p>
-
+    <p class="lp-path-note">⏱️ 16 Weeks + 2 Months Job Prep · Self-Paced · Lifetime Access · WhatsApp Support</p>
   </div>
 </section>
   <!-- SECTION: SECTION #explore-courses -->
@@ -1134,6 +1227,21 @@ if(offerPill && exploreSection){
     exploreSection.scrollIntoView({behavior:'smooth'});
     track('offer_pill_clicked',{target:'explore_courses'});
   });
+}
+
+function toggleLP(el){
+  var course = el.closest('.lp-course');
+  if(!course) return;
+  var isOpen = course.classList.contains('open');
+  document.querySelectorAll('.lp-course').forEach(function(item){
+    item.classList.remove('open');
+    var header = item.querySelector('.lp-header');
+    if(header){header.setAttribute('aria-expanded','false');}
+  });
+  if(!isOpen){
+    course.classList.add('open');
+    el.setAttribute('aria-expanded','true');
+  }
 }
 
 comboChk.addEventListener('change',syncComboRule);
