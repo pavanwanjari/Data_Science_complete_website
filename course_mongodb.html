@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MongoDB - DataLearn10X</title>
+<link rel="icon" type="image/png" href="dl10x.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Learn MongoDB from fundamentals to advanced aggregation pipelines and backend integrations.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="config.js" defer></script>
+<script src="analytics.js" defer></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: #f0f4fb; color: #1f2f46; }
+  header {
+    position: relative;
+    padding: 60px 20px 48px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, #0b3a1a 0%, #15803d 45%, #22c55e 100%);
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #f0f4fb;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .home-logo { position: absolute; top: 16px; left: 16px; }
+  .home-logo img { height: 36px; width: auto; display: block; }
+  .header-icon { width: 88px; height: 88px; object-fit: contain; border-radius: 18px; background: rgba(255,255,255,0.12); padding: 8px; margin-bottom: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .header-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; padding: 5px 16px; font-size: 13px; font-weight: 500; letter-spacing: 0.3px; backdrop-filter: blur(6px); }
+  .wrap { max-width: 1060px; margin: auto; padding: 36px 16px 60px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #fff; border-radius: 16px; padding: 22px 24px; box-shadow: 0 4px 18px rgba(0,0,0,0.07); border: 1px solid rgba(0,0,0,0.05); }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: #15803d; }
+  .card ul { padding-left: 18px; line-height: 1.85; font-size: 0.92rem; color: #374151; }
+  .section-heading { font-size: 1.3rem; font-weight: 700; color: #15803d; margin: 32px 0 16px; display: flex; align-items: center; gap: 10px; }
+  .section-heading::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, #15803d22, transparent); border-radius: 2px; }
+  .roadmap { display: flex; flex-direction: column; gap: 0; }
+  .roadmap-item { display: flex; gap: 0; position: relative; }
+  .roadmap-item:not(:last-child) .step-line { position: absolute; left: 22px; top: 46px; bottom: 0; width: 2px; background: linear-gradient(180deg, #15803d40, #15803d10); z-index: 0; }
+  .step-num { flex-shrink: 0; width: 44px; height: 44px; background: linear-gradient(135deg, #15803d, #22c55e); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(37,99,235,0.35); position: relative; z-index: 1; margin-top: 2px; }
+  .step-body { flex: 1; background: #fff; border-radius: 14px; margin: 0 0 14px 14px; box-shadow: 0 3px 14px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05); border-left: 3px solid #22c55e; overflow: hidden; transition: box-shadow 0.2s; }
+  .step-body:hover { box-shadow: 0 6px 20px rgba(37,99,235,0.12); }
+  .step-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; cursor: pointer; user-select: none; gap: 10px; }
+  .step-header h4 { font-size: 0.97rem; font-weight: 600; color: #15803d; margin: 0; flex: 1; }
+  .chevron { width: 22px; height: 22px; flex-shrink: 0; background: #eef3ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease, background 0.2s; }
+  .chevron svg { width: 12px; height: 12px; stroke: #22c55e; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .step-body.open .chevron { transform: rotate(180deg); background: #22c55e; }
+  .step-body.open .chevron svg { stroke: #fff; }
+  .step-tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s ease; }
+  .step-body.open .step-tags { max-height: 700px; padding: 0 20px 18px; }
+  .step-desc { width: 100%; font-size: 0.83rem; color: #4b5563; line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e5e7eb; }
+  .tag { display: inline-block; background: #eef3ff; color: #22c55e; border-radius: 6px; padding: 3px 10px; font-size: 0.78rem; font-weight: 500; border: 1px solid #dbeafe; }
+  .tag.adv { background: #ecfeff; color: #0f766e; border-color: #a5f3fc; }
+  .tag.tool { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .price-card { background: linear-gradient(135deg, #ffffff, #f8fbff); border: 1.5px solid #bfdbfe; border-radius: 18px; padding: 24px; box-shadow: 0 8px 24px rgba(37,99,235,0.12); text-align: center; }
+  .price-card .mrp { text-decoration: line-through; color: #64748b; margin-right: 10px; }
+  .price-card .offer { color: #16a34a; font-weight: 700; font-size: 1.35rem; }
+  .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
+  .btn { display: inline-block; text-decoration: none; border-radius: 12px; padding: 11px 18px; font-weight: 600; transition: .2s; }
+  .btn.primary { background: linear-gradient(90deg, #16a34a, #15803d); color: #fff; }
+  .btn.secondary { background: #e2e8f0; color: #1e293b; }
+  .btn:hover { transform: translateY(-1px); }
+  footer { text-align: center; margin-top: 24px; color: #64748b; font-size: 13px; }
+  @media (max-width: 720px) {
+    .wrap { padding: 26px 12px 48px; }
+    .grid { grid-template-columns: 1fr; }
+    .step-body { margin: 0 0 12px 10px; }
+    .step-header { padding: 13px 14px; }
+    .step-header h4 { font-size: 0.91rem; }
+    .step-body.open .step-tags { padding: 0 14px 14px; }
+    .step-tags { padding: 0 14px; }
+    .section-heading { font-size: 1.08rem; }
+  }
+</style>
+<link rel="stylesheet" href="theme_professional.css">
+</head>
+<body class="course-page course-mongodb">
+<header>
+  <a class="home-logo" href="index.html"><img src="dl10x.png" alt="DataLearn10X"></a>
+  <img class="header-icon" src="https://img.icons8.com/color/96/mongodb.png" alt="MongoDB">
+  <h1>MongoDB</h1>
+  <div class="header-badge">NoSQL Design • Aggregation • Backend Integration</div>
+</header>
+<div class="wrap">
+  <div class="grid">
+    <div class="card"><h3>🎯 Best for</h3><ul><li>Learners working with modern web backends</li><li>Students preparing for MERN/Node interviews</li><li>Developers moving from SQL to NoSQL</li></ul></div>
+    <div class="card"><h3>🧰 Tools & Stack</h3><ul><li>MongoDB shell + Compass</li><li>Document schema modeling</li><li>Indexes + Aggregation pipelines</li><li>Node/Spring integration patterns</li></ul></div>
+    <div class="card"><h3>🚀 Outcomes</h3><ul><li>Design efficient document collections</li><li>Write fast Mongo queries and pipelines</li><li>Integrate MongoDB into production APIs</li></ul></div>
+  </div>
+
+  <div class="section-heading">🗺️ Complete Course Roadmap</div>
+  <div class="roadmap">
+    <div class="roadmap-item"><span class="step-line"></span><div class="step-num">1</div><div class="step-body open"><div class="step-header"><h4>NoSQL Concepts + Document Modeling</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag ">Collections</span><span class="tag adv">Schema design</span><span class="tag tool">Embedded docs</span><p class="step-desc">Understand document databases and model data for scalability.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">2</div><div class="step-body"><div class="step-header"><h4>CRUD Operations and Query Filters</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag ">find</span><span class="tag ">update</span><span class="tag tool">query operators</span><p class="step-desc">Master daily MongoDB operations with powerful filtering strategies.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">3</div><div class="step-body"><div class="step-header"><h4>Indexes + Performance Tuning</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag adv">Indexes</span><span class="tag tool">Explain plans</span><span class="tag ">Optimization</span><p class="step-desc">Speed up queries and learn what makes MongoDB perform well at scale.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">4</div><div class="step-body"><div class="step-header"><h4>Aggregation Pipeline Deep Dive</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag tool">$match</span><span class="tag adv">$group</span><span class="tag ">$lookup</span><p class="step-desc">Build analytics-ready pipelines for reports and dashboards.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">5</div><div class="step-body"><div class="step-header"><h4>MongoDB with Backend APIs</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag ">API integration</span><span class="tag tool">Validation</span><span class="tag adv">Error handling</span><p class="step-desc">Connect MongoDB with backend services and production API workflows.</p></div></div></div>
+<div class="roadmap-item"><span class="step-line"></span><div class="step-num">6</div><div class="step-body"><div class="step-header"><h4>Project + Interview Scenarios</h4><div class="chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div><div class="step-tags"><span class="tag adv">Capstone</span><span class="tag ">Case studies</span><span class="tag tool">Interview Q&A</span><p class="step-desc">Ship a practical MongoDB project and prepare for developer interviews.</p></div></div></div>
+  </div>
+
+  <div class="section-heading">💰 Course Pricing</div>
+  <div class="price-card">
+    <p><span class="mrp">MRP ₹1499</span> <span class="offer">Offer ₹99</span></p>
+    <p style="color:#475569;margin-top:4px">Self-paced + lifetime access + WhatsApp support</p>
+    <div class="btn-group">
+      <a class="btn primary" href="index.html?add=MongoDB#buy-section">Buy MongoDB — ₹99</a>
+      <a class="btn secondary" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
+  <footer>© 2026 DataLearn10X</footer>
+</div>
+<script>
+  if (typeof PSAAnalytics !== 'undefined') {
+    PSAAnalytics.trackEvent('course_page_viewed', { course: 'MongoDB' });
+  }
+  document.querySelectorAll('.step-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var body = header.closest('.step-body');
+      body.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

@@ -6,8 +6,12 @@ DataLearn10X training website with multi-course pages, payment flow, access veri
 - Advance Excel: MRP ₹999 | Offer ₹49
 - Python: MRP ₹2000 | Offer ₹99
 - Power BI: MRP ₹2500 | Offer ₹99
-- Tableau: Coming Soon
-- SQL (MySQL): Coming Soon
+- Tableau: MRP ₹2500 | Offer ₹99
+- SQL (MySQL): MRP ₹2500 | Offer ₹99
+- AWS Full Stack Development: MRP ₹2999 | Offer ₹99
+- Learn AI: MRP ₹1999 | Offer ₹99
+- MongoDB: MRP ₹1499 | Offer ₹99
+- Git & GitHub: MRP ₹999 | Offer ₹99
 - Machine Learning + Deep Learning: MRP ₹3000 | Offer ₹99
 - Data Analytics Cheat Sheets: currently shown as FREE in the buy section but disabled for standalone purchase
 - 20000+ HR Emails: MRP ₹499 | Offer ₹19
