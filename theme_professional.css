@@ -25,19 +25,6 @@ p,.sub,.muted,.mini,.meta,.help,.small,label,.tips,.mini-note,.faq-answer,li,td,
 h1,h2,h3,h4,h5,h6,b,strong,.metric{color:var(--pro-title)!important;text-shadow:none!important;letter-spacing:.1px}
 a{color:#1f4ca3}
 a:hover{color:#1d4ed8}
-header,.hero,.header,.head{
-  background:linear-gradient(135deg,#1d4ed8,#2563eb,#3b82f6)!important;
-  border:1px solid #94b7ff!important;
-  box-shadow:0 10px 24px rgba(15,30,62,.14)!important;
-  color:#fff!important;
-  padding:44px 16px 34px !important;
-}
-header h1,header h2,header h3,header p,.hero h1,.hero p,.hero-chip,.header h1,.header p,.head h1,.head p{color:#fff!important}
-footer{
-  background:linear-gradient(135deg,#1e40af,#1d4ed8,#2563eb)!important;
-  color:#e7efff!important;
-  border-top:1px solid #89aef8!important;
-}
 .section{background:linear-gradient(180deg,#f9fbff,#f2f7ff)!important}
 .card,.panel,.preview-card,.buy-wrap,.feedback-wrap,.hiring-wrap,.audience-wrap,.youtube-wrap,.site-card,.metric-card,.form-card,.g-card,.stat,.stat-card,.faq-wrap,.faq-item,.chk,.yt-card,.audience-item,.lab,.container section,.container .section{
   background:var(--pro-surface)!important;
@@ -65,7 +52,6 @@ input::placeholder,textarea::placeholder{color:#6b7f9b!important}
 .ads-overlay{background:linear-gradient(to top,rgba(22,45,82,.74),rgba(22,45,82,0))!important}
 .faq-item summary{color:#1a3253!important}
 .faq-item summary::after{color:#2b5fc2!important}
-.legal-links a{color:#e7efff!important}
 .total{color:var(--pro-success)!important}
 #explore-courses{background:linear-gradient(180deg,#f4f8ff,#edf4ff)!important}
 table{background:#fff!important;border-collapse:collapse}
