@@ -63,14 +63,14 @@ var COURSE_LINKS={
   'Advance Excel':'https://docs.google.com/document/d/17sFFEZu46ZhDcCEFbPNkx6IDlE8jtwgX/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
   'Python':'https://docs.google.com/document/d/1qtBZB4QOKTyaec_sIgevVmVPsVDsSNxq/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
   'Power BI':'https://docs.google.com/document/d/1eFgwr1Yx07Yqp13vsDVLCu_eib-fGs3f/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
-  'Tableau':'coming soon',
-  'SQL (MySQL)':'coming soon',
+  'Tableau':'course_tableau.html',
+  'SQL (MySQL)':'course_mysql.html',
   'Machine Learning + Deep Learning':'https://docs.google.com/document/d/15K67voTDy7zAFRsKgIDZhO1bHcXOG2x9/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
   'Data Analytics Cheat Sheets':'https://drive.google.com/drive/folders/1H2kif4fbzkFshlt_hDd6BbsSwJw32L9e?usp=sharing',
   '20000+ HR Emails':'https://drive.google.com/drive/folders/1f1COP7jmR3BVC4DeOjv4Vc0Z2N6FWCX0?usp=sharing'
 };
 var AVAILABLE_COURSES=Object.keys(COURSE_LINKS).filter(function(name){
-  return String(COURSE_LINKS[name]||'').toLowerCase()!=='coming soon';
+  return Boolean(COURSE_LINKS[name]);
 });
 
 function normalizeCourseName(name){
