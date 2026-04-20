@@ -132,7 +132,7 @@
     .lp-week{background:#e0f2fe;color:#0369a1;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;justify-self:start}
     .lp-week.soon{background:#fef3c7;color:#92400e}
     .lp-title{color:#0f172a;font-weight:700;font-size:15px}
-    .lp-subtitle{color:#64748b;font-size:12px}
+    .lp-subtitle{color:#64748b;font-size:12px;line-height:1.45}
     .lp-chevron{display:flex;align-items:center;justify-content:center;transition:transform .25s ease}
     .lp-chevron svg{width:18px;height:18px;fill:none;stroke:#334155;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
     .lp-dropdown{max-height:0;overflow:hidden;transition:max-height .35s ease}
@@ -180,10 +180,10 @@
       .whatsapp{width:56px;height:56px;right:12px;bottom:12px}
       .whatsapp img{width:31px}
       .learning-path{padding:42px 0!important}
-      .lp-header{grid-template-columns:48px 1fr 20px;gap:8px;padding:12px}
-      .lp-header .lp-week{grid-column:2;justify-self:start}
-      .lp-header .lp-title{font-size:14px}
-      .lp-subtitle{font-size:11px}
+      .lp-header{grid-template-columns:42px 1fr 22px;gap:8px;padding:12px;align-items:start}
+      .lp-header .lp-week{grid-column:2;grid-row:2;justify-self:start;margin-top:4px}
+      .lp-header .lp-title{font-size:14px;line-height:1.35}
+      .lp-subtitle{font-size:11px;line-height:1.45;word-break:break-word}
       .lp-dropdown-inner{padding:0 12px 14px}
       .comparison-table{min-width:680px;margin:14px 0}
       .comparison-table th,.comparison-table td{padding:11px!important;font-size:13px}
@@ -219,6 +219,7 @@
   <style>
     /* Keep index visual colors fixed even when theme_professional.css applies global !important styles */
     .hero{background:linear-gradient(135deg,#0b1220,#12335f,#2563eb)!important}
+    .hero h1,.hero p,.hero-chip{color:#ffffff!important;text-shadow:0 2px 10px rgba(2,6,23,.55)!important}
     .hero:before,.hero:after{opacity:.22!important;animation:float 8s ease-in-out infinite!important}
     .hero:before{width:240px!important;height:240px!important;background:#93c5fd!important;left:-70px!important;top:-50px!important}
     .pill,#offerPill{background:linear-gradient(92deg,#ef4444,#dc2626,#b91c1c)!important;color:#fff!important}
@@ -439,6 +440,10 @@
         <a class="card course-card" href="course_power_bi.html"><img src="https://img.icons8.com/color/96/power-bi-2021.png" alt="Power BI"><h3>Power BI (Video Course)</h3><div class="muted">MRP ₹2500 | Offer ₹99</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_tableau.html"><img src="https://img.icons8.com/color/96/tableau-software.png" alt="Tableau"><h3>Tableau (Video Course)</h3><div class="muted">MRP ₹2500 | Offer ₹99</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_mysql.html"><img src="https://img.icons8.com/fluency/96/mysql-logo.png" alt="SQL"><h3>SQL (MySQL) (Video Course)</h3><div class="muted">MRP ₹2500 | Offer ₹99</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_aws.html"><img src="https://img.icons8.com/color/96/amazon-web-services.png" alt="AWS"><h3>AWS Full Stack Development</h3><div class="muted">Spring Boot + AWS RDS + MySQL + Heroku · ₹99</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_ai.html"><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="Learn AI"><h3>Learn AI</h3><div class="muted">AI fundamentals to real-world workflow projects · ₹99</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_mongodb.html"><img src="https://img.icons8.com/color/96/mongodb.png" alt="MongoDB"><h3>MongoDB (Video Course)</h3><div class="muted">NoSQL, aggregation, backend integration · ₹99</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_git_github.html"><img src="https://img.icons8.com/color/96/github--v1.png" alt="Git & GitHub"><h3>Git &amp; GitHub (Video Course)</h3><div class="muted">Version control + collaboration workflow · ₹99</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_ml_dl.html"><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="ML DL"><h3>Machine Learning + Deep Learning (Video Course)</h3><div class="muted">MRP ₹3000 | Offer ₹99</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_cheat_sheets.html"><img src="https://img.icons8.com/color/96/todo-list.png" alt="Cheat Sheets"><h3>Cheat Sheets and Interview Questions </h3><div class="muted">MRP ₹499 | Offer ₹19</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_hr_emails.html"><img src="https://img.icons8.com/color/96/new-post.png" alt="HR Emails"><h3>20000+ HR Emails</h3><div class="muted">MRP ₹499 | Offer ₹19</div><span class="tag">Open Course</span></a>
@@ -715,6 +720,10 @@
         <label class="chk"><input type="checkbox" class="courseChk" value="Power BI" data-price="99"> Power BI (Video Course) (₹99)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="Tableau" data-price="99"> Tableau (Video Course) (₹99)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="SQL (MySQL)" data-price="99"> SQL (MySQL) (Video Course) (₹99)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="AWS Full Stack Development" data-price="99"> AWS Full Stack Development (₹99)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Learn AI" data-price="99"> Learn AI (₹99)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="MongoDB" data-price="99"> MongoDB (₹99)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Git & GitHub" data-price="99"> Git &amp; GitHub (₹99)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="Machine Learning + Deep Learning" data-price="99"> ML + DL (Video Course) (₹99)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="19"> Cheat Sheets and Interview Questions (₹19)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="20000+ HR Emails" data-price="19"> 20000+ HR Emails (₹19)</label>
