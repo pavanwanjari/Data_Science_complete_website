@@ -71,6 +71,10 @@ body.course-sql{--course-a:#0f766e;--course-b:#0ea5e9;--course-c:#38bdf8;--cours
 body.course-tableau{--course-a:#0f172a;--course-b:#2563eb;--course-c:#f97316;--course-btn:#1d4ed8;--course-chip:#eff6ff}
 body.course-cheatsheets{--course-a:#334155;--course-b:#64748b;--course-c:#94a3b8;--course-btn:#475569;--course-chip:#f8fafc}
 body.course-hr{--course-a:#9f1239;--course-b:#e11d48;--course-c:#fb7185;--course-btn:#be123c;--course-chip:#fff1f2}
+body.course-aws{--course-a:#0b1324;--course-b:#1d4ed8;--course-c:#0ea5e9;--course-btn:#1d4ed8;--course-chip:#eff6ff}
+body.course-ai{--course-a:#2d1459;--course-b:#6d28d9;--course-c:#a855f7;--course-btn:#7c3aed;--course-chip:#f5f3ff}
+body.course-mongodb{--course-a:#0b3a1a;--course-b:#15803d;--course-c:#22c55e;--course-btn:#15803d;--course-chip:#ecfdf5}
+body.course-git{--course-a:#111827;--course-b:#1f2937;--course-c:#4b5563;--course-btn:#1f2937;--course-chip:#f8fafc}
 
 /* About page outcomes grid */
 .outcomes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
