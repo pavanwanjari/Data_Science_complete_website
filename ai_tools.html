@@ -1,195 +1,1355 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- SECTION: HEAD (meta, styles, scripts) -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the best AI tools for students: writing, coding, design, research, productivity, interview prep, and presentations.">
-  <title>AI Tools Hub | DataLearn10X</title>
-  <link rel="icon" type="image/png" href="dl10x.png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script src="config.js" defer></script>
-  <script src="analytics.js" defer></script>
-  <link rel="stylesheet" href="theme_professional.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free AI tools, coding practice, study resources, and job-ready skills for students. Explore ChatGPT, Perplexity, Canva, freeCodeCamp, and many more — all free." />
+  <title>AI Tools Hub for Students | DataLearn10X</title>
+  <link rel="icon" type="image/png" href="dl10x.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Poppins',sans-serif;background:radial-gradient(circle at 10% 10%,#dbeafe 0,#f8fbff 40%,#eff6ff 100%);color:#0f172a}
-    .hero{position:relative;background:linear-gradient(135deg,#0f172a,#1d4ed8,#0ea5e9);color:#fff;padding:64px 16px 54px;text-align:center}
-    .home-logo{position:absolute;left:14px;top:14px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:700}
-    .home-logo img{width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.08)}
-    .hero h1{font-size:42px;line-height:1.15}
-    .hero p{max-width:860px;margin:10px auto 0;opacity:.95}
-    .hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-    .hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);padding:7px 12px;border-radius:999px;font-size:12px}
-    .section{padding:42px 16px}
-    .container{max-width:1140px;margin:0 auto}
-    .toolbar{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
-    .search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;background:#fff}
-    .chip-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .chip{border:1px solid #cbd5e1;background:#fff;padding:8px 12px;border-radius:999px;font-size:12px;cursor:pointer}
-    .chip.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-    .sort{padding:12px;border:1px solid #cbd5e1;border-radius:12px;background:#fff}
-    .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px}
-    .tool-card{background:#fff;border:1px solid #dbe5f2;border-radius:16px;padding:16px;box-shadow:0 12px 24px rgba(30,58,138,.08);transition:.25s;display:flex;flex-direction:column;min-height:100%}
-    .tool-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(30,58,138,.14)}
-    .tool-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .tool-top h3{font-size:18px}
-    .pill{font-size:11px;padding:4px 10px;border-radius:999px;background:#e0ecff;color:#1e3a8a;font-weight:700}
-    .rating{margin:8px 0 10px;color:#f59e0b;font-size:14px}
-    .tool-card p{font-size:13px;color:#334155}
-    .use-list{margin-top:10px;padding-left:18px}
-    .use-list li{font-size:12px;color:#475569;margin:5px 0}
-    .tool-actions{display:flex;justify-content:space-between;gap:8px;margin-top:auto;padding-top:14px}
-    .tool-actions a{flex:1;text-align:center;text-decoration:none;padding:9px 10px;border-radius:10px;font-size:12px;font-weight:600;min-height:36px;display:flex;align-items:center;justify-content:center}
-    .btn-primary{background:#1d4ed8;color:#fff}
-    .btn-light{background:#eef4ff;color:#1e3a8a;border:1px solid #c7d8ff}
-    .note{margin-top:12px;font-size:12px;color:#475569}
-    .new-wrap{margin-top:18px;background:linear-gradient(135deg,#fff,#f8fbff);border:1px solid #d8e5f7;border-radius:14px;padding:14px}
-    .new-wrap h2{font-size:20px;margin-bottom:8px}
-    .new-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-    .new-item{background:#fff;border:1px solid #dde9ff;border-radius:12px;padding:10px}
-    .new-item h4{font-size:14px;color:#1e3a8a}
-    .new-item p{font-size:12px;color:#475569;margin-top:4px}
-    footer{margin-top:24px;text-align:center;padding:20px;color:#475569}
-    @media (max-width:760px){
-      .hero h1{font-size:30px}
-      .hero p{font-size:14px}
-      .toolbar{grid-template-columns:1fr}
+    :root {
+      --bg: #f0f6ff;
+      --bg2: #e8f2ff;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #4b5d73;
+      --line: #d4e3f7;
+      --primary: #2563eb;
+      --primary2: #1d4ed8;
+      --accent: #0ea5e9;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --green-bg: #dcfce7;
+      --green-text: #166534;
+      --shadow: 0 8px 24px rgba(37,99,235,.10);
+      --shadow2: 0 16px 40px rgba(15,23,42,.14);
+      --radius: 20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(160deg, #eef5ff 0%, #f7faff 50%, #ffffff 100%);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, select { font: inherit; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 10px;
+      background: #fff;
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 10px;
+      z-index: 9999;
+    }
+    .skip-link:focus { left: 10px; }
+
+    /* ── HERO / HEADER ── */
+    .hero {
+      background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 55%, #ffffff 100%);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 20px 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .brand-logo-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      box-shadow: 0 4px 14px rgba(37,99,235,.30);
+    }
+    .brand-logo-wrap img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .brand-initials {
+      color: #fff;
+      font-weight: 900;
+      font-size: 15px;
+      letter-spacing: -.5px;
+    }
+
+    .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand-text .brand-name { font-size: 17px; font-weight: 800; color: var(--text); }
+    .brand-text .brand-sub { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+    .hero-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .hero-link {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      color: var(--text);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(15,23,42,.06);
+      transition: all .2s;
+    }
+    .hero-link:hover {
+      border-color: #93c5fd;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37,99,235,.12);
+    }
+
+    .hero-main {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 56px 20px 48px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--primary2);
+      border: 1.5px solid #c3d9ff;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 6px 18px rgba(37,99,235,.10);
+    }
+    .eyebrow .dot {
+      width: 8px; height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .6; transform: scale(1.3); }
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: clamp(30px, 5vw, 56px);
+      line-height: 1.06;
+      letter-spacing: -.03em;
+      color: var(--text);
+    }
+    h1 span { color: var(--primary); }
+
+    .hero-desc {
+      max-width: 720px;
+      margin: 16px auto 0;
+      font-size: clamp(14px, 2vw, 17px);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .hero-badges {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .badge {
+      background: #fff;
+      border: 1.5px solid #d1e2ff;
+      color: #1e40af;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37,99,235,.08);
+    }
+    .badge-icon { margin-right: 4px; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+      padding: 18px 20px;
+    }
+    .stats-bar-inner {
+      max-width: 1260px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      text-align: center;
+    }
+    .stats-bar-item { color: #fff; }
+    .stats-bar-num { font-size: 26px; font-weight: 800; line-height: 1; }
+    .stats-bar-label { font-size: 12px; opacity: .85; margin-top: 3px; font-weight: 600; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 40px 20px; }
+    .container { max-width: 1260px; margin: 0 auto; }
+
+    .section-head { margin-bottom: 20px; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .section-subtitle { color: var(--muted); font-size: 14px; }
+
+    /* ── TOOLBAR ── */
+    .toolbar-card {
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-wrap { position: relative; }
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 16px;
+      pointer-events: none;
+    }
+    .search {
+      width: 100%;
+      padding: 13px 14px 13px 42px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      background: #f8fbff;
+      outline: none;
+      font-size: 14px;
+      color: var(--text);
+      transition: .2s;
+    }
+    .search::placeholder { color: #94a3b8; }
+    .search:focus {
+      border-color: #93c5fd;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(59,130,246,.12);
+    }
+
+    .sort {
+      padding: 13px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      background: #f8fbff;
+      outline: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+      transition: .2s;
+    }
+    .sort:focus {
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 4px rgba(59,130,246,.12);
+    }
+
+    .chip-wrap {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .chip {
+      border: 1.5px solid #d4dff5;
+      background: #fff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--text);
+    }
+    .chip:hover { border-color: #93c5fd; transform: translateY(-1px); }
+    .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(37,99,235,.25);
+    }
+
+    /* ── INFO BOXES ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .info-box {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 4px 14px rgba(37,99,235,.06);
+      transition: .2s;
+    }
+    .info-box:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .info-box-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .info-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .info-box p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ── TOOL CARDS ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .tool-card {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: all .22s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity .22s;
+    }
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow2);
+      border-color: #b8d0f8;
+    }
+    .tool-card:hover::before { opacity: 1; }
+
+    .tool-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .tool-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .tool-logo-wrap {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: #f8fbff;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .tool-logo-wrap img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .tool-logo-fallback {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 13px;
+      color: var(--primary2);
+    }
+
+    .tool-meta { min-width: 0; }
+    .tool-meta h3 { font-size: 16px; font-weight: 700; line-height: 1.2; }
+
+    .pill {
+      display: inline-block;
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e0edff;
+      color: #1e40af;
+      font-weight: 800;
+      margin-top: 5px;
+      text-transform: capitalize;
+    }
+    .pill-practice { background: #dcfce7; color: #166534; }
+    .pill-career { background: #fef9c3; color: #854d0e; }
+    .pill-design { background: #fce7f3; color: #9d174d; }
+    .pill-coding { background: #f3e8ff; color: #6b21a8; }
+    .pill-productivity { background: #fff7ed; color: #9a3412; }
+
+    .free-badge {
+      background: var(--green-bg);
+      color: var(--green-text);
+      border: 1px solid #bbf7d0;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .rating {
+      color: var(--warning);
+      font-size: 13px;
+      font-weight: 700;
+      margin: 8px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rating-score {
+      background: #fef9c3;
+      color: #854d0e;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .tool-desc { font-size: 13px; color: #334155; line-height: 1.6; }
+
+    .use-list {
+      margin-top: 12px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .use-list li {
+      background: #f0f6ff;
+      border: 1px solid #d4e3f7;
+      color: #1e40af;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .tool-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 16px;
+      flex-wrap: wrap;
+    }
+    .tool-actions a {
+      flex: 1 1 100px;
+      text-align: center;
+      text-decoration: none;
+      padding: 11px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary2); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37,99,235,.28); }
+    .btn-light { background: #f0f6ff; color: #1e40af; border: 1.5px solid #c3d9ff; }
+    .btn-light:hover { background: #dbeafe; transform: translateY(-1px); }
+
+    .no-results {
+      grid-column: 1 / -1;
+      background: #fff;
+      border: 2px dashed #c3d9ff;
+      border-radius: 18px;
+      padding: 32px 20px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .no-results strong { display: block; font-size: 16px; margin-bottom: 6px; color: var(--text); }
+
+    /* ── PRACTICE TOOLS ── */
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .practice-item {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: .2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .practice-item:hover {
+      border-color: #93c5fd;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .practice-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #f8fbff;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .practice-logo img { width: 26px; height: 26px; object-fit: contain; }
+    .practice-text h4 { font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 4px; }
+    .practice-text p { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+    /* ── TIP BOX ── */
+    .tip-box {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 1.5px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #1e40af;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .tip-icon { font-size: 18px; flex: 0 0 auto; margin-top: 1px; }
+
+    /* ── WHAT'S NEW ── */
+    .new-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .new-item {
+      background: #fff;
+      border: 1.5px solid #dde9ff;
+      border-radius: 14px;
+      padding: 18px;
+      transition: .2s;
+    }
+    .new-item:hover { border-color: #93c5fd; transform: translateY(-2px); box-shadow: var(--shadow); }
+    .new-item-icon { font-size: 24px; margin-bottom: 10px; }
+    .new-item h4 { font-size: 14px; font-weight: 700; color: #1e40af; margin-bottom: 5px; }
+    .new-item p { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+    /* ── FOOTER ── */
+    .footer-wrap {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      padding: 32px 20px;
+      margin-top: 20px;
+    }
+    .footer-inner {
+      max-width: 1260px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .footer-brand .brand-name { font-size: 18px; font-weight: 800; color: var(--text); }
+    .footer-brand p { font-size: 13px; color: var(--muted); margin-top: 6px; max-width: 280px; line-height: 1.55; }
+
+    .footer-col h5 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 7px;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── BACK TO TOP ── */
+    .back-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 46px;
+      height: 46px;
+      border: none;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 18px;
+      box-shadow: 0 6px 20px rgba(37,99,235,.35);
+      cursor: pointer;
+      display: none;
+      z-index: 50;
+      transition: all .2s;
+    }
+    .back-top:hover { background: var(--primary2); transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero-top { flex-direction: column; align-items: flex-start; }
+      .hero-nav { justify-content: flex-start; }
+      .toolbar { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero-main { padding: 40px 16px 32px; }
+      .tool-actions a { flex: 1 1 100%; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .back-top { right: 14px; bottom: 14px; }
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
-  <!-- SECTION: BODY (page content) -->
+
 <body>
-  <!-- SECTION: HEADER .hero -->
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- HEADER -->
   <header class="hero">
-    <a class="home-logo" href="index.html" aria-label="Go to DataLearn10X home">
-      <img src="dl10x.png" alt="DataLearn10X logo">
-      
-    </a>
-    <h1>AI Tools Hub for Students</h1>
-    <p>Discover premium AI tools for study, coding, analytics, resume building, interview prep, and productivity—organized by use case with ratings and practical guidance.</p>
-    <div class="hero-badges">
-      <span class="hero-badge">🔍 Find tool by use case</span>
-      <span class="hero-badge">⭐ Rating-based comparison</span>
-      <span class="hero-badge">🎯 Student-focused recommendations</span>
+    <div class="hero-top">
+      <a class="brand" href="index.html" aria-label="DataLearn10X home">
+        <div class="brand-logo-wrap">
+          <img src="dl10x.png" alt="DataLearn10X" onerror="this.parentElement.innerHTML='<span class=brand-initials>DL</span>'" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">DataLearn10X</span>
+          <span class="brand-sub">Student AI + Practice Hub</span>
+        </div>
+      </a>
+
+      <nav class="hero-nav" aria-label="Top navigation">
+        <a class="hero-link" href="index.html#explore-courses">Courses</a>
+        <a class="hero-link" href="#practice-tools">Practice Tools</a>
+        <a class="hero-link" href="#free-student-tools">Free Resources</a>
+        <a class="hero-link" href="#tips-section">Study Tips</a>
+      </nav>
+    </div>
+
+    <div class="hero-main">
+      <div class="eyebrow"><span class="dot"></span>100% Free for Students</div>
+      <h1>AI Tools Hub <span>for Students</span></h1>
+      <p class="hero-desc">
+        Discover the best free AI tools, coding platforms, study helpers, and career resources — all handpicked so you learn faster and get job-ready.
+      </p>
+
+      <div class="hero-badges">
+        <span class="badge"><span class="badge-icon">🎓</span>Student Friendly</span>
+        <span class="badge"><span class="badge-icon">✅</span>All Free Tools</span>
+        <span class="badge"><span class="badge-icon">💻</span>Coding Practice</span>
+        <span class="badge"><span class="badge-icon">🚀</span>Job Ready Skills</span>
+        <span class="badge"><span class="badge-icon">🎨</span>Design & Media</span>
+        <span class="badge"><span class="badge-icon">📚</span>Study & Notes</span>
+      </div>
     </div>
   </header>
 
-  <!-- SECTION: MAIN #tools-main -->
-  <main class="section" id="tools-main">
-    <div class="container">
-      <!-- SECTION: SECTION #tools-toolbar -->
-      <section id="tools-toolbar">
-        <div class="toolbar">
-          <input id="toolSearch" class="search" type="search" placeholder="Search tools (e.g., coding, presentations, interview, notes)">
-          <select id="sortTools" class="sort" aria-label="Sort AI tools">
-            <option value="rating-desc">Sort: Rating High to Low</option>
-            <option value="rating-asc">Sort: Rating Low to High</option>
-            <option value="name-asc">Sort: Name A-Z</option>
-          </select>
-        </div>
-        <div class="chip-wrap" id="categoryChips" aria-label="Filter tools by category">
-          <button class="chip active" data-category="all">All</button>
-          <button class="chip" data-category="study">Study & Notes</button>
-          <button class="chip" data-category="coding">Coding</button>
-          <button class="chip" data-category="design">Design & Media</button>
-          <button class="chip" data-category="career">Career</button>
-          <button class="chip" data-category="productivity">Productivity</button>
-        </div>
-      </section>
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stats-bar-item">
+        <div class="stats-bar-num">30+</div>
+        <div class="stats-bar-label">Free AI Tools</div>
+      </div>
+      <div class="stats-bar-item">
+        <div class="stats-bar-num">6</div>
+        <div class="stats-bar-label">Categories</div>
+      </div>
+      <div class="stats-bar-item">
+        <div class="stats-bar-num">100%</div>
+        <div class="stats-bar-label">Free for Students</div>
+      </div>
+      <div class="stats-bar-item">
+        <div class="stats-bar-num">15+</div>
+        <div class="stats-bar-label">Practice Platforms</div>
+      </div>
+    </div>
+  </div>
 
-      <!-- SECTION: SECTION #tools-grid -->
-      <section id="tools-grid" class="tools-grid" aria-live="polite"></section>
-      <p class="note">Tip: Use tools as assistants, not replacements. Always verify facts, citations, and final outputs before submission/interview use.</p>
+  <main id="main-content">
+    <div class="section">
+      <div class="container">
 
-      <!-- SECTION: SECTION #whats-new -->
-      <section class="new-wrap" id="whats-new">
-        <h2>What’s New & Useful for Students</h2>
-        <div class="new-grid">
-          <article class="new-item"><h4>NotebookLM Study Audio</h4><p>Turn your sources into AI summaries and quick audio-style revision flow.</p></article>
-          <article class="new-item"><h4>Gemini Workspace Flow</h4><p>Draft in Docs, summarize Sheets, and speed up assignments within Google workflow.</p></article>
-          <article class="new-item"><h4>AI Mock Interviews</h4><p>Use role-based mock Q&A tools for confidence before internship and job interviews.</p></article>
-          <article class="new-item"><h4>Presentation-from-Notes Tools</h4><p>Convert rough notes into polished decks quickly for class seminars and viva.</p></article>
+        <!-- SEARCH & FILTER -->
+        <section class="toolbar-card" aria-label="Search and filter tools">
+          <div class="section-head">
+            <h2 class="section-title">Find the right tool for you</h2>
+            <p class="section-subtitle">Search any tool, skill, or topic. Filter by category to narrow it down.</p>
+          </div>
+          <div class="toolbar">
+            <div class="search-wrap">
+              <span class="search-icon">🔍</span>
+              <input id="toolSearch" class="search" type="search"
+                placeholder="Try: Python, SQL, resume, interview, notes, design..." />
+            </div>
+            <select id="sortTools" class="sort" aria-label="Sort tools">
+              <option value="rating-desc">⭐ Highest Rated</option>
+              <option value="rating-asc">Rating Low → High</option>
+              <option value="name-asc">Name A → Z</option>
+            </select>
+          </div>
+          <div class="chip-wrap" id="categoryChips" role="group" aria-label="Filter by category">
+            <button class="chip active" data-category="all">All Tools</button>
+            <button class="chip" data-category="study">📖 Study & Notes</button>
+            <button class="chip" data-category="coding">💻 Coding</button>
+            <button class="chip" data-category="design">🎨 Design & Media</button>
+            <button class="chip" data-category="career">💼 Career</button>
+            <button class="chip" data-category="productivity">⚡ Productivity</button>
+            <button class="chip" data-category="practice">🏋️ Practice</button>
+            <button class="chip" data-category="math">📐 Math & Science</button>
+            <button class="chip" data-category="language">🌐 Language</button>
+          </div>
+        </section>
+
+        <!-- FREE STUDENT ESSENTIALS -->
+        <section id="free-student-tools" style="margin-top: 32px;">
+          <div class="section-head">
+            <h2 class="section-title">Why use these tools?</h2>
+            <p class="section-subtitle">Everything here is free and chosen specifically for students who want to learn, code, and get hired.</p>
+          </div>
+          <div class="info-grid">
+            <div class="info-box">
+              <div class="info-box-icon" style="background:#eff6ff;">🤖</div>
+              <h3>Learn with AI</h3>
+              <p>Use AI chat, research tools, and note helpers to understand topics faster and study more effectively.</p>
+            </div>
+            <div class="info-box">
+              <div class="info-box-icon" style="background:#f3e8ff;">💻</div>
+              <h3>Practice Coding</h3>
+              <p>Run Python, SQL, and web code directly in your browser — no installation, no cost, just practice.</p>
+            </div>
+            <div class="info-box">
+              <div class="info-box-icon" style="background:#fce7f3;">🎨</div>
+              <h3>Build a Portfolio</h3>
+              <p>Create projects, presentations, resumes, and shareable work that impresses employers and professors.</p>
+            </div>
+            <div class="info-box">
+              <div class="info-box-icon" style="background:#dcfce7;">💼</div>
+              <h3>Get Job Ready</h3>
+              <p>Use mock interviews, grammar tools, and career prep resources to land your first role or internship.</p>
+            </div>
+            <div class="info-box">
+              <div class="info-box-icon" style="background:#fef9c3;">📐</div>
+              <h3>Master Math & Science</h3>
+              <p>Use Wolfram Alpha and Photomath to solve equations, check work, and understand step-by-step solutions.</p>
+            </div>
+            <div class="info-box">
+              <div class="info-box-icon" style="background:#fff7ed;">🌐</div>
+              <h3>Improve Language</h3>
+              <p>Sharpen English writing, grammar, and fluency with AI-powered tools used by millions of students.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOOL CARDS GRID (rendered by JS) -->
+        <section style="margin-top: 32px;">
+          <div class="section-head">
+            <h2 class="section-title" id="tools-count-label">All Tools</h2>
+            <p class="section-subtitle">Click any tool to open it. All tools are free to use with a basic account.</p>
+          </div>
+          <div id="tools-grid" class="tools-grid" aria-live="polite"></div>
+        </section>
+
+        <!-- TIP BOX -->
+        <div class="tip-box" id="tips-section">
+          <span class="tip-icon">💡</span>
+          <span><strong>Study smarter:</strong> Use AI as a learning helper, not a shortcut. Always understand the concept before submitting AI-generated answers. Verify facts and code before using them in class or interviews.</span>
         </div>
-      </section>
+
+        <!-- PRACTICE TOOLS -->
+        <section id="practice-tools" style="margin-top: 36px;">
+          <div class="section-head">
+            <h2 class="section-title">🏋️ Online Free Practice Platforms</h2>
+            <p class="section-subtitle">Browser-based platforms where you can code, solve problems, and practice every day for free.</p>
+          </div>
+          <div class="practice-grid">
+            <a class="practice-item" href="https://www.freecodecamp.org/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.freecodecamp.org/favicon.ico" alt="freeCodeCamp" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>freeCodeCamp</h4><p>Full coding curriculum with certifications. HTML, CSS, JS, Python, and data science.</p></div>
+            </a>
+            <a class="practice-item" href="https://exercism.org/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://assets.exercism.org/images/favicon.ico" alt="Exercism" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>Exercism</h4><p>Practice 60+ languages with free mentoring and real code feedback.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.hackerrank.com/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.hackerrank.com/favicon.ico" alt="HackerRank" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>HackerRank</h4><p>Coding challenges and interview practice used by top hiring companies.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.codewars.com/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.codewars.com/favicon.ico" alt="Codewars" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>Codewars</h4><p>Kata-based challenges to sharpen language fluency and logic skills.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.codechef.com/practice" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.codechef.com/favicon.ico" alt="CodeChef" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>CodeChef</h4><p>Competitive programming contests and structured problem sets.</p></div>
+            </a>
+            <a class="practice-item" href="https://sqlzoo.net/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://sqlzoo.net/favicon.ico" alt="SQLZoo" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>SQLZoo</h4><p>Interactive SQL lessons from basics to advanced joins and aggregations.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.w3schools.com/sql/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.w3schools.com/favicon.ico" alt="W3Schools SQL" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>W3Schools SQL</h4><p>Run live SQL in the browser with tutorials and examples for all levels.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.programiz.com/python-programming/online-compiler/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.programiz.com/sites/tutorial2programiz/files/favicon.ico" alt="Programiz" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>Programiz Python</h4><p>Simple online Python editor with step-by-step course content.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.online-python.com/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.online-python.com/favicon.ico" alt="Online Python" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>Online Python</h4><p>Instant browser-based Python compiler — no setup needed at all.</p></div>
+            </a>
+            <a class="practice-item" href="https://leetcode.com/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://leetcode.com/favicon.ico" alt="LeetCode" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>LeetCode</h4><p>Industry-standard platform for algorithm and data structure prep for interviews.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.khanacademy.org/computing/computer-programming" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.khanacademy.org/favicon.ico" alt="Khan Academy" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>Khan Academy CS</h4><p>Free structured coding and computer science courses from beginner level.</p></div>
+            </a>
+            <a class="practice-item" href="https://www.stratascratch.com/" target="_blank" rel="noopener">
+              <div class="practice-logo"><img src="https://www.stratascratch.com/favicon.ico" alt="StrataScratch" onerror="this.style.display='none'" /></div>
+              <div class="practice-text"><h4>StrataScratch</h4><p>Data science and SQL interview questions from real companies like Google and Amazon.</p></div>
+            </a>
+          </div>
+        </section>
+
+        <!-- WHAT'S NEW -->
+        <section style="margin-top: 36px;">
+          <div class="section-head">
+            <h2 class="section-title">✨ Study Flows That Work</h2>
+            <p class="section-subtitle">Smart ways to combine these tools for better results as a student.</p>
+          </div>
+          <div class="new-grid">
+            <div class="new-item">
+              <div class="new-item-icon">📓</div>
+              <h4>Notebook Study Flow</h4>
+              <p>Upload your lecture notes to NotebookLM, then ask it focused questions for revision and exam prep.</p>
+            </div>
+            <div class="new-item">
+              <div class="new-item-icon">🗣️</div>
+              <h4>Mock Interview Prep</h4>
+              <p>Practice answers using Google Interview Warmup, then polish your language with Grammarly before the real thing.</p>
+            </div>
+            <div class="new-item">
+              <div class="new-item-icon">💻</div>
+              <h4>Code → Portfolio Flow</h4>
+              <p>Build small projects on Replit or freeCodeCamp, then create a Canva portfolio to showcase your work.</p>
+            </div>
+            <div class="new-item">
+              <div class="new-item-icon">📊</div>
+              <h4>Data Skills Track</h4>
+              <p>Learn SQL on SQLZoo, practice real problems on StrataScratch, and visualize data with Google Sheets + Gemini.</p>
+            </div>
+            <div class="new-item">
+              <div class="new-item-icon">📝</div>
+              <h4>Writing & Research</h4>
+              <p>Research using Perplexity for sources, draft with Claude, then check quality with Grammarly before submission.</p>
+            </div>
+            <div class="new-item">
+              <div class="new-item-icon">🎓</div>
+              <h4>Lecture to Notes</h4>
+              <p>Record lectures with Otter.ai for auto-transcription, then summarize key points using ChatGPT or Gemini.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
     </div>
   </main>
 
-  <!-- SECTION: FOOTER -->
-  <footer>
-    <a href="index.html" style="text-decoration:none;color:#1d4ed8;font-weight:700;">← Back to Home</a>
-    <div style="margin-top:6px;">© 2026 DataLearn10X | AI learning support page</div>
+  <!-- FOOTER -->
+  <footer class="footer-wrap">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-name">DataLearn10X</div>
+          <p>Helping students learn AI, code smarter, and become job-ready with free tools and resources.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <a href="index.html">Home</a>
+          <a href="index.html#explore-courses">Courses</a>
+          <a href="#free-student-tools">Free Resources</a>
+          <a href="#practice-tools">Practice Tools</a>
+        </div>
+        <div class="footer-col">
+          <h5>Popular Tools</h5>
+          <a href="https://chat.openai.com/" target="_blank" rel="noopener">ChatGPT</a>
+          <a href="https://notebooklm.google/" target="_blank" rel="noopener">NotebookLM</a>
+          <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva</a>
+          <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">freeCodeCamp</a>
+        </div>
+        <div class="footer-col">
+          <h5>Practice</h5>
+          <a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZoo</a>
+          <a href="https://exercism.org/" target="_blank" rel="noopener">Exercism</a>
+          <a href="https://www.hackerrank.com/" target="_blank" rel="noopener">HackerRank</a>
+          <a href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 <strong>DataLearn10X</strong> — All tools listed are free for students.</span>
+        <span style="font-size:12px;">Logos belong to their respective owners.</span>
+      </div>
+    </div>
   </footer>
+
+  <button class="back-top" id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
 
   <script>
     const AI_TOOLS = [
-      {name:'ChatGPT',category:'study',rating:4.9,desc:'Best all-round AI assistant for explanations, learning plans, summaries, and mock interview prep.',uses:['Concept explanation','Assignment drafts','Interview Q&A'],url:'https://chat.openai.com/'},
-      {name:'Perplexity',category:'study',rating:4.7,desc:'Research-focused answer engine with source links and fast topic exploration.',uses:['Source-backed research','Quick fact checking','Topic discovery'],url:'https://www.perplexity.ai/'},
-      {name:'Claude',category:'study',rating:4.7,desc:'Excellent for long-form reading, structured writing, and document analysis.',uses:['Long PDF summary','Policy/doc analysis','Clean writing'],url:'https://claude.ai/'},
-      {name:'Google Gemini',category:'study',rating:4.7,desc:'Strong all-round assistant for study planning, writing, and Google ecosystem users.',uses:['Docs/Slides drafting','Homework planning','Quick explanations'],url:'https://gemini.google.com/'},
-      {name:'NotebookLM',category:'study',rating:4.8,desc:'Best for source-grounded study: upload notes/PDFs and ask focused questions.',uses:['Research notebooks','Revision notes','Source-based Q&A'],url:'https://notebooklm.google/'},
-      {name:'GitHub Copilot',category:'coding',rating:4.8,desc:'AI coding assistant inside IDE for auto-completion, refactoring, and tests.',uses:['Code suggestions','Bug fixing help','Test generation'],url:'https://github.com/features/copilot'},
-      {name:'Cursor',category:'coding',rating:4.6,desc:'AI-first code editor for faster project building and understanding codebases.',uses:['Project scaffolding','Codebase Q&A','Refactor support'],url:'https://www.cursor.com/'},
-      {name:'Replit AI',category:'coding',rating:4.4,desc:'Fast browser-based coding + AI help for beginners building mini projects.',uses:['Quick prototypes','Class coding practice','Deploy simple apps'],url:'https://replit.com/'},
-      {name:'Canva Magic Studio',category:'design',rating:4.7,desc:'Create social graphics, resumes, and presentations quickly with AI support.',uses:['Presentation design','Poster/social creatives','Resume visuals'],url:'https://www.canva.com/'},
-      {name:'Gamma',category:'design',rating:4.5,desc:'Turns prompts into polished slide decks and documents in minutes.',uses:['Pitch decks','Class presentations','Portfolio overviews'],url:'https://gamma.app/'},
-      {name:'Adobe Firefly',category:'design',rating:4.5,desc:'Generate visual assets and creative concepts for projects and portfolios.',uses:['Design concepts','Poster assets','Creative brainstorming'],url:'https://firefly.adobe.com/'},
-      {name:'Notion AI',category:'productivity',rating:4.6,desc:'Smart writing and organization assistant inside notes and planning workflows.',uses:['Meeting notes','Task planning','Study tracker'],url:'https://www.notion.so/product/ai'},
-      {name:'Otter.ai',category:'productivity',rating:4.5,desc:'Transcribes lectures and meetings to help with review and note making.',uses:['Lecture transcription','Meeting notes','Revision extraction'],url:'https://otter.ai/'},
-      {name:'Grammarly',category:'career',rating:4.6,desc:'Improves grammar, clarity, and tone for resumes, emails, and SOPs.',uses:['Resume polish','Professional emails','LinkedIn copy'],url:'https://www.grammarly.com/'},
-      {name:'QuillBot',category:'career',rating:4.4,desc:'Paraphrasing and rewriting support for clearer writing drafts and edits.',uses:['Sentence rewrite','Draft refinement','Clarity boost'],url:'https://quillbot.com/'},
-      {name:'Interview Warmup',category:'career',rating:4.4,desc:'Practice interview responses with AI feedback and keyword suggestions.',uses:['Mock interviews','Role-specific prep','Answer improvement'],url:'https://grow.google/certificates/interview-warmup/'}
+      /* ── STUDY & NOTES ── */
+      {name:'ChatGPT', category:'study', rating:4.9,
+        logo:'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
+        desc:'The most popular AI assistant for explanations, study plans, summaries, and mock interview Q&A.',
+        uses:['Concept explanation','Study plans','Mock Q&A'],
+        url:'https://chat.openai.com/', free:true},
+
+      {name:'Perplexity AI', category:'study', rating:4.8,
+        logo:'https://upload.wikimedia.org/wikipedia/commons/9/91/Perplexity_AI_logo.png',
+        desc:'Research-focused answer engine that cites sources so you can verify every fact instantly.',
+        uses:['Source-backed research','Fact checking','Topic discovery'],
+        url:'https://www.perplexity.ai/', free:true},
+
+      {name:'Claude', category:'study', rating:4.7,
+        logo:'https://upload.wikimedia.org/wikipedia/commons/5/5a/Claude_AI_logo.svg',
+        desc:'Great for long documents, structured essays, and safe reliable writing advice.',
+        uses:['Long PDF summary','Essay drafting','Document analysis'],
+        url:'https://claude.ai/', free:true},
+
+      {name:'Google Gemini', category:'study', rating:4.7,
+        logo:'https://upload.wikimedia.org/wikipedia/commons/1/1d/Google_Gemini_logo.svg',
+        desc:'Google\'s AI assistant — great with Docs, Sheets, and Gmail for students in the Google ecosystem.',
+        uses:['Docs/Slides drafts','Homework planning','Quick explanations'],
+        url:'https://gemini.google.com/', free:true},
+
+      {name:'NotebookLM', category:'study', rating:4.9,
+        logo:'https://upload.wikimedia.org/wikipedia/commons/8/8f/NotebookLM_Logo.svg',
+        desc:'Upload your lecture notes and PDFs, then ask focused questions. Perfect for exam revision.',
+        uses:['Research notebooks','Revision notes','Source Q&A'],
+        url:'https://notebooklm.google/', free:true},
+
+      {name:'Quizlet', category:'study', rating:4.6,
+        logo:'https://quizlet.com/favicon.ico',
+        desc:'Create flashcards, practice tests, and matching games for any subject or exam.',
+        uses:['Flashcard sets','Practice tests','Memory games'],
+        url:'https://quizlet.com/', free:true},
+
+      {name:'Wolfram Alpha', category:'math', rating:4.8,
+        logo:'https://www.wolframalpha.com/favicon.ico',
+        desc:'Step-by-step math, science, and engineering solver. From algebra to calculus and beyond.',
+        uses:['Math step-by-step','Science formulas','Unit conversions'],
+        url:'https://www.wolframalpha.com/', free:true},
+
+      {name:'Khan Academy', category:'math', rating:4.9,
+        logo:'https://www.khanacademy.org/favicon.ico',
+        desc:'Free world-class courses in math, science, computing, and more — from beginner to advanced.',
+        uses:['Math practice','Science lessons','Test prep (SAT/GMAT)'],
+        url:'https://www.khanacademy.org/', free:true},
+
+      {name:'Photomath', category:'math', rating:4.7,
+        logo:'https://photomath.com/favicon.ico',
+        desc:'Scan or type any math problem and get instant step-by-step solutions with explanations.',
+        uses:['Homework help','Step-by-step solutions','Algebra & calculus'],
+        url:'https://photomath.com/', free:true},
+
+      /* ── CODING ── */
+      {name:'GitHub Copilot', category:'coding', rating:4.8,
+        logo:'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+        desc:'AI coding companion for auto-complete, refactoring suggestions, and test generation.',
+        uses:['Code suggestions','Bug fixing','Test generation'],
+        url:'https://github.com/features/copilot', free:false},
+
+      {name:'Cursor', category:'coding', rating:4.6,
+        logo:'https://cursor.com/favicon.ico',
+        desc:'AI-first code editor that helps you understand entire codebases and build projects faster.',
+        uses:['Project scaffolding','Codebase Q&A','Refactoring'],
+        url:'https://www.cursor.com/', free:true},
+
+      {name:'Replit', category:'coding', rating:4.7,
+        logo:'https://replit.com/public/images/favicon.ico',
+        desc:'Write and run code in the browser — great for Python, JS, HTML and quick prototypes.',
+        uses:['Browser coding','Quick prototypes','Deploy mini apps'],
+        url:'https://replit.com/', free:true},
+
+      {name:'GitHub', category:'coding', rating:4.8,
+        logo:'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+        desc:'Host your code, build a developer portfolio, and collaborate with teams on projects.',
+        uses:['Code hosting','Portfolio building','Open source'],
+        url:'https://github.com/', free:true},
+
+      {name:'VS Code (online)', category:'coding', rating:4.8,
+        logo:'https://code.visualstudio.com/favicon.ico',
+        desc:'Microsoft\'s powerful editor — available free in the browser at vscode.dev without installing.',
+        uses:['Code editing','Extensions','Git integration'],
+        url:'https://vscode.dev/', free:true},
+
+      {name:'StackOverflow', category:'coding', rating:4.7,
+        logo:'https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico',
+        desc:'The world\'s largest Q&A community for programming — find answers to almost any coding question.',
+        uses:['Debugging help','Code examples','Best practices'],
+        url:'https://stackoverflow.com/', free:true},
+
+      /* ── DESIGN & MEDIA ── */
+      {name:'Canva', category:'design', rating:4.8,
+        logo:'https://upload.wikimedia.org/wikipedia/commons/d/d4/Canva_logo.png',
+        desc:'Design stunning resumes, posters, presentations, and social graphics — all for free.',
+        uses:['Presentation design','Resume visuals','Social media posts'],
+        url:'https://www.canva.com/', free:true},
+
+      {name:'Gamma', category:'design', rating:4.6,
+        logo:'https://gamma.app/favicon.ico',
+        desc:'Turn a prompt or outline into a polished slide deck or document in just a few minutes.',
+        uses:['Pitch decks','Class presentations','Portfolio pages'],
+        url:'https://gamma.app/', free:true},
+
+      {name:'Adobe Firefly', category:'design', rating:4.5,
+        logo:'https://www.adobe.com/favicon.ico',
+        desc:'Generate AI images and creative concepts safely for school projects and portfolios.',
+        uses:['AI image generation','Design concepts','Creative assets'],
+        url:'https://firefly.adobe.com/', free:true},
+
+      {name:'Figma', category:'design', rating:4.8,
+        logo:'https://static.figma.com/app/icon/1/favicon.png',
+        desc:'Industry-standard design tool for UI/UX mockups and prototypes — free for students.',
+        uses:['UI/UX design','Prototyping','Design collaboration'],
+        url:'https://www.figma.com/', free:true},
+
+      {name:'Piktochart', category:'design', rating:4.4,
+        logo:'https://piktochart.com/favicon.ico',
+        desc:'Create beautiful infographics, reports, and visual summaries without design experience.',
+        uses:['Infographics','Visual reports','Data storytelling'],
+        url:'https://piktochart.com/', free:true},
+
+      /* ── PRODUCTIVITY ── */
+      {name:'Notion AI', category:'productivity', rating:4.6,
+        logo:'https://www.notion.so/images/favicon.ico',
+        desc:'All-in-one workspace with AI writing assistant for notes, task planning, and study tracking.',
+        uses:['Study notes','Task management','Study tracker'],
+        url:'https://www.notion.so/product/ai', free:true},
+
+      {name:'Otter.ai', category:'productivity', rating:4.5,
+        logo:'https://otter.ai/favicon.ico',
+        desc:'Automatically transcribes lectures and meetings so you never miss important points again.',
+        uses:['Lecture transcription','Meeting notes','Revision extraction'],
+        url:'https://otter.ai/', free:true},
+
+      {name:'Google Workspace', category:'productivity', rating:4.8,
+        logo:'https://www.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png',
+        desc:'Docs, Sheets, Slides, and Drive — the complete free toolkit for student collaboration.',
+        uses:['Documents & notes','Spreadsheets','Team collaboration'],
+        url:'https://workspace.google.com/intl/en/lp/google-workspace-for-education/', free:true},
+
+      {name:'Trello', category:'productivity', rating:4.5,
+        logo:'https://trello.com/favicon.ico',
+        desc:'Organize assignments, group projects, and study tasks on free visual kanban boards.',
+        uses:['Project management','Study planning','Assignment tracking'],
+        url:'https://trello.com/', free:true},
+
+      {name:'Obsidian', category:'productivity', rating:4.6,
+        logo:'https://obsidian.md/favicon.ico',
+        desc:'Free note-taking app with a knowledge graph — great for linking concepts while studying.',
+        uses:['Linked notes','Concept mapping','Long-term study notes'],
+        url:'https://obsidian.md/', free:true},
+
+      /* ── CAREER ── */
+      {name:'Grammarly', category:'career', rating:4.7,
+        logo:'https://upload.wikimedia.org/wikipedia/commons/5/5a/Grammarly_logo.svg',
+        desc:'AI writing assistant that improves grammar, clarity, and tone for resumes, emails, and SOPs.',
+        uses:['Resume polishing','Professional emails','LinkedIn bios'],
+        url:'https://www.grammarly.com/', free:true},
+
+      {name:'QuillBot', category:'career', rating:4.4,
+        logo:'https://quillbot.com/favicon.ico',
+        desc:'Paraphrasing and rewriting tool to improve clarity and reduce repetition in your writing.',
+        uses:['Sentence rewriting','Draft refinement','Clarity boost'],
+        url:'https://quillbot.com/', free:true},
+
+      {name:'Interview Warmup', category:'career', rating:4.5,
+        logo:'https://grow.google/static/img/favicon.ico',
+        desc:'Google\'s free AI mock interview tool with role-specific questions and keyword feedback.',
+        uses:['Mock interviews','Role-specific prep','Answer improvement'],
+        url:'https://grow.google/certificates/interview-warmup/', free:true},
+
+      {name:'LinkedIn', category:'career', rating:4.7,
+        logo:'https://static.licdn.com/aero-v1/sc/h/al2o9zrvru7aqj8e1x2rzsrca',
+        desc:'Build your professional profile, find internships, and connect with recruiters and alumni.',
+        uses:['Profile building','Job search','Networking'],
+        url:'https://www.linkedin.com/', free:true},
+
+      {name:'Jobscan', category:'career', rating:4.4,
+        logo:'https://www.jobscan.co/favicon.ico',
+        desc:'Match your resume to job descriptions and increase your chances of passing ATS screening.',
+        uses:['Resume scanning','ATS optimization','Keyword matching'],
+        url:'https://www.jobscan.co/', free:true},
+
+      /* ── PRACTICE ── */
+      {name:'freeCodeCamp', category:'practice', rating:4.9,
+        logo:'https://www.freecodecamp.org/favicon.ico',
+        desc:'Complete free coding curriculum covering HTML, CSS, JavaScript, Python, and data science with certifications.',
+        uses:['Web development','Python basics','Portfolio projects'],
+        url:'https://www.freecodecamp.org/', free:true},
+
+      {name:'Exercism', category:'practice', rating:4.8,
+        logo:'https://assets.exercism.org/images/favicon.ico',
+        desc:'Practice coding in 60+ languages with real human mentoring and structured tracks.',
+        uses:['Language mastery','Code review','Daily exercises'],
+        url:'https://exercism.org/', free:true},
+
+      {name:'HackerRank', category:'practice', rating:4.7,
+        logo:'https://www.hackerrank.com/favicon.ico',
+        desc:'Free coding challenges and skill certifications recognized by top companies for hiring.',
+        uses:['Algorithms','Problem solving','Interview prep'],
+        url:'https://www.hackerrank.com/', free:true},
+
+      {name:'LeetCode', category:'practice', rating:4.8,
+        logo:'https://leetcode.com/favicon.ico',
+        desc:'The go-to platform for data structures and algorithm interview preparation.',
+        uses:['DSA practice','Interview prep','Top company problems'],
+        url:'https://leetcode.com/', free:true},
+
+      {name:'Codewars', category:'practice', rating:4.6,
+        logo:'https://www.codewars.com/favicon.ico',
+        desc:'Gamified coding challenges called kata — great for improving logic and language fluency.',
+        uses:['Challenge solving','Language fluency','Daily streaks'],
+        url:'https://www.codewars.com/', free:true},
+
+      {name:'SQLZoo', category:'practice', rating:4.8,
+        logo:'https://sqlzoo.net/favicon.ico',
+        desc:'Interactive SQL lessons and challenges from zero to advanced — runs in the browser.',
+        uses:['SQL basics','Joins & aggregations','Query exercises'],
+        url:'https://sqlzoo.net/', free:true},
+
+      {name:'StrataScratch', category:'practice', rating:4.5,
+        logo:'https://www.stratascratch.com/favicon.ico',
+        desc:'SQL and Python data science interview questions from real companies like Google, Amazon, and Netflix.',
+        uses:['SQL challenges','Data analysis practice','Interview prep'],
+        url:'https://www.stratascratch.com/', free:true},
+
+      {name:'Programiz Python', category:'practice', rating:4.8,
+        logo:'https://www.programiz.com/sites/tutorial2programiz/files/favicon.ico',
+        desc:'Simple online Python compiler with beginner-friendly tutorials and examples.',
+        uses:['Python practice','Quick examples','Learning by doing'],
+        url:'https://www.programiz.com/python-programming/online-compiler/', free:true},
+
+      /* ── LANGUAGE ── */
+      {name:'Duolingo', category:'language', rating:4.7,
+        logo:'https://d35aaqx5ub95lt.cloudfront.net/vendor/e55e7f74ee56eb2eb6f04e0b9b66c69e.ico',
+        desc:'Free app to learn a new language daily — gamified lessons make it fun and consistent.',
+        uses:['Language learning','Daily practice','Vocabulary building'],
+        url:'https://www.duolingo.com/', free:true},
+
+      {name:'DeepL Translator', category:'language', rating:4.8,
+        logo:'https://www.deepl.com/favicon.ico',
+        desc:'The most accurate free AI translation tool — far better than Google Translate for academic text.',
+        uses:['Document translation','Academic writing','Language comparison'],
+        url:'https://www.deepl.com/', free:true},
+
+      {name:'Hemingway Editor', category:'language', rating:4.5,
+        logo:'https://hemingwayapp.com/img/favicon-32x32.png',
+        desc:'Highlights hard-to-read sentences and passive voice to make your English writing clear and punchy.',
+        uses:['Writing clarity','Sentence simplification','Academic writing'],
+        url:'https://hemingwayapp.com/', free:true},
     ];
 
     const grid = document.getElementById('tools-grid');
-    const search = document.getElementById('toolSearch');
-    const sort = document.getElementById('sortTools');
+    const searchEl = document.getElementById('toolSearch');
+    const sortEl = document.getElementById('sortTools');
     const chips = Array.from(document.querySelectorAll('#categoryChips .chip'));
+    const backToTop = document.getElementById('backToTop');
+    const countLabel = document.getElementById('tools-count-label');
     let activeCategory = 'all';
 
-    function stars(rating){
-      const full = Math.round(rating);
-      return '★'.repeat(full) + '☆'.repeat(5-full);
+    const PILL_CLASS = {
+      study: '', coding: 'pill-coding', design: 'pill-design',
+      career: 'pill-career', productivity: 'pill-productivity',
+      practice: 'pill-practice', math: '', language: ''
+    };
+
+    const CAT_LABELS = {
+      all: 'All Tools', study: 'Study & Notes', coding: 'Coding',
+      design: 'Design & Media', career: 'Career', productivity: 'Productivity',
+      practice: 'Practice', math: 'Math & Science', language: 'Language'
+    };
+
+    function stars(r) {
+      const full = Math.round(r);
+      return '★'.repeat(full) + '☆'.repeat(5 - full);
     }
 
-    function renderTools(){
-      const q = (search.value || '').toLowerCase().trim();
-      const sortBy = sort.value;
-      let items = AI_TOOLS.filter(t => (activeCategory === 'all' || t.category === activeCategory));
-      if(q){
+    function initials(name) {
+      return name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+    }
+
+    function pillClass(cat) {
+      return PILL_CLASS[cat] || '';
+    }
+
+    function renderTools() {
+      const q = (searchEl.value || '').toLowerCase().trim();
+      const sortBy = sortEl.value;
+      let items = AI_TOOLS.filter(t => activeCategory === 'all' || t.category === activeCategory);
+
+      if (q) {
         items = items.filter(t =>
           t.name.toLowerCase().includes(q) ||
           t.desc.toLowerCase().includes(q) ||
-          t.uses.join(' ').toLowerCase().includes(q)
+          t.uses.join(' ').toLowerCase().includes(q) ||
+          t.category.toLowerCase().includes(q)
         );
       }
-      items.sort((a,b) => {
-        if(sortBy === 'rating-desc') return b.rating - a.rating;
-        if(sortBy === 'rating-asc') return a.rating - b.rating;
+
+      items.sort((a, b) => {
+        if (sortBy === 'rating-desc') return b.rating - a.rating;
+        if (sortBy === 'rating-asc') return a.rating - b.rating;
         return a.name.localeCompare(b.name);
       });
 
-      grid.innerHTML = items.map(t => `
+      const catLabel = CAT_LABELS[activeCategory] || 'All Tools';
+      countLabel.textContent = q
+        ? `${items.length} result${items.length !== 1 ? 's' : ''} for "${searchEl.value.trim()}"`
+        : `${catLabel} (${items.length})`;
+
+      if (!items.length) {
+        grid.innerHTML = `<div class="no-results">
+          <strong>No tools found for that search.</strong>
+          Try a different keyword, or select "All Tools" to browse everything.
+        </div>`;
+        return;
+      }
+
+      grid.innerHTML = items.map(t => {
+        const pc = pillClass(t.category);
+        return `
         <article class="tool-card" data-category="${t.category}">
           <div class="tool-top">
-            <h3>${t.name}</h3>
-            <span class="pill">${t.category}</span>
+            <div class="tool-brand">
+              <div class="tool-logo-wrap" id="logo-wrap-${t.name.replace(/\s+/g,'_')}">
+                <img src="${t.logo}" alt="${t.name} logo"
+                  onerror="
+                    var w=document.getElementById('logo-wrap-${t.name.replace(/\s+/g,'_')}');
+                    w.outerHTML='<div class=tool-logo-fallback>${initials(t.name)}</div>';
+                  " />
+              </div>
+              <div class="tool-meta">
+                <h3>${t.name}</h3>
+                <span class="pill ${pc}">${t.category}</span>
+              </div>
+            </div>
+            ${t.free ? '<span class="free-badge">✓ Free</span>' : '<span class="free-badge" style="background:#fef9c3;color:#854d0e;border-color:#fde68a;">Freemium</span>'}
           </div>
-          <div class="rating" aria-label="Rating ${t.rating} out of 5">${stars(t.rating)} (${t.rating})</div>
-          <p>${t.desc}</p>
+          <div class="rating" aria-label="Rating ${t.rating} out of 5">
+            <span>${stars(t.rating)}</span>
+            <span class="rating-score">${t.rating}</span>
+          </div>
+          <p class="tool-desc">${t.desc}</p>
           <ul class="use-list">
             ${t.uses.map(u => `<li>${u}</li>`).join('')}
           </ul>
           <div class="tool-actions">
-            <a class="btn-primary" target="_blank" rel="noopener noreferrer" href="${t.url}">Open Tool</a>
-            <a class="btn-light" href="index.html#explore-courses">Learn with DL10X</a>
+            <a class="btn-primary" target="_blank" rel="noopener noreferrer" href="${t.url}">Open Tool ↗</a>
+            <a class="btn-light" href="#practice-tools">More Practice</a>
           </div>
-        </article>
-      `).join('');
-
-      if(!items.length){
-        grid.innerHTML = '<div class="tool-card"><h3>No matching tools</h3><p>Try another keyword or category.</p></div>';
-      }
+        </article>`;
+      }).join('');
     }
 
     chips.forEach(chip => {
@@ -200,10 +1360,19 @@
         renderTools();
       });
     });
-    search.addEventListener('input', renderTools);
-    sort.addEventListener('change', renderTools);
+
+    searchEl.addEventListener('input', renderTools);
+    sortEl.addEventListener('change', renderTools);
+
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+      backToTop.style.alignItems = 'center';
+      backToTop.style.justifyContent = 'center';
+    });
+
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
     renderTools();
-    if(window.PSAAnalytics){ PSAAnalytics.trackEvent('ai_tools_page_viewed', {page:'ai_tools'}); }
   </script>
 </body>
 </html>
