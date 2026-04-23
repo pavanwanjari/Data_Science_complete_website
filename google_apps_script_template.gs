@@ -58,7 +58,7 @@ var PROGRESS_HEADERS = [
   "student_name",
   "progress_json"
 ];
-var ADMIN_ALERT_EMAIL = "datalearn10x@gmail.com";
+var ADMIN_ALERT_EMAIL = "shubhams2018@gmail.com";
 
 function getOrCreateSheet_(sheetName, headers) {
   var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
