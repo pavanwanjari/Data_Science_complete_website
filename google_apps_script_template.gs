@@ -209,6 +209,35 @@ function sendAdminAlertEmail_(subject, details) {
   });
 }
 
+function sendAdminPurchaseNotification_(e) {
+  if (!ADMIN_ALERT_EMAIL) return { ok: false, error: "ADMIN_EMAIL_NOT_SET" };
+
+  var email = normalizeEmail_(e.parameter.email);
+  var paymentId = String(e.parameter.payment_id || "N/A");
+  var courseText = String(e.parameter.course || "");
+  var amount = String(e.parameter.netpayment || e.parameter.total || "0");
+  var buyerName = String(e.parameter.name || "Unknown");
+  var mobile = String(e.parameter.mobile || "N/A");
+  var profession = String(e.parameter.profession || "N/A");
+
+  MailApp.sendEmail({
+    to: ADMIN_ALERT_EMAIL,
+    subject: "New course purchase: " + buyerName + " | ₹" + amount,
+    htmlBody:
+      '<div style="font-family:Arial,sans-serif;line-height:1.6">' +
+      "<h3>New purchase received ✅</h3>" +
+      "<p><strong>Name:</strong> " + buyerName + "</p>" +
+      "<p><strong>Email:</strong> " + email + "</p>" +
+      "<p><strong>Mobile:</strong> " + mobile + "</p>" +
+      "<p><strong>Profession:</strong> " + profession + "</p>" +
+      "<p><strong>Courses:</strong> " + courseText + "</p>" +
+      "<p><strong>Amount:</strong> ₹" + amount + "</p>" +
+      "<p><strong>Payment ID:</strong> " + paymentId + "</p>" +
+      "</div>"
+  });
+  return { ok: true };
+}
+
 function appendAnalyticsEvent_(e) {
   var sheet = getAnalyticsSheet_();
   sheet.appendRow([
@@ -305,6 +334,13 @@ function doPost(e) {
   }
 
   appendPurchaseRow_(e);
+  var adminPurchaseResult = { ok: false, skipped: true };
+  try {
+    adminPurchaseResult = sendAdminPurchaseNotification_(e);
+  } catch (adminErr) {
+    adminPurchaseResult = { ok: false, error: String(adminErr) };
+  }
+
   if (String(e.parameter.send_course_email || "").toLowerCase() === "yes") {
     var emailResult;
     try {
@@ -320,12 +356,12 @@ function doPost(e) {
       );
     }
     return ContentService
-      .createTextOutput(JSON.stringify({ ok: true, type: "purchase_save", email_result: emailResult }))
+      .createTextOutput(JSON.stringify({ ok: true, type: "purchase_save", email_result: emailResult, admin_purchase_result: adminPurchaseResult }))
       .setMimeType(ContentService.MimeType.JSON);
   }
   return ContentService
-    .createTextOutput("Success")
-    .setMimeType(ContentService.MimeType.TEXT);
+    .createTextOutput(JSON.stringify({ ok: true, type: "purchase_save", admin_purchase_result: adminPurchaseResult }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function exportAnalytics_(limit) {
