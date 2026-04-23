@@ -58,6 +58,7 @@ var PROGRESS_HEADERS = [
   "student_name",
   "progress_json"
 ];
+var ADMIN_ALERT_EMAIL = "datalearn10x@gmail.com";
 
 function getOrCreateSheet_(sheetName, headers) {
   var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -197,6 +198,17 @@ function sendCourseAccessEmail_(e) {
   return { ok: true };
 }
 
+function sendAdminAlertEmail_(subject, details) {
+  if (!ADMIN_ALERT_EMAIL) return;
+  MailApp.sendEmail({
+    to: ADMIN_ALERT_EMAIL,
+    subject: subject,
+    htmlBody: '<div style="font-family:Arial,sans-serif;line-height:1.6">' +
+      "<p>" + String(details || "") + "</p>" +
+      "</div>"
+  });
+}
+
 function appendAnalyticsEvent_(e) {
   var sheet = getAnalyticsSheet_();
   sheet.appendRow([
@@ -294,7 +306,19 @@ function doPost(e) {
 
   appendPurchaseRow_(e);
   if (String(e.parameter.send_course_email || "").toLowerCase() === "yes") {
-    var emailResult = sendCourseAccessEmail_(e);
+    var emailResult;
+    try {
+      emailResult = sendCourseAccessEmail_(e);
+    } catch (mailErr) {
+      emailResult = { ok: false, error: String(mailErr) };
+      sendAdminAlertEmail_(
+        "DataLearn10X student email failed",
+        "Student: " + normalizeEmail_(e.parameter.email) +
+          "<br>Payment ID: " + String(e.parameter.payment_id || "N/A") +
+          "<br>Courses: " + String(e.parameter.course || "") +
+          "<br>Error: " + String(mailErr)
+      );
+    }
     return ContentService
       .createTextOutput(JSON.stringify({ ok: true, type: "purchase_save", email_result: emailResult }))
       .setMimeType(ContentService.MimeType.JSON);
