@@ -141,6 +141,62 @@ function appendPurchaseRow_(e) {
   ]);
 }
 
+function parseCourseLinks_(raw) {
+  var items = parseJsonSafe_(raw || "[]", []);
+  if (!Array.isArray(items)) return [];
+  return items
+    .map(function (item) {
+      return {
+        name: String(item && item.name ? item.name : "").trim(),
+        link: String(item && item.link ? item.link : "").trim()
+      };
+    })
+    .filter(function (item) { return item.name && item.link; });
+}
+
+function sendCourseAccessEmail_(e) {
+  var email = normalizeEmail_(e.parameter.email);
+  if (!email) {
+    return { ok: false, error: "EMAIL_REQUIRED" };
+  }
+
+  var courses = splitCourses_(e.parameter.course);
+  var links = parseCourseLinks_(e.parameter.course_links_json);
+  if (!links.length && courses.length) {
+    links = courses.map(function (courseName) {
+      return {
+        name: courseName,
+        link: "https://datalearn10x.com/Excel_success_v3.html?email=" + encodeURIComponent(email)
+      };
+    });
+  }
+
+  var linksHtml = links.length
+    ? links.map(function (item) {
+        return '<li style="margin:8px 0"><a href="' + item.link + '">' + item.name + "</a></li>";
+      }).join("")
+    : "<li>Please open your course access page from the website.</li>";
+
+  var html = [
+    '<div style="font-family:Arial,sans-serif;line-height:1.6;color:#1f2f46">',
+    "<h2>Payment received ✅</h2>",
+    "<p>Hi " + (e.parameter.name || "Learner") + ",</p>",
+    "<p>Thank you for your purchase at DataLearn10X. Your enrolled course links are below:</p>",
+    "<ul>" + linksHtml + "</ul>",
+    "<p><strong>Payment ID:</strong> " + (e.parameter.payment_id || "N/A") + "</p>",
+    "<p>If any link does not open, reply to this email or contact support on WhatsApp.</p>",
+    "<p>Regards,<br>DataLearn10X Team</p>",
+    "</div>"
+  ].join("");
+
+  MailApp.sendEmail({
+    to: email,
+    subject: "Your DataLearn10X course access links",
+    htmlBody: html
+  });
+  return { ok: true };
+}
+
 function appendAnalyticsEvent_(e) {
   var sheet = getAnalyticsSheet_();
   sheet.appendRow([
@@ -237,6 +293,12 @@ function doPost(e) {
   }
 
   appendPurchaseRow_(e);
+  if (String(e.parameter.send_course_email || "").toLowerCase() === "yes") {
+    var emailResult = sendCourseAccessEmail_(e);
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true, type: "purchase_save", email_result: emailResult }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
   return ContentService
     .createTextOutput("Success")
     .setMimeType(ContentService.MimeType.TEXT);
