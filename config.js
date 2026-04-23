@@ -1,5 +1,5 @@
 window.DL10X_CONFIG = {
-  SHEET_WEBAPP_URL: "https://script.google.com/macros/s/AKfycbzt05fPvnG2dyZQn72eaKEBWNhQzxL8QSWoBHA9Cz7D4w5IyAqJtmGIFETK5tTwq8wv/exec",
+  SHEET_WEBAPP_URL: "https://script.google.com/macros/s/AKfycbwJn5ICmH267nJXb_t-jZRCA6KAfcXM7XSAHTJ4mv68e_x9PGHd7_Nau1_PB3csxDCK/exec",
   WHATSAPP_NUMBER: "919403030512",
   WHATSAPP_TEXT: "Hi DataLearn10X, I want details about courses",
   AD_IMAGES_BASE_URL: "ads",
