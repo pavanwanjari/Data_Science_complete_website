@@ -125,20 +125,21 @@ function getPurchasedCoursesByEmail_(email) {
 }
 
 function appendPurchaseRow_(e) {
+  var p = (e && e.parameter) ? e.parameter : {};
   var sheet = getSheet_();
   sheet.appendRow([
     new Date(),
-    e.parameter.name,
-    e.parameter.mobile,
-    e.parameter.email,
-    e.parameter.profession,
-    e.parameter.course,
-    e.parameter.total,
-    e.parameter.discount,
-    e.parameter.netpayment,
-    e.parameter.payment_id,
-    e.parameter.order_id,
-    e.parameter.signature
+    p.name || "",
+    p.mobile || "",
+    p.email || "",
+    p.profession || "",
+    p.course || "",
+    p.total || "",
+    p.discount || "",
+    p.netpayment || "",
+    p.payment_id || "",
+    p.order_id || "",
+    p.signature || ""
   ]);
 }
 
@@ -310,7 +311,14 @@ function getLatestProgressByEmail_(email, moduleName) {
 }
 
 function doPost(e) {
-  var action = (e && e.parameter && e.parameter.action ? e.parameter.action : "").toLowerCase();
+  var hasParams = !!(e && e.parameter);
+  if (!hasParams) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: false, error: "MISSING_PARAMETERS" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  var action = (e.parameter.action ? e.parameter.action : "").toLowerCase();
 
   if (action === "analytics_event") {
     appendAnalyticsEvent_(e);
