@@ -58,6 +58,7 @@ var PROGRESS_HEADERS = [
   "student_name",
   "progress_json"
 ];
+var ADMIN_ALERT_EMAIL = "shubhams2018@gmail.com";
 
 function getOrCreateSheet_(sheetName, headers) {
   var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -139,6 +140,102 @@ function appendPurchaseRow_(e) {
     e.parameter.order_id,
     e.parameter.signature
   ]);
+}
+
+function parseCourseLinks_(raw) {
+  var items = parseJsonSafe_(raw || "[]", []);
+  if (!Array.isArray(items)) return [];
+  return items
+    .map(function (item) {
+      return {
+        name: String(item && item.name ? item.name : "").trim(),
+        link: String(item && item.link ? item.link : "").trim()
+      };
+    })
+    .filter(function (item) { return item.name && item.link; });
+}
+
+function sendCourseAccessEmail_(e) {
+  var email = normalizeEmail_(e.parameter.email);
+  if (!email) {
+    return { ok: false, error: "EMAIL_REQUIRED" };
+  }
+
+  var courses = splitCourses_(e.parameter.course);
+  var links = parseCourseLinks_(e.parameter.course_links_json);
+  if (!links.length && courses.length) {
+    links = courses.map(function (courseName) {
+      return {
+        name: courseName,
+        link: "https://datalearn10x.com/Excel_success_v3.html?email=" + encodeURIComponent(email)
+      };
+    });
+  }
+
+  var linksHtml = links.length
+    ? links.map(function (item) {
+        return '<li style="margin:8px 0"><a href="' + item.link + '">' + item.name + "</a></li>";
+      }).join("")
+    : "<li>Please open your course access page from the website.</li>";
+
+  var html = [
+    '<div style="font-family:Arial,sans-serif;line-height:1.6;color:#1f2f46">',
+    "<h2>Payment received ✅</h2>",
+    "<p>Hi " + (e.parameter.name || "Learner") + ",</p>",
+    "<p>Thank you for your purchase at DataLearn10X. Your enrolled course links are below:</p>",
+    "<ul>" + linksHtml + "</ul>",
+    "<p><strong>Payment ID:</strong> " + (e.parameter.payment_id || "N/A") + "</p>",
+    "<p>If any link does not open, reply to this email or contact support on WhatsApp.</p>",
+    "<p>Regards,<br>DataLearn10X Team</p>",
+    "</div>"
+  ].join("");
+
+  MailApp.sendEmail({
+    to: email,
+    subject: "Your DataLearn10X course access links",
+    htmlBody: html
+  });
+  return { ok: true };
+}
+
+function sendAdminAlertEmail_(subject, details) {
+  if (!ADMIN_ALERT_EMAIL) return;
+  MailApp.sendEmail({
+    to: ADMIN_ALERT_EMAIL,
+    subject: subject,
+    htmlBody: '<div style="font-family:Arial,sans-serif;line-height:1.6">' +
+      "<p>" + String(details || "") + "</p>" +
+      "</div>"
+  });
+}
+
+function sendAdminPurchaseNotification_(e) {
+  if (!ADMIN_ALERT_EMAIL) return { ok: false, error: "ADMIN_EMAIL_NOT_SET" };
+
+  var email = normalizeEmail_(e.parameter.email);
+  var paymentId = String(e.parameter.payment_id || "N/A");
+  var courseText = String(e.parameter.course || "");
+  var amount = String(e.parameter.netpayment || e.parameter.total || "0");
+  var buyerName = String(e.parameter.name || "Unknown");
+  var mobile = String(e.parameter.mobile || "N/A");
+  var profession = String(e.parameter.profession || "N/A");
+
+  MailApp.sendEmail({
+    to: ADMIN_ALERT_EMAIL,
+    subject: "New course purchase: " + buyerName + " | ₹" + amount,
+    htmlBody:
+      '<div style="font-family:Arial,sans-serif;line-height:1.6">' +
+      "<h3>New purchase received ✅</h3>" +
+      "<p><strong>Name:</strong> " + buyerName + "</p>" +
+      "<p><strong>Email:</strong> " + email + "</p>" +
+      "<p><strong>Mobile:</strong> " + mobile + "</p>" +
+      "<p><strong>Profession:</strong> " + profession + "</p>" +
+      "<p><strong>Courses:</strong> " + courseText + "</p>" +
+      "<p><strong>Amount:</strong> ₹" + amount + "</p>" +
+      "<p><strong>Payment ID:</strong> " + paymentId + "</p>" +
+      "</div>"
+  });
+  return { ok: true };
 }
 
 function appendAnalyticsEvent_(e) {
@@ -237,9 +334,34 @@ function doPost(e) {
   }
 
   appendPurchaseRow_(e);
+  var adminPurchaseResult = { ok: false, skipped: true };
+  try {
+    adminPurchaseResult = sendAdminPurchaseNotification_(e);
+  } catch (adminErr) {
+    adminPurchaseResult = { ok: false, error: String(adminErr) };
+  }
+
+  if (String(e.parameter.send_course_email || "").toLowerCase() === "yes") {
+    var emailResult;
+    try {
+      emailResult = sendCourseAccessEmail_(e);
+    } catch (mailErr) {
+      emailResult = { ok: false, error: String(mailErr) };
+      sendAdminAlertEmail_(
+        "DataLearn10X student email failed",
+        "Student: " + normalizeEmail_(e.parameter.email) +
+          "<br>Payment ID: " + String(e.parameter.payment_id || "N/A") +
+          "<br>Courses: " + String(e.parameter.course || "") +
+          "<br>Error: " + String(mailErr)
+      );
+    }
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true, type: "purchase_save", email_result: emailResult, admin_purchase_result: adminPurchaseResult }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
   return ContentService
-    .createTextOutput("Success")
-    .setMimeType(ContentService.MimeType.TEXT);
+    .createTextOutput(JSON.stringify({ ok: true, type: "purchase_save", admin_purchase_result: adminPurchaseResult }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function exportAnalytics_(limit) {

@@ -109,6 +109,13 @@ body.course-git{--course-a:#111827;--course-b:#1f2937;--course-c:#4b5563;--cours
 .app-practice .option.correct{background:#eafaf0!important;color:#14532d!important}
 .app-practice .option.wrong{background:#fff1f2!important;color:#9f1239!important}
 
+/* Access success page readability lock */
+.app-excel-success,
+.app-excel-success .box,
+.app-excel-success p,
+.app-excel-success h2,
+.app-excel-success .note{color:inherit!important}
+
 /* Ensure common sections stay light */
 #guarantee-section,#success-stories,#learning-path,.guarantee-wrap,.success-wrap,.path-wrap{background:#f4f8ff!important;color:#1a2a42!important}
 #guarantee-section h2,#success-stories h2,#learning-path h2,.guarantee-wrap h2,.success-wrap h2,.path-wrap h2{color:#12315a!important}
