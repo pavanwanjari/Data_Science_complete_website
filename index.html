@@ -77,8 +77,6 @@
     .logo-marquee{margin-top:16px;overflow:hidden;border:1px solid #d6e4ff;border-radius:14px;background:#ffffff}
     .logo-track{display:flex;align-items:center;gap:12px;width:max-content;padding:10px;animation:logoSlide 26s linear infinite}
     @keyframes logoSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .hero-brand{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px}
-    .hero-brand img{width:82px;height:82px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(2,10,28,.5))}
     .logo-card{background:rgba(255,255,255,.06);border:1px solid rgba(126,175,245,.26);border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:center;min-height:92px;min-width:210px}
     .logo-card img{max-width:100%;max-height:54px;object-fit:contain;filter:grayscale(.1)}
     .logo-marquee:hover .logo-track{animation-play-state:paused}
@@ -177,9 +175,6 @@
       .form input,.form select{width:100%;max-width:none;margin:6px 0}
       .total{font-size:20px}
       .wa-proof{width:168px;height:304px}
-      .hero-brand{gap:10px}
-      .hero-brand img{width:60px;height:60px}
-      .hero-brand h1{margin:0}
       .logo-card{min-width:152px;min-height:78px;padding:10px}
       .logo-card img{max-height:44px}
       .ads-section{padding:18px 12px 8px}
@@ -737,7 +732,8 @@
         <label class="chk"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="19"> Cheat Sheets and Interview Questions (₹19)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="20000+ HR Emails" data-price="19"> 20000+ HR Emails (₹19)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="Projects Only Course" data-price="99"> Projects Only Course (MRP ₹1000 | Offer ₹99)</label>
-        <label class="chk combo-offer"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="1"> <b>Data Analytics Combo (all courses + resources) ₹1 (Limited-time offer)</b></label>
+        <label class="chk combo-offer"><input type="checkbox" id="comboCoreChk" value="Data Analytics Combo Core" data-price="1"> <b>Combo 1 (Core Analytics) ₹1</b><br><small style="font-weight:500;color:#475569">Excludes: AWS Full Stack Development, Learn AI, MongoDB, Git &amp; GitHub</small></label>
+        <label class="chk combo-offer"><input type="checkbox" id="comboAllChk" value="Data Analytics Combo All" data-price="2"> <b>Combo 2 (All Courses) ₹2</b><br><small style="font-weight:500;color:#475569">Includes all available paid courses</small></label>
       </div>
 
       <div class="total" id="totalText">Total: ₹0</div>
@@ -907,8 +903,10 @@ const YOUTUBE_REELS = Array.isArray(SITE_CONFIG.YOUTUBE_REELS) && SITE_CONFIG.YO
       { id: "2jGhQpbzHes", title: "SQL Data Analyst Portfolio Project", note: "Real-world SQL analytics project walkthrough" },
       { id: "e6QD8lP-m6E", title: "Power BI Full Course Tutorial", note: "Dashboard + modeling + analytics basics" }
     ];
-const comboChk = document.getElementById('comboChk');
+const comboCoreChk = document.getElementById('comboCoreChk');
+const comboAllChk = document.getElementById('comboAllChk');
 const individualChecks = Array.from(document.querySelectorAll('.courseChk'));
+const CORE_COMBO_EXCLUDED = ['AWS Full Stack Development','Learn AI','MongoDB','Git & GitHub'];
 const offerPill = document.getElementById('offerPill');
 const exploreSection = document.getElementById('explore-courses');
 const whatsappLink=document.getElementById('whatsappLink');
@@ -1038,18 +1036,39 @@ function renderYouTubeShowcase(){
 function track(e,p){window.PSAAnalytics.trackEvent(e,p||{});}
 function setMsg(t,isErr){const m=document.getElementById('msg');m.style.color=isErr?'#b42318':'#157a38';m.innerText=t;}
 
+function getComboCoreCourses(){
+  return individualChecks.map(c=>c.value).filter(function(name){ return CORE_COMBO_EXCLUDED.indexOf(name)===-1; });
+}
+
+function getComboAllCourses(){
+  return individualChecks.map(c=>c.value);
+}
+
+function getSelectedCourses(){
+  if(comboCoreChk && comboCoreChk.checked) return getComboCoreCourses();
+  if(comboAllChk && comboAllChk.checked) return getComboAllCourses();
+  return individualChecks.filter(c=>c.checked).map(c=>c.value);
+}
+
+function currentTotal(){
+  if(comboCoreChk && comboCoreChk.checked) return 1;
+  if(comboAllChk && comboAllChk.checked) return 2;
+  return individualChecks.filter(c=>c.checked).reduce((sum,c)=>sum+Number(c.dataset.price||0),0);
+}
+
 function selectedItems(){
-  if(comboChk.checked){return [{name:'Data Analytics Combo',price:1}];}
-  return individualChecks.filter(c=>c.checked).map(c=>({name:c.value,price:Number(c.dataset.price)}));
+  return getSelectedCourses().map(function(name){ return {name:name,price:0}; });
 }
 
 function updateTotal(){
-  const total = selectedItems().reduce((a,b)=>a+b.price,0);
-  document.getElementById('totalText').innerText = 'Total: ₹'+total;
+  document.getElementById('totalText').innerText = 'Total: ₹'+currentTotal();
 }
 
 function syncComboRule(){
-  if(comboChk.checked){
+  var comboActive = (comboCoreChk && comboCoreChk.checked) || (comboAllChk && comboAllChk.checked);
+  if(comboCoreChk && comboCoreChk.checked && comboAllChk){ comboAllChk.checked=false; }
+  if(comboAllChk && comboAllChk.checked && comboCoreChk){ comboCoreChk.checked=false; }
+  if(comboActive){
     individualChecks.forEach(c=>{c.checked=false;c.disabled=true;});
   } else {
     individualChecks.forEach(c=>c.disabled=false);
@@ -1060,8 +1079,11 @@ function syncComboRule(){
 function parsePreselect(){
   const add = new URLSearchParams(location.search).get('add');
   if(!add) return;
-  if(add === 'Data Analytics Combo'){
-    comboChk.checked=true;
+  if(add === 'Data Analytics Combo' || add === 'Data Analytics Combo Core'){
+    if(comboCoreChk){comboCoreChk.checked=true;}
+    syncComboRule();
+  } else if(add === 'Data Analytics Combo All'){
+    if(comboAllChk){comboAllChk.checked=true;}
     syncComboRule();
   } else {
     individualChecks.forEach(c=>{if(c.value===add)c.checked=true;});
@@ -1092,7 +1114,8 @@ function normalizeCourseName(name){
   var n=(name||'').trim();
   if(!n) return '';
   var lower=n.toLowerCase();
-  if(lower==='data analytics combo' || lower==='combo') return 'Data Analytics Combo';
+  if(lower==='data analytics combo' || lower==='combo' || lower==='data analytics combo core') return 'Data Analytics Combo Core';
+  if(lower==='data analytics combo all' || lower==='combo all') return 'Data Analytics Combo All';
   if(lower==='sql' || lower==='my sql' || lower==='mysql' || lower==='sql (mysql)') return 'SQL (MySQL)';
   if(lower==='ml + dl' || lower==='ml&dl' || lower==='ml and dl') return 'Machine Learning + Deep Learning';
   return n;
@@ -1109,7 +1132,8 @@ function mergeCourses(existingRaw,newCourses){
   var merged=[];
   extractCourseList(existingRaw).forEach(function(c){ if(merged.indexOf(c)===-1) merged.push(c); });
   (newCourses||[]).map(normalizeCourseName).filter(Boolean).forEach(function(c){ if(merged.indexOf(c)===-1) merged.push(c); });
-  if(merged.indexOf('Data Analytics Combo')>-1){ return ['Data Analytics Combo']; }
+  if(merged.indexOf('Data Analytics Combo All')>-1){ return ['Data Analytics Combo All']; }
+  if(merged.indexOf('Data Analytics Combo Core')>-1){ return ['Data Analytics Combo Core']; }
   return merged;
 }
 
@@ -1198,7 +1222,7 @@ function openAccess(lead,paymentId){
 
 function payNow(){
   const items=selectedItems();
-  const total=items.reduce((a,b)=>a+b.price,0);
+  const total=currentTotal();
   const lead={
     name:document.getElementById('name').value.trim(),
     email:document.getElementById('email').value.trim().toLowerCase(),
@@ -1216,8 +1240,8 @@ function payNow(){
 
   if(total===0){
     const paymentId='FREE-COMBO-'+Date.now();
-    setMsg('Free combo offer activated. Unlocking your access...',false);
-    track('payment_success',{payment_id:paymentId,courses:lead.courses,total:total,mode:'free_offer'});
+    setMsg('Combo offer activated. Unlocking your access...',false);
+    track('payment_success',{payment_id:paymentId,courses:lead.courses,total:total,mode:'combo_offer'});
     savePayment(lead,paymentId,total).finally(()=>openAccess(lead,paymentId));
     return;
   }
@@ -1277,7 +1301,8 @@ function toggleLP(el){
   }
 }
 
-comboChk.addEventListener('change',syncComboRule);
+if(comboCoreChk){comboCoreChk.addEventListener('change',syncComboRule);}
+if(comboAllChk){comboAllChk.addEventListener('change',syncComboRule);}
 individualChecks.forEach(c=>c.addEventListener('change',updateTotal));
 parsePreselect();
 updateTotal();
