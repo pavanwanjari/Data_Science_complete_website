@@ -12,22 +12,39 @@
 <script src="analytics.js" defer></script>
   <link rel="stylesheet" href="theme_professional.css">
 <style>
-body.app-excel-success{font-family:'Poppins',sans-serif;background:radial-gradient(circle at 12% 10%,#23396f 0,#0b1020 38%,#070b14 100%)!important;margin:0;padding:30px 14px;color:#dfe9ff!important}
-.app-excel-success .shell{max-width:980px;margin:0 auto}
+body.app-excel-success{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f6fbff 0%,#eef5ff 50%,#f8fbff 100%)!important;margin:0;padding:24px 12px 0;color:#13335b!important}
+.app-excel-success .shell{max-width:1080px;margin:0 auto}
 .app-excel-success .top-logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;text-decoration:none}
 .app-excel-success .top-logo img{height:44px;width:auto;display:block}
-.app-excel-success .box{background:linear-gradient(145deg,rgba(12,23,46,.94),rgba(18,30,60,.82))!important;border:1px solid rgba(122,165,238,.26);max-width:980px;margin:auto;padding:24px 18px;border-radius:20px;box-shadow:0 14px 36px rgba(0,0,0,.32)}
-.app-excel-success .success-head{padding:16px;border-radius:14px;background:linear-gradient(135deg,rgba(37,99,235,.2),rgba(14,165,233,.16));border:1px solid rgba(147,197,253,.4);margin-bottom:16px}
-.app-excel-success h2{color:#93c5fd!important;margin-bottom:8px}
-.app-excel-success .quote{color:#dbeafe;font-size:14px}
-.app-excel-success #courseName{color:#bfdbfe!important;margin:14px 0}
-.app-excel-success .course-list{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:8px}
-.app-excel-success .course-card{background:rgba(255,255,255,.04);border:1px solid rgba(126,175,245,.3);border-radius:14px;padding:12px;text-align:left;display:flex;gap:10px;align-items:center}
-.app-excel-success .course-logo{width:42px;height:42px;border-radius:10px;object-fit:contain;background:rgba(255,255,255,.92);padding:4px}
-.app-excel-success .course-title{font-size:14px;font-weight:600;color:#eff6ff}
-.app-excel-success .download-btn{display:inline-block;margin-top:6px;padding:8px 14px;border-radius:18px;background:linear-gradient(90deg,#16a34a,#15803d)!important;color:#fff!important;text-decoration:none!important;font-weight:600;font-size:12px}
-.app-excel-success .download-btn.alt{margin-top:18px;background:linear-gradient(90deg,#1e293b,#334155)!important}
-.app-excel-success .note{font-size:13px;color:#adc2e8!important;margin-top:14px}
+.app-excel-success .box{background:#ffffff!important;border:1px solid #c7dcff;max-width:1080px;margin:auto;padding:18px;border-radius:20px;box-shadow:0 12px 30px rgba(30,64,175,.12)}
+.app-excel-success .success-head{padding:24px;border-radius:16px;background:linear-gradient(120deg,#123e8a 0%,#0f57b3 48%,#1aa6e8 100%);margin-bottom:16px;color:#fff;position:relative;overflow:hidden}
+.app-excel-success .success-head:after{content:"";position:absolute;inset:auto -10% -70px -10%;height:120px;background:rgba(255,255,255,.15);border-radius:50% 50% 0 0/100% 100% 0 0}
+.app-excel-success h2{color:#fff!important;margin-bottom:8px;font-size:36px;line-height:1.2;position:relative;z-index:1}
+.app-excel-success .quote{color:#e0edff;font-size:22px;font-weight:600;position:relative;z-index:1}
+.app-excel-success .sub-quote{color:#eef6ff;font-size:15px;margin-top:8px;position:relative;z-index:1}
+.app-excel-success #courseName{color:#18407f!important;margin:14px 0;font-weight:600}
+.app-excel-success .table-wrap{overflow-x:auto;border:1px solid #cdddf7;border-radius:14px}
+.app-excel-success table{width:100%;border-collapse:collapse;background:#fff}
+.app-excel-success th{background:#123e8a;color:#fff;text-align:left;padding:12px;font-size:14px}
+.app-excel-success td{padding:12px;border-top:1px solid #e2e8f0;vertical-align:middle}
+.app-excel-success .item-cell{display:flex;gap:10px;align-items:center;font-weight:600;color:#0f2852}
+.app-excel-success .course-logo{width:28px;height:28px;border-radius:8px;object-fit:contain}
+.app-excel-success .download-btn{display:inline-block;padding:7px 12px;border-radius:16px;background:linear-gradient(90deg,#2563eb,#1d4ed8)!important;color:#fff!important;text-decoration:none!important;font-weight:600;font-size:12px}
+.app-excel-success .download-btn.alt{margin-top:18px;background:linear-gradient(90deg,#0f172a,#334155)!important}
+.app-excel-success .note{font-size:13px;color:#476a9d!important;margin-top:14px}
+.app-excel-success .motivation{margin-top:16px;border:1px solid #bfdbfe;border-radius:14px;padding:14px;background:#eff6ff;color:#1e3a8a;font-weight:600}
+.app-excel-success .social-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:10px 0 6px}
+.app-excel-success .social-links a{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border:1px solid rgba(169,196,240,.35);transition:.2s}
+.app-excel-success .social-links a:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}
+.app-excel-success .social-links img{width:22px;height:22px}
+.app-excel-success .legal-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:6px 0 4px}
+.app-excel-success .legal-links a{color:#cfe2ff;text-decoration:none;font-weight:600;font-size:13px}
+.app-excel-success .legal-links a:hover{text-decoration:underline;color:#ffffff}
+.app-excel-success footer{margin-top:24px;background:linear-gradient(135deg,#0b1220,#12335f,#2563eb);color:#d9e8ff;padding:24px 16px;text-align:center;font-size:13px;border-top:1px solid rgba(126,175,245,.24)}
+@media (max-width:640px){
+  .app-excel-success h2{font-size:26px}
+  .app-excel-success .quote{font-size:17px}
+}
 </style>
 </head>
   <!-- SECTION: BODY (page content) -->
@@ -38,17 +55,43 @@ body.app-excel-success{font-family:'Poppins',sans-serif;background:radial-gradie
   </a>
   <div class="box">
     <div class="success-head">
-      <h2>🎉 Congratulations! Access Granted</h2>
-      <p class="quote">“Small daily learning turns into big career breakthroughs. Keep going!”</p>
+      <h2>CONGRATULATIONS 🎉🎉</h2>
+      <p class="quote">DOWNLOAD LINK FOR COURSE</p>
+      <p class="sub-quote">All the best for your learning journey!</p>
     </div>
     <p id="courseName">Your course materials are ready.</p>
 
-    <div id="linksWrap" class="course-list"></div>
+    <div class="table-wrap">
+      <table aria-label="Purchased course download links">
+        <thead>
+          <tr>
+            <th>ITEMS</th>
+            <th>DOWNLOAD LINK</th>
+          </tr>
+        </thead>
+        <tbody id="linksWrap"></tbody>
+      </table>
+    </div>
 
     <p class="note">Only courses you purchased are shown below. If any file fails, contact us on WhatsApp with your payment email.</p>
+    <div class="motivation">🎓 Keep Learning. Keep Growing. Start your journey with <b>DataLearn10X</b>.</div>
     <a href="index.html" class="download-btn alt">← Back to Home</a>
   </div>
 </div>
+<footer>
+  <div class="brand">DataLearn10X</div>
+  <div class="social-links" aria-label="Social media links">
+    <a href="https://www.linkedin.com/in/shubhs-datascientist/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn"></a>
+    <a href="https://www.instagram.com/datalearn10x/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="https://img.icons8.com/color/48/instagram-new--v1.png" alt="Instagram"></a>
+    <a href="https://www.facebook.com/profile.php?id=61588186217289&name=xhp_nt__fb__action__open_user" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook"></a>
+  </div>
+  <div class="legal-links">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-of-service.html">Terms &amp; Conditions</a>
+  </div>
+  <div style="margin:8px 0 6px;"><a href="about.html" style="color:#bfdbfe;text-decoration:none;font-weight:600;">About Us</a></div>
+  © 2026 DataLearn10X <br> 📧 shubhams2018@gmail.com | 📞 9403030512 / 7507940073
+</footer>
 
 <script>
 function q(name){return new URLSearchParams(location.search).get(name)||'';}
@@ -147,26 +190,29 @@ var COURSE_LOGOS={
 };
 
 purchasedCourses.forEach(function(c){
-  var card=document.createElement('div');
-  card.className='course-card';
+  var row=document.createElement('tr');
+  var itemTd=document.createElement('td');
+  itemTd.className='item-cell';
   var logo=document.createElement('img');
   logo.className='course-logo';
   logo.src=COURSE_LOGOS[c]||'dl10x.png';
   logo.alt=c+' logo';
-  var meta=document.createElement('div');
-  var title=document.createElement('div');
-  title.className='course-title';
+  var title=document.createElement('span');
   title.innerText=c;
+  itemTd.appendChild(logo);
+  itemTd.appendChild(title);
+
+  var linkTd=document.createElement('td');
   var a=document.createElement('a');
   a.href=COURSE_LINKS[c];
   a.className='download-btn';
   a.download=(c+'.pdf');
-  a.innerText='⬇ Download PDF';
-  meta.appendChild(title);
-  meta.appendChild(a);
-  card.appendChild(logo);
-  card.appendChild(meta);
-  wrap.appendChild(card);
+  a.innerText='🔗 LINK';
+  linkTd.appendChild(a);
+
+  row.appendChild(itemTd);
+  row.appendChild(linkTd);
+  wrap.appendChild(row);
 });
 
 PSAAnalytics.trackEvent('course_access_page_viewed',{email:email,course:course,visibleCourses:purchasedCourses.join(' | ')});
