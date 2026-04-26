@@ -77,20 +77,15 @@
     .logo-marquee{margin-top:16px;overflow:hidden;border:1px solid #d6e4ff;border-radius:14px;background:#ffffff}
     .logo-track{display:flex;align-items:center;gap:12px;width:max-content;padding:10px;animation:logoSlide 26s linear infinite}
     @keyframes logoSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .logo-card{background:rgba(255,255,255,.06);border:1px solid rgba(126,175,245,.26);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;min-height:76px;min-width:170px}
-    .logo-card img{max-width:100%;max-height:36px;object-fit:contain;filter:grayscale(.1)}
+    .hero-brand{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px}
+    .hero-brand img{width:82px;height:82px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(2,10,28,.5))}
+    .logo-card{background:rgba(255,255,255,.06);border:1px solid rgba(126,175,245,.26);border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:center;min-height:92px;min-width:210px}
+    .logo-card img{max-width:100%;max-height:54px;object-fit:contain;filter:grayscale(.1)}
     .logo-marquee:hover .logo-track{animation-play-state:paused}
     @media (prefers-reduced-motion:reduce){.logo-track{animation:none;transform:none}}
     .ads-section{padding:26px 16px 10px}
     .ads-slider{max-width:1120px;margin:0 auto;position:relative;border-radius:18px;overflow:hidden;box-shadow:0 18px 38px rgba(2,6,23,.45);background:#0f172a;cursor:pointer;border:1px solid rgba(126,175,245,.24)}
-    .ads-slide{
-  width:100%;
-  height:320px;
-  display:block;
-  object-fit:cover;
-}  /* adds clean whitespace background */
-  padding:10px;opacity:1;transition:opacity .45s ease}
-    
+    .ads-slide{width:100%;height:320px;display:block;object-fit:cover;object-position:center;padding:10px;background:#fff;opacity:1;transition:opacity .45s ease}
     .ads-overlay{position:absolute;inset:auto 0 0 0;padding:14px 16px;background:linear-gradient(to top,rgba(2,6,23,.68),rgba(2,6,23,0));color:#fff;font-weight:600;font-size:14px}
     .ads-dots{display:flex;justify-content:center;gap:8px;margin-top:10px}
     .ads-dot{width:9px;height:9px;border-radius:50%;background:#cbd5e1;opacity:.55;border:none;padding:0}
@@ -182,6 +177,14 @@
       .form input,.form select{width:100%;max-width:none;margin:6px 0}
       .total{font-size:20px}
       .wa-proof{width:168px;height:304px}
+      .hero-brand{gap:10px}
+      .hero-brand img{width:60px;height:60px}
+      .hero-brand h1{margin:0}
+      .logo-card{min-width:152px;min-height:78px;padding:10px}
+      .logo-card img{max-height:44px}
+      .ads-section{padding:18px 12px 8px}
+      .ads-slider{border-radius:14px}
+      .ads-slide{height:220px;padding:8px}
       .ads-overlay{font-size:12px;padding:10px 12px}
       .whatsapp{width:56px;height:56px;right:12px;bottom:12px}
       .whatsapp img{width:31px}
@@ -244,7 +247,7 @@
 <body>
   <!-- SECTION: HEADER .hero -->
   <header class="hero">
-    <h1>DataLearn10X</h1>
+    <div class="hero-brand"><img src="dl10x.png" alt="DataLearn10X logo"><h1>DataLearn10X</h1></div>
     <p>Job-ready Data Analytics training for candidates: recorded courses, guided projects, resume tools, interview prep, and placement-focused support.</p>
     <div class="hero-tech" aria-label="Technology highlights">
       <span class="hero-chip">⚡ AI-Powered Learning</span>
@@ -259,7 +262,7 @@
   <!-- SECTION: SECTION .ads-section -->
   <section class="ads-section" aria-label="Latest offers">
     <div id="adsSlider" class="ads-slider" role="button" tabindex="0" aria-label="Advertisement slider. Click to explore courses.">
-      <img id="adsSlideImage" class="ads-slide" src="ad1.jpg" alt="DataLearn10X advertisement" loading="eager">
+      <img id="adsSlideImage" class="ads-slide" src="ads/ad1.jpg" alt="DataLearn10X advertisement" loading="eager">
       <div class="ads-overlay">Special Offers</div>
     </div>
     <div id="adsDots" class="ads-dots" aria-hidden="true"></div>
@@ -452,6 +455,7 @@
         <a class="card course-card" href="course_ml_dl.html"><img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="ML DL"><h3>Machine Learning + Deep Learning</h3><div class="muted">MRP ₹3000 | Offer ₹99</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_cheat_sheets.html"><img src="https://img.icons8.com/color/96/todo-list.png" alt="Cheat Sheets"><h3>Cheat Sheets and Interview Questions </h3><div class="muted">MRP ₹499 | Offer ₹19</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_hr_emails.html"><img src="https://img.icons8.com/color/96/new-post.png" alt="HR Emails"><h3>20000+ HR Emails</h3><div class="muted">MRP ₹499 | Offer ₹19</div><span class="tag">Open Course</span></a>
+        <a class="card course-card" href="course_projects_only.html"><img src="https://img.icons8.com/color/96/project.png" alt="Projects Only"><h3>Projects Only Course</h3><div class="muted">MRP ₹1000 | Offer ₹99</div><span class="tag">Open Course</span></a>
         <a class="card course-card" href="course_english_typing.html"><img src="https://img.icons8.com/color/96/keyboard.png" alt="Typing Course"><h3>English Typing Course (100 Levels)</h3><div class="muted">100% Free Practice for All</div><span class="tag">Start Free</span></a>
         <a class="card course-card" href="resume_maker.html"><img src="https://img.icons8.com/color/96/resume.png" alt="Resume Maker"><h3>ATS Friendly Resume Maker</h3><div class="muted">50 Templates | 100% Free for Students</div><span class="tag">Create Resume Free</span></a>
         <a class="card course-card" href="ats_resume_checker.html"><img src="assets/logos/ats-checker.svg" alt="ATS Checker"><h3>Advanced ATS Resume Score Checker</h3><div class="muted">JD match score | Resume corrections | Job links</div><span class="tag">Analyze Resume Free</span></a>
@@ -732,6 +736,7 @@
         <label class="chk"><input type="checkbox" class="courseChk" value="Machine Learning + Deep Learning" data-price="99"> ML + DL (Video Course) (₹99)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="Cheat Sheets and Interview Questions" data-price="19"> Cheat Sheets and Interview Questions (₹19)</label>
         <label class="chk"><input type="checkbox" class="courseChk" value="20000+ HR Emails" data-price="19"> 20000+ HR Emails (₹19)</label>
+        <label class="chk"><input type="checkbox" class="courseChk" value="Projects Only Course" data-price="99"> Projects Only Course (MRP ₹1000 | Offer ₹99)</label>
         <label class="chk combo-offer"><input type="checkbox" id="comboChk" value="Data Analytics Combo" data-price="1"> <b>Data Analytics Combo (all courses + resources) ₹1 (Limited-time offer)</b></label>
       </div>
 
@@ -766,7 +771,7 @@
             <img class="wa-proof" src="assets/whatsapp/ad5.jpg" alt="WhatsApp student feedback screenshot 5" loading="lazy">
             <img class="wa-proof" src="assets/whatsapp/ad6.jpg" alt="WhatsApp student feedback screenshot 1 duplicate" loading="lazy">
             <img class="wa-proof" src="assets/whatsapp/ad7.jpg" alt="WhatsApp student feedback screenshot 2 duplicate" loading="lazy">
-            <img class="wa-proof" src="assets/whatsapp/ad8.jpg" alt="WhatsApp student feedback screenshot 3 duplicate" loading="lazy">
+            <img class="wa-proof" src="assets/whatsapp/ad3.jpg" alt="WhatsApp student feedback screenshot 3 duplicate" loading="lazy">
             <img class="wa-proof" src="assets/whatsapp/ad1.jpg" alt="WhatsApp student feedback screenshot 4 duplicate" loading="lazy">
             <img class="wa-proof" src="assets/whatsapp/ad2.jpg" alt="WhatsApp student feedback screenshot 5 duplicate" loading="lazy">
           </div>
@@ -876,10 +881,9 @@ const WHATSAPP_NUMBER = SITE_CONFIG.WHATSAPP_NUMBER || "919403030512";
 const WHATSAPP_TEXT = SITE_CONFIG.WHATSAPP_TEXT || "Hi DataLearn10X, I want details about courses";
 const SOCIAL_LINKS = SITE_CONFIG.SOCIAL_LINKS || {};
 const AD_IMAGES_BASE_URL = SITE_CONFIG.AD_IMAGES_BASE_URL || "";
-const MAX_ADS = 11;
+const MAX_ADS = 5;
 const AD_IMAGE_CANDIDATES = [
- "ad1.png", "ad1.jpg","ad2.jpg","ad8.jpg","ad4.png","ad5.png","ad6.png","ad7.png","ad9.png","ad10.png"
- 
+  "ad1.jpg","ad3.jpg","ad4.jpg","ad5.png","ad6.png","ad7.png","ad8.jpg","ad9.png","ad10.png"
 ];
 const AD_IMAGES = (function(){
   const configured = Array.isArray(SITE_CONFIG.AD_IMAGES) ? SITE_CONFIG.AD_IMAGES : [];
@@ -1122,7 +1126,8 @@ function courseLinksMap(){
     'Git & GitHub':'course_git_github.html',
     'Machine Learning + Deep Learning':'https://docs.google.com/document/d/15K67voTDy7zAFRsKgIDZhO1bHcXOG2x9/edit?usp=sharing&ouid=115361386427211984585&rtpof=true&sd=true',
     'Data Analytics Cheat Sheets':'https://drive.google.com/drive/folders/1H2kif4fbzkFshlt_hDd6BbsSwJw32L9e?usp=sharing',
-    '20000+ HR Emails':'https://drive.google.com/drive/folders/1f1COP7jmR3BVC4DeOjv4Vc0Z2N6FWCX0?usp=sharing'
+    '20000+ HR Emails':'https://drive.google.com/drive/folders/1f1COP7jmR3BVC4DeOjv4Vc0Z2N6FWCX0?usp=sharing',
+    'Projects Only Course':'course_projects_only.html'
   };
 }
 
