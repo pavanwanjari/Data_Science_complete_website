@@ -58,6 +58,12 @@ table{background:#fff!important;border-collapse:collapse}
 th,td{border-color:#d6e2f5!important}
 th{background:#eaf2ff!important;color:#1b3357!important}
 
+/* Global logo visibility improvements */
+.home-logo img,.hero-home img{height:52px!important;width:auto!important;max-width:none!important}
+.brand img,.brand .logo,.brand-logo img{height:52px!important;width:auto!important}
+.logo-card img{max-height:62px!important}
+
+
 /* Course specific branding */
 body.course-page{--course-a:#1d4ed8;--course-b:#2563eb;--course-c:#3b82f6;--course-btn:#1d4ed8;--course-chip:#e8f0ff}
 body.course-page header{background:linear-gradient(135deg,var(--course-a),var(--course-b),var(--course-c))!important}
@@ -158,6 +164,8 @@ body.course-git{--course-a:#111827;--course-b:#1f2937;--course-c:#4b5563;--cours
   .section{padding:38px 14px!important}
   .card,.panel,.preview-card,.buy-wrap,.feedback-wrap,.hiring-wrap,.audience-wrap,.youtube-wrap,.site-card,.metric-card,.form-card,.g-card,.stat,.stat-card,.faq-wrap,.faq-item,.chk,.yt-card,.audience-item,.lab{padding:14px!important}
   .btn,.btn-link,.pill{font-size:14px!important;padding:10px 16px!important}
+  .home-logo img,.hero-home img,.brand img,.brand .logo,.brand-logo img{height:42px!important}
+  .logo-card img{max-height:50px!important}
 }
 
 /* Global readability + remove decorative header curves */
