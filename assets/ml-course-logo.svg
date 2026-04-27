@@ -1,20 +1,29 @@
-<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Machine Learning logo">
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Machine Learning and Deep Learning logo">
   <defs>
-    <linearGradient id="bg" x1="12" y1="8" x2="118" y2="124" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5B21B6"/>
+    <linearGradient id="bg" x1="8" y1="8" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/>
+      <stop offset="0.55" stop-color="#4C1D95"/>
       <stop offset="1" stop-color="#2563EB"/>
     </linearGradient>
-    <linearGradient id="node" x1="38" y1="33" x2="96" y2="94" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A78BFA"/>
-      <stop offset="1" stop-color="#22D3EE"/>
+    <linearGradient id="neural" x1="30" y1="24" x2="100" y2="94" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C4B5FD"/>
+      <stop offset="1" stop-color="#67E8F9"/>
     </linearGradient>
   </defs>
+
   <rect x="6" y="6" width="116" height="116" rx="28" fill="url(#bg)"/>
-  <rect x="6" y="6" width="116" height="116" rx="28" stroke="rgba(255,255,255,0.28)"/>
-  <circle cx="41" cy="41" r="8" fill="url(#node)"/>
-  <circle cx="86" cy="35" r="7" fill="url(#node)"/>
-  <circle cx="93" cy="77" r="8" fill="url(#node)"/>
-  <circle cx="51" cy="85" r="7" fill="url(#node)"/>
-  <path d="M41 41L86 35M41 41L51 85M51 85L93 77M86 35L93 77" stroke="white" stroke-opacity="0.7" stroke-width="3" stroke-linecap="round"/>
-  <text x="64" y="113" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#E0F2FE">ML • DL</text>
+  <rect x="6" y="6" width="116" height="116" rx="28" stroke="#FFFFFF" stroke-opacity="0.24"/>
+
+  <path d="M35 76C35 58 48 45 64 45C80 45 93 58 93 76" stroke="#E9D5FF" stroke-opacity="0.9" stroke-width="6" stroke-linecap="round"/>
+  <path d="M41 74C41 60 51 51 64 51C77 51 87 60 87 74" stroke="#BAE6FD" stroke-opacity="0.9" stroke-width="3.5" stroke-linecap="round"/>
+
+  <circle cx="40" cy="47" r="6.5" fill="url(#neural)"/>
+  <circle cx="58" cy="37" r="5.5" fill="url(#neural)"/>
+  <circle cx="79" cy="38" r="5.5" fill="url(#neural)"/>
+  <circle cx="91" cy="53" r="6.5" fill="url(#neural)"/>
+  <circle cx="64" cy="67" r="7" fill="#E0F2FE"/>
+
+  <path d="M40 47L58 37L79 38L91 53L64 67L40 47ZM58 37L64 67M79 38L64 67" stroke="#F8FAFC" stroke-opacity="0.72" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="64" y="111" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#E0F2FE">MACHINE LEARNING</text>
 </svg>
