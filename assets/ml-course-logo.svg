@@ -25,5 +25,5 @@
 
   <path d="M40 47L58 37L79 38L91 53L64 67L40 47ZM58 37L64 67M79 38L64 67" stroke="#F8FAFC" stroke-opacity="0.72" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <text x="64" y="111" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#E0F2FE">MACHINE LEARNING</text>
+  <text x="64" y="111" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#E0F2FE">ML & DL</text>
 </svg>
