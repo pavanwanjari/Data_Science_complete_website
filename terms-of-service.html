@@ -11,49 +11,110 @@
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; padding: 20px; background:  linear-gradient(135deg, #0b1220, #12335f); color:#e2e8f0; }
-    .container { max-width: 940px; margin: 0 auto; }
-    header { text-align: center; margin: 24px 0 18px; }
-    h1 { font-size: 2.2em; margin-bottom: 8px; }
-    h2 { font-size: 1.35em; margin: 20px 0 12px; }
-    h3 { font-size: 1.05em; margin: 16px 0 8px; }
-    p, li { margin: 8px 0; line-height:1.6; }
-    ul { margin-left: 20px; }
+    body.app-legal {
+      font-family: 'Inter', sans-serif;
+      padding: 24px 16px 40px;
+      background: linear-gradient(180deg, #f4f8ff 0%, #e9f1ff 100%) !important;
+      color: #1a2a42 !important;
+    }
+    .container { max-width: 980px; margin: 0 auto; }
 
-    /* Card style (About Us type look) */
-    .section {
-      padding: 20px;
-      border-radius: 12px;
-      margin: 14px 0;
-      background:#fff;
-      box-shadow:0 8px 25px rgba(0,0,0,0.06);
+    .hero-card {
+      border-radius: 18px;
+      padding: 26px 24px;
+      background: linear-gradient(135deg, #123a72, #1d4ed8, #2563eb);
+      box-shadow: 0 14px 32px rgba(29, 78, 216, 0.26);
+      color: #fff !important;
+      margin: 8px 0 16px;
+    }
+    .hero-card h1 {
+      font-size: clamp(1.65rem, 3.2vw, 2.25rem);
+      margin-bottom: 8px;
+      color: #fff !important;
+    }
+    .hero-card p {
+      color: rgba(255,255,255,.95) !important;
+      margin: 6px 0;
+      line-height: 1.6;
+    }
+    .hero-meta {
+      display: inline-flex;
+      margin-top: 10px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .85rem;
+      font-weight: 600;
     }
 
-    .highlight {
-      background: #eff6ff;
-      padding: 12px;
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 18px;
+    }
+    .toc a {
+      text-decoration: none;
+      background: #ffffff;
+      border: 1px solid #c7d8f6;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: #1c3f77 !important;
+    }
+
+    .section {
+      padding: 20px 20px 18px;
+      border-radius: 14px;
+      margin: 12px 0;
+      background: #fff !important;
+      border: 1px solid #d6e2f5;
+      box-shadow: 0 8px 20px rgba(15, 30, 62, 0.08);
+    }
+    .section h2 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #12315a !important;
       border-left: 4px solid #2563eb;
-      border-radius: 8px;
+      padding-left: 10px;
+    }
+    .section h3 {
+      font-size: 1rem;
+      margin: 14px 0 8px;
+      color: #18447f !important;
+    }
+    .section p, .section li { margin: 7px 0; line-height: 1.65; color: #445b79 !important; }
+    .section ul { margin-left: 20px; }
+
+    .highlight {
+      background: #eff6ff !important;
+      padding: 12px 13px;
+      border-left: 4px solid #2563eb;
+      border-radius: 10px;
+      margin-top: 10px;
     }
 
     footer {
       text-align: center;
-      margin-top: 24px;
-      padding: 16px 0;
+      margin-top: 26px;
+      padding: 8px 0 0;
       font-size: 0.92em;
+      color: #4b5f7d !important;
     }
 
     .back-link {
       display: inline-block;
-      margin: 14px 0;
+      margin: 6px 0 14px;
       padding: 10px 18px;
       background: linear-gradient(90deg, #1d4ed8, #2563eb);
       border-radius: 999px;
-      color: #fff;
+      color: #fff !important;
       text-decoration: none;
       font-weight: 600;
+      box-shadow: 0 6px 16px rgba(37,99,235,.28);
     }
-
     .back-link:hover { opacity: .95; }
   </style>
 </head>
@@ -63,20 +124,28 @@
 
   <div class="container">
 
-    <!-- HEADER -->
-    <header>
+    <header class="hero-card">
       <h1>⚖️ Terms of Service</h1>
-      <p>Last Updated: April 1, 2026</p>
+      <p>These terms explain how you may access and use DataLearn10X courses, website content, and support services.</p>
+      <span class="hero-meta">Last Updated: April 27, 2026</span>
     </header>
 
+    <nav class="toc" aria-label="Terms section shortcuts">
+      <a href="#acceptance">Acceptance</a>
+      <a href="#usage">Usage Rights</a>
+      <a href="#refund">Refund Policy</a>
+      <a href="#liability">Liability</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
     <!-- 1 -->
-    <div class="section">
+    <div class="section" id="acceptance">
       <h2>1. Acceptance of Terms</h2>
       <p>By accessing and using DataLearn10X ("Platform"), you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
     </div>
 
     <!-- 2 -->
-    <div class="section">
+    <div class="section" id="usage">
       <h2>2. Course Access & Usage Rights</h2>
 
       <h3>2.1 License Grant</h3>
@@ -107,7 +176,7 @@
     </div>
 
     <!-- 4 UPDATED -->
-    <div class="section">
+    <div class="section" id="refund">
       <h2>4. Refund Policy</h2>
 
       <ul>
@@ -130,7 +199,7 @@
     </div>
 
     <!-- 5 -->
-    <div class="section">
+    <div class="section" id="liability">
       <h2>5. User Responsibilities</h2>
       <ul>
         <li>You are responsible for maintaining account confidentiality</li>
@@ -182,7 +251,7 @@
     </div>
 
     <!-- 10 UPDATED -->
-    <div class="section">
+    <div class="section" id="contact">
       <h2>10. Contact Information</h2>
       <p><strong>Email:</strong> shubhams2018@gmail.com</p>
       <p><strong>Phone:</strong> +91-9403030512</p>
@@ -199,6 +268,12 @@
       <p>
         If you are a copyright owner and have any concerns, please contact us for resolution.
       </p>
+    </div>
+
+    <div class="section">
+      <h2>12. Changes to These Terms</h2>
+      <p>We may revise these Terms of Service from time to time to reflect updates in our courses, platform features, payment systems, or legal requirements.</p>
+      <p>When changes are made, we will update the "Last Updated" date on this page. Continued use of our platform after updates means you accept the revised terms.</p>
     </div>
 
     <!-- FOOTER -->
