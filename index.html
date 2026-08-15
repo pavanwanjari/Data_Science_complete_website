@@ -66,7 +66,6 @@
     .chk.combo-offer .combo-mini-badge{position:absolute;top:8px;right:8px;z-index:2}
 
     .sale-banner{margin-top:18px;position:relative;z-index:1;display:grid;gap:8px;max-width:680px;margin-left:auto;margin-right:auto;padding:12px 14px;border:1px solid rgba(255,255,255,.45);border-radius:18px;background:linear-gradient(90deg,rgba(255,153,51,.92),rgba(255,255,255,.94),rgba(19,136,8,.9));box-shadow:0 14px 32px rgba(2,6,23,.28);color:#0f172a}
-    .sale-banner:before{content:"";position:absolute;left:14px;right:14px;top:-5px;height:4px;border-radius:999px;background:linear-gradient(90deg,#ff9933 0 33%,#fff 33% 66%,#138808 66%)}
     .sale-title{font-size:17px;font-weight:900;color:#0f172a}.sale-title span{color:#b91c1c}
     .sale-points{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.sale-points span{font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(15,23,42,.08);color:#14532d}
     .countdown{display:grid;grid-template-columns:repeat(4,minmax(52px,1fr));gap:6px;max-width:320px;margin:0 auto}.countdown-box{background:rgba(255,255,255,.86);color:#0f172a;border-radius:10px;padding:6px 5px;box-shadow:0 6px 14px rgba(15,23,42,.12);border:1px solid rgba(15,23,42,.06)}.countdown-box strong{display:block;font-size:18px;color:#dc2626;line-height:1}.countdown-box small{display:block;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;margin-top:2px}
@@ -82,6 +81,7 @@
     .btn:disabled{opacity:.7;cursor:not-allowed}
     .btn-link{display:inline-block;margin-top:10px;background:linear-gradient(90deg,#312e81,#2563eb);color:#fff;text-decoration:none;padding:10px 20px;border-radius:20px}
     .btn-link.secondary{background:linear-gradient(90deg,#1e293b,#334155)}
+    .access-link-wrap{margin-top:12px;text-align:center}
     #msg{text-align:center;min-height:20px;margin-top:8px}
     .feedback-wrap{background:linear-gradient(145deg,rgba(12,22,44,.92),rgba(19,30,58,.82));border:1px solid rgba(126,175,245,.26);border-radius:16px;padding:22px;box-shadow:0 10px 28px rgba(0,0,0,.3)}
     .wa-gallery{margin-top:14px;overflow:hidden;border:1px solid rgba(126,175,245,.28);border-radius:14px;background:linear-gradient(160deg,#0c1a33,#11274a)}
@@ -334,7 +334,7 @@
         <button class="btn" id="buyBtn" onclick="payNow()">Buy Combo Securely</button>
         <div class="secure-note">🔐 Secure Razorpay payment · 📩 Access sent to your email</div>
         <p id="msg"></p>
-        <div class="access-link-wrap"><a class="btn-link access-link" href="check_email.html">Already Purchased? Access Course</a></div>
+        <div class="access-link-wrap"><a class="btn-link" href="check_email.html">Already Purchased? Access Course</a></div>
       </div>
     </div>
   </section>
