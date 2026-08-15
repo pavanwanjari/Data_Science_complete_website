@@ -70,7 +70,7 @@
     .sale-title{font-size:17px;font-weight:900;color:#0f172a}.sale-title span{color:#b91c1c}
     .sale-points{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.sale-points span{font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(15,23,42,.08);color:#14532d}
     .countdown{display:grid;grid-template-columns:repeat(4,minmax(52px,1fr));gap:6px;max-width:320px;margin:0 auto}.countdown-box{background:rgba(255,255,255,.86);color:#0f172a;border-radius:10px;padding:6px 5px;box-shadow:0 6px 14px rgba(15,23,42,.12);border:1px solid rgba(15,23,42,.06)}.countdown-box strong{display:block;font-size:18px;color:#dc2626;line-height:1}.countdown-box small{display:block;font-size:9px;color:#475569;font-weight:800;text-transform:uppercase;margin-top:2px}
-    .combo-value-card{background:linear-gradient(90deg,#ff9933 0%,#fff7ed 48%,#f0fdf4 70%,#138808 100%)!important;border:2px solid #ff9933!important;box-shadow:0 12px 28px rgba(255,153,51,.26),0 10px 22px rgba(19,136,8,.18)!important;min-height:92px!important;padding:12px 14px!important;color:#0f172a!important}.combo-value-card b{font-size:16px;color:#0f172a!important}.combo-value-card small{padding-right:0!important;line-height:1.35}.combo-value-card .combo-mini-badge{background:#138808!important;border-color:#0f6b05!important;color:#fff!important}.price-note{display:block;color:#14532d;font-size:12px;font-weight:800;margin-top:3px}.original-price{color:#334155;font-weight:800}.sale-price{color:#b91c1c;font-size:20px;font-weight:900}.buy-helper{margin:10px 0 2px;text-align:center;color:#334155;font-size:13px}.buy-helper strong{color:#b91c1c}
+    .combo-value-card{background:linear-gradient(90deg,#ff9933 0%,#fff7ed 48%,#f0fdf4 70%,#138808 100%)!important;border:2px solid #ff9933!important;box-shadow:0 12px 28px rgba(255,153,51,.26),0 10px 22px rgba(19,136,8,.18)!important;min-height:92px!important;padding:12px 14px!important;color:#0f172a!important}.combo-value-card b{font-size:16px;color:#0f172a!important}.combo-value-card small{padding-right:0!important;line-height:1.35}.combo-value-card .combo-mini-badge{background:#138808!important;border-color:#0f6b05!important;color:#fff!important}.price-note{display:block;color:#14532d;font-size:12px;font-weight:800;margin-top:3px}.original-price{color:#334155;font-weight:800}.sale-price{color:#b91c1c;font-size:20px;font-weight:900}.buy-helper{margin:10px 0 2px;text-align:center;color:#334155;font-size:13px}.buy-helper strong{color:#b91c1c}.checkout-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px auto 6px;max-width:760px}.checkout-benefit{background:rgba(255,255,255,.82);border:1px solid #bfdbfe;border-radius:14px;padding:10px 12px;color:#0f172a;font-size:13px;font-weight:800;box-shadow:0 8px 18px rgba(37,99,235,.10)}.checkout-benefit span{display:block;color:#475569;font-size:11px;font-weight:600;margin-top:2px}.secure-note{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;color:#14532d;font-size:12px;font-weight:800;margin-top:10px}.access-link-wrap{margin-top:12px;text-align:center}.cart-grid{margin-top:18px}.form input{background:#fff!important;color:#0f172a!important;border-color:#bfdbfe!important;box-shadow:0 6px 14px rgba(15,23,42,.05)}.form input::placeholder{color:#64748b}.btn-link.access-link{background:linear-gradient(90deg,#2563eb,#1d4ed8);box-shadow:0 8px 18px rgba(37,99,235,.22)}@media(max-width:720px){.checkout-benefits{grid-template-columns:1fr}.buy-wrap{padding:18px!important}}
     .floating-buy-card{position:fixed;right:18px;bottom:96px;z-index:9998;display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f172a;background:linear-gradient(90deg,#ff9933,#fff,#138808);border:2px solid rgba(255,255,255,.84);border-radius:18px;padding:10px 14px;box-shadow:0 14px 34px rgba(2,6,23,.32);font-weight:900}.floating-buy-card small{display:block;font-size:11px;color:#14532d;font-weight:800}.floating-buy-card .float-price{color:#b91c1c;font-size:18px}@media(max-width:640px){.floating-buy-card{left:12px;right:12px;bottom:82px;justify-content:center;border-radius:16px}.cart-grid{grid-template-columns:1fr!important}}
     .ads-head{max-width:1120px;margin:0 auto 10px;text-align:center}.ads-head-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#ff9933,#fff,#138808);color:#0f172a;font-weight:900;border:1px solid rgba(255,255,255,.72);box-shadow:0 8px 20px rgba(2,6,23,.22)}
     @keyframes comboFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
@@ -289,15 +289,7 @@
     <a class="pill" id="offerPill" href="#buy-section" aria-label="Go to Independence Day combo purchase">🇮🇳 Independence Day Sale: All Courses ₹999 — Live till 31 August</a>
       </header>
 
-  <!-- SECTION: SECTION .ads-section -->
-  <section class="ads-section" aria-label="Independence Day offers">
-    <div class="ads-head"><span class="ads-head-badge">🇮🇳 Independence Day Special Advertisement</span></div>
-    <div id="adsSlider" class="ads-slider" role="button" tabindex="0" aria-label="Advertisement slider. Click to explore courses.">
-      <img id="adsSlideImage" class="ads-slide" src="dl10x.png" alt="DataLearn10X advertisement" loading="eager">
-      <div class="ads-overlay">🇮🇳 Independence Day Special · All Courses Combo ₹999</div>
-    </div>
-    <div id="adsDots" class="ads-dots" aria-hidden="true"></div>
-  </section>
+<!-- Independence Day ad slider removed to keep the page focused and easier to purchase. -->
 
 <!-- PREMIUM: Learning Path Section (Light + Professional) -->
 
@@ -321,11 +313,16 @@
   <!-- SECTION: SECTION #buy-section -->
   <section class="section reveal" id="buy-section">
     <div class="container buy-wrap">
-      <h2>🇮🇳 Independence Day Combo Sale <span class="cart-subtitle">(One offer, no confusion)</span></h2>
-      <p class="sub">Buy the all-course combo for ₹999. Individual courses show original prices only; the only active discount is this combo sale till 31 August.</p>
-      <div class="buy-helper"><strong>Recommended:</strong> Select the all-course combo once, fill your details, and complete secure Razorpay payment.</div>
+      <h2>Simple 3-Step Checkout <span class="cart-subtitle">(One combo, one payment)</span></h2>
+      <p class="sub">Get the complete Data Analytics learning bundle for ₹999 with a clean, distraction-free purchase flow.</p>
+      <div class="checkout-benefits" aria-label="Checkout benefits">
+        <div class="checkout-benefit">1. Select combo<span>Already chosen for fastest checkout</span></div>
+        <div class="checkout-benefit">2. Enter details<span>Name, email, mobile, profession</span></div>
+        <div class="checkout-benefit">3. Pay securely<span>Instant access after payment</span></div>
+      </div>
+      <div class="buy-helper"><strong>Recommended:</strong> Keep the combo selected, fill your details, and complete secure Razorpay payment.</div>
       <div class="cart-grid">
-        <label class="chk combo-offer combo-all combo-value-card"><input type="checkbox" id="comboAllChk" value="Data Analytics Combo All" data-price="999" checked> <b>🇮🇳 Independence Day Special Combo</b><span class="combo-mini-badge most-popular">Best Deal</span><br><small style="font-weight:600;color:#14532d"><span class="sale-price">Pay ₹999</span><span class="price-note">All courses + resources · Live till 31 August · one-time payment</span></small></label>
+        <label class="chk combo-offer combo-all combo-value-card"><input type="checkbox" id="comboAllChk" value="Data Analytics Combo All" data-price="999" checked> <b>Complete Data Analytics Combo</b><span class="combo-mini-badge most-popular">Best Deal</span><br><small style="font-weight:600;color:#14532d"><span class="sale-price">Pay ₹999</span><span class="price-note">All courses + resources · one-time secure payment</span></small></label>
       </div>
 
       <div class="total" id="totalText">Total: ₹0</div>
@@ -334,12 +331,10 @@
         <input type="email" id="email" placeholder="Enter Email"><br>
         <input type="text" id="mobile" placeholder="Enter Mobile Number" maxlength="10"><br>
         <input type="text" id="profession" placeholder="Enter Current Profession (e.g., Student / Working Professional)"><br>
-        <button class="btn" id="buyBtn" onclick="payNow()">Buy Now</button>
+        <button class="btn" id="buyBtn" onclick="payNow()">Buy Combo Securely</button>
+        <div class="secure-note">🔐 Secure Razorpay payment · 📩 Access sent to your email</div>
         <p id="msg"></p>
-        <a class="btn-link" href="check_email.html">Already Purchased? Access Course</a>
-        <a class="btn-link secondary" href="resume_maker.html">Free ATS Resume Maker</a>
-        <a class="btn-link secondary" href="ats_resume_checker.html">Advanced ATS Score Checker</a>
-        <a class="btn-link secondary" href="practice_hub.html">Free Practice Hub</a>
+        <div class="access-link-wrap"><a class="btn-link access-link" href="check_email.html">Already Purchased? Access Course</a></div>
       </div>
     </div>
   </section>
